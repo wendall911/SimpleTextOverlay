@@ -5,6 +5,7 @@ import com.github.lunatrius.ingameinfo.reference.Reference;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
+import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -15,7 +16,12 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.Map;
 
-@Mod(modid = Reference.MODID, name = Reference.NAME, version = Reference.VERSION, guiFactory = Reference.GUI_FACTORY)
+@Mod(modid = Reference.MODID,
+     certificateFingerprint = Reference.FINGERPRINT,
+     name = Reference.NAME,
+     version = Reference.VERSION,
+     guiFactory = Reference.GUI_FACTORY)
+
 public class InGameInfoXML {
     @Instance(Reference.MODID)
     public static InGameInfoXML instance;
@@ -26,6 +32,11 @@ public class InGameInfoXML {
     @NetworkCheckHandler
     public boolean checkModList(final Map<String, String> versions, final Side side) {
         return true;
+    }
+
+	@Mod.EventHandler
+    public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
+        Reference.logger.warn("Invalid fingerprint detected!");
     }
 
     @Mod.EventHandler
