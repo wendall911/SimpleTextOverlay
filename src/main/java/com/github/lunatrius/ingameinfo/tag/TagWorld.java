@@ -2,12 +2,15 @@ package com.github.lunatrius.ingameinfo.tag;
 
 import com.github.lunatrius.core.world.chunk.ChunkHelper;
 import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
+
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Biomes;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.WorldInfo;
+
 import net.minecraftforge.common.DimensionManager;
 
 import java.util.Locale;
@@ -70,10 +73,10 @@ public abstract class TagWorld extends Tag {
             if (server != null) {
                 final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
-                    return I18n.format(worldServer.getDifficulty().getDifficultyResourceKey());
+                    return I18n.format(worldServer.getDifficulty().name());
                 }
             }
-            return I18n.format(minecraft.gameSettings.difficulty.getDifficultyResourceKey());
+            return I18n.format(minecraft.gameSettings.difficulty.name());
         }
     }
 
@@ -83,10 +86,11 @@ public abstract class TagWorld extends Tag {
             if (server != null) {
                 final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
-                    return String.valueOf(worldServer.getDifficulty().getDifficultyId());
+                    return String.valueOf(worldServer.getDifficulty().ordinal());
                 }
             }
-            return String.valueOf(minecraft.gameSettings.difficulty.getDifficultyId());
+
+            return String.valueOf(minecraft.gameSettings.difficulty.ordinal());
         }
     }
 

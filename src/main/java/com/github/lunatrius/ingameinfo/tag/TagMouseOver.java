@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityList;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -134,12 +135,33 @@ public abstract class TagMouseOver extends Tag {
             final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
             if (objectMouseOver != null) {
                 if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    return String.valueOf(world.isBlockIndirectlyGettingPowered(objectMouseOver.getBlockPos()));
+                    return String.valueOf(isBlockIndirectlyGettingPowered(world, objectMouseOver.getBlockPos()));
                 }
             }
             return "-1";
         }
     }
+
+	public static int isBlockIndirectlyGettingPowered(World world, BlockPos pos) {
+		int i = 0;
+
+		for (EnumFacing enumfacing : EnumFacing.values()) {
+			final BlockPos offset = pos.offset(enumfacing);
+			if (world.isBlockLoaded(offset)) {
+				int j = world.getRedstonePower(offset, enumfacing);
+
+				if (j >= 15) {
+					return 15;
+				}
+
+				if (j > i) {
+					i = j;
+				}
+			}
+		}
+
+		return i;
+	}
 
     public static void register() {
         TagRegistry.INSTANCE.register(new Name().setName("mouseovername"));

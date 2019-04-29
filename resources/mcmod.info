@@ -1,0 +1,14 @@
+[
+{
+  "modid": "${modid}",
+  "name": "InGame Info XML",
+  "description": "Display extra information on top of your ingame screen.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "https://github.com/wendall911/SimpleTextOverlay",
+  "updateUrl": "https://raw.githubusercontent.com/wendall911/SimpleTextOverlay/master/files/updates.json",
+  "authorList": ["wendall911"],
+  "credits": "DaftPVF, bspkrs, Lunatrius",
+  "logoFile": ""
+}
+]
