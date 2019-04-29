@@ -137,8 +137,8 @@ processResources {
         // replaces
         expand ([
             'modid': modid,
-            'version': version,
-            'mcversion': mcversion
+            'mod_version': version,
+            'minecraft_version': mcversion
         ])
     }
 

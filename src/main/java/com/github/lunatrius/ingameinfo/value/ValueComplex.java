@@ -138,11 +138,7 @@ public abstract class ValueComplex extends Value {
         public String getValue() {
             try {
                 final String format = getValue(0);
-                final String[] args = new String[this.values.size() - 1];
-                for (int i = 0; i < args.length; i++) {
-                    args[i] = getValue(i + 1);
-                }
-                return I18n.format(format, args);
+                return I18n.format(format);
             } catch (final Exception e) {
                 return "?";
             }
