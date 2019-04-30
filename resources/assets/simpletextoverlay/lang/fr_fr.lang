@@ -1,0 +1,302 @@
+# gui - config - categories
+simpletextoverlay.config.category.general=Général
+simpletextoverlay.config.category.general.tooltip=Options générale.
+simpletextoverlay.config.category.alignment=Alignement
+simpletextoverlay.config.category.alignment.tooltip=Options d'alignement de l'interface
+
+# gui - config - general
+simpletextoverlay.config.filename=Nom du Fichier
+simpletextoverlay.config.filename.tooltip=La configuration qui devra charger au démarrage.
+simpletextoverlay.config.replaceDebug=Replace Debug Overlay
+simpletextoverlay.config.replaceDebug.tooltip=Replace the debug overlay (F3) with the SimpleTextOverlay overlay.
+simpletextoverlay.config.showInChat=Afficher le Chat
+simpletextoverlay.config.showInChat.tooltip=Afficher l'interface dans le chat.
+simpletextoverlay.config.showOnPlayerList=Afficher la liste des joueurs
+simpletextoverlay.config.showOnPlayerList.tooltip=Afficher l'interface dans la liste des joueurs.
+simpletextoverlay.config.scale=Scale
+simpletextoverlay.config.scale.tooltip=The overlay will be scaled by this amount.
+simpletextoverlay.config.fileInterval=File Tag Interval
+simpletextoverlay.config.fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
+simpletextoverlay.config.showOverlayPotions=Show Potion Effects
+simpletextoverlay.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+simpletextoverlay.config.showOverlayItemIcons=Show Item Overlay
+simpletextoverlay.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
+
+# gui - config - alignment
+simpletextoverlay.config.topleft=En haut à gauche
+simpletextoverlay.config.topleft.tooltip=Offsets for the top left side of the screen (X<space>Y).
+simpletextoverlay.config.topcenter=En haut au centre
+simpletextoverlay.config.topcenter.tooltip=Offsets for the top center side of the screen (X<space>Y).
+simpletextoverlay.config.topright=En haut à droite
+simpletextoverlay.config.topright.tooltip=Offsets for the top right side of the screen (X<space>Y).
+simpletextoverlay.config.middleleft=Au millieu à gauche
+simpletextoverlay.config.middleleft.tooltip=Offsets for the middle left side of the screen (X<space>Y).
+simpletextoverlay.config.middlecenter=Au centre
+simpletextoverlay.config.middlecenter.tooltip=Offsets for the middle center side of the screen (X<space>Y).
+simpletextoverlay.config.middleright=Au millieu à droite
+simpletextoverlay.config.middleright.tooltip=Offsets for the middle right side of the screen (X<space>Y).
+simpletextoverlay.config.bottomleft=En bas à gauche
+simpletextoverlay.config.bottomleft.tooltip=Offsets for the bottom left side of the screen (X<space>Y).
+simpletextoverlay.config.bottomcenter=En bas au centre
+simpletextoverlay.config.bottomcenter.tooltip=Offsets for the bottom center side of the screen (X<space>Y).
+simpletextoverlay.config.bottomright=En bas à droite
+simpletextoverlay.config.bottomright.tooltip=Offsets for the bottom right side of the screen (X<space>Y).
+
+# gui - tag list
+gui.simpletextoverlay.taglist=Tag List
+
+# gui - tag list - categories
+simpletextoverlay.tag.category.formatting.name=Formatting
+simpletextoverlay.tag.category.misc.name=Miscellaneous
+simpletextoverlay.tag.category.mouseover.name=Mouse Over
+simpletextoverlay.tag.category.nearbyplayer.name=Nearby Players
+simpletextoverlay.tag.category.playerequipment.name=Player - Equipment
+simpletextoverlay.tag.category.playergeneral.name=Player - General
+simpletextoverlay.tag.category.playerposition.name=Player - Position
+simpletextoverlay.tag.category.playerpotion.name=Player - Potion Effects
+simpletextoverlay.tag.category.riding.name=Riding
+simpletextoverlay.tag.category.time.name=Time
+simpletextoverlay.tag.category.world.name=World
+simpletextoverlay.tag.category.bloodmagic.name=Blood Magic
+simpletextoverlay.tag.category.simplyjetpacks.name=Simply Jetpacks
+simpletextoverlay.tag.category.terrafirmacraft.name=TerraFirmaCraft
+simpletextoverlay.tag.category.thaumcraft.name=Thaumcraft
+
+# gui - tag list - formatting tags
+simpletextoverlay.tag.black.desc=Black color (§0EXAMPLE§r).
+simpletextoverlay.tag.darkblue.desc=Dark blue color (§1EXAMPLE§r).
+simpletextoverlay.tag.darkgreen.desc=Dark green color (§2EXAMPLE§r).
+simpletextoverlay.tag.darkaqua.desc=Dark aqua color (§3EXAMPLE§r).
+simpletextoverlay.tag.darkred.desc=Dark red color (§4EXAMPLE§r).
+simpletextoverlay.tag.darkpurple.desc=Dark purple color (§5EXAMPLE§r).
+simpletextoverlay.tag.gold.desc=Gold color (§6EXAMPLE§r).
+simpletextoverlay.tag.gray.desc=Gray color (§7EXAMPLE§r).
+simpletextoverlay.tag.darkgrey.desc=Dark grey color (§8EXAMPLE§r).
+simpletextoverlay.tag.blue.desc=Blue color (§9EXAMPLE§r).
+simpletextoverlay.tag.green.desc=Green color (§aEXAMPLE§r).
+simpletextoverlay.tag.aqua.desc=Aqua color (§bEXAMPLE§r).
+simpletextoverlay.tag.red.desc=Red color (§cEXAMPLE§r).
+simpletextoverlay.tag.lightpurple.desc=Light purple color (§dEXAMPLE§r).
+simpletextoverlay.tag.yellow.desc=Yellow color (§eEXAMPLE§r).
+simpletextoverlay.tag.white.desc=White color (§fEXAMPLE§r).
+simpletextoverlay.tag.obfuscated.desc=Obfuscated text (§kEXAMPLE§r).
+simpletextoverlay.tag.bold.desc=Bold text (§lEXAMPLE§r).
+simpletextoverlay.tag.strikethrough.desc=Strike through text (§mEXAMPLE§r).
+simpletextoverlay.tag.underline.desc=Underlined text (§nEXAMPLE§r).
+simpletextoverlay.tag.italic.desc=Italic text (§oEXAMPLE§r).
+simpletextoverlay.tag.reset.desc=Reset formatting.
+
+# gui - tag list - misc
+simpletextoverlay.tag.memmax.desc=Amount of maximum memory.
+simpletextoverlay.tag.memtotal.desc=Amount of total memory.
+simpletextoverlay.tag.memfree.desc=Amount of free memory.
+simpletextoverlay.tag.memused.desc=Amount of memory in use.
+simpletextoverlay.tag.fps.desc=Current FPS.
+simpletextoverlay.tag.resourcepack.desc=Current resource pack.
+simpletextoverlay.tag.entitiesrendered.desc=Amount of rendered entities.
+simpletextoverlay.tag.entitiestotal.desc=Amount of loaded entities.
+simpletextoverlay.tag.loadedchunks.desc=Amount of loaded chunks.
+simpletextoverlay.tag.server.desc=Server domain or IP and the port if it's not 25565, localhost if it's a local game.
+simpletextoverlay.tag.servername.desc=Server domain, localhost if it's a local game.
+simpletextoverlay.tag.serverip.desc=Server IP, 127.0.0.1 if it's a local game.
+simpletextoverlay.tag.serverport.desc=Server port, -1 if it's a local game.
+simpletextoverlay.tag.ping.desc=Current ping, -1 if no data.
+simpletextoverlay.tag.pingicon.desc=Current ping icon, empty string if no data.
+
+# gui - tag list - mouse over
+simpletextoverlay.tag.mouseovername.desc=Name of the entity or block under the cursor, an empty string if there is nothing.
+simpletextoverlay.tag.mouseoveruniquename.desc=Unique name of the entity or block under the cursor, an empty string if there is nothing.
+simpletextoverlay.tag.mouseoverid.desc=Entity id or block id under the cursor, zero if there is nothing.
+simpletextoverlay.tag.mouseovermetadata.desc=Block metadata under the cursor, zero if there is nothing.
+simpletextoverlay.tag.mouseoverpowerweak.desc=Weak redstone power of the block, -1 if there is nothing.
+simpletextoverlay.tag.mouseoverpowerstrong.desc=Strong redstone power of the block, -1 if there is nothing.
+simpletextoverlay.tag.mouseoverpowerinput.desc=Input redstone power of the block, -1 if there is nothing.
+
+# gui - tag list - nearby player
+simpletextoverlay.tag.nearbyplayerdistance.desc=Distance to x-th nearby player.
+simpletextoverlay.tag.nearbyplayername.desc=Name of the x-th nearby player.
+simpletextoverlay.tag.nearbyplayericon.desc=Head icon of the x-th nearby player.
+
+# gui - tag list - player equipment
+simpletextoverlay.tag.equippedname.desc=Equipped item's name.
+simpletextoverlay.tag.equippeduniquename.desc=Equipped item's unique name.
+simpletextoverlay.tag.equippeddamage.desc=Equipped item's damage.
+simpletextoverlay.tag.equippedmaxdamage.desc=Equipped item's max damage.
+simpletextoverlay.tag.equippeddamageleft.desc=Equipped item's damage left.
+simpletextoverlay.tag.equippedquantity.desc=Quantity of the equipped item in the inventory.
+simpletextoverlay.tag.equippedicon.desc=Equipped item's icon.
+simpletextoverlay.tag.equippedlargeicon.desc=Equipped item's large icon.
+simpletextoverlay.tag.mainhandname.desc=Main hand item's name.
+simpletextoverlay.tag.mainhanduniquename.desc=Main hand item's unique name.
+simpletextoverlay.tag.mainhanddamage.desc=Main hand item's damage.
+simpletextoverlay.tag.mainhandmaxdamage.desc=Main hand item's max damage.
+simpletextoverlay.tag.mainhanddamageleft.desc=Main hand item's damage left.
+simpletextoverlay.tag.mainhandquantity.desc=Quantity of the main hand item in the inventory.
+simpletextoverlay.tag.mainhandicon.desc=Main hand item's icon.
+simpletextoverlay.tag.mainhandlargeicon.desc=Main hand item's large icon.
+simpletextoverlay.tag.offhandname.desc=Off hand item's name.
+simpletextoverlay.tag.offhanduniquename.desc=Off hand item's unique name.
+simpletextoverlay.tag.offhanddamage.desc=Off hand item's damage.
+simpletextoverlay.tag.offhandmaxdamage.desc=Off hand item's max damage.
+simpletextoverlay.tag.offhanddamageleft.desc=Off hand item's damage left.
+simpletextoverlay.tag.offhandquantity.desc=Quantity of the off hand item in the inventory.
+simpletextoverlay.tag.offhandicon.desc=Off hand item's icon.
+simpletextoverlay.tag.offhandlargeicon.desc=Off hand item's large icon.
+simpletextoverlay.tag.helmetname.desc=Helmet's name.
+simpletextoverlay.tag.helmetuniquename.desc=Helmet's unique name.
+simpletextoverlay.tag.helmetdamage.desc=Helmet's damage.
+simpletextoverlay.tag.helmetmaxdamage.desc=Helmet's max damage.
+simpletextoverlay.tag.helmetdamageleft.desc=Helmet's damage left.
+simpletextoverlay.tag.helmetquantity.desc=Quantity of the helmet in the inventory.
+simpletextoverlay.tag.helmeticon.desc=Helmet's icon.
+simpletextoverlay.tag.helmetlargeicon.desc=Helmet's large icon.
+simpletextoverlay.tag.chestplatename.desc=Chestplate's name.
+simpletextoverlay.tag.chestplateuniquename.desc=Chestplate's unique name.
+simpletextoverlay.tag.chestplatedamage.desc=Chestplate's damage.
+simpletextoverlay.tag.chestplatemaxdamage.desc=Chestplate's max damage.
+simpletextoverlay.tag.chestplatedamageleft.desc=Chestplate's damage left.
+simpletextoverlay.tag.chestplatequantity.desc=Quantity of the chestplate in the inventory.
+simpletextoverlay.tag.chestplateicon.desc=Chestplate's icon.
+simpletextoverlay.tag.chestplatelargeicon.desc=Chestplate's large icon.
+simpletextoverlay.tag.leggingsname.desc=Leggings' name.
+simpletextoverlay.tag.leggingsuniquename.desc=Leggings' unique name.
+simpletextoverlay.tag.leggingsdamage.desc=Leggings' damage.
+simpletextoverlay.tag.leggingsmaxdamage.desc=Leggings' max damage.
+simpletextoverlay.tag.leggingsdamageleft.desc=Leggings' damage left.
+simpletextoverlay.tag.leggingsquantity.desc=Quantity of the leggings in the inventory.
+simpletextoverlay.tag.leggingsicon.desc=Leggings' icon.
+simpletextoverlay.tag.leggingslargeicon.desc=Leggings' large icon.
+simpletextoverlay.tag.bootsname.desc=Boots' name.
+simpletextoverlay.tag.bootsuniquename.desc=Boots' unique name.
+simpletextoverlay.tag.bootsdamage.desc=Boots' damage.
+simpletextoverlay.tag.bootsmaxdamage.desc=Boots' max damage.
+simpletextoverlay.tag.bootsdamageleft.desc=Boots' damage left.
+simpletextoverlay.tag.bootsquantity.desc=Quantity of the boots in the inventory.
+simpletextoverlay.tag.bootsicon.desc=Boots' icon.
+simpletextoverlay.tag.bootslargeicon.desc=Boots' large icon.
+
+# gui - tag list - player general
+simpletextoverlay.tag.light.desc=Light level at your current position.
+simpletextoverlay.tag.lighteye.desc=Light level at your current position (eye level).
+simpletextoverlay.tag.lightnosun.desc=Light level at your current position without sunlight.
+simpletextoverlay.tag.lightnosuneye.desc=Light level at your current position without sunlight (eye level).
+simpletextoverlay.tag.lightsun.desc=Sunlight level at your current position.
+simpletextoverlay.tag.lightsuneye.desc=Sunlight level at your current position (eye level).
+simpletextoverlay.tag.score.desc=Player's score.
+simpletextoverlay.tag.gamemode.desc=Player's gamemode name.
+simpletextoverlay.tag.gamemodeid.desc=Player's gamemode id.
+simpletextoverlay.tag.health.desc=Player's current health points.
+simpletextoverlay.tag.maxhealth.desc=Player's maximum health points.
+simpletextoverlay.tag.armor.desc=Player's armor points.
+simpletextoverlay.tag.foodlevel.desc=Player's food points.
+simpletextoverlay.tag.maxfoodlevel.desc=Player's maximum food points.
+simpletextoverlay.tag.saturation.desc=Player's food saturation.
+simpletextoverlay.tag.exhaustion.desc=Player's food exhaustion.
+simpletextoverlay.tag.airticks.desc=Player's air ticks.
+simpletextoverlay.tag.maxairticks.desc=Player's maximum air ticks.
+simpletextoverlay.tag.playerlevel.desc=Player's level.
+simpletextoverlay.tag.xpthislevel.desc=Player's current experience.
+simpletextoverlay.tag.xpuntilnext.desc=Player's experience until level up.
+simpletextoverlay.tag.xpcap.desc=Player's total required experience for the next level.
+simpletextoverlay.tag.username.desc=Player's username.
+simpletextoverlay.tag.inwater.desc=§etrue§r if the player is underwater, §efalse§r otherwise.
+simpletextoverlay.tag.wet.desc=§etrue§r if the player is wet, §efalse§r otherwise.
+simpletextoverlay.tag.alive.desc=§etrue§r if the player is alive, §efalse§r otherwise.
+simpletextoverlay.tag.burning.desc=§etrue§r if the player is on fire, §efalse§r otherwise.
+simpletextoverlay.tag.riding.desc=§etrue§r if the player is riding, §efalse§r otherwise.
+simpletextoverlay.tag.sneaking.desc=§etrue§r if the player is sneaking, §efalse§r otherwise.
+simpletextoverlay.tag.sprinting.desc=§etrue§r if the player is sprinting, §efalse§r otherwise.
+simpletextoverlay.tag.invisible.desc=§etrue§r if the player is invisible, §efalse§r otherwise.
+simpletextoverlay.tag.eating.desc=§etrue§r if the player is eating, §efalse§r otherwise.
+
+# gui - tag list - player position
+simpletextoverlay.tag.chunkx.desc=Player's X chunk coordinate.
+simpletextoverlay.tag.chunkz.desc=Player's Z chunk coordinate.
+simpletextoverlay.tag.chunkoffsetx.desc=Player's X chunk offset coordinate (0-15).
+simpletextoverlay.tag.chunkoffsetz.desc=Player's Z chunk offset coordinate (0-15).
+simpletextoverlay.tag.x.desc=Player's X coordinate.
+simpletextoverlay.tag.y.desc=Player's Y coordinate.
+simpletextoverlay.tag.yeye.desc=Player's Y coordinate (eye level).
+simpletextoverlay.tag.z.desc=Player's Z coordinate.
+simpletextoverlay.tag.xi.desc=Player's X coordinate rounded to the closest whole number.
+simpletextoverlay.tag.yi.desc=Player's Y coordinate rounded to the closest whole number.
+simpletextoverlay.tag.yeyei.desc=Player's Y coordinate rounded to the closest whole number (eye level).
+simpletextoverlay.tag.zi.desc=Player's Z coordinate rounded to the closest whole number.
+simpletextoverlay.tag.speed.desc=Player's speed.
+simpletextoverlay.tag.speedx.desc=Player's speed along the x axis.
+simpletextoverlay.tag.speedy.desc=Player's speed along the y axis.
+simpletextoverlay.tag.speedz.desc=Player's speed along the z axis.
+simpletextoverlay.tag.speedxz.desc=Player's speed horizontally.
+simpletextoverlay.tag.pitch.desc=Player's pitch in degrees from -90 to +90.
+simpletextoverlay.tag.direction.desc=Player's direction in degrees from -180 to +180.
+simpletextoverlay.tag.roughdirection.desc=Rough direction the player is currently facing (South, West, North, East).
+simpletextoverlay.tag.finedirection.desc=Fine direction the player is currently facing (South, South West, West, North West, ...).
+simpletextoverlay.tag.abrroughdirection.desc=Abbreviated rough direction the player is currently facing (S, W, N, E).
+simpletextoverlay.tag.abrfinedirection.desc=Abbreviated fine direction the player is currently facing (S, SW, W, NW, ...).
+simpletextoverlay.tag.axisdirection.desc=Axis direction the player is currently facing (+Z, -X, -Z, +X).
+simpletextoverlay.tag.directionhud.desc=A small textual direction HUD.
+
+# gui - tag list - player potion
+simpletextoverlay.tag.potioneffect.desc=Name of the x-th potion effect.
+simpletextoverlay.tag.potionduration.desc=Duration of the x-th potion effect in seconds.
+simpletextoverlay.tag.potiondurationticks.desc=Duration of the x-th potion effect in ticks.
+simpletextoverlay.tag.potionnegative.desc=§etrue§r if the potion effect is negative, §efalse§r otherwise.
+simpletextoverlay.tag.potionicon.desc=Icon of the x-th potion effect.
+simpletextoverlay.tag.potionlargeicon.desc=Large icon of the x-th potion effect.
+
+# gui - tag list - riding
+simpletextoverlay.tag.ridinghorse.desc=§etrue§r if the player is riding a horse, §efalse§r otherwise.
+simpletextoverlay.tag.horsehealth.desc=Horse's health.
+simpletextoverlay.tag.horsemaxhealth.desc=Horse's maximum health.
+simpletextoverlay.tag.horsespeed.desc=Horse's speed.
+simpletextoverlay.tag.horsejumpstrength.desc=Horse's jump strength.
+
+# gui - tag list - time
+simpletextoverlay.tag.day.desc=Minecraft day, starting from 0.
+simpletextoverlay.tag.mctimeh.desc=Minecraft hour.
+simpletextoverlay.tag.mctimem.desc=Minecraft minute.
+simpletextoverlay.tag.mctime24.desc=Minecraft time (24 hour format).
+simpletextoverlay.tag.mctime12.desc=Minecraft time (12 hour format).
+simpletextoverlay.tag.rltime24.desc=Real time (24 hour format).
+simpletextoverlay.tag.rltime12.desc=Real time (12 hour format).
+
+# gui - tag list - world
+simpletextoverlay.tag.worldname.desc=World name.
+simpletextoverlay.tag.worldsize.desc=World size.
+simpletextoverlay.tag.worldsizemb.desc=World size in MiB.
+simpletextoverlay.tag.seed.desc=World seed.
+simpletextoverlay.tag.difficulty.desc=World difficulty name.
+simpletextoverlay.tag.difficultyid.desc=World difficulty id.
+simpletextoverlay.tag.localdifficulty.desc=Local difficulty.
+simpletextoverlay.tag.dimension.desc=Dimension name.
+simpletextoverlay.tag.dimensionid.desc=Dimension id.
+simpletextoverlay.tag.biome.desc=Biome name.
+simpletextoverlay.tag.biomeid.desc=Biome id.
+simpletextoverlay.tag.moonphase.desc=Moon phase.
+simpletextoverlay.tag.daytime.desc=§etrue§r if it's daytime, §efalse§r otherwise.
+simpletextoverlay.tag.raining.desc=§etrue§r if it's raining, §efalse§r otherwise.
+simpletextoverlay.tag.thundering.desc=§etrue§r if it's thundering, §efalse§r otherwise.
+simpletextoverlay.tag.snowing.desc=§etrue§r if it's snowing, §efalse§r otherwise.
+simpletextoverlay.tag.nextweatherchange.desc=Time until the next weather change.
+simpletextoverlay.tag.slimes.desc=§etrue§r if slimes can spawn, §efalse§r otherwise.
+simpletextoverlay.tag.slimechunk.desc=§etrue§r if the current chunk is a slime chunk, §efalse§r otherwise.
+simpletextoverlay.tag.hardcore.desc=§etrue§r if the world is in hardcore mode, §efalse§r otherwise.
+simpletextoverlay.tag.temperature.desc=Biome temperature.
+simpletextoverlay.tag.localtemperature.desc=Biome temperature at your current position.
+simpletextoverlay.tag.humidity.desc=Biome humidity.
+
+# keys
+simpletextoverlay.key.category=Simple Text Overlay
+simpletextoverlay.key.toggle=Toggle Overlay
+
+# commands
+commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config> [nondufichier]
+commands.simpletextoverlay.reload=Rechargement...
+commands.simpletextoverlay.load=Chargement de %s...
+commands.simpletextoverlay.save=Sauvegarde de %s...
+commands.simpletextoverlay.success=Done!
+commands.simpletextoverlay.failure=Something went wrong!
+commands.simpletextoverlay.enable=L'interface de Simple Text Overlay est désormais activé.
+commands.simpletextoverlay.disable=L'interface de Simple Text Overlay est désormais désactivé.
+commands.simpletextoverlay.unknown=Unknown command!
+commands.simpletextoverlay.missing=Filename required!

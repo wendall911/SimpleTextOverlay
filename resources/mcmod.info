@@ -1,8 +1,8 @@
 [
 {
   "modid": "${modid}",
-  "name": "InGame Info XML",
-  "description": "Display extra information on top of your ingame screen.",
+  "name": "Simple Text Overlay",
+  "description": "Display extra information on top of your in-game screen.",
   "version": "${mod_version}",
   "mcversion": "${minecraft_version}",
   "url": "https://github.com/wendall911/SimpleTextOverlay",

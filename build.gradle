@@ -37,7 +37,7 @@ configFile.withReader {
     project.ext.config = new ConfigSlurper().parse prop
 }
 
-group = 'com.github.lunatrius'
+group = 'com.github.wendall911.simpletextoverlay'
 version = "${config.minecraft_version}-${config.mod_version}"
 archivesBaseName = "${config.mod_name}"
 def mcversion = "${config.minecraft_version}"
@@ -70,7 +70,7 @@ repositories {
 }
 
 dependencies {
-    deobfCompile group: group, name: 'LunatriusCore', version: "${config.minecraft_version}-${config.version_lunatriuscore}", classifier: 'universal'
+    deobfCompile group: 'com.github.lunatrius', name: 'LunatriusCore', version: "${config.minecraft_version}-${config.version_lunatriuscore}", classifier: 'universal'
 }
 
 def commonManifest = {

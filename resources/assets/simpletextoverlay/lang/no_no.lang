@@ -1,0 +1,301 @@
+# gui - config - categories
+simpletextoverlay.config.category.general=Generelt
+simpletextoverlay.config.category.general.tooltip=Generelle innstillinger.
+simpletextoverlay.config.category.alignment=Justering
+simpletextoverlay.config.category.alignment.tooltip=Justeringsinnstillinger.
+
+# gui - config - general
+simpletextoverlay.config.filename=Filnavn
+simpletextoverlay.config.filename.tooltip=Konfigurasjonen som bør bli lastet ved oppstart.
+simpletextoverlay.config.replaceDebug=Erstatt feilsøkingsdata
+simpletextoverlay.config.replaceDebug.tooltip=Erstatt feilsøkingsdataene (F3) med SimpleTextOverlay-data.
+simpletextoverlay.config.showInChat=Vis i chat
+simpletextoverlay.config.showInChat.tooltip=Vis data i chat.
+simpletextoverlay.config.showOnPlayerList=Vis på spillerlisten
+simpletextoverlay.config.showOnPlayerList.tooltip=Vis data på spillerlisten.
+simpletextoverlay.config.scale=Størrelse
+simpletextoverlay.config.scale.tooltip=Datavisningen vil bli skalert med denne mengden.
+simpletextoverlay.config.fileInterval=File Tag Interval
+simpletextoverlay.config.fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
+simpletextoverlay.config.showOverlayPotions=Show Potion Effects
+simpletextoverlay.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+simpletextoverlay.config.showOverlayItemIcons=Show Item Overlay
+simpletextoverlay.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
+
+# gui - config - alignment
+simpletextoverlay.config.topleft=Øverst til venstre
+simpletextoverlay.config.topleft.tooltip=Forskyvning for øverst til venstre på skjermen (X<mellomrom>Y).
+simpletextoverlay.config.topcenter=Øverst i midten
+simpletextoverlay.config.topcenter.tooltip=Forskyvning for øverst i midten på skjermen (X<mellomrom>Y).
+simpletextoverlay.config.topright=Øverst til høyre
+simpletextoverlay.config.topright.tooltip=Forskyvning for øverst til høyre på skjermen (X<mellomrom>Y).
+simpletextoverlay.config.middleleft=Til venstre på midten
+simpletextoverlay.config.middleleft.tooltip=Forskyvning for venstre side på midten av skjermen (X<mellomrom>Y).
+simpletextoverlay.config.middlecenter=På midten
+simpletextoverlay.config.middlecenter.tooltip=Forskyvning for midt på skjermen (X<mellomrom>Y).
+simpletextoverlay.config.middleright=Til høyre på midten
+simpletextoverlay.config.middleright.tooltip=Forskyvning for høyre side på midten av skjermen (X<mellomrom>Y).
+simpletextoverlay.config.bottomleft=Nederst til venstre
+simpletextoverlay.config.bottomleft.tooltip=Forskyvning for nederst til venstre på skjermen (X<mellomrom>Y).
+simpletextoverlay.config.bottomcenter=Nederst i midten
+simpletextoverlay.config.bottomcenter.tooltip=Forskyvning for nederst i midten på skjermen (X<mellomrom>Y).
+simpletextoverlay.config.bottomright=Nederst til høyre
+simpletextoverlay.config.bottomright.tooltip=Forskyvning for nederst til høyre på skjermen (X<mellomrom>Y).
+
+# gui - tag list
+gui.simpletextoverlay.taglist=Liste over tagger
+
+# gui - tag list - categories
+simpletextoverlay.tag.category.formatting.name=Formatering
+simpletextoverlay.tag.category.misc.name=Diverse
+simpletextoverlay.tag.category.mouseover.name=Musepekeren over
+simpletextoverlay.tag.category.nearbyplayer.name=Spillere i nærheten
+simpletextoverlay.tag.category.playerequipment.name=Spiller - utstyr
+simpletextoverlay.tag.category.playergeneral.name=Spiller - generelt
+simpletextoverlay.tag.category.playerposition.name=Spiller - posisjon
+simpletextoverlay.tag.category.playerpotion.name=Spiller - trylledrikkeffekter
+simpletextoverlay.tag.category.time.name=Tid
+simpletextoverlay.tag.category.world.name=Verden
+simpletextoverlay.tag.category.bloodmagic.name=Blood Magic
+simpletextoverlay.tag.category.simplyjetpacks.name=Simply Jetpacks
+simpletextoverlay.tag.category.terrafirmacraft.name=TerraFirmaCraft
+simpletextoverlay.tag.category.thaumcraft.name=Thaumcraft
+
+# gui - tag list - formatting tags
+simpletextoverlay.tag.black.desc=Svart farge (§0EKSEMPEL§r).
+simpletextoverlay.tag.darkblue.desc=Mørk blå farge (§1EKSEMPEL§r).
+simpletextoverlay.tag.darkgreen.desc=Mørk grønn farge (§2EKSEMPEL§r).
+simpletextoverlay.tag.darkaqua.desc=Mørk turkis farge (§3EKSEMPEL§r).
+simpletextoverlay.tag.darkred.desc=Mørk rød farge (§4EKSEMPEL§r).
+simpletextoverlay.tag.darkpurple.desc=Mørk lilla farge (§5EKSEMPEL§r).
+simpletextoverlay.tag.gold.desc=Gullfarge (§6EKSEMPEL§r).
+simpletextoverlay.tag.gray.desc=Grå farge (§7EKSEMPEL§r).
+simpletextoverlay.tag.darkgrey.desc=Mørk grå farge (§8EKSEMPEL§r).
+simpletextoverlay.tag.blue.desc=Blå farge (§9EKSEMPEL§r).
+simpletextoverlay.tag.green.desc=Grønn farge (§aEKSEMPEL§r).
+simpletextoverlay.tag.aqua.desc=Turkis farge (§bEKSEMPEL§r).
+simpletextoverlay.tag.red.desc=Rød farge (§cEKSEMPEL§r).
+simpletextoverlay.tag.lightpurple.desc=Lys lilla farge (§dEKSEMPEL§r).
+simpletextoverlay.tag.yellow.desc=Gul farge (§eEKSEMPEL§r).
+simpletextoverlay.tag.white.desc=Hvit farge (§fEKSEMPEL§r).
+simpletextoverlay.tag.obfuscated.desc=Maskert tekst (§kEKSEMPEL§r).
+simpletextoverlay.tag.bold.desc=Fet tekst (§lEKSEMPEL§r).
+simpletextoverlay.tag.strikethrough.desc=Gjennomstreket tekst (§mEKSEMPEL§r).
+simpletextoverlay.tag.underline.desc=Underlinjet tekst (§nEKSEMPEL§r).
+simpletextoverlay.tag.italic.desc=Kursiv tekst (§oEKSEMPEL§r).
+simpletextoverlay.tag.reset.desc=Nullstill formatering.
+
+# gui - tag list - misc
+simpletextoverlay.tag.memmax.desc=Mengde maksimalt minne.
+simpletextoverlay.tag.memtotal.desc=Mengde totalt minne.
+simpletextoverlay.tag.memfree.desc=Mengde ledig minne.
+simpletextoverlay.tag.memused.desc=Mengde brukt minne.
+simpletextoverlay.tag.fps.desc=Nåværende bildefrekvens.
+simpletextoverlay.tag.resourcepack.desc=Nåværende ressurspakke.
+simpletextoverlay.tag.entitiesrendered.desc=Antall gjengitte enheter.
+simpletextoverlay.tag.entitiestotal.desc=Antall innlastede enheter.
+simpletextoverlay.tag.loadedchunks.desc=Antall innlastede verdensblokker.
+simpletextoverlay.tag.server.desc=Tjenerens vertnavn eller IP-adresse og porten hvis den ikke er 25565, localhost hvis det er et lokalt spill.
+simpletextoverlay.tag.servername.desc=Tjenerens vertnavn, localhost hvis det er et lokalt spill.
+simpletextoverlay.tag.serverip.desc=Tjenerens IP-adresse, 127.0.0.1 hvis det er et lokalt spill.
+simpletextoverlay.tag.serverport.desc=Tjenerens port, -1 hvis det er et lokalt spill.
+simpletextoverlay.tag.ping.desc=Nåværende responstid, -1 hvis data mangler.
+simpletextoverlay.tag.pingicon.desc=Nåværende responstidsikon, ingen tekst hvis data mangler.
+
+# gui - tag list - mouse over
+simpletextoverlay.tag.mouseovername.desc=Navnet på enheten eller blokken under musepekeren, ingenting hvis det ikke er noen.
+simpletextoverlay.tag.mouseoveruniquename.desc=Unikt navn på enheten eller blokken under musepekeren, ingenting hvis det ikke er noen.
+simpletextoverlay.tag.mouseoverid.desc=Enhets- eller blokk-IDen under musepekeren, null hvis det ikke er noen.
+simpletextoverlay.tag.mouseovermetadata.desc=Blokkmetadata under musepekeren, null hvis det ikke er noen.
+simpletextoverlay.tag.mouseoverpowerweak.desc=Den svake rødsteinstrømmen til blokken, -1 hvis det ikke er noen.
+simpletextoverlay.tag.mouseoverpowerstrong.desc=Den sterke rødsteinstrømmen til blokken, -1 hvis det ikke er noen.
+simpletextoverlay.tag.mouseoverpowerinput.desc=Rødsteinstrømmen inn til blokken, -1 hvis det ikke er noen.
+
+# gui - tag list - nearby player
+simpletextoverlay.tag.nearbyplayerdistance.desc=Avstand til x-te nærmeste spiller.
+simpletextoverlay.tag.nearbyplayername.desc=Navnet på x-te nærmeste spiller.
+simpletextoverlay.tag.nearbyplayericon.desc=Head icon of the x-th nearby player.
+
+# gui - tag list - player equipment
+simpletextoverlay.tag.equippedname.desc=Navnet på utstyrt gjenstand.
+simpletextoverlay.tag.equippeduniquename.desc=Unikt navn på utstyrt gjenstand.
+simpletextoverlay.tag.equippeddamage.desc=Skaden på utstyrt gjenstand.
+simpletextoverlay.tag.equippedmaxdamage.desc=Maksimalskaden på utstyrt gjenstand.
+simpletextoverlay.tag.equippeddamageleft.desc=Gjenværende skade på utstyrt gjenstand.
+simpletextoverlay.tag.equippedquantity.desc=Antallet av den utstyrte gjenstanden i inventaret.
+simpletextoverlay.tag.equippedicon.desc=Ikonet til utstyrt gjenstand.
+simpletextoverlay.tag.equippedlargeicon.desc=Det store ikonet til utstyrt gjenstand.
+simpletextoverlay.tag.mainhandname.desc=Main hand item's name.
+simpletextoverlay.tag.mainhanduniquename.desc=Main hand item's unique name.
+simpletextoverlay.tag.mainhanddamage.desc=Main hand item's damage.
+simpletextoverlay.tag.mainhandmaxdamage.desc=Main hand item's max damage.
+simpletextoverlay.tag.mainhanddamageleft.desc=Main hand item's damage left.
+simpletextoverlay.tag.mainhandquantity.desc=Quantity of the main hand item in the inventory.
+simpletextoverlay.tag.mainhandicon.desc=Main hand item's icon.
+simpletextoverlay.tag.mainhandlargeicon.desc=Main hand item's large icon.
+simpletextoverlay.tag.offhandname.desc=Off hand item's name.
+simpletextoverlay.tag.offhanduniquename.desc=Off hand item's unique name.
+simpletextoverlay.tag.offhanddamage.desc=Off hand item's damage.
+simpletextoverlay.tag.offhandmaxdamage.desc=Off hand item's max damage.
+simpletextoverlay.tag.offhanddamageleft.desc=Off hand item's damage left.
+simpletextoverlay.tag.offhandquantity.desc=Quantity of the off hand item in the inventory.
+simpletextoverlay.tag.offhandicon.desc=Off hand item's icon.
+simpletextoverlay.tag.offhandlargeicon.desc=Off hand item's large icon.
+simpletextoverlay.tag.helmetname.desc=Hjelmens navn.
+simpletextoverlay.tag.helmetuniquename.desc=Hjelmens unike navn.
+simpletextoverlay.tag.helmetdamage.desc=Hjelmens skade.
+simpletextoverlay.tag.helmetmaxdamage.desc=Hjelmens maksimale skade.
+simpletextoverlay.tag.helmetdamageleft.desc=Hjelmens gjenværende skade.
+simpletextoverlay.tag.helmetquantity.desc=Antallet av hjelmen i inventaret.
+simpletextoverlay.tag.helmeticon.desc=Hjelmens ikon.
+simpletextoverlay.tag.helmetlargeicon.desc=Hjelmens store ikon.
+simpletextoverlay.tag.chestplatename.desc=Brystplatens navn.
+simpletextoverlay.tag.chestplateuniquename.desc=Brystplatens unike navn.
+simpletextoverlay.tag.chestplatedamage.desc=Brystplatens skade.
+simpletextoverlay.tag.chestplatemaxdamage.desc=Brystplatens maksimale skade.
+simpletextoverlay.tag.chestplatedamageleft.desc=Brystplatens gjenværende skade.
+simpletextoverlay.tag.chestplatequantity.desc=Antallet av brystplaten i inventaret.
+simpletextoverlay.tag.chestplateicon.desc=Brystplatens ikon.
+simpletextoverlay.tag.chestplatelargeicon.desc=Brystplatens store ikon.
+simpletextoverlay.tag.leggingsname.desc=Buksenes navn.
+simpletextoverlay.tag.leggingsuniquename.desc=Buksenes unike navn.
+simpletextoverlay.tag.leggingsdamage.desc=Buksenes skade.
+simpletextoverlay.tag.leggingsmaxdamage.desc=Buksenes maksimale skade.
+simpletextoverlay.tag.leggingsdamageleft.desc=Buksenes gjenværende skade.
+simpletextoverlay.tag.leggingsquantity.desc=Antallet av buksene i inventaret.
+simpletextoverlay.tag.leggingsicon.desc=Buksenes ikon.
+simpletextoverlay.tag.leggingslargeicon.desc=Buksenes store ikon.
+simpletextoverlay.tag.bootsname.desc=Støvlenes navn.
+simpletextoverlay.tag.bootsuniquename.desc=Støvlenes unike navn.
+simpletextoverlay.tag.bootsdamage.desc=Støvlenes skade.
+simpletextoverlay.tag.bootsmaxdamage.desc=Støvlenes maksimale skade.
+simpletextoverlay.tag.bootsdamageleft.desc=Støvlenes gjenværende skade.
+simpletextoverlay.tag.bootsquantity.desc=Antallet av støvlene i inventaret.
+simpletextoverlay.tag.bootsicon.desc=Støvlenes ikon.
+simpletextoverlay.tag.bootslargeicon.desc=Støvlenes store ikon.
+
+# gui - tag list - player general
+simpletextoverlay.tag.light.desc=Lysnivå på din nåværende posisjon.
+simpletextoverlay.tag.lighteye.desc=Light level at your current position (eye level).
+simpletextoverlay.tag.lightnosun.desc=Lysnivå på din nåværende posisjon uten sollys.
+simpletextoverlay.tag.lightnosuneye.desc=Light level at your current position without sunlight (eye level).
+simpletextoverlay.tag.lightsun.desc=Sunlight level at your current position.
+simpletextoverlay.tag.lightsuneye.desc=Sunlight level at your current position (eye level).
+simpletextoverlay.tag.score.desc=Spillerens poengsun.
+simpletextoverlay.tag.gamemode.desc=Spillerens spillmodusnavn.
+simpletextoverlay.tag.gamemodeid.desc=Spillerens spillmodus-ID.
+simpletextoverlay.tag.health.desc=Spillerens nåværende antall liv.
+simpletextoverlay.tag.maxhealth.desc=Spillerens maksimale antall liv.
+simpletextoverlay.tag.armor.desc=Spillerens rustningspoeng.
+simpletextoverlay.tag.foodlevel.desc=Spillerens matnivå.
+simpletextoverlay.tag.maxfoodlevel.desc=Player's maximum food points.
+simpletextoverlay.tag.saturation.desc=Spillerens metthet.
+simpletextoverlay.tag.exhaustion.desc=Player's food exhaustion.
+simpletextoverlay.tag.airticks.desc=Spillerens gjenværende luftmengde.
+simpletextoverlay.tag.maxairticks.desc=Player's maximum air ticks.
+simpletextoverlay.tag.playerlevel.desc=Spillerens nivå.
+simpletextoverlay.tag.xpthislevel.desc=Spillerens nåværende erfaringsnivå.
+simpletextoverlay.tag.xpuntilnext.desc=Spillerens gjenværende erfaring før nytt nivå.
+simpletextoverlay.tag.xpcap.desc=Player's total required experience for the next level.
+simpletextoverlay.tag.username.desc=Spillerens brukernavn.
+simpletextoverlay.tag.inwater.desc=§etrue§r hvis spilleren er under vann, §efalse§r ellers.
+simpletextoverlay.tag.wet.desc=§etrue§r hvis spilleren er våt, §efalse§r ellers.
+simpletextoverlay.tag.alive.desc=§etrue§r hvis spilleren lever, §efalse§r ellers.
+simpletextoverlay.tag.burning.desc=§etrue§r hvis spilleren brenner, §efalse§r ellers.
+simpletextoverlay.tag.riding.desc=§etrue§r hvis spilleren er ridende, §efalse§r ellers.
+simpletextoverlay.tag.sneaking.desc=§etrue§r hvis spilleren sniker, §efalse§r ellers.
+simpletextoverlay.tag.sprinting.desc=§etrue§r hvis spilleren sprinter, §efalse§r ellers.
+simpletextoverlay.tag.invisible.desc=§etrue§r hvis spilleren er usynlig, §efalse§r ellers.
+simpletextoverlay.tag.eating.desc=§etrue§r hvis spilleren spiser, §efalse§r ellers.
+
+# gui - tag list - player position
+simpletextoverlay.tag.chunkx.desc=Spillerens X-verdensblokk-koordinat.
+simpletextoverlay.tag.chunkz.desc=Spillerens Z-verdensblokk-koordinat.
+simpletextoverlay.tag.chunkoffsetx.desc=Spillerens X-posisjon innenfor verdensblokken (0-15).
+simpletextoverlay.tag.chunkoffsetz.desc=Spillerens Z-posisjon innenfor verdensblokken (0-15).
+simpletextoverlay.tag.x.desc=Spillerens X-koordinat.
+simpletextoverlay.tag.y.desc=Spillerens Y-koordinat.
+simpletextoverlay.tag.yeye.desc=Player's Y coordinate (eye level).
+simpletextoverlay.tag.z.desc=Spillerens Z-koordinat.
+simpletextoverlay.tag.xi.desc=Spillerens X-koordinat rundet av til nærmeste hele tall.
+simpletextoverlay.tag.yi.desc=Spillerens Y-koordinat rundet av til nærmeste hele tall.
+simpletextoverlay.tag.yeyei.desc=Player's Y coordinate rounded to the closest whole number (eye level).
+simpletextoverlay.tag.zi.desc=Spillerens Z-koordinat rundet av til nærmeste hele tall.
+simpletextoverlay.tag.speed.desc=Spillerens hastighet.
+simpletextoverlay.tag.speedx.desc=Spillerens hastighet langs X-aksen.
+simpletextoverlay.tag.speedy.desc=Spillerens hastighet langs Y-aksen.
+simpletextoverlay.tag.speedz.desc=Spillerens hastighet langs Z-aksen.
+simpletextoverlay.tag.speedxz.desc=Spillerens horisontale hastighet.
+simpletextoverlay.tag.pitch.desc=Player's pitch in degrees from -90 to +90.
+simpletextoverlay.tag.direction.desc=Spillerens retning i grader fra -180 til +180.
+simpletextoverlay.tag.roughdirection.desc=Omtrentlig retning spilleren ser i (sør, vest, nord, øst).
+simpletextoverlay.tag.finedirection.desc=Retning spilleren ser i (sør, sørvest, vest, nordvest, ...).
+simpletextoverlay.tag.abrroughdirection.desc=Forkortelse for omtrentlig retning spilleren ser i (S, V, N, Ø).
+simpletextoverlay.tag.abrfinedirection.desc=Forkortelse for retning spilleren er i (S, SV, V, NV, ...).
+simpletextoverlay.tag.axisdirection.desc=Axis direction the player is currently facing (+Z, -X, -Z, +X).
+simpletextoverlay.tag.directionhud.desc=En liten tekstbasert retnings-HUD.
+
+# gui - tag list - player potion
+simpletextoverlay.tag.potioneffect.desc=Navnet på den x-te trylledrikkeffekten.
+simpletextoverlay.tag.potionduration.desc=Varigheten på den x-te trylledrikkeffekten i sekunder.
+simpletextoverlay.tag.potiondurationticks.desc=Varigheten på den x-te trylledrikkeffekten i ticks.
+simpletextoverlay.tag.potionicon.desc=Ikonet til den x-te trylledrikkeffekten.
+simpletextoverlay.tag.potionicon.desc=Icon of the x-th potion effect.
+simpletextoverlay.tag.potionlargeicon.desc=Det store ikonet til den x-te trylledrikkeffekten.
+
+# gui - tag list - riding
+simpletextoverlay.tag.ridinghorse.desc=§etrue§r if the player is riding a horse, §efalse§r otherwise.
+simpletextoverlay.tag.horsehealth.desc=Horse's health.
+simpletextoverlay.tag.horsemaxhealth.desc=Horse's maximum health.
+simpletextoverlay.tag.horsespeed.desc=Horse's speed.
+simpletextoverlay.tag.horsejumpstrength.desc=Horse's jump strength.
+
+# gui - tag list - time
+simpletextoverlay.tag.day.desc=Minecraft-dag, starter fra 0.
+simpletextoverlay.tag.mctimeh.desc=Minecraft-time.
+simpletextoverlay.tag.mctimem.desc=Minecraft-minutt.
+simpletextoverlay.tag.mctime24.desc=Minecraft-tid (24-timers format).
+simpletextoverlay.tag.mctime12.desc=Minecraft-tid (12-timers format).
+simpletextoverlay.tag.rltime24.desc=Virkelig tid (24-timers format).
+simpletextoverlay.tag.rltime12.desc=Virkelig tid (12-timers format).
+
+# gui - tag list - world
+simpletextoverlay.tag.worldname.desc=Navnet på verdenen.
+simpletextoverlay.tag.worldsize.desc=Størrelsen på verdenen.
+simpletextoverlay.tag.worldsizemb.desc=Størrelsen på verdenen i MiB.
+simpletextoverlay.tag.seed.desc=Generasjonsfrøet til verdenen.
+simpletextoverlay.tag.difficulty.desc=Navnet til vanskelighetsgraden på verdenen.
+simpletextoverlay.tag.difficultyid.desc=IDen til vanskelighetsgraden på verdenen.
+simpletextoverlay.tag.localdifficulty.desc=Local difficulty.
+simpletextoverlay.tag.dimension.desc=Dimensjonsnavnet.
+simpletextoverlay.tag.dimensionid.desc=Dimensjons-IDen.
+simpletextoverlay.tag.biome.desc=Biomenavnet.
+simpletextoverlay.tag.biomeid.desc=Biome-IDen.
+simpletextoverlay.tag.moonphase.desc=Moon phase.
+simpletextoverlay.tag.daytime.desc=§etrue§r hvis det er dag, §efalse§r ellers.
+simpletextoverlay.tag.raining.desc=§etrue§r hvis det regner, §efalse§r ellers.
+simpletextoverlay.tag.thundering.desc=§etrue§r hvis det er torden, §efalse§r ellers.
+simpletextoverlay.tag.snowing.desc=§etrue§r hvis det snør, §efalse§r ellers.
+simpletextoverlay.tag.nextweatherchange.desc=Time until the next weather change.
+simpletextoverlay.tag.slimes.desc=§etrue§r if slimes can spawn, §efalse§r otherwise.
+simpletextoverlay.tag.slimechunk.desc=§etrue§r hvis verdensblokken er en slime-blokk, §efalse§r ellers.
+simpletextoverlay.tag.hardcore.desc=§etrue§r hvis verdenen er i hardcore-modus, §efalse§r ellers.
+simpletextoverlay.tag.temperature.desc=Biometemperatur.
+simpletextoverlay.tag.localtemperature.desc=Biome temperature at your current position.
+simpletextoverlay.tag.humidity.desc=Biomefuktighet.
+
+# keys
+simpletextoverlay.key.category=Simple Text Overlay
+simpletextoverlay.key.toggle=Toggle Overlay
+
+# commands
+commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config> [filnavn]
+commands.simpletextoverlay.reload=Laster inn på nytt...
+commands.simpletextoverlay.load=Laster %s...
+commands.simpletextoverlay.save=Lagrer %s...
+commands.simpletextoverlay.success=Done!
+commands.simpletextoverlay.failure=Something went wrong!
+commands.simpletextoverlay.enable=Simple Text Overlay-visningen er nå aktivert.
+commands.simpletextoverlay.disable=Simple Text Overlay-visningen er nå deaktivert.
+commands.simpletextoverlay.unknown=Unknown command!
+commands.simpletextoverlay.missing=Filename required!

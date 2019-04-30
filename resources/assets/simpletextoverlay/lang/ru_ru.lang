@@ -1,0 +1,302 @@
+# gui - config - categories
+simpletextoverlay.config.category.general=Главная
+simpletextoverlay.config.category.general.tooltip=Основные опции.
+simpletextoverlay.config.category.alignment=Выравнивание
+simpletextoverlay.config.category.alignment.tooltip=Опции смещения выравнивания.
+
+# gui - config - general
+simpletextoverlay.config.filename=Имя файла
+simpletextoverlay.config.filename.tooltip=Какая конфигурация должны быть использована при запуске.
+simpletextoverlay.config.replaceDebug=Заменить оверлей отладки
+simpletextoverlay.config.replaceDebug.tooltip=Заменить оверлей отладки (F3) на SimpleTextOverlay оверлей.
+simpletextoverlay.config.showInChat=Показывать в чате
+simpletextoverlay.config.showInChat.tooltip=Показывать оверлей в чате.
+simpletextoverlay.config.showOnPlayerList=Показать со списком игроков
+simpletextoverlay.config.showOnPlayerList.tooltip=Показывать оверлей со списком игроков.
+simpletextoverlay.config.scale=Масштаб
+simpletextoverlay.config.scale.tooltip=Оверлей будет масштабироваться на это значение.
+simpletextoverlay.config.fileInterval=Интервал тегов файлов
+simpletextoverlay.config.fileInterval.tooltip=Интервал между прочтением файлов для 'file' тега (в секундах).
+simpletextoverlay.config.showOverlayPotions=Show Potion Effects
+simpletextoverlay.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+simpletextoverlay.config.showOverlayItemIcons=Show Item Overlay
+simpletextoverlay.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
+
+# gui - config - alignment
+simpletextoverlay.config.topleft=Верх Лево
+simpletextoverlay.config.topleft.tooltip=Смещения для левой верхней части экрана (X<пространство>Y).
+simpletextoverlay.config.topcenter=Верх Центр
+simpletextoverlay.config.topcenter.tooltip=Смещения для верхней центральной части экрана (X<пространство>Y).
+simpletextoverlay.config.topright=Верх Право
+simpletextoverlay.config.topright.tooltip=Смещения для верхней правой части экрана (X<пространство>Y).
+simpletextoverlay.config.middleleft=Середина Лево
+simpletextoverlay.config.middleleft.tooltip=Смещения для средней левой части экрана (X<пространство>Y).
+simpletextoverlay.config.middlecenter=Середина Центр
+simpletextoverlay.config.middlecenter.tooltip=Смещения для средней центральной части экрана (X<пространство>Y).
+simpletextoverlay.config.middleright=Середина Право
+simpletextoverlay.config.middleright.tooltip=Смещения для средней правой части экрана (X<пространство>Y).
+simpletextoverlay.config.bottomleft=Низ Лево
+simpletextoverlay.config.bottomleft.tooltip=Смещения для нижней левой части экрана (X<пространство>Y).
+simpletextoverlay.config.bottomcenter=Низ Центр
+simpletextoverlay.config.bottomcenter.tooltip=Смещения для нижней центральной части экрана (X<пространство>Y).
+simpletextoverlay.config.bottomright=Низ Право
+simpletextoverlay.config.bottomright.tooltip=Смещения для нижней правой части экрана (X<пространство>Y).
+
+# gui - tag list
+gui.simpletextoverlay.taglist=Список тегов
+
+# gui - tag list - categories
+simpletextoverlay.tag.category.formatting.name=Форматирование
+simpletextoverlay.tag.category.misc.name=Разное
+simpletextoverlay.tag.category.mouseover.name=Мышь
+simpletextoverlay.tag.category.nearbyplayer.name=Близлежащие Игроки
+simpletextoverlay.tag.category.playerequipment.name=Игрок - экипировка
+simpletextoverlay.tag.category.playergeneral.name=Игрок - главное
+simpletextoverlay.tag.category.playerposition.name=Игрок - позиция
+simpletextoverlay.tag.category.playerpotion.name=Игрок - эффекты зелий
+simpletextoverlay.tag.category.riding.name=Верховая езда
+simpletextoverlay.tag.category.time.name=Время
+simpletextoverlay.tag.category.world.name=Мир
+simpletextoverlay.tag.category.bloodmagic.name=Blood Magic
+simpletextoverlay.tag.category.simplyjetpacks.name=Simply Jetpacks
+simpletextoverlay.tag.category.terrafirmacraft.name=TerraFirmaCraft
+simpletextoverlay.tag.category.thaumcraft.name=Thaumcraft
+
+# gui - tag list - formatting tags
+simpletextoverlay.tag.black.desc=Черный цвет (§0ПРИМЕР§r).
+simpletextoverlay.tag.darkblue.desc=Темно-синий цвет (§1ПРИМЕР§r).
+simpletextoverlay.tag.darkgreen.desc=Темно-зеленый цвет (§2ПРИМЕР§r).
+simpletextoverlay.tag.darkaqua.desc=Темно-бирюзовый цвет (§3ПРИМЕР§r).
+simpletextoverlay.tag.darkred.desc=Темно-красный цвет (§4ПРИМЕР§r).
+simpletextoverlay.tag.darkpurple.desc=Темно-пурпурный цвет (§5ПРИМЕР§r).
+simpletextoverlay.tag.gold.desc=Золотой цвет (§6ПРИМЕР§r).
+simpletextoverlay.tag.gray.desc=Серый цвет (§7ПРИМЕР§r).
+simpletextoverlay.tag.darkgrey.desc=Темно-серый цвет (§8ПРИМЕР§r).
+simpletextoverlay.tag.blue.desc=Синий цвет (§9ПРИМЕР§r).
+simpletextoverlay.tag.green.desc=Зеленый цвет (§aПРИМЕР§r).
+simpletextoverlay.tag.aqua.desc=Бирюзовый цвет (§bПРИМЕР§r).
+simpletextoverlay.tag.red.desc=Красный цвет (§cПРИМЕР§r).
+simpletextoverlay.tag.lightpurple.desc=Светло-пурпурный цвет (§dПРИМЕР§r).
+simpletextoverlay.tag.yellow.desc=Желтый цвет (§eПРИМЕР§r).
+simpletextoverlay.tag.white.desc=Белый цвет (§fПРИМЕР§r).
+simpletextoverlay.tag.obfuscated.desc=Запутанный текст (§kПРИМЕР§r).
+simpletextoverlay.tag.bold.desc=Жирный текст (§lПРИМЕР§r).
+simpletextoverlay.tag.strikethrough.desc=Зачеркнутый текст (§mПРИМЕР§r).
+simpletextoverlay.tag.underline.desc=Подчеркнутый текст (§nПРИМЕР§r).
+simpletextoverlay.tag.italic.desc=Курсивный цвет (§oПРИМЕР§r).
+simpletextoverlay.tag.reset.desc=Сбросить форматирование.
+
+# gui - tag list - misc
+simpletextoverlay.tag.memmax.desc=Количество максимального объема памяти.
+simpletextoverlay.tag.memtotal.desc=Количество общего объема памяти.
+simpletextoverlay.tag.memfree.desc=Объем свободной памяти.
+simpletextoverlay.tag.memused.desc=Объем памяти в использовании.
+simpletextoverlay.tag.fps.desc=Текущий FPS.
+simpletextoverlay.tag.resourcepack.desc=Текущий пакет ресурсов.
+simpletextoverlay.tag.entitiesrendered.desc=Количество прорисованных сущностей.
+simpletextoverlay.tag.entitiestotal.desc=Количество загруженных сущностей.
+simpletextoverlay.tag.loadedchunks.desc=Количество загруженных чанков.
+simpletextoverlay.tag.server.desc=Домен сервера или IP и порт, если он не 25565, localhost, если локальная игра.
+simpletextoverlay.tag.servername.desc=Домен сервера, localhost, если локальная игра.
+simpletextoverlay.tag.serverip.desc=IP сервера, 127.0.0.1, если локальная игра.
+simpletextoverlay.tag.serverport.desc=Порт сервера, -1, если локальная игра.
+simpletextoverlay.tag.ping.desc=Текущая задержка, -1 если нет данных.
+simpletextoverlay.tag.pingicon.desc=Текущая иконка пинга, пустая строка, если нет данных.
+
+# gui - tag list - mouse over
+simpletextoverlay.tag.mouseovername.desc=Название сущности или блока под курсором, пустая строка, если нет информации.
+simpletextoverlay.tag.mouseoveruniquename.desc=Уникальное название сущности или блока под курсором, пустая строка, если нет информации.
+simpletextoverlay.tag.mouseoverid.desc=ID сущности или блока под курсором, 0, если ничего нет.
+simpletextoverlay.tag.mouseovermetadata.desc=Метаданные блока под курсором, 0, если ничего нет.
+simpletextoverlay.tag.mouseoverpowerweak.desc=Сила слабого сигнал красного камня на блоке, -1, если ничего нет.
+simpletextoverlay.tag.mouseoverpowerstrong.desc=Сила сильного сигнала красного камня на блоке, -1, если ничего нет.
+simpletextoverlay.tag.mouseoverpowerinput.desc=Сила выхода красного камня из блока, -1, если ничего нет.
+
+# gui - tag list - nearby player
+simpletextoverlay.tag.nearbyplayerdistance.desc=Дистанция до игрока.
+simpletextoverlay.tag.nearbyplayername.desc=Имя игрока.
+simpletextoverlay.tag.nearbyplayericon.desc=Head icon of the x-th nearby player.
+
+# gui - tag list - player equipment
+simpletextoverlay.tag.equippedname.desc=Имя экипированного предмета.
+simpletextoverlay.tag.equippeduniquename.desc=Уникальное имя экипированного предмета.
+simpletextoverlay.tag.equippeddamage.desc=Урон экипированного предмета.
+simpletextoverlay.tag.equippedmaxdamage.desc=Максимальный урон экипированного предмета.
+simpletextoverlay.tag.equippeddamageleft.desc=Осталось урона экипированному предмета.
+simpletextoverlay.tag.equippedquantity.desc=Количество экипированного предмета в инвентаре.
+simpletextoverlay.tag.equippedicon.desc=Изображение экипированного предмета.
+simpletextoverlay.tag.equippedlargeicon.desc=Большое изображение экипированного предмета.
+simpletextoverlay.tag.mainhandname.desc=Main hand item's name.
+simpletextoverlay.tag.mainhanduniquename.desc=Main hand item's unique name.
+simpletextoverlay.tag.mainhanddamage.desc=Main hand item's damage.
+simpletextoverlay.tag.mainhandmaxdamage.desc=Main hand item's max damage.
+simpletextoverlay.tag.mainhanddamageleft.desc=Main hand item's damage left.
+simpletextoverlay.tag.mainhandquantity.desc=Quantity of the main hand item in the inventory.
+simpletextoverlay.tag.mainhandicon.desc=Main hand item's icon.
+simpletextoverlay.tag.mainhandlargeicon.desc=Main hand item's large icon.
+simpletextoverlay.tag.offhandname.desc=Off hand item's name.
+simpletextoverlay.tag.offhanduniquename.desc=Off hand item's unique name.
+simpletextoverlay.tag.offhanddamage.desc=Off hand item's damage.
+simpletextoverlay.tag.offhandmaxdamage.desc=Off hand item's max damage.
+simpletextoverlay.tag.offhanddamageleft.desc=Off hand item's damage left.
+simpletextoverlay.tag.offhandquantity.desc=Quantity of the off hand item in the inventory.
+simpletextoverlay.tag.offhandicon.desc=Off hand item's icon.
+simpletextoverlay.tag.offhandlargeicon.desc=Off hand item's large icon.
+simpletextoverlay.tag.helmetname.desc=Название шлема.
+simpletextoverlay.tag.helmetuniquename.desc=Уникальное название шлема.
+simpletextoverlay.tag.helmetdamage.desc=Повреждение шлема.
+simpletextoverlay.tag.helmetmaxdamage.desc=Максимальное повреждение шлема.
+simpletextoverlay.tag.helmetdamageleft.desc=Осталось урона шлему.
+simpletextoverlay.tag.helmetquantity.desc=Количество шлемов в инвентаре.
+simpletextoverlay.tag.helmeticon.desc=Изображение шлема.
+simpletextoverlay.tag.helmetlargeicon.desc=Большое изображение шлема.
+simpletextoverlay.tag.chestplatename.desc=Название кирасы.
+simpletextoverlay.tag.chestplateuniquename.desc=Уникальное название кирасы.
+simpletextoverlay.tag.chestplatedamage.desc=Повреждение кирасы.
+simpletextoverlay.tag.chestplatemaxdamage.desc=Максимальное повреждение кирасы.
+simpletextoverlay.tag.chestplatedamageleft.desc=Осталось урона кирасе.
+simpletextoverlay.tag.chestplatequantity.desc=Количество кирас в инвентаре.
+simpletextoverlay.tag.chestplateicon.desc=Изображение кирасы.
+simpletextoverlay.tag.chestplatelargeicon.desc=Большое изображение кирасы.
+simpletextoverlay.tag.leggingsname.desc=Название понож.
+simpletextoverlay.tag.leggingsuniquename.desc=Уникальное название понож.
+simpletextoverlay.tag.leggingsdamage.desc=Повреждение понож.
+simpletextoverlay.tag.leggingsmaxdamage.desc=Максимальное повреждение понож.
+simpletextoverlay.tag.leggingsdamageleft.desc=Осталось урона поножам.
+simpletextoverlay.tag.leggingsquantity.desc=Количество понож в инвентаре.
+simpletextoverlay.tag.leggingsicon.desc=Изображение понож.
+simpletextoverlay.tag.leggingslargeicon.desc=Большое изображение понож.
+simpletextoverlay.tag.bootsname.desc=Название ботинок.
+simpletextoverlay.tag.bootsuniquename.desc=Уникальное название ботинок.
+simpletextoverlay.tag.bootsdamage.desc=Повреждение ботинок.
+simpletextoverlay.tag.bootsmaxdamage.desc=Максимальная повреждение ботинок.
+simpletextoverlay.tag.bootsdamageleft.desc=Осталось урона ботинкам.
+simpletextoverlay.tag.bootsquantity.desc=Количество ботинок в инвентаре.
+simpletextoverlay.tag.bootsicon.desc=Изображение ботинок.
+simpletextoverlay.tag.bootslargeicon.desc=Большое изображение ботинок.
+
+# gui - tag list - player general
+simpletextoverlay.tag.light.desc=Уровень освещения в вашем положении.
+simpletextoverlay.tag.lighteye.desc=Light level at your current position (eye level).
+simpletextoverlay.tag.lightnosun.desc=Уровень освещения в вашем положении без солнечного света.
+simpletextoverlay.tag.lightnosuneye.desc=Light level at your current position without sunlight (eye level).
+simpletextoverlay.tag.lightsun.desc=Уровень солнечного света в вашем положении.
+simpletextoverlay.tag.lightsuneye.desc=Sunlight level at your current position (eye level).
+simpletextoverlay.tag.score.desc=Счет игрока.
+simpletextoverlay.tag.gamemode.desc=Название игрового режима игрока.
+simpletextoverlay.tag.gamemodeid.desc=ID игрового режима игрока.
+simpletextoverlay.tag.health.desc=Текущее количество очков здоровья игрока.
+simpletextoverlay.tag.maxhealth.desc=Максимальное количество очков здоровья игрока.
+simpletextoverlay.tag.armor.desc=Очки брони игрока.
+simpletextoverlay.tag.foodlevel.desc=Количество очков сытости игрока.
+simpletextoverlay.tag.maxfoodlevel.desc=Максимальное количество очков сытости игрока.
+simpletextoverlay.tag.saturation.desc=Насыщенность еды игрока.
+simpletextoverlay.tag.exhaustion.desc=Истощение еды игрока.
+simpletextoverlay.tag.airticks.desc=Количество воздуха игрока в тиках.
+simpletextoverlay.tag.maxairticks.desc=Максимальное количество воздуха игрока в тиках.
+simpletextoverlay.tag.playerlevel.desc=Уровень игрока.
+simpletextoverlay.tag.xpthislevel.desc=Текущее количество опыта игрока.
+simpletextoverlay.tag.xpuntilnext.desc=Количество опыта до поднятия уровня игрока.
+simpletextoverlay.tag.xpcap.desc=Требуется опыта до следующего поднятие уровня игрока.
+simpletextoverlay.tag.username.desc=Имя игрока.
+simpletextoverlay.tag.inwater.desc=§eИстина§r если игрок под водой, §eложно§r в противном случае.
+simpletextoverlay.tag.wet.desc=§eИстина§r если игрок мокрый, §eложно§r в противном случае.
+simpletextoverlay.tag.alive.desc=§eИстина§r если игрок жив, §eложно§r в противном случае.
+simpletextoverlay.tag.burning.desc=§eИстина§r если игрок горит, §eложно§r в противном случае.
+simpletextoverlay.tag.riding.desc=§eИстина§r если игрок верхом, §eложно§r в противном случае.
+simpletextoverlay.tag.sneaking.desc=§eИстина§r если игрок крадется, §eложно§r в противном случае.
+simpletextoverlay.tag.sprinting.desc=§eИстина§r если игрок бежит, §eложно§r в противном случае.
+simpletextoverlay.tag.invisible.desc=§eИстина§r если игрок невидим, §eложно§r в противном случае.
+simpletextoverlay.tag.eating.desc=§eИстина§r если игрок есть, §eложно§r в противном случае.
+
+# gui - tag list - player position
+simpletextoverlay.tag.chunkx.desc=X координата чанка игрока.
+simpletextoverlay.tag.chunkz.desc=Y координата чанка игрока.
+simpletextoverlay.tag.chunkoffsetx.desc=X координата смещения в чанке игрока (0-15).
+simpletextoverlay.tag.chunkoffsetz.desc=Z координата смещения в чанке игрока (0-15).
+simpletextoverlay.tag.x.desc=X координата игрока.
+simpletextoverlay.tag.y.desc=Y координата игрока.
+simpletextoverlay.tag.yeye.desc=Player's Y coordinate (eye level).
+simpletextoverlay.tag.z.desc=Z координата игрока.
+simpletextoverlay.tag.xi.desc=X координата игрока, округленная до ближайшего целого числа.
+simpletextoverlay.tag.yi.desc=Y координата игрока, округленная до ближайшего целого числа.
+simpletextoverlay.tag.yeyei.desc=Player's Y coordinate rounded to the closest whole number (eye level).
+simpletextoverlay.tag.zi.desc=Z координата игрока, округленная до ближайшего целого числа.
+simpletextoverlay.tag.speed.desc=Скорость игрока.
+simpletextoverlay.tag.speedx.desc=Скорость игрока вдоль оси х.
+simpletextoverlay.tag.speedy.desc=Скорость игрока вдоль оси y.
+simpletextoverlay.tag.speedz.desc=Скорость игрока вдоль оси z.
+simpletextoverlay.tag.speedxz.desc=Скорость игрока по горизонтали.
+simpletextoverlay.tag.pitch.desc=Player's pitch in degrees from -90 to +90.
+simpletextoverlay.tag.direction.desc=Направление игрока в градусах от -180 до 180.
+simpletextoverlay.tag.roughdirection.desc=Грубое направление игрока, на которое он смотрит (Юг, запад, север, восток).
+simpletextoverlay.tag.finedirection.desc=Уточненное направление игрока, на которое он смотрит (Юг, югозапад, запад, северозапад, ...).
+simpletextoverlay.tag.abrroughdirection.desc=Сокращенное грубое направление игрока, на которое он смотрит (Ю, З, С, В).
+simpletextoverlay.tag.abrfinedirection.desc=Сокращенное уточненное направление игрока, на которое он смотрит (Ю, ЮЗ, З, СЗ, ...).
+simpletextoverlay.tag.axisdirection.desc=Axis direction the player is currently facing (+Z, -X, -Z, +X).
+simpletextoverlay.tag.directionhud.desc=Небольшой текстовый HUD направлений.
+
+# gui - tag list - player potion
+simpletextoverlay.tag.potioneffect.desc=Название эффекта зелья.
+simpletextoverlay.tag.potionduration.desc=Продолжительность эффекта зелья в секундах.
+simpletextoverlay.tag.potiondurationticks.desc=Продолжительность эффекта в тактах.
+simpletextoverlay.tag.potionnegative.desc=§etrue§r if the potion effect is negative, §efalse§r otherwise.
+simpletextoverlay.tag.potionicon.desc=Значок эффекта зелья.
+simpletextoverlay.tag.potionlargeicon.desc=Большой значок эффекта зелья.
+
+# gui - tag list - riding
+simpletextoverlay.tag.ridinghorse.desc=§eИстина§r если игрок верхом на лошади, §eложно§r в противном случае.
+simpletextoverlay.tag.horsehealth.desc=Здоровье лошади.
+simpletextoverlay.tag.horsemaxhealth.desc=Максимальное здоровье лошади.
+simpletextoverlay.tag.horsespeed.desc=Скорость лошади.
+simpletextoverlay.tag.horsejumpstrength.desc=Сила прыжка лошади.
+
+# gui - tag list - time
+simpletextoverlay.tag.day.desc=Minecraft день, начинается от 0.
+simpletextoverlay.tag.mctimeh.desc=Minecraft час.
+simpletextoverlay.tag.mctimem.desc=Minecraft минута.
+simpletextoverlay.tag.mctime24.desc=Minecraft время (24 часовой формат).
+simpletextoverlay.tag.mctime12.desc=Minecraft время (12 часовой формат).
+simpletextoverlay.tag.rltime24.desc=Реальное время (24 часовой формат).
+simpletextoverlay.tag.rltime12.desc=Реальное время (12 часовой формат).
+
+# gui - tag list - world
+simpletextoverlay.tag.worldname.desc=Имя мира.
+simpletextoverlay.tag.worldsize.desc=Размер мира.
+simpletextoverlay.tag.worldsizemb.desc=Размер мира в MiB.
+simpletextoverlay.tag.seed.desc=Зерно мера.
+simpletextoverlay.tag.difficulty.desc=Игровая сложность мира.
+simpletextoverlay.tag.difficultyid.desc=ID игровой сложности мира.
+simpletextoverlay.tag.localdifficulty.desc=Local difficulty.
+simpletextoverlay.tag.dimension.desc=Название измерения.
+simpletextoverlay.tag.dimensionid.desc=ID измерения.
+simpletextoverlay.tag.biome.desc=Имя биома.
+simpletextoverlay.tag.biomeid.desc=ID биома.
+simpletextoverlay.tag.moonphase.desc=Moon phase.
+simpletextoverlay.tag.daytime.desc=§eИстина§r если дневное время, §eложно§r в противном случае.
+simpletextoverlay.tag.raining.desc=§eИстина§r если идет дождь, §eложно§r в противном случае.
+simpletextoverlay.tag.thundering.desc=§eИстина§r если идет гроза, §eложно§r в противном случае.
+simpletextoverlay.tag.snowing.desc=§eИстина§r если идет снег, §eложно§r в противном случае.
+simpletextoverlay.tag.nextweatherchange.desc=Time until the next weather change.
+simpletextoverlay.tag.slimes.desc=§eИстина§r если текущий чанк является слизневым, §eложно§r в противном случае.
+simpletextoverlay.tag.slimechunk.desc=§etrue§r if the current chunk is a slime chunk, §efalse§r otherwise.
+simpletextoverlay.tag.hardcore.desc=§eИстина§r если мир находится в hardcore режиме, §eложно§r в противном случае.
+simpletextoverlay.tag.temperature.desc=Температура биома.
+simpletextoverlay.tag.localtemperature.desc=Температура биома в вашем положении.
+simpletextoverlay.tag.humidity.desc=Влажность биома.
+
+# keys
+simpletextoverlay.key.category=Simple Text Overlay
+simpletextoverlay.key.toggle=Переключить оверлей
+
+# commands
+commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config> [Имя_файла]
+commands.simpletextoverlay.reload=Перезагрузка...
+commands.simpletextoverlay.load=Загрузка %s...
+commands.simpletextoverlay.save=Сохранение %s...
+commands.simpletextoverlay.success=Готово!
+commands.simpletextoverlay.failure=Что-то пошло не так!
+commands.simpletextoverlay.enable=Simple Text Overlay оверлей сейчас включен.
+commands.simpletextoverlay.disable=Simple Text Overlay оверлей сейчас выключен.
+commands.simpletextoverlay.unknown=Unknown command!
+commands.simpletextoverlay.missing=Filename required!

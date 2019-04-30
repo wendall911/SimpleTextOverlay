@@ -1,0 +1,302 @@
+# gui - config - categories
+simpletextoverlay.config.category.general=一般
+simpletextoverlay.config.category.general.tooltip=一般設定。
+simpletextoverlay.config.category.alignment=整列
+simpletextoverlay.config.category.alignment.tooltip=整列オフセット設定。
+
+# gui - config - general
+simpletextoverlay.config.filename=ファイル名
+simpletextoverlay.config.filename.tooltip=起動時にロードが必要な設定。
+simpletextoverlay.config.replaceDebug=デバッグオーバーレイを置き換え
+simpletextoverlay.config.replaceDebug.tooltip=デバッグオーバーレイ(F3)をSimpleTextOverlayオーバーレイに置き換えます。
+simpletextoverlay.config.showInChat=チャットで表示
+simpletextoverlay.config.showInChat.tooltip=チャットでオーバーレイを表示します。
+simpletextoverlay.config.showOnPlayerList=プレイヤーリストに表示
+simpletextoverlay.config.showOnPlayerList.tooltip=プレイヤーリストにオーバーレイを表示します。
+simpletextoverlay.config.scale=大きさ
+simpletextoverlay.config.scale.tooltip=オーバーレイはこの値でスケーリングされます。
+simpletextoverlay.config.fileInterval=ファイルタグ間隔
+simpletextoverlay.config.fileInterval.tooltip='file'タグの読み取り間隔(秒)。
+simpletextoverlay.config.showOverlayPotions=ポーションエフェクトを表示する
+simpletextoverlay.config.showOverlayPotions.tooltip=バニラポーションの効果のオーバーレイを表示します。
+simpletextoverlay.config.showOverlayItemIcons=アイテムオーバーレイを表示する
+simpletextoverlay.config.showOverlayItemIcons.tooltip=アイテムオーバーレイをアイコンに表示します(耐久、スタックサイズ)。
+
+# gui - config - alignment
+simpletextoverlay.config.topleft=左上
+simpletextoverlay.config.topleft.tooltip=画面の左上のオフセット (X<スペース>Y)。
+simpletextoverlay.config.topcenter=中央上
+simpletextoverlay.config.topcenter.tooltip=画面の中央上部のオフセット (X<スペース>Y)。
+simpletextoverlay.config.topright=右上
+simpletextoverlay.config.topright.tooltip=画面右上のオフセット (X<スペース>Y)。
+simpletextoverlay.config.middleleft=中央左
+simpletextoverlay.config.middleleft.tooltip=画面の中央左のオフセット (X<スペース>Y)。
+simpletextoverlay.config.middlecenter=中央
+simpletextoverlay.config.middlecenter.tooltip=画面の中央のオフセット (X<スペース>Y)。
+simpletextoverlay.config.middleright=中央右
+simpletextoverlay.config.middleright.tooltip=画面の中央右のオフセット (X<スペース>Y)。
+simpletextoverlay.config.bottomleft=左下
+simpletextoverlay.config.bottomleft.tooltip=画面の左下のオフセット (X<スペース>Y)。
+simpletextoverlay.config.bottomcenter=中央下
+simpletextoverlay.config.bottomcenter.tooltip=画面の中央下のオフセット (X<スペース>Y)。
+simpletextoverlay.config.bottomright=右下
+simpletextoverlay.config.bottomright.tooltip=画面の右下のオフセット (X<スペース>Y)。
+
+# gui - tag list
+gui.simpletextoverlay.taglist=タグリスト
+
+# gui - tag list - categories
+simpletextoverlay.tag.category.formatting.name=書式設定
+simpletextoverlay.tag.category.misc.name=その他
+simpletextoverlay.tag.category.mouseover.name=マウスオーバー
+simpletextoverlay.tag.category.nearbyplayer.name=近くのプレイヤー
+simpletextoverlay.tag.category.playerequipment.name=プレイヤー - 装備
+simpletextoverlay.tag.category.playergeneral.name=プレイヤー - 一般
+simpletextoverlay.tag.category.playerposition.name=プレイヤー - ポーション
+simpletextoverlay.tag.category.playerpotion.name=プレイヤー - ポーションエフェクト
+simpletextoverlay.tag.category.riding.name=騎乗
+simpletextoverlay.tag.category.time.name=時間
+simpletextoverlay.tag.category.world.name=ワールド
+simpletextoverlay.tag.category.bloodmagic.name=Blood Magic
+simpletextoverlay.tag.category.simplyjetpacks.name=Simply Jetpacks
+simpletextoverlay.tag.category.terrafirmacraft.name=TerraFirmaCraft
+simpletextoverlay.tag.category.thaumcraft.name=Thaumcraft
+
+# gui - tag list - formatting tags
+simpletextoverlay.tag.black.desc=黒色 (§0サンプル§r)。
+simpletextoverlay.tag.darkblue.desc=濃い青色 (§1サンプル§r)。
+simpletextoverlay.tag.darkgreen.desc=濃い緑色 (§2サンプル§r)。
+simpletextoverlay.tag.darkaqua.desc=濃い水色 (§3サンプル§r)。
+simpletextoverlay.tag.darkred.desc=濃い赤色 (§4サンプル§r)。
+simpletextoverlay.tag.darkpurple.desc=濃い紫色 (§5サンプル§r)。
+simpletextoverlay.tag.gold.desc=金色 (§6サンプル§r)。
+simpletextoverlay.tag.gray.desc=灰色 (§7サンプル§r)。
+simpletextoverlay.tag.darkgrey.desc=濃い灰色 (§8サンプル§r)。
+simpletextoverlay.tag.blue.desc=青色 (§9サンプル§r)。
+simpletextoverlay.tag.green.desc=緑色 (§aサンプル§r)。
+simpletextoverlay.tag.aqua.desc=水色 (§bサンプル§r)。
+simpletextoverlay.tag.red.desc=赤色 (§cサンプル§r)。
+simpletextoverlay.tag.lightpurple.desc=明るい紫色 (§dサンプル§r)。
+simpletextoverlay.tag.yellow.desc=黄色 (§eサンプル§r)。
+simpletextoverlay.tag.white.desc=白色 (§fサンプル§r)。
+simpletextoverlay.tag.obfuscated.desc=難読化文字 (§kサンプル§r)。
+simpletextoverlay.tag.bold.desc=太字 (§lサンプル§r)。
+simpletextoverlay.tag.strikethrough.desc=取り消し線文字 (§mサンプル§r)。
+simpletextoverlay.tag.underline.desc=下線文字 (§nサンプル§r)。
+simpletextoverlay.tag.italic.desc=イタリック体文字 (§oサンプル§r)。
+simpletextoverlay.tag.reset.desc=書式設定をリセット。
+
+# gui - tag list - misc
+simpletextoverlay.tag.memmax.desc=最大メモリ量。
+simpletextoverlay.tag.memtotal.desc=総メモリ量。
+simpletextoverlay.tag.memfree.desc=空きメモリ量。
+simpletextoverlay.tag.memused.desc=使用中メモリ量。
+simpletextoverlay.tag.fps.desc=現在のFPS。
+simpletextoverlay.tag.resourcepack.desc=現在のリソースパック。
+simpletextoverlay.tag.entitiesrendered.desc=レンダリングされるエンティティーの量。
+simpletextoverlay.tag.entitiestotal.desc=読み込まれているエンティティーの量。
+simpletextoverlay.tag.loadedchunks.desc=ロードされたチャンクの量。
+simpletextoverlay.tag.server.desc=サーバーのドメインまたはIPがポート25565でないとき、 localhostの場合はローカルゲーム。
+simpletextoverlay.tag.servername.desc=サーバーのドメイン。 ローカルゲームの場合はlocalhost。
+simpletextoverlay.tag.serverip.desc=サーバーのIP。 のローカルゲーム場合は 127.0.0.1。
+simpletextoverlay.tag.serverport.desc=サーバーポート。 ローカルゲームの場合は-1。
+simpletextoverlay.tag.ping.desc=現在のping。 データが無い場合は-1。
+simpletextoverlay.tag.pingicon.desc=現在のpingアイコン。データが無い場合はからの文字列。
+
+# gui - tag list - mouse over
+simpletextoverlay.tag.mouseovername.desc=カーソルの下のエンティティまたはブロックの名前。何もない場合は空の文字列。
+simpletextoverlay.tag.mouseoveruniquename.desc=カーソルの下のエンティティまたはブロックのユニークな名称。何もない場合は空の文字列。
+simpletextoverlay.tag.mouseoverid.desc=カーソルの下にあるエンティティIdまたはブロックId。何もない場合はゼロ。
+simpletextoverlay.tag.mouseovermetadata.desc=カーソルの下にあるブロックのメタデータ。何もない場合はゼロ。
+simpletextoverlay.tag.mouseoverpowerweak.desc=ブロックの弱いレッドストーンパワー。ない場合は-1。
+simpletextoverlay.tag.mouseoverpowerstrong.desc=ブロックの強いレッドストーンパワー。ない場合は-1。
+simpletextoverlay.tag.mouseoverpowerinput.desc=ブロックの入力レッドストーンパワー。ない場合は-1。
+
+# gui - tag list - nearby player
+simpletextoverlay.tag.nearbyplayerdistance.desc=x番目に近いプレイヤーの距離。
+simpletextoverlay.tag.nearbyplayername.desc=x番目に近いプレイヤーの名前。
+simpletextoverlay.tag.nearbyplayericon.desc=x番目に近いプレイヤーのヘッドアイコン。
+
+# gui - tag list - player equipment
+simpletextoverlay.tag.equippedname.desc=装備品の名前。
+simpletextoverlay.tag.equippeduniquename.desc=装備アイテムのユニークな名称。
+simpletextoverlay.tag.equippeddamage.desc=装備品の耐久。
+simpletextoverlay.tag.equippedmaxdamage.desc=装備品アイテムの最大耐久。
+simpletextoverlay.tag.equippeddamageleft.desc=装備品の耐久が残っています。
+simpletextoverlay.tag.equippedquantity.desc=インベントリ内に装備されているアイテムの数。
+simpletextoverlay.tag.equippedicon.desc=装備したアイテムのアイコン。
+simpletextoverlay.tag.equippedlargeicon.desc=装備したアイテムの大きなアイコン。
+simpletextoverlay.tag.mainhandname.desc=メインハンドのアイテムの名前。
+simpletextoverlay.tag.mainhanduniquename.desc=メインハンドのアイテムのユニークな名称。
+simpletextoverlay.tag.mainhanddamage.desc=メインハンドアイテムの耐久。
+simpletextoverlay.tag.mainhandmaxdamage.desc=メインハンドアイテムの最大耐久。
+simpletextoverlay.tag.mainhanddamageleft.desc=メインハンドアイテムの耐久が残っています。
+simpletextoverlay.tag.mainhandquantity.desc=インベントリ内のメインハンドアイテムの数。
+simpletextoverlay.tag.mainhandicon.desc=メインハンドアイテムのアイコン。
+simpletextoverlay.tag.mainhandlargeicon.desc=メインハンドアイテムの大きなアイコン。
+simpletextoverlay.tag.offhandname.desc=オフハンドアイテムの名前。
+simpletextoverlay.tag.offhanduniquename.desc=オフハンドアイテムのユニークな名称。
+simpletextoverlay.tag.offhanddamage.desc=オフハンドアイテムの耐久。
+simpletextoverlay.tag.offhandmaxdamage.desc=オフハンドアイテムの最大耐久。
+simpletextoverlay.tag.offhanddamageleft.desc=オフハンドアイテムの耐久が残っています。
+simpletextoverlay.tag.offhandquantity.desc=インベントリ内のオフハンドアイテムの数。
+simpletextoverlay.tag.offhandicon.desc=オフハンドアイテムのアイコン。
+simpletextoverlay.tag.offhandlargeicon.desc=オフハンドアイテムの大きなアイコン。
+simpletextoverlay.tag.helmetname.desc=ヘルメットの名前。
+simpletextoverlay.tag.helmetuniquename.desc=ヘルメットのユニークな名称。
+simpletextoverlay.tag.helmetdamage.desc=ヘルメットの耐久。
+simpletextoverlay.tag.helmetmaxdamage.desc=ヘルメットの最大耐久。
+simpletextoverlay.tag.helmetdamageleft.desc=ヘルメットの耐久が残っています。
+simpletextoverlay.tag.helmetquantity.desc=インベントリ内のヘルメットの数。
+simpletextoverlay.tag.helmeticon.desc=ヘルメットのアイコン。
+simpletextoverlay.tag.helmetlargeicon.desc=ヘルメットの大きなアイコン。
+simpletextoverlay.tag.chestplatename.desc=チェストプレートの名前。
+simpletextoverlay.tag.chestplateuniquename.desc=チェストプレートのユニークな名称。
+simpletextoverlay.tag.chestplatedamage.desc=チェストプレートの耐久。
+simpletextoverlay.tag.chestplatemaxdamage.desc=チェストプレートの最大耐久。
+simpletextoverlay.tag.chestplatedamageleft.desc=チェストプレートの耐久が残っています。
+simpletextoverlay.tag.chestplatequantity.desc=インベントリ内のチェストプレートの数。
+simpletextoverlay.tag.chestplateicon.desc=チェストプレートのアイコン。
+simpletextoverlay.tag.chestplatelargeicon.desc=チェストプレートの大きなアイコン。
+simpletextoverlay.tag.leggingsname.desc=レギンスの名前。
+simpletextoverlay.tag.leggingsuniquename.desc=レギンスのユニークな名称。
+simpletextoverlay.tag.leggingsdamage.desc=レギンスの耐久。
+simpletextoverlay.tag.leggingsmaxdamage.desc=レギンスの最大耐久。
+simpletextoverlay.tag.leggingsdamageleft.desc=レギンスの耐久が残っています。
+simpletextoverlay.tag.leggingsquantity.desc=インベントリ内のレギンスの数。
+simpletextoverlay.tag.leggingsicon.desc=レギンスのアイコン。
+simpletextoverlay.tag.leggingslargeicon.desc=レギンスの大きなアイコン。
+simpletextoverlay.tag.bootsname.desc=ブーツの名前。
+simpletextoverlay.tag.bootsuniquename.desc=ブーツのユニークな名称。
+simpletextoverlay.tag.bootsdamage.desc=ブーツの耐久。
+simpletextoverlay.tag.bootsmaxdamage.desc=ブーツの最大耐久。
+simpletextoverlay.tag.bootsdamageleft.desc=ブーツの耐久が残っています。
+simpletextoverlay.tag.bootsquantity.desc=インベントリ内のブーツの数。
+simpletextoverlay.tag.bootsicon.desc=ブーツのアイコン。
+simpletextoverlay.tag.bootslargeicon.desc=ブーツの大きなアイコン。
+
+# gui - tag list - player general
+simpletextoverlay.tag.light.desc=現在位置の明るさレベル。
+simpletextoverlay.tag.lighteye.desc=現在位置(目の高さ)の明るさレベル。
+simpletextoverlay.tag.lightnosun.desc=太陽光が無い時の現在位置での明るさレベル。
+simpletextoverlay.tag.lightnosuneye.desc=太陽光が無い時の現在位置(目の高さ)での明るさレベル。
+simpletextoverlay.tag.lightsun.desc=現在位置の太陽光レベル。
+simpletextoverlay.tag.lightsuneye.desc=現在位置(目の高さ)の太陽光レベル。
+simpletextoverlay.tag.score.desc=プレイヤーのスコア。
+simpletextoverlay.tag.gamemode.desc=プレイヤーのゲームモード名。
+simpletextoverlay.tag.gamemodeid.desc=プレイヤーのゲームモードId。
+simpletextoverlay.tag.health.desc=プレイヤーの現在のヘルスポイント。
+simpletextoverlay.tag.maxhealth.desc=プレイヤーの最大ヘルスポイント。
+simpletextoverlay.tag.armor.desc=プレイヤーの防御ポイント。
+simpletextoverlay.tag.foodlevel.desc=プレイヤーの食料ポイント。
+simpletextoverlay.tag.maxfoodlevel.desc=プレイヤーの最大食料ポイント。
+simpletextoverlay.tag.saturation.desc=プレイヤーの満腹状態。
+simpletextoverlay.tag.exhaustion.desc=プレイヤーの空腹状態。
+simpletextoverlay.tag.airticks.desc=プレイヤーの空気の持続Tick。
+simpletextoverlay.tag.maxairticks.desc=プレイヤーの最大の空気の持続Tick。
+simpletextoverlay.tag.playerlevel.desc=プレイヤーのレベル。
+simpletextoverlay.tag.xpthislevel.desc=プレイヤーの現在の経験値。
+simpletextoverlay.tag.xpuntilnext.desc=レベルアップまでのプレイヤーの経験値。
+simpletextoverlay.tag.xpcap.desc=次のレベルでプレイヤーが必要とする経験値の合計。
+simpletextoverlay.tag.username.desc=プレイヤーのユーザー名。
+simpletextoverlay.tag.inwater.desc=プレイヤーが水中にいる時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.wet.desc=プレイヤーが水に触れている時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.alive.desc=プレイヤーが生きている時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.burning.desc=プレイヤーが燃えている時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.riding.desc=プレイヤーが騎乗している時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.sneaking.desc=プレイヤーがスニークしている時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.sprinting.desc=プレイヤーがダッシュしている時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.invisible.desc=プレイヤーが透明化している時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.eating.desc=プレイヤーが食べている時は§etrue§rを、それ以外の時は§efalse§rを返します。
+
+# gui - tag list - player position
+simpletextoverlay.tag.chunkx.desc=プレイヤーのXチャンク座標。
+simpletextoverlay.tag.chunkz.desc=プレイヤーのZチャンク座標。
+simpletextoverlay.tag.chunkoffsetx.desc=プレイヤーのXチャンクオフセット座標(0-15)。
+simpletextoverlay.tag.chunkoffsetz.desc=プレイヤーのZチャンクオフセット座標(0-15)。
+simpletextoverlay.tag.x.desc=プレイヤーのX座標。
+simpletextoverlay.tag.y.desc=プレイヤーのY座標。
+simpletextoverlay.tag.yeye.desc=プレイヤーのY座標(目の高さ)。
+simpletextoverlay.tag.z.desc=プレイヤーのZ座標。
+simpletextoverlay.tag.xi.desc=最も近い整数に丸められたプレイヤーのX座標。
+simpletextoverlay.tag.yi.desc=最も近い整数に丸められたプレイヤーのY座標。
+simpletextoverlay.tag.yeyei.desc=最も近い整数に丸められたプレイヤーのY座標(目の高さ)。
+simpletextoverlay.tag.zi.desc=最も近い整数に丸められたプレイヤーのZ座標。
+simpletextoverlay.tag.speed.desc=プレイヤーの速度。
+simpletextoverlay.tag.speedx.desc=X軸に沿ったプレイヤーの速度。
+simpletextoverlay.tag.speedy.desc=Y軸に沿ったプレイヤーの速度。
+simpletextoverlay.tag.speedz.desc=Z軸に沿ったプレイヤーの速度。
+simpletextoverlay.tag.speedxz.desc=水平なプレイヤーの速度。
+simpletextoverlay.tag.pitch.desc=-90から+90までのプレイヤーが投げる角度。
+simpletextoverlay.tag.direction.desc=-180から+180までのプレイヤーの向きの角度。
+simpletextoverlay.tag.roughdirection.desc=プレイヤーが向いている大まかな方角(東、西、南、北)。
+simpletextoverlay.tag.finedirection.desc=プレイヤーが向いている細かな方角(南、南西、西、北西、...)。
+simpletextoverlay.tag.abrroughdirection.desc=プレイヤーが向いている大まかな略した方角(E, W, S, N)。
+simpletextoverlay.tag.abrfinedirection.desc=プレイヤーが向いている細かな略した方角(S、SW、W、NW、...)。
+simpletextoverlay.tag.axisdirection.desc=プレイヤーが向いている軸方向(+Z, -X, -Z, +X)。
+simpletextoverlay.tag.directionhud.desc=小さなテキストの方角HUD。
+
+# gui - tag list - player potion
+simpletextoverlay.tag.potioneffect.desc=x番目のポーションエフェクトの名前。
+simpletextoverlay.tag.potionduration.desc=x番目のポーションエフェクトの持続時間。
+simpletextoverlay.tag.potiondurationticks.desc=x番目のポーションエフェクトの持続Tick。
+simpletextoverlay.tag.potionnegative.desc=ポーション効果がマイナスの場合は§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.potionicon.desc=x番目のポーション効果のアイコン。
+simpletextoverlay.tag.potionlargeicon.desc=x番目のポーション効果の大きいアイコン。
+
+# gui - tag list - riding
+simpletextoverlay.tag.ridinghorse.desc=プレイヤーが馬に乗っている場合は§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.horsehealth.desc=馬のヘルス。
+simpletextoverlay.tag.horsemaxhealth.desc=馬の最大ヘルス。
+simpletextoverlay.tag.horsespeed.desc=馬の速度。
+simpletextoverlay.tag.horsejumpstrength.desc=馬のジャンプ力。
+
+# gui - tag list - time
+simpletextoverlay.tag.day.desc=Minecraftの日付。 0から始まります。
+simpletextoverlay.tag.mctimeh.desc=Minecraftの時間。
+simpletextoverlay.tag.mctimem.desc=Minecraftの分。
+simpletextoverlay.tag.mctime24.desc=Minecraftの時間 (24時間形式)。
+simpletextoverlay.tag.mctime12.desc=Minecraftの時間 (12時間形式)。
+simpletextoverlay.tag.rltime24.desc=現実の時間 (24時間形式)。
+simpletextoverlay.tag.rltime12.desc=現実の時間 (12時間形式)。
+
+# gui - tag list - world
+simpletextoverlay.tag.worldname.desc=ワールドの名前。
+simpletextoverlay.tag.worldsize.desc=ワールドのサイズ。
+simpletextoverlay.tag.worldsizemb.desc=MiBのワールドサイズ。
+simpletextoverlay.tag.seed.desc=ワールドのシード値。
+simpletextoverlay.tag.difficulty.desc=ワールドの難易度の名前。
+simpletextoverlay.tag.difficultyid.desc=ワールドの難易度のId。
+simpletextoverlay.tag.localdifficulty.desc=ローカルの難易度。
+simpletextoverlay.tag.dimension.desc=ディメンジョンの名前。
+simpletextoverlay.tag.dimensionid.desc=ディメンジョンのId。
+simpletextoverlay.tag.biome.desc=バイオームの名前。
+simpletextoverlay.tag.biomeid.desc=バイオームのId。
+simpletextoverlay.tag.moonphase.desc=月の位相。
+simpletextoverlay.tag.daytime.desc=昼間なら§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.raining.desc=雨が降っていたら§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.thundering.desc=雷が鳴っていたら§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.snowing.desc=雪が降っていたら§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.nextweatherchange.desc=次の天気が変わるまでの時間。
+simpletextoverlay.tag.slimes.desc=スライムがスポーン出来る場合は§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.slimechunk.desc=現在のチャンクがスライムチャンクであれば§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.hardcore.desc=ワールドがハードコアなら§etrue§r、そうでない場合は§efalse§r。
+simpletextoverlay.tag.temperature.desc=バイオームの温度。
+simpletextoverlay.tag.localtemperature.desc=現在位置でのバイオームの温度。
+simpletextoverlay.tag.humidity.desc=バイオームの湿度。
+
+# keys
+simpletextoverlay.key.category=Simple Text Overlay
+simpletextoverlay.key.toggle=オーバーレイ切り替え
+
+# commands
+commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config> [ファイル名]
+commands.simpletextoverlay.reload=リロード中...
+commands.simpletextoverlay.load=ロード中 %s...
+commands.simpletextoverlay.save=セーブ中 %s...
+commands.simpletextoverlay.success=完了!
+commands.simpletextoverlay.failure=何かがうまくいかなかった!
+commands.simpletextoverlay.enable=Simple Text Overlay オーバーレイが有効になりました。
+commands.simpletextoverlay.disable=Simple Text Overlay オーバーレイが無効になりました。
+commands.simpletextoverlay.unknown=Unknown command!
+commands.simpletextoverlay.missing=Filename required!
