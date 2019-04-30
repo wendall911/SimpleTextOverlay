@@ -1,7 +1,5 @@
 package simpletextoverlay.tag;
 
-import com.github.lunatrius.core.world.chunk.ChunkHelper;
-
 import java.util.Locale;
 
 import net.minecraft.client.resources.I18n;
@@ -13,8 +11,8 @@ import net.minecraft.world.storage.WorldInfo;
 
 import net.minecraftforge.common.DimensionManager;
 
-
 import simpletextoverlay.tag.registry.TagRegistry;
+import simpletextoverlay.util.ChunkHelper;
 
 public abstract class TagWorld extends Tag {
     @Override

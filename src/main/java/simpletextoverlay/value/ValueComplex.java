@@ -1,7 +1,5 @@
 package simpletextoverlay.value;
 
-import com.github.lunatrius.core.entity.EntityHelper;
-
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -25,6 +23,7 @@ import simpletextoverlay.client.gui.overlay.InfoItem;
 import simpletextoverlay.handler.ConfigurationHandler;
 import simpletextoverlay.reference.Reference;
 import simpletextoverlay.tag.Tag;
+import simpletextoverlay.util.EntityHelper;
 import simpletextoverlay.value.registry.ValueRegistry;
 
 public abstract class ValueComplex extends Value {

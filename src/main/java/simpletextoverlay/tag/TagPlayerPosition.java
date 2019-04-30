@@ -117,35 +117,35 @@ public abstract class TagPlayerPosition extends Tag {
     public static class Speed extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.sqrt(playerMotion.x * playerMotion.x + playerMotion.y * playerMotion.y + playerMotion.z * playerMotion.z));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.sqrt(playerMotion.getX() * playerMotion.getX() + playerMotion.getY() * playerMotion.getY() + playerMotion.getZ() * playerMotion.getZ()));
         }
     }
 
     public static class SpeedX extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.x));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.getX()));
         }
     }
 
     public static class SpeedY extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.y));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.getY()));
         }
     }
 
     public static class SpeedZ extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.z));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.abs(playerMotion.getZ()));
         }
     }
 
     public static class SpeedXZ extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.sqrt(playerMotion.x * playerMotion.x + playerMotion.z * playerMotion.z));
+            return String.format(Locale.ENGLISH, "%.3f", TICKS * Math.sqrt(playerMotion.getX() * playerMotion.getX() + playerMotion.getZ() * playerMotion.getZ()));
         }
     }
 

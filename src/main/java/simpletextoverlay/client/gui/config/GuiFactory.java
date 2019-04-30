@@ -1,7 +1,5 @@
 package simpletextoverlay.client.gui.config;
 
-import com.github.lunatrius.core.client.gui.config.GuiConfigComplex;
-
 import java.util.Set;
 
 import net.minecraft.client.Minecraft;
@@ -11,6 +9,7 @@ import net.minecraftforge.fml.client.IModGuiFactory;
 import simpletextoverlay.handler.ConfigurationHandler;
 import simpletextoverlay.reference.Names;
 import simpletextoverlay.reference.Reference;
+import simpletextoverlay.util.GuiConfigComplex;
 
 public class GuiFactory implements IModGuiFactory {
     @Override

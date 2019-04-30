@@ -1,8 +1,8 @@
 package simpletextoverlay.client.gui.overlay;
 
-import com.github.lunatrius.core.client.gui.FontRendererHelper;
-
 import net.minecraft.client.gui.FontRenderer;
+
+import simpletextoverlay.util.FontRendererHelper;
 
 public class InfoText extends Info {
     private final FontRenderer fontRenderer;

@@ -1,7 +1,5 @@
 package simpletextoverlay.tag;
 
-import com.github.lunatrius.core.entity.EntityHelper;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
@@ -9,6 +7,7 @@ import net.minecraft.item.ItemStack;
 
 import simpletextoverlay.client.gui.overlay.InfoItem;
 import simpletextoverlay.tag.registry.TagRegistry;
+import simpletextoverlay.util.EntityHelper;
 
 public abstract class TagPlayerEquipment extends Tag {
     public static final String[] TYPES = new String[] {

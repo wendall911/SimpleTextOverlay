@@ -1,7 +1,6 @@
 package simpletextoverlay.tag;
 
-import com.github.lunatrius.core.util.math.MBlockPos;
-import com.github.lunatrius.core.util.vector.Vector3f;
+import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -11,8 +10,8 @@ import net.minecraft.world.World;
 
 import simpletextoverlay.client.gui.overlay.Info;
 import simpletextoverlay.reference.Reference;
-
-import java.util.List;
+import simpletextoverlay.util.MBlockPos;
+import simpletextoverlay.util.Vector3f;
 
 public abstract class Tag {
     protected static final Minecraft minecraft = Minecraft.getMinecraft();

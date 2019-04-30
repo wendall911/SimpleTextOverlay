@@ -1,7 +1,5 @@
 package simpletextoverlay.command;
 
-import com.github.lunatrius.core.handler.DelayedGuiDisplayTicker;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +23,7 @@ import simpletextoverlay.client.gui.tag.GuiTags;
 import simpletextoverlay.handler.ConfigurationHandler;
 import simpletextoverlay.handler.Ticker;
 import simpletextoverlay.reference.Names;
+import simpletextoverlay.util.DelayedGuiDisplayTicker;
 
 @MethodsReturnNonnullByDefault
 @ParametersAreNonnullByDefault

@@ -2,13 +2,12 @@ package simpletextoverlay.tag;
 
 import java.util.Locale;
 
-import com.github.lunatrius.core.util.math.MBlockPos;
-
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 
 import simpletextoverlay.tag.registry.TagRegistry;
+import simpletextoverlay.util.MBlockPos;
 
 public abstract class TagPlayerGeneral extends Tag {
     protected final MBlockPos pos = new MBlockPos();

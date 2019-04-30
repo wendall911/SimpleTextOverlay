@@ -1,8 +1,5 @@
 package simpletextoverlay.client.gui.overlay;
 
-import com.github.lunatrius.core.client.gui.GuiHelper;
-import com.github.lunatrius.core.util.vector.Vector2f;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,6 +11,8 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 import simpletextoverlay.reference.Reference;
+import simpletextoverlay.util.GuiHelper;
+import simpletextoverlay.util.Vector2f;
 
 public class InfoIcon extends Info {
     private final static TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
@@ -69,7 +68,7 @@ public class InfoIcon extends Info {
 
             buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             double zLevel = 300;
-            GuiHelper.drawTexturedRectangle(buffer, this.xy0.x, this.xy0.y, this.xy1.x, this.xy1.y, zLevel, this.uv0.x, this.uv0.y, this.uv1.x, this.uv1.y);
+            GuiHelper.drawTexturedRectangle(buffer, this.xy0.getX(), this.xy0.getY(), this.xy1.getX(), this.xy1.getY(), zLevel, this.uv0.getX(), this.uv0.getY(), this.uv1.getX(), this.uv1.getY());
             tessellator.draw();
 
             GlStateManager.translate(-getX(), -getY(), 0);

@@ -61,18 +61,6 @@ minecraft {
     useDepAts = true
 }
 
-
-repositories {
-    ivy {
-        name = 'lunatrius\' ivy repo'
-        url 'http://mc.lunatri.us/files'
-    }
-}
-
-dependencies {
-    deobfCompile group: 'com.github.lunatrius', name: 'LunatriusCore', version: "${config.minecraft_version}-${config.version_lunatriuscore}", classifier: 'universal'
-}
-
 def commonManifest = {
     attributes 'FMLAT': config.extra_fmlat
 }
