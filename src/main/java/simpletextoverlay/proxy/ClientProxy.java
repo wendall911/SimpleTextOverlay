@@ -17,6 +17,7 @@ import simpletextoverlay.command.SimpleTextOverlayCommand;
 import simpletextoverlay.handler.ConfigurationHandler;
 import simpletextoverlay.handler.KeyInputHandler;
 import simpletextoverlay.handler.Ticker;
+import simpletextoverlay.network.PacketHandler;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.value.registry.ValueRegistry;
@@ -49,6 +50,8 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(ConfigurationHandler.INSTANCE);
         MinecraftForge.EVENT_BUS.register(KeyInputHandler.INSTANCE);
         ClientCommandHandler.instance.registerCommand(SimpleTextOverlayCommand.INSTANCE);
+
+        PacketHandler.initClient();
     }
 
     @Override
