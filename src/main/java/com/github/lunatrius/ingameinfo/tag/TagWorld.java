@@ -5,7 +5,6 @@ import com.github.lunatrius.ingameinfo.tag.registry.TagRegistry;
 
 import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Biomes;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.WorldServer;
@@ -70,13 +69,18 @@ public abstract class TagWorld extends Tag {
     public static class Difficulty extends TagWorld {
         @Override
         public String getValue() {
+            String dname = "";
             if (server != null) {
                 final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
                 if (worldServer != null) {
-                    return I18n.format(worldServer.getDifficulty().name());
+                    dname = worldServer.getDifficulty().name();
                 }
             }
-            return I18n.format(minecraft.gameSettings.difficulty.name());
+            else {
+                dname = minecraft.gameSettings.difficulty.name();
+            }
+
+            return I18n.format(dname.substring(0,1).toUpperCase() + dname.substring(1, dname.length()).toLowerCase());
         }
     }
 
