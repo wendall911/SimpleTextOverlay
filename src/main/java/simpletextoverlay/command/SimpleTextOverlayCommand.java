@@ -6,9 +6,8 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
 
-import mcp.MethodsReturnNonnullByDefault;
+import com.google.common.collect.Lists;
 
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
@@ -25,14 +24,8 @@ import simpletextoverlay.handler.Ticker;
 import simpletextoverlay.reference.Names;
 import simpletextoverlay.util.DelayedGuiDisplayTicker;
 
-@MethodsReturnNonnullByDefault
-@ParametersAreNonnullByDefault
 public class SimpleTextOverlayCommand extends CommandBase {
-    public static final SimpleTextOverlayCommand INSTANCE = new SimpleTextOverlayCommand();
-
     private final SimpleTextOverlayCore core = SimpleTextOverlayCore.INSTANCE;
-
-    private SimpleTextOverlayCommand() {}
 
     @Override
     public String getName() {
@@ -40,17 +33,22 @@ public class SimpleTextOverlayCommand extends CommandBase {
     }
 
     @Override
-    public String getUsage(final ICommandSender sender) {
+    public List getAliases() {
+        return Lists.newArrayList(Names.Command.SHORT_NAME);
+    }
+
+    @Override
+    public String getUsage(ICommandSender sender) {
         return Names.Command.Message.USAGE;
     }
 
     @Override
-    public boolean checkPermission(final MinecraftServer server, final ICommandSender sender) {
+    public boolean checkPermission(MinecraftServer server, ICommandSender sender) {
         return true;
     }
 
     @Override
-    public List<String> getTabCompletions(final MinecraftServer server, final ICommandSender sender, final String[] args, final @Nullable BlockPos pos) {
+    public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, final String[] args, final @Nullable BlockPos pos) {
         if (args.length == 1) {
             return getListOfStringsMatchingLastWord(args, Names.Command.RELOAD, Names.Command.LOAD, Names.Command.SAVE, Names.Command.ENABLE, Names.Command.DISABLE, Names.Command.TAGLIST);
         } else if (args.length == 2) {
@@ -77,7 +75,7 @@ public class SimpleTextOverlayCommand extends CommandBase {
     }
 
     @Override
-    public void execute(final MinecraftServer server, final ICommandSender sender, final String[] args) throws CommandException {
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
                 sender.sendMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));
@@ -129,6 +127,6 @@ public class SimpleTextOverlayCommand extends CommandBase {
             }
         }
 
-        throw new WrongUsageException(getUsage(sender));
+        throw new WrongUsageException(getUsage(sender), Names.Command.SHORT_NAME);
     }
 }

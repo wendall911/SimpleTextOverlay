@@ -49,14 +49,13 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(Ticker.INSTANCE);
         MinecraftForge.EVENT_BUS.register(ConfigurationHandler.INSTANCE);
         MinecraftForge.EVENT_BUS.register(KeyInputHandler.INSTANCE);
-        ClientCommandHandler.instance.registerCommand(SimpleTextOverlayCommand.INSTANCE);
-
         PacketHandler.initClient();
     }
 
     @Override
     public void postInit(final FMLPostInitializationEvent event) {
         TagRegistry.INSTANCE.init();
+        ClientCommandHandler.instance.registerCommand(new SimpleTextOverlayCommand());
     }
 
     @Override

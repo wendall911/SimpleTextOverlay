@@ -30,7 +30,8 @@ public final class Names {
             public static final String MISSING = "commands.simpletextoverlay.missing";
         }
 
-        public static final String NAME = "sto";
+        public static final String NAME = "simpletextoverlay";
+        public static final String SHORT_NAME = "sto";
         public static final String RELOAD = "reload";
         public static final String LOAD = "load";
         public static final String SAVE = "save";
