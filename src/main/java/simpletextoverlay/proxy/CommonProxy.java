@@ -6,13 +6,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 
-import simpletextoverlay.handler.ConfigurationHandler;
-import simpletextoverlay.reference.Reference;
-
 public class CommonProxy {
     public void preInit(final FMLPreInitializationEvent event) {
-        Reference.logger = event.getModLog();
-        ConfigurationHandler.init(event.getSuggestedConfigurationFile());
     }
 
     public void init(final FMLInitializationEvent event) {

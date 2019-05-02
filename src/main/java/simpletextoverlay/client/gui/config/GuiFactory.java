@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.fml.client.IModGuiFactory;
 
-import simpletextoverlay.handler.ConfigurationHandler;
+import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.reference.Names;
 import simpletextoverlay.reference.Reference;
 import simpletextoverlay.util.GuiConfigComplex;
@@ -33,7 +33,7 @@ public class GuiFactory implements IModGuiFactory {
 
     public static class GuiModConfig extends GuiConfigComplex {
         public GuiModConfig(final GuiScreen guiScreen) {
-            super(guiScreen, Reference.MODID, ConfigurationHandler.configuration, Names.Config.LANG_PREFIX);
+            super(guiScreen, Reference.MODID, ConfigHandler.configuration, Names.Config.LANG_PREFIX);
         }
     }
 }

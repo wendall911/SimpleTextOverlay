@@ -7,7 +7,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import simpletextoverlay.client.gui.overlay.Info;
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.value.registry.ValueRegistry;
 
@@ -107,7 +107,7 @@ public abstract class Value {
                 return value;
             }
         } catch (final Exception e) {
-            Reference.logger.debug("Failed to get value!", e);
+            SimpleTextOverlay.logger.debug("Failed to get value!", e);
             return "null";
         }
 

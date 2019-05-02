@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import simpletextoverlay.network.PacketHandler;
 import simpletextoverlay.network.message.MessageSeed;
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
 
 public class PlayerHandler {
     @SubscribeEvent
@@ -15,7 +15,7 @@ public class PlayerHandler {
             try {
                 PacketHandler.INSTANCE.sendTo(new MessageSeed(event.player.world.getSeed()), (EntityPlayerMP) event.player);
             } catch (final Exception ex) {
-                Reference.logger.error("Failed to send the seed!", ex);
+                SimpleTextOverlay.logger.error("Failed to send the seed!", ex);
             }
         }
     }

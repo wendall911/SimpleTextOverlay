@@ -8,7 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.AbstractHorse;
 
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagRiding extends Tag {
@@ -80,7 +80,7 @@ public abstract class TagRiding extends Tag {
             }
 
             if (this.jumpHeightCache.size() > 16) {
-                Reference.logger.trace("Clearing horse jump height cache.");
+                SimpleTextOverlay.logger.trace("Clearing horse jump height cache.");
                 this.jumpHeightCache.clear();
             }
 

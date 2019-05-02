@@ -17,15 +17,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 
-import simpletextoverlay.SimpleTextOverlayCore;
+import simpletextoverlay.core.Core;
 import simpletextoverlay.client.gui.tag.GuiTags;
-import simpletextoverlay.handler.ConfigurationHandler;
+import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.handler.Ticker;
 import simpletextoverlay.reference.Names;
 import simpletextoverlay.util.DelayedGuiDisplayTicker;
 
 public class SimpleTextOverlayCommand extends CommandBase {
-    private final SimpleTextOverlayCore core = SimpleTextOverlayCore.INSTANCE;
+    private final Core core = Core.INSTANCE;
 
     @Override
     public String getName() {
@@ -79,7 +79,7 @@ public class SimpleTextOverlayCommand extends CommandBase {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
                 sender.sendMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));
-                ConfigurationHandler.reload();
+                ConfigHandler.reload();
                 final boolean success = this.core.reloadConfig();
                 sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 return;
@@ -100,8 +100,8 @@ public class SimpleTextOverlayCommand extends CommandBase {
                     final boolean success = this.core.loadConfig(args[1]);
                     sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                     if (success) {
-                        ConfigurationHandler.setConfigName(args[1]);
-                        ConfigurationHandler.save();
+                        ConfigHandler.setConfigName(args[1]);
+                        ConfigHandler.save();
                     }
                     return;
                 }

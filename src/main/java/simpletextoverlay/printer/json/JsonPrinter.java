@@ -12,9 +12,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import simpletextoverlay.Alignment;
 import simpletextoverlay.printer.IPrinter;
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
+import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 
 public class JsonPrinter implements IPrinter {
@@ -35,7 +35,7 @@ public class JsonPrinter implements IPrinter {
             fileWriter.close();
             return true;
         } catch (final Exception e) {
-            Reference.logger.fatal("Could not save json configuration file!", e);
+            SimpleTextOverlay.logger.fatal("Could not save json configuration file!", e);
         }
 
         return false;

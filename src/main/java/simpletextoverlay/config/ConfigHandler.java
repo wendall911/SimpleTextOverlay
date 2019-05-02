@@ -1,4 +1,4 @@
-package simpletextoverlay.handler;
+package simpletextoverlay.config;
 
 import java.io.File;
 import java.util.HashMap;
@@ -8,15 +8,11 @@ import java.util.regex.Pattern;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import simpletextoverlay.Alignment;
 import simpletextoverlay.reference.Names;
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.util.Alignment;
 
-public class ConfigurationHandler {
-    public static final ConfigurationHandler INSTANCE = new ConfigurationHandler();
+public class ConfigHandler {
 
     public static Configuration configuration;
 
@@ -47,8 +43,6 @@ public class ConfigurationHandler {
     public static Property propShowOverlayPotions = null;
     public static Property propShowOverlayItemIcons= null;
     public static final Map<Alignment, Property> propAlignments = new HashMap<>();
-
-    private ConfigurationHandler() {}
 
     public static void init(final File configFile) {
         if (configuration == null) {
@@ -119,10 +113,4 @@ public class ConfigurationHandler {
         propConfigName.set(name);
     }
 
-    @SubscribeEvent
-    public void onConfigurationChangedEvent(final ConfigChangedEvent.OnConfigChangedEvent event) {
-        if (event.getModID().equalsIgnoreCase(Reference.MODID)) {
-            loadConfiguration();
-        }
-    }
 }

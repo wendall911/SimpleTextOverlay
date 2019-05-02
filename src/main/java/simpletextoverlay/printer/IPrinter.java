@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.List;
 import java.util.Map;
 
-import simpletextoverlay.Alignment;
+import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 
 public interface IPrinter {

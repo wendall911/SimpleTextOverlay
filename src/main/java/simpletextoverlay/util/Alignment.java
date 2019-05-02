@@ -1,4 +1,4 @@
-package simpletextoverlay;
+package simpletextoverlay.util;
 
 import java.util.Locale;
 

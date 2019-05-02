@@ -10,6 +10,7 @@ import net.minecraft.world.World;
 
 import simpletextoverlay.client.gui.overlay.Info;
 import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.MBlockPos;
 import simpletextoverlay.util.Vector3f;
 
@@ -66,7 +67,7 @@ public abstract class Tag {
     }
 
     public String getLocalizedDescription() {
-        Reference.logger.warn(Reference.MODID + ".tag." + getRawName() + ".desc");
+        SimpleTextOverlay.logger.warn(Reference.MODID + ".tag." + getRawName() + ".desc");
         return I18n.format(Reference.MODID + ".tag." + getRawName() + ".desc");
     }
 

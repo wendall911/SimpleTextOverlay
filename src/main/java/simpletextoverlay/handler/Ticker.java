@@ -8,7 +8,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
-import simpletextoverlay.SimpleTextOverlayCore;
+import simpletextoverlay.config.ConfigHandler;
+import simpletextoverlay.core.Core;
 import simpletextoverlay.tag.Tag;
 
 public class Ticker {
@@ -17,14 +18,14 @@ public class Ticker {
     public static boolean enabled = true;
 
     private final Minecraft client = Minecraft.getMinecraft();
-    private final SimpleTextOverlayCore core = SimpleTextOverlayCore.INSTANCE;
+    private final Core core = Core.INSTANCE;
 
     private Ticker() {}
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onRenderGameOverlayEventPre(final RenderGameOverlayEvent.Pre event) {
         if (canRun()) {
-            if (ConfigurationHandler.replaceDebug && event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
+            if (ConfigHandler.replaceDebug && event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
                 event.setCanceled(true);
             }
 
@@ -33,7 +34,7 @@ public class Ticker {
             }
         }
 
-        if (!ConfigurationHandler.showOverlayPotions && event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
+        if (!ConfigHandler.showOverlayPotions && event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
             event.setCanceled(true);
         }
     }
@@ -54,7 +55,7 @@ public class Ticker {
             return false;
         }
 
-        return this.client.profiler.profilingEnabled || ConfigurationHandler.replaceDebug || ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo;
+        return this.client.profiler.profilingEnabled || ConfigHandler.replaceDebug || ConfigHandler.replaceDebug == this.client.gameSettings.showDebugInfo;
 
     }
 
@@ -68,8 +69,8 @@ public class Ticker {
         }
 
         // a && b || !a && !b  -->  a == b
-        if (this.client.gameSettings != null && ConfigurationHandler.replaceDebug == this.client.gameSettings.showDebugInfo) {
-            if (!ConfigurationHandler.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.isKeyDown()) {
+        if (this.client.gameSettings != null && ConfigHandler.replaceDebug == this.client.gameSettings.showDebugInfo) {
+            if (!ConfigHandler.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.isKeyDown()) {
                 return false;
             }
 
@@ -77,7 +78,7 @@ public class Ticker {
                 return false;
             }
 
-            return this.client.currentScreen == null || ConfigurationHandler.showInChat && this.client.currentScreen instanceof GuiChat;
+            return this.client.currentScreen == null || ConfigHandler.showInChat && this.client.currentScreen instanceof GuiChat;
 
         }
 
@@ -102,4 +103,5 @@ public class Ticker {
             this.client.profiler.endSection();
         }
     }
+
 }

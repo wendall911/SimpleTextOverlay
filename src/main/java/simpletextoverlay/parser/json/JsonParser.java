@@ -11,9 +11,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import simpletextoverlay.Alignment;
 import simpletextoverlay.parser.IParser;
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
+import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 
 public class JsonParser implements IParser {
@@ -29,7 +29,7 @@ public class JsonParser implements IParser {
 
             inputStreamReader.close();
         } catch (final Exception e) {
-            Reference.logger.fatal("Could not read json configuration file!", e);
+            SimpleTextOverlay.logger.fatal("Could not read json configuration file!", e);
             return false;
         }
 

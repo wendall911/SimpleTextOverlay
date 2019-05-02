@@ -12,9 +12,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 
-import simpletextoverlay.SimpleTextOverlayCore;
 import simpletextoverlay.command.SimpleTextOverlayCommand;
-import simpletextoverlay.handler.ConfigurationHandler;
+import simpletextoverlay.config.ConfigHandler;
+import simpletextoverlay.core.Core;
+import simpletextoverlay.event.ConfigEventHandler;
 import simpletextoverlay.handler.KeyInputHandler;
 import simpletextoverlay.handler.Ticker;
 import simpletextoverlay.network.PacketHandler;
@@ -23,19 +24,21 @@ import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.value.registry.ValueRegistry;
 
 public class ClientProxy extends CommonProxy {
-    private final SimpleTextOverlayCore core = SimpleTextOverlayCore.INSTANCE;
+
+    private final Core core = Core.INSTANCE;
 
     @Override
     public void preInit(final FMLPreInitializationEvent event) {
         super.preInit(event);
 
+        ConfigHandler.init(event.getSuggestedConfigurationFile());
+
         ValueRegistry.INSTANCE.init();
 
         this.core.setConfigDirectory(event.getModConfigurationDirectory());
-        this.core.setConfigFile(ConfigurationHandler.configName);
-        this.core.reloadConfig();
+        this.core.loadConfig(ConfigHandler.configName);
 
-        ConfigurationHandler.propFileInterval.setConfigEntryClass(GuiConfigEntries.NumberSliderEntry.class);
+        ConfigHandler.propFileInterval.setConfigEntryClass(GuiConfigEntries.NumberSliderEntry.class);
 
         for (final KeyBinding keyBinding : KeyInputHandler.KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(keyBinding);
@@ -47,13 +50,15 @@ public class ClientProxy extends CommonProxy {
         super.init(event);
 
         MinecraftForge.EVENT_BUS.register(Ticker.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(ConfigurationHandler.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
         MinecraftForge.EVENT_BUS.register(KeyInputHandler.INSTANCE);
         PacketHandler.initClient();
     }
 
     @Override
     public void postInit(final FMLPostInitializationEvent event) {
+        super.postInit(event);
+
         TagRegistry.INSTANCE.init();
         ClientCommandHandler.instance.registerCommand(new SimpleTextOverlayCommand());
     }
@@ -67,4 +72,5 @@ public class ClientProxy extends CommonProxy {
     public void serverStopping(final FMLServerStoppingEvent event) {
         Tag.setServer(null);
     }
+
 }

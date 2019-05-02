@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 import org.lwjgl.opengl.GL11;
 
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.GuiHelper;
 import simpletextoverlay.util.Vector2f;
 
@@ -73,7 +73,7 @@ public class InfoIcon extends Info {
 
             GlStateManager.translate(-getX(), -getY(), 0);
         } catch (final Exception e) {
-            Reference.logger.debug(e);
+            SimpleTextOverlay.logger.debug(e);
         }
     }
 

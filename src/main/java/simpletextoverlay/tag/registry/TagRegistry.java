@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.tag.TagFormatting;
 import simpletextoverlay.tag.TagMisc;
@@ -27,12 +27,12 @@ public class TagRegistry {
 
     private void register(final String name, final Tag tag) {
         if (this.stringTagMap.containsKey(name)) {
-            Reference.logger.error("Duplicate tag key '" + name + "'!");
+            SimpleTextOverlay.logger.error("Duplicate tag key '" + name + "'!");
             return;
         }
 
         if (name == null) {
-            Reference.logger.error("Tag name cannot be null!");
+            SimpleTextOverlay.logger.error("Tag name cannot be null!");
             return;
         }
 
@@ -73,6 +73,6 @@ public class TagRegistry {
         TagTime.register();
         TagWorld.register();
 
-        Reference.logger.info("Registered " + this.stringTagMap.size() + " tags.");
+        SimpleTextOverlay.logger.info("Registered " + this.stringTagMap.size() + " tags.");
     }
 }

@@ -17,11 +17,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import simpletextoverlay.SimpleTextOverlayCore;
+import simpletextoverlay.core.Core;
 import simpletextoverlay.client.gui.overlay.InfoIcon;
 import simpletextoverlay.client.gui.overlay.InfoItem;
-import simpletextoverlay.handler.ConfigurationHandler;
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.config.ConfigHandler;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.util.EntityHelper;
 import simpletextoverlay.value.registry.ValueRegistry;
@@ -196,11 +196,11 @@ public abstract class ValueComplex extends Value {
 
             if (ticks == 0) {
                 if (this.cache.size() > 16) {
-                    Reference.logger.trace("Clearing file cache...");
+                    SimpleTextOverlay.logger.trace("Clearing file cache...");
                     this.cache.clear();
                 }
 
-                final File file = new File(SimpleTextOverlayCore.INSTANCE.getConfigDirectory(), filename);
+                final File file = new File(Core.INSTANCE.getConfigDirectory(), filename);
                 if (file.exists()) {
                     this.cache.put(filename, getLine(file));
                 }
@@ -229,14 +229,14 @@ public abstract class ValueComplex extends Value {
 
                 return line;
             } catch (final Exception e) {
-                Reference.logger.error("", e);
+                SimpleTextOverlay.logger.error("", e);
             }
 
             return "";
         }
 
         public static void tick() {
-            ticks = (ticks + 1) % (ConfigurationHandler.fileInterval * 20);
+            ticks = (ticks + 1) % (ConfigHandler.fileInterval * 20);
         }
     }
 

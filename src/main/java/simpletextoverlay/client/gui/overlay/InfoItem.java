@@ -6,7 +6,7 @@ import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
 
-import simpletextoverlay.handler.ConfigurationHandler;
+import simpletextoverlay.config.ConfigHandler;
 
 public class InfoItem extends Info {
     private static final Minecraft MINECRAFT = Minecraft.getMinecraft();
@@ -49,7 +49,7 @@ public class InfoItem extends Info {
             renderItem.zLevel = 300;
             renderItem.renderItemAndEffectIntoGUI(this.itemStack, 0, 0);
 
-            if (ConfigurationHandler.showOverlayItemIcons) {
+            if (ConfigHandler.showOverlayItemIcons) {
                 renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRenderer, this.itemStack, 0, 0, "");
             }
 

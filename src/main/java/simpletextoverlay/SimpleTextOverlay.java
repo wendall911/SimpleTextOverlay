@@ -3,7 +3,6 @@ package simpletextoverlay;
 import java.util.Map;
 
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.Mod.Instance;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLFingerprintViolationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -14,6 +13,9 @@ import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 import net.minecraftforge.fml.common.network.NetworkCheckHandler;
 import net.minecraftforge.fml.relauncher.Side;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import simpletextoverlay.proxy.CommonProxy;
 import simpletextoverlay.reference.Reference;
 
@@ -21,11 +23,15 @@ import simpletextoverlay.reference.Reference;
      certificateFingerprint = Reference.FINGERPRINT,
      name = Reference.NAME,
      version = Reference.VERSION,
-     guiFactory = Reference.GUI_FACTORY)
+     guiFactory = Reference.GUI_FACTORY
+)
 
 public class SimpleTextOverlay {
-    @Instance(Reference.MODID)
+
+    @Mod.Instance
     public static SimpleTextOverlay instance;
+
+    public static Logger logger = LogManager.getLogger(Reference.MODID);
 
     @SidedProxy(serverSide = Reference.PROXY_SERVER, clientSide = Reference.PROXY_CLIENT)
     public static CommonProxy proxy;
@@ -35,9 +41,9 @@ public class SimpleTextOverlay {
         return true;
     }
 
-	@Mod.EventHandler
+    @Mod.EventHandler
     public void onFingerprintViolation(FMLFingerprintViolationEvent event) {
-        Reference.logger.warn("Invalid fingerprint detected!");
+        logger.warn("Invalid fingerprint detected!");
     }
 
     @Mod.EventHandler
@@ -64,4 +70,5 @@ public class SimpleTextOverlay {
     public void serverStopping(final FMLServerStoppingEvent event) {
         proxy.serverStopping(event);
     }
+
 }

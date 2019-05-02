@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
 
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.value.Value;
 import simpletextoverlay.value.ValueComplex;
 import simpletextoverlay.value.ValueLogic;
@@ -20,12 +20,12 @@ public class ValueRegistry {
 
     private void register(final String name, final Value value, final boolean isAlias) {
         if (this.stringValueMap.containsKey(name)) {
-            Reference.logger.error("Duplicate value key '" + name + "'!");
+            SimpleTextOverlay.logger.error("Duplicate value key '" + name + "'!");
             return;
         }
 
         if (name == null) {
-            Reference.logger.error("Value name cannot be null!");
+            SimpleTextOverlay.logger.error("Value name cannot be null!");
             return;
         }
 
@@ -56,11 +56,11 @@ public class ValueRegistry {
                 }
             }
         } catch (final Exception e) {
-            Reference.logger.error(String.format("Failed to create an instance for %s!", name), e);
+            SimpleTextOverlay.logger.error(String.format("Failed to create an instance for %s!", name), e);
             return new ValueSimple.ValueInvalid();
         }
 
-        Reference.logger.error(String.format("Failed to create an instance for %s!", name));
+        SimpleTextOverlay.logger.error(String.format("Failed to create an instance for %s!", name));
         return new ValueSimple.ValueInvalid();
     }
 

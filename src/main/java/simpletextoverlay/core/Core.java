@@ -1,8 +1,10 @@
-package simpletextoverlay;
+package simpletextoverlay.core;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -23,33 +25,35 @@ import net.minecraft.world.World;
 
 import simpletextoverlay.client.gui.overlay.Info;
 import simpletextoverlay.client.gui.overlay.InfoText;
-import simpletextoverlay.handler.ConfigurationHandler;
+import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.parser.IParser;
 import simpletextoverlay.parser.json.JsonParser;
 import simpletextoverlay.printer.IPrinter;
 import simpletextoverlay.printer.json.JsonPrinter;
 import simpletextoverlay.reference.Names;
-import simpletextoverlay.reference.Reference;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
+import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 import simpletextoverlay.value.ValueComplex;
 
-public class SimpleTextOverlayCore {
+public class Core {
     private static final Pattern PATTERN = Pattern.compile("\\{ICON\\|( *)\\}", Pattern.CASE_INSENSITIVE);
     private static final Matcher MATCHER = PATTERN.matcher("");
-    public static final SimpleTextOverlayCore INSTANCE = new SimpleTextOverlayCore();
+    public static final Core INSTANCE = new Core();
 
-    private IParser parser;
+    private IParser parser = new JsonParser();
 
     private final Minecraft minecraft = Minecraft.getMinecraft();
     private final Profiler profiler = this.minecraft.profiler;
     private File configDirectory = null;
     private File configFile = null;
+    private String configFilename;
     private final Map<Alignment, List<List<Value>>> format = new HashMap<>();
     private final List<Info> info = new ArrayList<>();
     private final List<Info> infoItemQueue = new ArrayList<>();
 
-    private SimpleTextOverlayCore() {
+    private Core() {
         Tag.setInfo(this.infoItemQueue);
         Value.setInfo(this.infoItemQueue);
     }
@@ -63,29 +67,30 @@ public class SimpleTextOverlayCore {
         return this.configDirectory;
     }
 
-    public boolean setConfigFile(final String filename) {
+    public boolean loadConfig(final String filename) {
         final File file = new File(this.configDirectory, filename);
+
+        this.configFilename = filename;
+
         if (file.exists()) {
             if (filename.endsWith(Names.Files.EXT_JSON)) {
                 this.configFile = file;
-                this.parser = new JsonParser();
                 return true;
             }
             else {
-                Reference.logger.error("The config '{}' does not end in .json", filename);
+                SimpleTextOverlay.logger.error("The config '{}' does not end in .json", filename);
             }
         }
 
-        Reference.logger.warn("The config '{}' does not exist", filename);
-        this.configFile = null;
-        this.parser = new JsonParser();
-        return filename.equalsIgnoreCase("default");
+        SimpleTextOverlay.logger.warn("The config '{}' does not exist", filename);
+
+        return reloadConfig();
     }
 
     public void onTickClient() {
         final ScaledResolution scaledResolution = new ScaledResolution(this.minecraft);
-        final int scaledWidth = (int) (scaledResolution.getScaledWidth() / ConfigurationHandler.scale);
-        final int scaledHeight = (int) (scaledResolution.getScaledHeight() / ConfigurationHandler.scale);
+        final int scaledWidth = (int) (scaledResolution.getScaledWidth() / ConfigHandler.scale);
+        final int scaledHeight = (int) (scaledResolution.getScaledHeight() / ConfigHandler.scale);
 
         final World world = this.minecraft.world;
         if (world == null) {
@@ -165,18 +170,14 @@ public class SimpleTextOverlayCore {
 
     public void onTickRender() {
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        GlStateManager.scale(ConfigurationHandler.scale, ConfigurationHandler.scale, ConfigurationHandler.scale);
+        GlStateManager.scale(ConfigHandler.scale, ConfigHandler.scale, ConfigHandler.scale);
 
         for (final Info info : this.info) {
             info.draw();
         }
 
-        GlStateManager.scale(1.0f / ConfigurationHandler.scale, 1.0f / ConfigurationHandler.scale, 1.0f / ConfigurationHandler.scale);
+        GlStateManager.scale(1.0f / ConfigHandler.scale, 1.0f / ConfigHandler.scale, 1.0f / ConfigHandler.scale);
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-    }
-
-    public boolean loadConfig(final String filename) {
-        return setConfigFile(filename) && reloadConfig();
     }
 
     public boolean reloadConfig() {
@@ -206,16 +207,32 @@ public class SimpleTextOverlayCore {
 
         try {
             if (this.configFile != null && this.configFile.exists()) {
-                Reference.logger.debug("Loading file config...");
+                SimpleTextOverlay.logger.warn("Loading file config...");
                 inputStream = new FileInputStream(this.configFile);
-            } else {
-                Reference.logger.debug("Loading default config...");
+            } else {  
                 final ResourceLocation resourceLocation = new ResourceLocation("simpletextoverlay", Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH));
                 final IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
-                inputStream = resource.getInputStream();
+                InputStream resourceInputStream = resource.getInputStream();
+
+                if (this.configFilename.equals(Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH))) {
+                    SimpleTextOverlay.logger.warn("Creating overlay config...", this.configFilename);
+
+                    byte[] buffer = new byte[resourceInputStream.available()];
+                    resourceInputStream.read(buffer);
+                    this.configFile = new File(this.configDirectory, this.configFilename);
+
+                    OutputStream outStream = new FileOutputStream(this.configFile);
+                    outStream.write(buffer);
+
+                    inputStream = new FileInputStream(this.configFile);
+                }
+                else {
+                    SimpleTextOverlay.logger.warn("Loading default config...");
+                    inputStream = resourceInputStream;
+                }
             }
         } catch (final Exception e) {
-            Reference.logger.error("", e);
+            SimpleTextOverlay.logger.error("", e);
         }
 
         return inputStream;
@@ -227,7 +244,7 @@ public class SimpleTextOverlayCore {
         if (filename.endsWith(Names.Files.EXT_JSON)) {
             printer = new JsonPrinter();
         } else {
-            Reference.logger.warn("'{}' is an invalid file name");
+            SimpleTextOverlay.logger.warn("'{}' is an invalid file name");
         }
 
         return printer != null && printer.print(file, this.format);
@@ -239,7 +256,7 @@ public class SimpleTextOverlayCore {
                 return value.getReplacedValue();
             }
         } catch (final Exception e) {
-            Reference.logger.debug("Failed to get value!", e);
+            SimpleTextOverlay.logger.debug("Failed to get value!", e);
             return "null";
         }
 
