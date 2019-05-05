@@ -66,16 +66,24 @@ public enum Alignment {
         }
     }
 
+    public void setX(final int x) {
+        this.x = x;
+    }
+
+    public void setY(final int y) {
+        this.y = y;
+    }
+
     public int getX(final int screenwidth, final int textwidth) {
         switch (this.alignment & MASK_X) {
-        case LEFT:
-            return this.x;
+            case LEFT:
+                return this.x;
 
-        case CENTER:
-            return this.x + (screenwidth - textwidth) / 2;
+            case CENTER:
+                return this.x + (screenwidth - textwidth) / 2;
 
-        case RIGHT:
-            return this.x + screenwidth - textwidth;
+            case RIGHT:
+                return this.x + screenwidth - textwidth;
         }
 
         return 0;
@@ -83,38 +91,17 @@ public enum Alignment {
 
     public int getY(final int screenheight, final int textheight) {
         switch (this.alignment & MASK_Y) {
-        case TOP:
-            return this.y;
+            case TOP:
+                return this.y;
 
-        case MIDDLE:
-            return this.y + (screenheight - textheight) / 2;
+            case MIDDLE:
+                return this.y + (screenheight - textheight) / 2;
 
-        case BOTTOM:
-            return this.y + screenheight - textheight;
+            case BOTTOM:
+                return this.y + screenheight - textheight;
         }
 
         return 0;
-    }
-
-    public String getDefaultXY() {
-        return String.format("%d %d", this.defaultX, this.defaultY);
-    }
-
-    public String getXY() {
-        return String.format("%d %d", this.x, this.y);
-    }
-
-    public void setXY(final String str) {
-        try {
-            final String[] parts = str.split(" ");
-            if (parts.length == 2) {
-                final int x = Integer.parseInt(parts[0]);
-                final int y = Integer.parseInt(parts[1]);
-                this.x = x;
-                this.y = y;
-            }
-        } catch (final Exception e) {
-        }
     }
 
     static {
@@ -128,4 +115,5 @@ public enum Alignment {
         BOTTOMCENTER.alignment = BOTTOM | CENTER;
         BOTTOMRIGHT.alignment = BOTTOM | RIGHT;
     }
+
 }

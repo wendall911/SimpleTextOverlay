@@ -1,4 +1,4 @@
-package simpletextoverlay.handler;
+package simpletextoverlay.event;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -7,10 +7,11 @@ import net.minecraftforge.fml.common.gameevent.InputEvent;
 
 import org.lwjgl.input.Keyboard;
 
+import simpletextoverlay.event.GameOverlayEventHandler;
 import simpletextoverlay.reference.Names;
 
-public class KeyInputHandler {
-    public static final KeyInputHandler INSTANCE = new KeyInputHandler();
+public class KeyInputEventHandler {
+    public static final KeyInputEventHandler INSTANCE = new KeyInputEventHandler();
 
     private static final KeyBinding KEY_BINDING_TOGGLE = new KeyBinding(Names.Keys.TOGGLE, Keyboard.KEY_NONE, Names.Keys.CATEGORY);
 
@@ -20,13 +21,13 @@ public class KeyInputHandler {
 
     private final Minecraft minecraft = Minecraft.getMinecraft();
 
-    private KeyInputHandler() {}
+    private KeyInputEventHandler() {}
 
     @SubscribeEvent
     public void onKeyInput(final InputEvent event) {
         if (this.minecraft.currentScreen == null) {
             if (KEY_BINDING_TOGGLE.isPressed()) {
-                Ticker.enabled = !Ticker.enabled;
+                GameOverlayEventHandler.INSTANCE.enabled = !GameOverlayEventHandler.INSTANCE.enabled;
             }
         }
     }

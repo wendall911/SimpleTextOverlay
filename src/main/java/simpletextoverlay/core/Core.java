@@ -19,7 +19,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.resources.IResource;
-import net.minecraft.profiler.Profiler;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
@@ -44,8 +43,7 @@ public class Core {
 
     private IParser parser = new JsonParser();
 
-    private final Minecraft minecraft = Minecraft.getMinecraft();
-    private final Profiler profiler = this.minecraft.profiler;
+    private final Minecraft client = Minecraft.getMinecraft();
     private File configDirectory = null;
     private File configFile = null;
     private String configFilename;
@@ -75,30 +73,33 @@ public class Core {
         if (file.exists()) {
             if (filename.endsWith(Names.Files.EXT_JSON)) {
                 this.configFile = file;
-                return true;
             }
             else {
                 SimpleTextOverlay.logger.error("The config '{}' does not end in .json", filename);
+                return false;
             }
         }
-
-        SimpleTextOverlay.logger.warn("The config '{}' does not exist", filename);
+        else {
+            SimpleTextOverlay.logger.warn("The config '{}' does not exist", filename);
+        }
 
         return reloadConfig();
     }
 
-    public void onTickClient() {
-        final ScaledResolution scaledResolution = new ScaledResolution(this.minecraft);
-        final int scaledWidth = (int) (scaledResolution.getScaledWidth() / ConfigHandler.scale);
-        final int scaledHeight = (int) (scaledResolution.getScaledHeight() / ConfigHandler.scale);
-
-        final World world = this.minecraft.world;
+    public void updateTagValues() {
+        final World world = this.client.world;
         if (world == null) {
             return;
         }
+
+        final ScaledResolution scaledResolution = new ScaledResolution(this.client);
+        final float scale = (float) ConfigHandler.client.general.scale;
+        final int scaledWidth = (int) (scaledResolution.getScaledWidth() / scale);
+        final int scaledHeight = (int) (scaledResolution.getScaledHeight() / scale);
+
         Tag.setWorld(world);
 
-        final EntityPlayerSP player = this.minecraft.player;
+        final EntityPlayerSP player = this.client.player;
         if (player == null) {
             return;
         }
@@ -107,28 +108,23 @@ public class Core {
         this.info.clear();
         int x, y;
 
-        this.profiler.startSection("alignment");
-        this.profiler.startSection("none");
         for (final Alignment alignment : Alignment.values()) {
-            this.profiler.endStartSection(alignment.toString().toLowerCase(Locale.ENGLISH));
             final List<List<Value>> lines = this.format.get(alignment);
 
             if (lines == null) {
                 continue;
             }
 
-            final FontRenderer fontRenderer = this.minecraft.fontRenderer;
+            final FontRenderer fontRenderer = this.client.fontRenderer;
             final List<Info> queue = new ArrayList<>();
 
             for (final List<Value> line : lines) {
                 StringBuilder str = new StringBuilder();
 
                 this.infoItemQueue.clear();
-                this.profiler.startSection("taggathering");
                 for (final Value value : line) {
                     str.append(getValue(value));
                 }
-                this.profiler.endSection();
 
                 if (str.length() > 0) {
                     final String processed = str.toString().replaceAll("\\{ICON\\|( *)\\}", "$1");
@@ -161,23 +157,27 @@ public class Core {
 
             this.info.addAll(queue);
         }
-        this.profiler.endSection();
-        this.profiler.endSection();
 
         Tag.releaseResources();
         ValueComplex.ValueFile.tick();
     }
 
-    public void onTickRender() {
+    public void renderOverlay() {
+        final float scale = (float) ConfigHandler.client.general.scale;
+
+        GlStateManager.pushMatrix();
+
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        GlStateManager.scale(ConfigHandler.scale, ConfigHandler.scale, ConfigHandler.scale);
+        GlStateManager.scale(scale, scale, scale);
 
         for (final Info info : this.info) {
             info.draw();
         }
 
-        GlStateManager.scale(1.0f / ConfigHandler.scale, 1.0f / ConfigHandler.scale, 1.0f / ConfigHandler.scale);
+        GlStateManager.scale(1.0f / scale, 1.0f / scale, 1.0f / scale);
         GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+
+        GlStateManager.popMatrix();
     }
 
     public boolean reloadConfig() {
@@ -211,7 +211,7 @@ public class Core {
                 inputStream = new FileInputStream(this.configFile);
             } else {  
                 final ResourceLocation resourceLocation = new ResourceLocation("simpletextoverlay", Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH));
-                final IResource resource = this.minecraft.getResourceManager().getResource(resourceLocation);
+                final IResource resource = this.client.getResourceManager().getResource(resourceLocation);
                 InputStream resourceInputStream = resource.getInputStream();
 
                 if (this.configFilename.equals(Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH))) {

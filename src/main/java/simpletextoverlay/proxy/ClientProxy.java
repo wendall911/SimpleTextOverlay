@@ -16,11 +16,12 @@ import simpletextoverlay.command.SimpleTextOverlayCommand;
 import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.core.Core;
 import simpletextoverlay.event.ConfigEventHandler;
-import simpletextoverlay.handler.KeyInputHandler;
-import simpletextoverlay.handler.Ticker;
+import simpletextoverlay.event.GameOverlayEventHandler;
+import simpletextoverlay.event.KeyInputEventHandler;
 import simpletextoverlay.network.PacketHandler;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.tag.registry.TagRegistry;
+import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.registry.ValueRegistry;
 
 public class ClientProxy extends CommonProxy {
@@ -31,16 +32,13 @@ public class ClientProxy extends CommonProxy {
     public void preInit(final FMLPreInitializationEvent event) {
         super.preInit(event);
 
-        ConfigHandler.init(event.getSuggestedConfigurationFile());
-
         ValueRegistry.INSTANCE.init();
+        ConfigEventHandler.INSTANCE.applyConfigSettings();
 
         this.core.setConfigDirectory(event.getModConfigurationDirectory());
-        this.core.loadConfig(ConfigHandler.configName);
+        this.core.loadConfig(ConfigHandler.client.general.overlayConfig);
 
-        ConfigHandler.propFileInterval.setConfigEntryClass(GuiConfigEntries.NumberSliderEntry.class);
-
-        for (final KeyBinding keyBinding : KeyInputHandler.KEY_BINDINGS) {
+        for (final KeyBinding keyBinding : KeyInputEventHandler.INSTANCE.KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(keyBinding);
         }
     }
@@ -49,9 +47,9 @@ public class ClientProxy extends CommonProxy {
     public void init(final FMLInitializationEvent event) {
         super.init(event);
 
-        MinecraftForge.EVENT_BUS.register(Ticker.INSTANCE);
-        MinecraftForge.EVENT_BUS.register(new ConfigEventHandler());
-        MinecraftForge.EVENT_BUS.register(KeyInputHandler.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(GameOverlayEventHandler.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(ConfigEventHandler.INSTANCE);
+        MinecraftForge.EVENT_BUS.register(KeyInputEventHandler.INSTANCE);
         PacketHandler.initClient();
     }
 

@@ -19,10 +19,9 @@ import net.minecraft.util.text.TextComponentTranslation;
 
 import simpletextoverlay.core.Core;
 import simpletextoverlay.client.gui.tag.GuiTags;
-import simpletextoverlay.config.ConfigHandler;
-import simpletextoverlay.handler.Ticker;
+import simpletextoverlay.event.GameOverlayEventHandler;
+import simpletextoverlay.event.TagOverlayEventHandler;
 import simpletextoverlay.reference.Names;
-import simpletextoverlay.util.DelayedGuiDisplayTicker;
 
 public class SimpleTextOverlayCommand extends CommandBase {
     private final Core core = Core.INSTANCE;
@@ -79,30 +78,25 @@ public class SimpleTextOverlayCommand extends CommandBase {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
                 sender.sendMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));
-                ConfigHandler.reload();
                 final boolean success = this.core.reloadConfig();
                 sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.ENABLE)) {
                 sender.sendMessage(new TextComponentTranslation(Names.Command.Message.ENABLE));
-                Ticker.enabled = true;
+                GameOverlayEventHandler.INSTANCE.enabled = true;
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.DISABLE)) {
                 sender.sendMessage(new TextComponentTranslation(Names.Command.Message.DISABLE));
-                Ticker.enabled = false;
+                GameOverlayEventHandler.INSTANCE.enabled = false;
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.TAGLIST)) {
-                DelayedGuiDisplayTicker.create(new GuiTags(), 10);
+                TagOverlayEventHandler.create(new GuiTags(), true);
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
                 if (args.length == 2) {
                     sender.sendMessage(new TextComponentTranslation(Names.Command.Message.LOAD, args[1]));
                     final boolean success = this.core.loadConfig(args[1]);
                     sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
-                    if (success) {
-                        ConfigHandler.setConfigName(args[1]);
-                        ConfigHandler.save();
-                    }
                     return;
                 }
                 else {

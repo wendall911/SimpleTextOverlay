@@ -236,7 +236,7 @@ public abstract class ValueComplex extends Value {
         }
 
         public static void tick() {
-            ticks = (ticks + 1) % (ConfigHandler.fileInterval * 20);
+            ticks = (ticks + 1) % (ConfigHandler.client.general.fileInterval * 20);
         }
     }
 

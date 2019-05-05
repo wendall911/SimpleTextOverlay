@@ -1,116 +1,128 @@
 package simpletextoverlay.config;
 
-import java.io.File;
-import java.util.HashMap;
-import java.util.Locale;
-import java.util.Map;
-import java.util.regex.Pattern;
-
-import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
+import net.minecraftforge.common.config.Config;
 
 import simpletextoverlay.reference.Names;
+import simpletextoverlay.reference.Reference;
 import simpletextoverlay.util.Alignment;
 
+@Config(modid=Reference.MODID)
 public class ConfigHandler {
 
-    public static Configuration configuration;
+    public static Client client;
+    public static class Client {
 
-    public static final String CONFIG_NAME_DEFAULT = Names.Files.FILE_JSON;
-    public static final boolean REPLACE_DEBUG_DEFAULT = false;
-    public static final boolean SHOW_IN_CHAT_DEFAULT = true;
-    public static final boolean SHOW_ON_PLAYER_LIST_DEFAULT = true;
-    public static final double SCALE_DEFAULT = 1.0;
-    public static final int FILE_INTERVAL_DEFAULT = 5;
-    public static final boolean SHOW_OVERLAY_POTIONS_DEFAULT = true;
-    public static final boolean SHOW_OVERLAY_ITEM_ICONS_DEFAULT = true;
+        public static Align alignment;
+        public static class Align {
+            
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the top left side of the screen."})
+            public static int topleftX = Alignment.TOPLEFT.defaultX;
 
-    public static String configName = CONFIG_NAME_DEFAULT;
-    public static boolean replaceDebug = REPLACE_DEBUG_DEFAULT;
-    public static boolean showInChat = SHOW_IN_CHAT_DEFAULT;
-    public static boolean showOnPlayerList = SHOW_ON_PLAYER_LIST_DEFAULT;
-    public static float scale = (float) SCALE_DEFAULT;
-    public static int fileInterval = FILE_INTERVAL_DEFAULT;
-    public static boolean showOverlayPotions = SHOW_OVERLAY_POTIONS_DEFAULT;
-    public static boolean showOverlayItemIcons = SHOW_OVERLAY_ITEM_ICONS_DEFAULT;
+            @Config.RangeInt(min = -100, max = 100)
+            public static int topleftY = Alignment.TOPLEFT.defaultY;
 
-    public static Property propConfigName = null;
-    public static Property propReplaceDebug = null;
-    public static Property propShowInChat = null;
-    public static Property propShowOnPlayerList = null;
-    public static Property propScale = null;
-    public static Property propFileInterval = null;
-    public static Property propShowOverlayPotions = null;
-    public static Property propShowOverlayItemIcons= null;
-    public static final Map<Alignment, Property> propAlignments = new HashMap<>();
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the top center side of the screen."})
+            public static int topcenterX = Alignment.TOPCENTER.defaultX;
 
-    public static void init(final File configFile) {
-        if (configuration == null) {
-            configuration = new Configuration(configFile);
-            loadConfiguration();
-        }
-    }
+            @Config.RangeInt(min = -100, max = 100)
+            public static int topcenterY = Alignment.TOPCENTER.defaultY;
 
-    private static void loadConfiguration() {
-        propConfigName = configuration.get(Names.Config.Category.GENERAL, Names.Config.FILENAME, CONFIG_NAME_DEFAULT, Names.Config.FILENAME_DESC);
-        propConfigName.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.FILENAME);
-        propConfigName.setRequiresMcRestart(true);
-        configName = propConfigName.getString();
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the top right side of the screen."})
+            public static int toprightX = Alignment.TOPRIGHT.defaultX;
 
-        propReplaceDebug = configuration.get(Names.Config.Category.GENERAL, Names.Config.REPLACE_DEBUG, REPLACE_DEBUG_DEFAULT, Names.Config.REPLACE_DEBUG_DESC);
-        propReplaceDebug.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.REPLACE_DEBUG);
-        replaceDebug = propReplaceDebug.getBoolean(REPLACE_DEBUG_DEFAULT);
+            @Config.RangeInt(min = -100, max = 100)
+            public static int toprightY = Alignment.TOPRIGHT.defaultY;
 
-        propShowInChat = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_IN_CHAT, SHOW_IN_CHAT_DEFAULT, Names.Config.SHOW_IN_CHAT_DESC);
-        propShowInChat.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_IN_CHAT);
-        showInChat = propShowInChat.getBoolean(SHOW_IN_CHAT_DEFAULT);
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the middle left side of the screen."})
+            public static int middleleftX = Alignment.MIDDLELEFT.defaultX;
 
-        propShowOnPlayerList = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_ON_PLAYER_LIST, SHOW_ON_PLAYER_LIST_DEFAULT, Names.Config.SHOW_ON_PLAYER_LIST_DESC);
-        propShowOnPlayerList.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_ON_PLAYER_LIST);
-        showOnPlayerList = propShowOnPlayerList.getBoolean(SHOW_ON_PLAYER_LIST_DEFAULT);
+            @Config.RangeInt(min = -100, max = 100)
+            public static int middleleftY = Alignment.MIDDLELEFT.defaultY;
 
-        propScale = configuration.get(Names.Config.Category.GENERAL, Names.Config.SCALE, String.valueOf(SCALE_DEFAULT), Names.Config.SCALE_DESC);
-        propScale.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SCALE);
-        propScale.setValidValues(new String[] { "0.5", "1.0", "1.5", "2.0" });
-        scale = (float) propScale.getDouble(SCALE_DEFAULT);
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the middle center side of the screen."})
+            public static int middlecenterX = Alignment.MIDDLECENTER.defaultX;
 
-        propFileInterval = configuration.get(Names.Config.Category.GENERAL, Names.Config.FILE_INTERVAL, FILE_INTERVAL_DEFAULT, Names.Config.FILE_INTERVAL_DESC, 1, 60);
-        propFileInterval.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.FILE_INTERVAL);
-        fileInterval = propFileInterval.getInt(FILE_INTERVAL_DEFAULT);
+            @Config.RangeInt(min = -100, max = 100)
+            public static int middlecenterY = Alignment.MIDDLECENTER.defaultY;
 
-        propShowOverlayPotions = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_OVERLAY_POTIONS, SHOW_OVERLAY_POTIONS_DEFAULT, Names.Config.SHOW_OVERLAY_POTIONS_DESC);
-        propShowOverlayPotions.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_OVERLAY_POTIONS);
-        showOverlayPotions = propShowOverlayPotions.getBoolean(SHOW_OVERLAY_POTIONS_DEFAULT);
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the middle right side of the screen."})
+            public static int middlerightX = Alignment.MIDDLERIGHT.defaultX;
 
-        propShowOverlayItemIcons = configuration.get(Names.Config.Category.GENERAL, Names.Config.SHOW_OVERLAY_ITEM_ICONS, SHOW_OVERLAY_ITEM_ICONS_DEFAULT, Names.Config.SHOW_OVERLAY_ITEM_ICONS_DESC);
-        propShowOverlayItemIcons.setLanguageKey(Names.Config.LANG_PREFIX + "." + Names.Config.SHOW_OVERLAY_ITEM_ICONS);
-        showOverlayItemIcons = propShowOverlayItemIcons.getBoolean(SHOW_OVERLAY_ITEM_ICONS_DEFAULT);
+            @Config.RangeInt(min = -100, max = 100)
+            public static int middlerightY = Alignment.MIDDLERIGHT.defaultY;
 
-        for (final Alignment alignment : Alignment.values()) {
-            final String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);
-            final Property property = configuration.get(Names.Config.Category.ALIGNMENT, alignmentName, alignment.getDefaultXY(), String.format(Names.Config.ALIGNMENT_DESC, alignment.toString()));
-            property.setLanguageKey(Names.Config.LANG_PREFIX + "." + alignmentName);
-            property.setValidationPattern(Pattern.compile("-?\\d+ -?\\d+"));
-            propAlignments.put(alignment, property);
-            alignment.setXY(property.getString());
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the bottom left side of the screen."})
+            public static int bottomleftX = Alignment.BOTTOMLEFT.defaultX;
+
+            @Config.RangeInt(min = -100, max = 100)
+            public static int bottomleftY = Alignment.BOTTOMLEFT.defaultY;
+
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the bottom center side of the screen."})
+            public static int bottomcenterX = Alignment.BOTTOMCENTER.defaultX;
+
+            @Config.RangeInt(min = -100, max = 100)
+            public static int bottomcenterY = Alignment.BOTTOMCENTER.defaultY;
+
+            @Config.RangeInt(min = -100, max = 100)
+            @Config.Comment({"Offsets for the bottom right side of the screen."})
+            public static int bottomrightX = Alignment.BOTTOMRIGHT.defaultX;
+
+            @Config.RangeInt(min = -100, max = 100)
+            public static int bottomrightY = Alignment.BOTTOMRIGHT.defaultY;
+
         }
 
-        save();
-    }
+        public static General general;
+        public static class General {
 
-    public static void reload() {
-        loadConfiguration();
-        save();
-    }
+            @Config.Comment({"The configuration that should be loaded on startup."})
+            public static String overlayConfig = Names.Files.FILE_JSON;
 
-    public static void save() {
-        if (configuration.hasChanged()) {
-            configuration.save();
+            @Config.Comment({"Replace the debug overlay (F3) with the SimpleTextOverlay overlay."})
+            public static boolean replaceDebug = false;
+
+            @Config.Comment({"Display the overlay in chat."})
+            public static boolean showInChat = true;
+
+            @Config.Comment({"Display the overlay on the player list."})
+            public static boolean showOnPlayerList = true;
+
+            @Config.Comment({"The overlay will be scaled by this amount."})
+            @Config.RangeDouble(min = 0.5, max = 2.0) 
+            public static double scale = (double) 1.0;
+
+            @Config.Comment({"The interval between file reads for the 'file' tag (in seconds)."})
+            @Config.RangeInt(min = 5)
+            public static int fileInterval = 5;
+
+            @Config.Comment({"Display the vanilla potion effects overlay."})
+            public static boolean showOverlayPotions = true;
+
+            @Config.Comment({"Display the item overlay on icon (durability, stack size)."})
+            public static boolean showOverlayItemIcons = true;
+
         }
+
     }
 
-    public static void setConfigName(final String name) {
-        propConfigName.set(name);
+    public static Server server;
+    public static class Server {
+
+        @Config.Comment({"Force F3 debug screen to be replaced."})
+        public static boolean forceDebug = false;
+
+        @Config.Comment({"List of tags disallowed."})
+        public static String[] blacklistTags = new String[] {
+        };
+
     }
 
 }

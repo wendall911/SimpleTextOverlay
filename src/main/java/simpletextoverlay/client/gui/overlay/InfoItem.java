@@ -49,7 +49,7 @@ public class InfoItem extends Info {
             renderItem.zLevel = 300;
             renderItem.renderItemAndEffectIntoGUI(this.itemStack, 0, 0);
 
-            if (ConfigHandler.showOverlayItemIcons) {
+            if (ConfigHandler.client.general.showOverlayItemIcons) {
                 renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRenderer, this.itemStack, 0, 0, "");
             }
 
