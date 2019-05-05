@@ -22,8 +22,7 @@ import simpletextoverlay.reference.Reference;
 @Mod(modid = Reference.MODID,
      certificateFingerprint = Reference.FINGERPRINT,
      name = Reference.NAME,
-     version = Reference.VERSION,
-     guiFactory = Reference.GUI_FACTORY
+     version = Reference.VERSION
 )
 
 public class SimpleTextOverlay {

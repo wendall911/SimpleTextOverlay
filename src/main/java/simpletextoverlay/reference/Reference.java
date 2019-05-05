@@ -8,5 +8,4 @@ public class Reference {
     public static final String FINGERPRINT = "@FINGERPRINT@";
     public static final String PROXY_SERVER = "simpletextoverlay.proxy.ServerProxy";
     public static final String PROXY_CLIENT = "simpletextoverlay.proxy.ClientProxy";
-    public static final String GUI_FACTORY = "simpletextoverlay.client.gui.config.GuiFactory";
 }
