@@ -1,46 +1,46 @@
 # gui - config - categories
-simpletextoverlay.config.category.general=常规
-simpletextoverlay.config.category.general.tooltip=常规设置.
-simpletextoverlay.config.category.alignment=对齐
-simpletextoverlay.config.category.alignment.tooltip=对齐偏移量设置.
+general=常规
+general.tooltip=常规设置.
+alignment=对齐
+alignment.tooltip=对齐偏移量设置.
 
 # gui - config - general
-simpletextoverlay.config.filename=文件名
-simpletextoverlay.config.filename.tooltip=游戏启动时应加载的配置文件.
-simpletextoverlay.config.replaceDebug=替换调试信息
-simpletextoverlay.config.replaceDebug.tooltip=用SimpleTextOverlay替换掉调试信息(F3).
-simpletextoverlay.config.showInChat=聊天窗口中显示
-simpletextoverlay.config.showInChat.tooltip=在聊天窗口中显示信息.
-simpletextoverlay.config.showOnPlayerList=玩家列表中显示
-simpletextoverlay.config.showOnPlayerList.tooltip=在玩家列表中显示信息.
-simpletextoverlay.config.scale=大小比例
-simpletextoverlay.config.scale.tooltip=信息显示界面大小由该数值比例确定.
-simpletextoverlay.config.fileInterval=File Tag Interval
-simpletextoverlay.config.fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
-simpletextoverlay.config.showOverlayPotions=Show Potion Effects
-simpletextoverlay.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
-simpletextoverlay.config.showOverlayItemIcons=Show Item Overlay
-simpletextoverlay.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
+filename=文件名
+filename.tooltip=游戏启动时应加载的配置文件.
+replaceDebug=替换调试信息
+replaceDebug.tooltip=用SimpleTextOverlay替换掉调试信息(F3).
+showInChat=聊天窗口中显示
+showInChat.tooltip=在聊天窗口中显示信息.
+showOnPlayerList=玩家列表中显示
+showOnPlayerList.tooltip=在玩家列表中显示信息.
+scale=大小比例
+scale.tooltip=信息显示界面大小由该数值比例确定.
+fileInterval=File Tag Interval
+fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
+showOverlayPotions=Show Potion Effects
+showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+showOverlayItemIcons=Show Item Overlay
+showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
 
 # gui - config - alignment
-simpletextoverlay.config.topleft=左上角
-simpletextoverlay.config.topleft.tooltip=相对于屏幕左上角的偏移量(X<空格>Y).
-simpletextoverlay.config.topcenter=正上方
-simpletextoverlay.config.topcenter.tooltip=相对于屏幕正上方的偏移量(X<空格>Y).
-simpletextoverlay.config.topright=右上角
-simpletextoverlay.config.topright.tooltip=相对于屏幕右上角的偏移量(X<空格>Y).
-simpletextoverlay.config.middleleft=正左方
-simpletextoverlay.config.middleleft.tooltip=相对于屏幕正左方的偏移量(X<空格>Y).
-simpletextoverlay.config.middlecenter=正中心
-simpletextoverlay.config.middlecenter.tooltip=相对于屏幕正中心的偏移量(X<空格>Y).
-simpletextoverlay.config.middleright=正右方
-simpletextoverlay.config.middleright.tooltip=相对于屏幕正右方的偏移量(X<空格>Y).
-simpletextoverlay.config.bottomleft=左下角
-simpletextoverlay.config.bottomleft.tooltip=相对于屏幕左下角的偏移量(X<空格>Y).
-simpletextoverlay.config.bottomcenter=正下方
-simpletextoverlay.config.bottomcenter.tooltip=相对于屏幕正下方的偏移量(X<空格>Y).
-simpletextoverlay.config.bottomright=右下角
-simpletextoverlay.config.bottomright.tooltip=相对于屏幕右下角的偏移量(X<空格>Y).
+topleft=左上角
+topleft.tooltip=相对于屏幕左上角的偏移量(X<空格>Y).
+topcenter=正上方
+topcenter.tooltip=相对于屏幕正上方的偏移量(X<空格>Y).
+topright=右上角
+topright.tooltip=相对于屏幕右上角的偏移量(X<空格>Y).
+middleleft=正左方
+middleleft.tooltip=相对于屏幕正左方的偏移量(X<空格>Y).
+middlecenter=正中心
+middlecenter.tooltip=相对于屏幕正中心的偏移量(X<空格>Y).
+middleright=正右方
+middleright.tooltip=相对于屏幕正右方的偏移量(X<空格>Y).
+bottomleft=左下角
+bottomleft.tooltip=相对于屏幕左下角的偏移量(X<空格>Y).
+bottomcenter=正下方
+bottomcenter.tooltip=相对于屏幕正下方的偏移量(X<空格>Y).
+bottomright=右下角
+bottomright.tooltip=相对于屏幕右下角的偏移量(X<空格>Y).
 
 # gui - tag list
 gui.simpletextoverlay.taglist=标签列表

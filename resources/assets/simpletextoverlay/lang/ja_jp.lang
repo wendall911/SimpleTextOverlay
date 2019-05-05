@@ -1,46 +1,46 @@
 # gui - config - categories
-simpletextoverlay.config.category.general=一般
-simpletextoverlay.config.category.general.tooltip=一般設定。
-simpletextoverlay.config.category.alignment=整列
-simpletextoverlay.config.category.alignment.tooltip=整列オフセット設定。
+general=一般
+general.tooltip=一般設定。
+alignment=整列
+alignment.tooltip=整列オフセット設定。
 
 # gui - config - general
-simpletextoverlay.config.filename=ファイル名
-simpletextoverlay.config.filename.tooltip=起動時にロードが必要な設定。
-simpletextoverlay.config.replaceDebug=デバッグオーバーレイを置き換え
-simpletextoverlay.config.replaceDebug.tooltip=デバッグオーバーレイ(F3)をSimpleTextOverlayオーバーレイに置き換えます。
-simpletextoverlay.config.showInChat=チャットで表示
-simpletextoverlay.config.showInChat.tooltip=チャットでオーバーレイを表示します。
-simpletextoverlay.config.showOnPlayerList=プレイヤーリストに表示
-simpletextoverlay.config.showOnPlayerList.tooltip=プレイヤーリストにオーバーレイを表示します。
-simpletextoverlay.config.scale=大きさ
-simpletextoverlay.config.scale.tooltip=オーバーレイはこの値でスケーリングされます。
-simpletextoverlay.config.fileInterval=ファイルタグ間隔
-simpletextoverlay.config.fileInterval.tooltip='file'タグの読み取り間隔(秒)。
-simpletextoverlay.config.showOverlayPotions=ポーションエフェクトを表示する
-simpletextoverlay.config.showOverlayPotions.tooltip=バニラポーションの効果のオーバーレイを表示します。
-simpletextoverlay.config.showOverlayItemIcons=アイテムオーバーレイを表示する
-simpletextoverlay.config.showOverlayItemIcons.tooltip=アイテムオーバーレイをアイコンに表示します(耐久、スタックサイズ)。
+filename=ファイル名
+filename.tooltip=起動時にロードが必要な設定。
+replaceDebug=デバッグオーバーレイを置き換え
+replaceDebug.tooltip=デバッグオーバーレイ(F3)をSimpleTextOverlayオーバーレイに置き換えます。
+showInChat=チャットで表示
+showInChat.tooltip=チャットでオーバーレイを表示します。
+showOnPlayerList=プレイヤーリストに表示
+showOnPlayerList.tooltip=プレイヤーリストにオーバーレイを表示します。
+scale=大きさ
+scale.tooltip=オーバーレイはこの値でスケーリングされます。
+fileInterval=ファイルタグ間隔
+fileInterval.tooltip='file'タグの読み取り間隔(秒)。
+showOverlayPotions=ポーションエフェクトを表示する
+showOverlayPotions.tooltip=バニラポーションの効果のオーバーレイを表示します。
+showOverlayItemIcons=アイテムオーバーレイを表示する
+showOverlayItemIcons.tooltip=アイテムオーバーレイをアイコンに表示します(耐久、スタックサイズ)。
 
 # gui - config - alignment
-simpletextoverlay.config.topleft=左上
-simpletextoverlay.config.topleft.tooltip=画面の左上のオフセット (X<スペース>Y)。
-simpletextoverlay.config.topcenter=中央上
-simpletextoverlay.config.topcenter.tooltip=画面の中央上部のオフセット (X<スペース>Y)。
-simpletextoverlay.config.topright=右上
-simpletextoverlay.config.topright.tooltip=画面右上のオフセット (X<スペース>Y)。
-simpletextoverlay.config.middleleft=中央左
-simpletextoverlay.config.middleleft.tooltip=画面の中央左のオフセット (X<スペース>Y)。
-simpletextoverlay.config.middlecenter=中央
-simpletextoverlay.config.middlecenter.tooltip=画面の中央のオフセット (X<スペース>Y)。
-simpletextoverlay.config.middleright=中央右
-simpletextoverlay.config.middleright.tooltip=画面の中央右のオフセット (X<スペース>Y)。
-simpletextoverlay.config.bottomleft=左下
-simpletextoverlay.config.bottomleft.tooltip=画面の左下のオフセット (X<スペース>Y)。
-simpletextoverlay.config.bottomcenter=中央下
-simpletextoverlay.config.bottomcenter.tooltip=画面の中央下のオフセット (X<スペース>Y)。
-simpletextoverlay.config.bottomright=右下
-simpletextoverlay.config.bottomright.tooltip=画面の右下のオフセット (X<スペース>Y)。
+topleft=左上
+topleft.tooltip=画面の左上のオフセット (X<スペース>Y)。
+topcenter=中央上
+topcenter.tooltip=画面の中央上部のオフセット (X<スペース>Y)。
+topright=右上
+topright.tooltip=画面右上のオフセット (X<スペース>Y)。
+middleleft=中央左
+middleleft.tooltip=画面の中央左のオフセット (X<スペース>Y)。
+middlecenter=中央
+middlecenter.tooltip=画面の中央のオフセット (X<スペース>Y)。
+middleright=中央右
+middleright.tooltip=画面の中央右のオフセット (X<スペース>Y)。
+bottomleft=左下
+bottomleft.tooltip=画面の左下のオフセット (X<スペース>Y)。
+bottomcenter=中央下
+bottomcenter.tooltip=画面の中央下のオフセット (X<スペース>Y)。
+bottomright=右下
+bottomright.tooltip=画面の右下のオフセット (X<スペース>Y)。
 
 # gui - tag list
 gui.simpletextoverlay.taglist=タグリスト

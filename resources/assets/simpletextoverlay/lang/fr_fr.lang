@@ -1,46 +1,46 @@
 # gui - config - categories
-simpletextoverlay.config.category.general=Général
-simpletextoverlay.config.category.general.tooltip=Options générale.
-simpletextoverlay.config.category.alignment=Alignement
-simpletextoverlay.config.category.alignment.tooltip=Options d'alignement de l'interface
+general=Général
+general.tooltip=Options générale.
+alignment=Alignement
+alignment.tooltip=Options d'alignement de l'interface
 
 # gui - config - general
-simpletextoverlay.config.filename=Nom du Fichier
-simpletextoverlay.config.filename.tooltip=La configuration qui devra charger au démarrage.
-simpletextoverlay.config.replaceDebug=Replace Debug Overlay
-simpletextoverlay.config.replaceDebug.tooltip=Replace the debug overlay (F3) with the SimpleTextOverlay overlay.
-simpletextoverlay.config.showInChat=Afficher le Chat
-simpletextoverlay.config.showInChat.tooltip=Afficher l'interface dans le chat.
-simpletextoverlay.config.showOnPlayerList=Afficher la liste des joueurs
-simpletextoverlay.config.showOnPlayerList.tooltip=Afficher l'interface dans la liste des joueurs.
-simpletextoverlay.config.scale=Scale
-simpletextoverlay.config.scale.tooltip=The overlay will be scaled by this amount.
-simpletextoverlay.config.fileInterval=File Tag Interval
-simpletextoverlay.config.fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
-simpletextoverlay.config.showOverlayPotions=Show Potion Effects
-simpletextoverlay.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
-simpletextoverlay.config.showOverlayItemIcons=Show Item Overlay
-simpletextoverlay.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
+filename=Nom du Fichier
+filename.tooltip=La configuration qui devra charger au démarrage.
+replaceDebug=Replace Debug Overlay
+replaceDebug.tooltip=Replace the debug overlay (F3) with the SimpleTextOverlay overlay.
+showInChat=Afficher le Chat
+showInChat.tooltip=Afficher l'interface dans le chat.
+showOnPlayerList=Afficher la liste des joueurs
+showOnPlayerList.tooltip=Afficher l'interface dans la liste des joueurs.
+scale=Scale
+scale.tooltip=The overlay will be scaled by this amount.
+fileInterval=File Tag Interval
+fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
+showOverlayPotions=Show Potion Effects
+showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+showOverlayItemIcons=Show Item Overlay
+showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
 
 # gui - config - alignment
-simpletextoverlay.config.topleft=En haut à gauche
-simpletextoverlay.config.topleft.tooltip=Offsets for the top left side of the screen (X<space>Y).
-simpletextoverlay.config.topcenter=En haut au centre
-simpletextoverlay.config.topcenter.tooltip=Offsets for the top center side of the screen (X<space>Y).
-simpletextoverlay.config.topright=En haut à droite
-simpletextoverlay.config.topright.tooltip=Offsets for the top right side of the screen (X<space>Y).
-simpletextoverlay.config.middleleft=Au millieu à gauche
-simpletextoverlay.config.middleleft.tooltip=Offsets for the middle left side of the screen (X<space>Y).
-simpletextoverlay.config.middlecenter=Au centre
-simpletextoverlay.config.middlecenter.tooltip=Offsets for the middle center side of the screen (X<space>Y).
-simpletextoverlay.config.middleright=Au millieu à droite
-simpletextoverlay.config.middleright.tooltip=Offsets for the middle right side of the screen (X<space>Y).
-simpletextoverlay.config.bottomleft=En bas à gauche
-simpletextoverlay.config.bottomleft.tooltip=Offsets for the bottom left side of the screen (X<space>Y).
-simpletextoverlay.config.bottomcenter=En bas au centre
-simpletextoverlay.config.bottomcenter.tooltip=Offsets for the bottom center side of the screen (X<space>Y).
-simpletextoverlay.config.bottomright=En bas à droite
-simpletextoverlay.config.bottomright.tooltip=Offsets for the bottom right side of the screen (X<space>Y).
+topleft=En haut à gauche
+topleft.tooltip=Offsets for the top left side of the screen (X<space>Y).
+topcenter=En haut au centre
+topcenter.tooltip=Offsets for the top center side of the screen (X<space>Y).
+topright=En haut à droite
+topright.tooltip=Offsets for the top right side of the screen (X<space>Y).
+middleleft=Au millieu à gauche
+middleleft.tooltip=Offsets for the middle left side of the screen (X<space>Y).
+middlecenter=Au centre
+middlecenter.tooltip=Offsets for the middle center side of the screen (X<space>Y).
+middleright=Au millieu à droite
+middleright.tooltip=Offsets for the middle right side of the screen (X<space>Y).
+bottomleft=En bas à gauche
+bottomleft.tooltip=Offsets for the bottom left side of the screen (X<space>Y).
+bottomcenter=En bas au centre
+bottomcenter.tooltip=Offsets for the bottom center side of the screen (X<space>Y).
+bottomright=En bas à droite
+bottomright.tooltip=Offsets for the bottom right side of the screen (X<space>Y).
 
 # gui - tag list
 gui.simpletextoverlay.taglist=Tag List

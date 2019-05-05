@@ -1,46 +1,46 @@
 # gui - config - categories
-simpletextoverlay.config.category.general=Generelt
-simpletextoverlay.config.category.general.tooltip=Generelle innstillinger.
-simpletextoverlay.config.category.alignment=Justering
-simpletextoverlay.config.category.alignment.tooltip=Justeringsinnstillinger.
+general=Generelt
+general.tooltip=Generelle innstillinger.
+alignment=Justering
+alignment.tooltip=Justeringsinnstillinger.
 
 # gui - config - general
-simpletextoverlay.config.filename=Filnavn
-simpletextoverlay.config.filename.tooltip=Konfigurasjonen som bør bli lastet ved oppstart.
-simpletextoverlay.config.replaceDebug=Erstatt feilsøkingsdata
-simpletextoverlay.config.replaceDebug.tooltip=Erstatt feilsøkingsdataene (F3) med SimpleTextOverlay-data.
-simpletextoverlay.config.showInChat=Vis i chat
-simpletextoverlay.config.showInChat.tooltip=Vis data i chat.
-simpletextoverlay.config.showOnPlayerList=Vis på spillerlisten
-simpletextoverlay.config.showOnPlayerList.tooltip=Vis data på spillerlisten.
-simpletextoverlay.config.scale=Størrelse
-simpletextoverlay.config.scale.tooltip=Datavisningen vil bli skalert med denne mengden.
-simpletextoverlay.config.fileInterval=File Tag Interval
-simpletextoverlay.config.fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
-simpletextoverlay.config.showOverlayPotions=Show Potion Effects
-simpletextoverlay.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
-simpletextoverlay.config.showOverlayItemIcons=Show Item Overlay
-simpletextoverlay.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
+filename=Filnavn
+filename.tooltip=Konfigurasjonen som bør bli lastet ved oppstart.
+replaceDebug=Erstatt feilsøkingsdata
+replaceDebug.tooltip=Erstatt feilsøkingsdataene (F3) med SimpleTextOverlay-data.
+showInChat=Vis i chat
+showInChat.tooltip=Vis data i chat.
+showOnPlayerList=Vis på spillerlisten
+showOnPlayerList.tooltip=Vis data på spillerlisten.
+scale=Størrelse
+scale.tooltip=Datavisningen vil bli skalert med denne mengden.
+fileInterval=File Tag Interval
+fileInterval.tooltip=The interval between file reads for the 'file' tag (in seconds).
+showOverlayPotions=Show Potion Effects
+showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+showOverlayItemIcons=Show Item Overlay
+showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
 
 # gui - config - alignment
-simpletextoverlay.config.topleft=Øverst til venstre
-simpletextoverlay.config.topleft.tooltip=Forskyvning for øverst til venstre på skjermen (X<mellomrom>Y).
-simpletextoverlay.config.topcenter=Øverst i midten
-simpletextoverlay.config.topcenter.tooltip=Forskyvning for øverst i midten på skjermen (X<mellomrom>Y).
-simpletextoverlay.config.topright=Øverst til høyre
-simpletextoverlay.config.topright.tooltip=Forskyvning for øverst til høyre på skjermen (X<mellomrom>Y).
-simpletextoverlay.config.middleleft=Til venstre på midten
-simpletextoverlay.config.middleleft.tooltip=Forskyvning for venstre side på midten av skjermen (X<mellomrom>Y).
-simpletextoverlay.config.middlecenter=På midten
-simpletextoverlay.config.middlecenter.tooltip=Forskyvning for midt på skjermen (X<mellomrom>Y).
-simpletextoverlay.config.middleright=Til høyre på midten
-simpletextoverlay.config.middleright.tooltip=Forskyvning for høyre side på midten av skjermen (X<mellomrom>Y).
-simpletextoverlay.config.bottomleft=Nederst til venstre
-simpletextoverlay.config.bottomleft.tooltip=Forskyvning for nederst til venstre på skjermen (X<mellomrom>Y).
-simpletextoverlay.config.bottomcenter=Nederst i midten
-simpletextoverlay.config.bottomcenter.tooltip=Forskyvning for nederst i midten på skjermen (X<mellomrom>Y).
-simpletextoverlay.config.bottomright=Nederst til høyre
-simpletextoverlay.config.bottomright.tooltip=Forskyvning for nederst til høyre på skjermen (X<mellomrom>Y).
+topleft=Øverst til venstre
+topleft.tooltip=Forskyvning for øverst til venstre på skjermen (X<mellomrom>Y).
+topcenter=Øverst i midten
+topcenter.tooltip=Forskyvning for øverst i midten på skjermen (X<mellomrom>Y).
+topright=Øverst til høyre
+topright.tooltip=Forskyvning for øverst til høyre på skjermen (X<mellomrom>Y).
+middleleft=Til venstre på midten
+middleleft.tooltip=Forskyvning for venstre side på midten av skjermen (X<mellomrom>Y).
+middlecenter=På midten
+middlecenter.tooltip=Forskyvning for midt på skjermen (X<mellomrom>Y).
+middleright=Til høyre på midten
+middleright.tooltip=Forskyvning for høyre side på midten av skjermen (X<mellomrom>Y).
+bottomleft=Nederst til venstre
+bottomleft.tooltip=Forskyvning for nederst til venstre på skjermen (X<mellomrom>Y).
+bottomcenter=Nederst i midten
+bottomcenter.tooltip=Forskyvning for nederst i midten på skjermen (X<mellomrom>Y).
+bottomright=Nederst til høyre
+bottomright.tooltip=Forskyvning for nederst til høyre på skjermen (X<mellomrom>Y).
 
 # gui - tag list
 gui.simpletextoverlay.taglist=Liste over tagger

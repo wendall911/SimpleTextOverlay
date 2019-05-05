@@ -1,46 +1,46 @@
 # gui - config - categories
-simpletextoverlay.config.category.general=Главная
-simpletextoverlay.config.category.general.tooltip=Основные опции.
-simpletextoverlay.config.category.alignment=Выравнивание
-simpletextoverlay.config.category.alignment.tooltip=Опции смещения выравнивания.
+general=Главная
+general.tooltip=Основные опции.
+alignment=Выравнивание
+alignment.tooltip=Опции смещения выравнивания.
 
 # gui - config - general
-simpletextoverlay.config.filename=Имя файла
-simpletextoverlay.config.filename.tooltip=Какая конфигурация должны быть использована при запуске.
-simpletextoverlay.config.replaceDebug=Заменить оверлей отладки
-simpletextoverlay.config.replaceDebug.tooltip=Заменить оверлей отладки (F3) на SimpleTextOverlay оверлей.
-simpletextoverlay.config.showInChat=Показывать в чате
-simpletextoverlay.config.showInChat.tooltip=Показывать оверлей в чате.
-simpletextoverlay.config.showOnPlayerList=Показать со списком игроков
-simpletextoverlay.config.showOnPlayerList.tooltip=Показывать оверлей со списком игроков.
-simpletextoverlay.config.scale=Масштаб
-simpletextoverlay.config.scale.tooltip=Оверлей будет масштабироваться на это значение.
-simpletextoverlay.config.fileInterval=Интервал тегов файлов
-simpletextoverlay.config.fileInterval.tooltip=Интервал между прочтением файлов для 'file' тега (в секундах).
-simpletextoverlay.config.showOverlayPotions=Show Potion Effects
-simpletextoverlay.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
-simpletextoverlay.config.showOverlayItemIcons=Show Item Overlay
-simpletextoverlay.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
+filename=Имя файла
+filename.tooltip=Какая конфигурация должны быть использована при запуске.
+replaceDebug=Заменить оверлей отладки
+replaceDebug.tooltip=Заменить оверлей отладки (F3) на SimpleTextOverlay оверлей.
+showInChat=Показывать в чате
+showInChat.tooltip=Показывать оверлей в чате.
+showOnPlayerList=Показать со списком игроков
+showOnPlayerList.tooltip=Показывать оверлей со списком игроков.
+scale=Масштаб
+scale.tooltip=Оверлей будет масштабироваться на это значение.
+fileInterval=Интервал тегов файлов
+fileInterval.tooltip=Интервал между прочтением файлов для 'file' тега (в секундах).
+showOverlayPotions=Show Potion Effects
+showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+showOverlayItemIcons=Show Item Overlay
+showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
 
 # gui - config - alignment
-simpletextoverlay.config.topleft=Верх Лево
-simpletextoverlay.config.topleft.tooltip=Смещения для левой верхней части экрана (X<пространство>Y).
-simpletextoverlay.config.topcenter=Верх Центр
-simpletextoverlay.config.topcenter.tooltip=Смещения для верхней центральной части экрана (X<пространство>Y).
-simpletextoverlay.config.topright=Верх Право
-simpletextoverlay.config.topright.tooltip=Смещения для верхней правой части экрана (X<пространство>Y).
-simpletextoverlay.config.middleleft=Середина Лево
-simpletextoverlay.config.middleleft.tooltip=Смещения для средней левой части экрана (X<пространство>Y).
-simpletextoverlay.config.middlecenter=Середина Центр
-simpletextoverlay.config.middlecenter.tooltip=Смещения для средней центральной части экрана (X<пространство>Y).
-simpletextoverlay.config.middleright=Середина Право
-simpletextoverlay.config.middleright.tooltip=Смещения для средней правой части экрана (X<пространство>Y).
-simpletextoverlay.config.bottomleft=Низ Лево
-simpletextoverlay.config.bottomleft.tooltip=Смещения для нижней левой части экрана (X<пространство>Y).
-simpletextoverlay.config.bottomcenter=Низ Центр
-simpletextoverlay.config.bottomcenter.tooltip=Смещения для нижней центральной части экрана (X<пространство>Y).
-simpletextoverlay.config.bottomright=Низ Право
-simpletextoverlay.config.bottomright.tooltip=Смещения для нижней правой части экрана (X<пространство>Y).
+topleft=Верх Лево
+topleft.tooltip=Смещения для левой верхней части экрана (X<пространство>Y).
+topcenter=Верх Центр
+topcenter.tooltip=Смещения для верхней центральной части экрана (X<пространство>Y).
+topright=Верх Право
+topright.tooltip=Смещения для верхней правой части экрана (X<пространство>Y).
+middleleft=Середина Лево
+middleleft.tooltip=Смещения для средней левой части экрана (X<пространство>Y).
+middlecenter=Середина Центр
+middlecenter.tooltip=Смещения для средней центральной части экрана (X<пространство>Y).
+middleright=Середина Право
+middleright.tooltip=Смещения для средней правой части экрана (X<пространство>Y).
+bottomleft=Низ Лево
+bottomleft.tooltip=Смещения для нижней левой части экрана (X<пространство>Y).
+bottomcenter=Низ Центр
+bottomcenter.tooltip=Смещения для нижней центральной части экрана (X<пространство>Y).
+bottomright=Низ Право
+bottomright.tooltip=Смещения для нижней правой части экрана (X<пространство>Y).
 
 # gui - tag list
 gui.simpletextoverlay.taglist=Список тегов

@@ -1,46 +1,46 @@
 # gui - config - categories
-simpletextoverlay.config.category.general=Ogólnie
-simpletextoverlay.config.category.general.tooltip=Ogólne opcje.
-simpletextoverlay.config.category.alignment=Wyrównanie
-simpletextoverlay.config.category.alignment.tooltip=Opcje wyrównania i odsunięcia.
+general=Ogólnie
+general.tooltip=Ogólne opcje.
+alignment=Wyrównanie
+alignment.tooltip=Opcje wyrównania i odsunięcia.
 
 # gui - config - general
-simpletextoverlay.config.filename=Nazwa Pliku
-simpletextoverlay.config.filename.tooltip=Konfiguracja, która powinna być załadowana podczas uruchomienia.
-simpletextoverlay.config.replaceDebug=Zastąp Nakładkę Debugowania
-simpletextoverlay.config.replaceDebug.tooltip=Zastąp nakładkę debugowania (F3) z nakładką SimpleTextOverlay.
-simpletextoverlay.config.showInChat=Pokaż w Czacie
-simpletextoverlay.config.showInChat.tooltip=Wyświetl nakładkę w czacie.
-simpletextoverlay.config.showOnPlayerList=Pokaż na Liście Graczy
-simpletextoverlay.config.showOnPlayerList.tooltip=Wyświetl nakładkę na liście graczy.
-simpletextoverlay.config.scale=Skala
-simpletextoverlay.config.scale.tooltip=Nakładka będzie przeskalowana przez odpowiednią liczbę.
-simpletextoverlay.config.fileInterval=Interwał Tagowania Pliku
-simpletextoverlay.config.fileInterval.tooltip=Odstęp czasowy pomiędzy wczytywaniem przez plik tagu 'pliku' (w sekundach).
-simpletextoverlay.config.showOverlayPotions=Show Potion Effects
-simpletextoverlay.config.showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
-simpletextoverlay.config.showOverlayItemIcons=Show Item Overlay
-simpletextoverlay.config.showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
+filename=Nazwa Pliku
+filename.tooltip=Konfiguracja, która powinna być załadowana podczas uruchomienia.
+replaceDebug=Zastąp Nakładkę Debugowania
+replaceDebug.tooltip=Zastąp nakładkę debugowania (F3) z nakładką SimpleTextOverlay.
+showInChat=Pokaż w Czacie
+showInChat.tooltip=Wyświetl nakładkę w czacie.
+showOnPlayerList=Pokaż na Liście Graczy
+showOnPlayerList.tooltip=Wyświetl nakładkę na liście graczy.
+scale=Skala
+scale.tooltip=Nakładka będzie przeskalowana przez odpowiednią liczbę.
+fileInterval=Interwał Tagowania Pliku
+fileInterval.tooltip=Odstęp czasowy pomiędzy wczytywaniem przez plik tagu 'pliku' (w sekundach).
+showOverlayPotions=Show Potion Effects
+showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
+showOverlayItemIcons=Show Item Overlay
+showOverlayItemIcons.tooltip=Display the item overlay on icon (durability, stack size).
 
 # gui - config - alignment
-simpletextoverlay.config.topleft=Góra Lewo
-simpletextoverlay.config.topleft.tooltip=Odsunięcie od górnego lewegu brzegu ekranu (X<odległość>Y).
-simpletextoverlay.config.topcenter=Góra Centrum
-simpletextoverlay.config.topcenter.tooltip=Odsunięcie od górnego centrum brzegu ekranu (X<odległość>Y).
-simpletextoverlay.config.topright=Góra Prawo
-simpletextoverlay.config.topright.tooltip=Odsunięcie od górnego prawego brzegu ekranu (X<odległość>Y).
-simpletextoverlay.config.middleleft=Środek Lewo
-simpletextoverlay.config.middleleft.tooltip=Odsunięcie od środkowego lewegu brzegu ekranu (X<odległość>Y).
-simpletextoverlay.config.middlecenter=Środek Centrum
-simpletextoverlay.config.middlecenter.tooltip=Odsunięcie od środkowego centrum brzegu ekranu (X<odległość>Y).
-simpletextoverlay.config.middleright=Środek Prawo
-simpletextoverlay.config.middleright.tooltip=Odsunięcie od środkowego prawego brzegu ekranu (X<odległość>Y).
-simpletextoverlay.config.bottomleft=Dół Lewo
-simpletextoverlay.config.bottomleft.tooltip=Odsunięcie od dolnego lewegu brzegu ekranu (X<odległość>Y).
-simpletextoverlay.config.bottomcenter=Dół Centrum
-simpletextoverlay.config.bottomcenter.tooltip=Odsunięcie od dolnego centrum brzegu ekranu (X<odległość>Y).
-simpletextoverlay.config.bottomright=Dół Prawo
-simpletextoverlay.config.bottomright.tooltip=Odsunięcie od dolnego prawego brzegu ekranu (X<odległość>Y).
+topleft=Góra Lewo
+topleft.tooltip=Odsunięcie od górnego lewegu brzegu ekranu (X<odległość>Y).
+topcenter=Góra Centrum
+topcenter.tooltip=Odsunięcie od górnego centrum brzegu ekranu (X<odległość>Y).
+topright=Góra Prawo
+topright.tooltip=Odsunięcie od górnego prawego brzegu ekranu (X<odległość>Y).
+middleleft=Środek Lewo
+middleleft.tooltip=Odsunięcie od środkowego lewegu brzegu ekranu (X<odległość>Y).
+middlecenter=Środek Centrum
+middlecenter.tooltip=Odsunięcie od środkowego centrum brzegu ekranu (X<odległość>Y).
+middleright=Środek Prawo
+middleright.tooltip=Odsunięcie od środkowego prawego brzegu ekranu (X<odległość>Y).
+bottomleft=Dół Lewo
+bottomleft.tooltip=Odsunięcie od dolnego lewegu brzegu ekranu (X<odległość>Y).
+bottomcenter=Dół Centrum
+bottomcenter.tooltip=Odsunięcie od dolnego centrum brzegu ekranu (X<odległość>Y).
+bottomright=Dół Prawo
+bottomright.tooltip=Odsunięcie od dolnego prawego brzegu ekranu (X<odległość>Y).
 
 # gui - tag list
 gui.simpletextoverlay.taglist=Lista Tagów
