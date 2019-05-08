@@ -5,10 +5,12 @@ alignment=Alignment
 alignment.tooltip=Alignment offset options.
 
 # gui - config - general
-overlayConfig=Filename
-overlayConfig.tooltip=The configuration that should be loaded on startup.
+defaultOverlayFile=Filename
+defaultOverlayFile.tooltip=The configuration that should be loaded on startup.
 replaceDebug=Replace Debug Overlay
 replaceDebug.tooltip=Replace the debug overlay (F3) with the SimpleTextOverlay overlay.
+debugOverlayFile=Debug Overlay File
+debugOverlayFile.tooltip=The file used for the debug overlay (F3).
 showInChat=Show in Chat
 showInChat.tooltip=Display the overlay in chat.
 showOnPlayerList=Show on Player List

@@ -5,10 +5,12 @@ alignment=Выравнивание
 alignment.tooltip=Опции смещения выравнивания.
 
 # gui - config - general
-filename=Имя файла
-filename.tooltip=Какая конфигурация должны быть использована при запуске.
+defaultOverlayFile=Имя файла
+defaultOverlayFile.tooltip=Какая конфигурация должны быть использована при запуске.
 replaceDebug=Заменить оверлей отладки
 replaceDebug.tooltip=Заменить оверлей отладки (F3) на SimpleTextOverlay оверлей.
+debugOverlayFile=Debug Overlay File
+debugOverlayFile.tooltip=The file used for the debug overlay (F3).
 showInChat=Показывать в чате
 showInChat.tooltip=Показывать оверлей в чате.
 showOnPlayerList=Показать со списком игроков

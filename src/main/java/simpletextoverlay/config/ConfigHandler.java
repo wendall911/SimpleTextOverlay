@@ -84,10 +84,13 @@ public class ConfigHandler {
         public static class General {
 
             @Config.Comment({"The configuration that should be loaded on startup."})
-            public static String overlayConfig = Names.Files.FILE_JSON;
+            public static String defaultOverlayFile = Names.Files.FILE_JSON;
 
             @Config.Comment({"Replace the debug overlay (F3) with the SimpleTextOverlay overlay."})
             public static boolean replaceDebug = false;
+
+            @Config.Comment({"The file used for the debug overlay (F3)."})
+            public static String debugOverlayFile = Names.Files.FILE_DEBUG;
 
             @Config.Comment({"Display the overlay in chat."})
             public static boolean showInChat = true;

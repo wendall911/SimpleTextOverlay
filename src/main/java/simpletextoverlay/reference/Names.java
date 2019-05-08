@@ -69,10 +69,8 @@ public final class Names {
     }
 
     public static final class Files {
-        public static final String NAME = "SimpleTextOverlay";
-
         public static final String FILE_JSON = "simpletextoverlay.json";
-
+        public static final String FILE_DEBUG = "debugoverlay.json";
         public static final String EXT_JSON = ".json";
     }
 

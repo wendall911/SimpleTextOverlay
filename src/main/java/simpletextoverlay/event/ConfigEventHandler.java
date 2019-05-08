@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.common.config.Config.Type;
 
 import simpletextoverlay.config.ConfigHandler;
-import simpletextoverlay.core.Core;
+import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.reference.Reference;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.Alignment;
@@ -24,11 +24,11 @@ public class ConfigEventHandler {
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(Reference.MODID)) {
-            Core core = Core.INSTANCE;
+            OverlayManager overlayManager = OverlayManager.INSTANCE;
 
             SimpleTextOverlay.logger.info("Config updated.");
             ConfigManager.sync(Reference.MODID, Type.INSTANCE);
-            core.loadConfig(ConfigHandler.client.general.overlayConfig);
+            overlayManager.loadOverlayFile(ConfigHandler.client.general.defaultOverlayFile, false);
             applyConfigSettings();
         }
     }

@@ -5,10 +5,12 @@ alignment=整列
 alignment.tooltip=整列オフセット設定。
 
 # gui - config - general
-filename=ファイル名
-filename.tooltip=起動時にロードが必要な設定。
+defaultOverlayFile=ファイル名
+defaultOverlayFile.tooltip=起動時にロードが必要な設定。
 replaceDebug=デバッグオーバーレイを置き換え
 replaceDebug.tooltip=デバッグオーバーレイ(F3)をSimpleTextOverlayオーバーレイに置き換えます。
+debugOverlayFile=Debug Overlay File
+debugOverlayFile.tooltip=The file used for the debug overlay (F3).
 showInChat=チャットで表示
 showInChat.tooltip=チャットでオーバーレイを表示します。
 showOnPlayerList=プレイヤーリストに表示

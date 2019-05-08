@@ -5,10 +5,12 @@ alignment=Wyrównanie
 alignment.tooltip=Opcje wyrównania i odsunięcia.
 
 # gui - config - general
-filename=Nazwa Pliku
-filename.tooltip=Konfiguracja, która powinna być załadowana podczas uruchomienia.
+defaultOverlayFile=Nazwa Pliku
+defaultOverlayFile.tooltip=Konfiguracja, która powinna być załadowana podczas uruchomienia.
 replaceDebug=Zastąp Nakładkę Debugowania
 replaceDebug.tooltip=Zastąp nakładkę debugowania (F3) z nakładką SimpleTextOverlay.
+debugOverlayFile=Debug Overlay File
+debugOverlayFile.tooltip=The file used for the debug overlay (F3).
 showInChat=Pokaż w Czacie
 showInChat.tooltip=Wyświetl nakładkę w czacie.
 showOnPlayerList=Pokaż na Liście Graczy

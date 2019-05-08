@@ -12,9 +12,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.event.FMLServerStoppingEvent;
 
+import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.command.SimpleTextOverlayCommand;
 import simpletextoverlay.config.ConfigHandler;
-import simpletextoverlay.core.Core;
 import simpletextoverlay.event.ConfigEventHandler;
 import simpletextoverlay.event.GameOverlayEventHandler;
 import simpletextoverlay.event.KeyInputEventHandler;
@@ -26,7 +26,7 @@ import simpletextoverlay.value.registry.ValueRegistry;
 
 public class ClientProxy extends CommonProxy {
 
-    private final Core core = Core.INSTANCE;
+    private final OverlayManager overlayManager = OverlayManager.INSTANCE;
 
     @Override
     public void preInit(final FMLPreInitializationEvent event) {
@@ -35,8 +35,7 @@ public class ClientProxy extends CommonProxy {
         ValueRegistry.INSTANCE.init();
         ConfigEventHandler.INSTANCE.applyConfigSettings();
 
-        this.core.setConfigDirectory(event.getModConfigurationDirectory());
-        this.core.loadConfig(ConfigHandler.client.general.overlayConfig);
+        this.overlayManager.init(event.getModConfigurationDirectory());
 
         for (final KeyBinding keyBinding : KeyInputEventHandler.INSTANCE.KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(keyBinding);

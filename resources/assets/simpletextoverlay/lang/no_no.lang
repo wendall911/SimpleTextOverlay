@@ -5,10 +5,12 @@ alignment=Justering
 alignment.tooltip=Justeringsinnstillinger.
 
 # gui - config - general
-filename=Filnavn
-filename.tooltip=Konfigurasjonen som bør bli lastet ved oppstart.
+defaultOverlayFile=Filnavn
+defaultOverlayFile.tooltip=Konfigurasjonen som bør bli lastet ved oppstart.
 replaceDebug=Erstatt feilsøkingsdata
 replaceDebug.tooltip=Erstatt feilsøkingsdataene (F3) med SimpleTextOverlay-data.
+debugOverlayFile=Debug Overlay File
+debugOverlayFile.tooltip=The file used for the debug overlay (F3).
 showInChat=Vis i chat
 showInChat.tooltip=Vis data i chat.
 showOnPlayerList=Vis på spillerlisten

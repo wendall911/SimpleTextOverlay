@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 
 import simpletextoverlay.config.ConfigHandler;
-import simpletextoverlay.core.Core;
+import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 
@@ -20,71 +20,82 @@ public class GameOverlayEventHandler {
     public static boolean enabled = false;
 
     private final Minecraft client = Minecraft.getMinecraft();
-    private final Core core = Core.INSTANCE;
+    private final OverlayManager overlayManager = OverlayManager.INSTANCE;
     private boolean firstJoin = false;
+    private String lastOverlayFile = "";
 
     private GameOverlayEventHandler() {}
 
     @SubscribeEvent
     public void onEntityJoinWorld(final EntityJoinWorldEvent event) {
         if (!firstJoin) {
-            this.enabled = true;
-            this.firstJoin = true;
+            enabled = true;
+            firstJoin = true;
         }
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onRenderGameOverlayEventPre(final RenderGameOverlayEvent.Pre event) {
-        if (canRun()) {
-            if (ConfigHandler.client.general.replaceDebug && event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
+        if (replaceDebugger()) {
+            if (event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
+                if (!overlayManager.getOverlayFile().equals(ConfigHandler.client.general.debugOverlayFile)) {
+                    lastOverlayFile = overlayManager.getOverlayFile();
+                    overlayManager.loadOverlayFile(ConfigHandler.client.general.debugOverlayFile, false);
+                }
+
                 event.setCanceled(true);
             }
 
-            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-                event.setCanceled(true);
+            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT &&
+                    !isDebugger() &&
+                    overlayManager.getOverlayFile().equals(ConfigHandler.client.general.debugOverlayFile)) {
+                overlayManager.loadOverlayFile(lastOverlayFile, false);
             }
         }
 
-        if (!ConfigHandler.client.general.showOverlayPotions && event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
+        if ( enabled && !ConfigHandler.client.general.showOverlayPotions &&
+                event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
             event.setCanceled(true);
         }
     }
 
-    // TODO: this requires a bit of optimization... it's just boolean checks mostly but still
-    private boolean canRun() {
-        if (!enabled) {
-            return false;
-        }
-
-        //this.client.profiler.profilingEnabled SHIFT+F3
-        //this.client.gameSettings.showDebugInfo F3
-
-        return this.client.profiler.profilingEnabled
-            || ConfigHandler.client.general.replaceDebug
-            || ConfigHandler.client.general.replaceDebug ==
-                this.client.gameSettings.showDebugInfo;
+    private boolean isDebugger() {
+        return client.profiler.profilingEnabled || //SHIFT+<F3>
+            client.gameSettings.showDebugInfo; //<F3>
     }
 
-    private boolean isRunning() {
-        if (!canRun()) {
-            return false;
-        }
-
-        if (this.client.profiler.profilingEnabled) {
+    private boolean replaceDebugger() {
+        if (ConfigHandler.server.forceDebug) {
             return true;
         }
 
-        // a && b || !a && !b  -->  a == b
-        if (this.client.gameSettings != null && ConfigHandler.client.general.replaceDebug == this.client.gameSettings.showDebugInfo) {
-            if (!ConfigHandler.client.general.showOnPlayerList && this.client.gameSettings.keyBindPlayerList.isKeyDown()) {
+        return enabled && ConfigHandler.client.general.replaceDebug;
+    }
+
+    private boolean canRun() {
+        if (client.gameSettings != null && enabled) {
+            if (!ConfigHandler.client.general.replaceDebug &&
+                client.profiler.profilingEnabled) {
                 return false;
             }
 
-            if (this.client.gameSettings.hideGUI) {
+            if (!ConfigHandler.client.general.showOnPlayerList &&
+                    client.gameSettings.keyBindPlayerList.isKeyDown()) {
                 return false;
             }
 
-            return this.client.currentScreen == null || ConfigHandler.client.general.showInChat && this.client.currentScreen instanceof GuiChat;
+            if (!ConfigHandler.client.general.replaceDebug &&
+                    client.gameSettings.showDebugInfo) {
+                return false;
+            }
+
+            if (client.gameSettings.hideGUI) {
+                return false;
+            }
+
+            return client.currentScreen == null ||
+                ConfigHandler.client.general.showInChat &&
+                client.currentScreen instanceof GuiChat;
 
         }
 
@@ -92,15 +103,13 @@ public class GameOverlayEventHandler {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onRenderGameOverlay(final RenderGameOverlayEvent.Post event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-            if (isRunning()) {
-                this.core.updateTagValues();
-                this.core.renderOverlay();
-            }
-            if (!enabled || this.client.gameSettings == null) {
-                Tag.releaseResources();
-            }
+    public void onRenderGameOverlay(final RenderGameOverlayEvent.Text event) {
+        if (canRun()) {
+            overlayManager.updateTagValues();
+            overlayManager.renderOverlay();
+        }
+        if (!enabled || client.gameSettings == null) {
+            Tag.releaseResources();
         }
     }
 

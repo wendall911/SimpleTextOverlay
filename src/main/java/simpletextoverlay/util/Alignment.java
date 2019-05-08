@@ -4,6 +4,11 @@ import java.util.Locale;
 
 public enum Alignment {
     TOPLEFT(2, 2),
+    LEFTCOL1(2, 2),
+    LEFTCOL2(150, 2),
+    LEFTCOL3(440, 2),
+    LEFTCOL4(610, 2),
+    LEFTCOL5(750, 2),
     TOPCENTER(0, 2),
     TOPRIGHT(-2, 2),
     MIDDLELEFT(2, 0),
@@ -17,6 +22,11 @@ public enum Alignment {
     private static final int MASK_Y = 0x03;
 
     private static final int TOP = 0x01;
+    private static final int COL1 = 0x01;
+    private static final int COL2 = 0x01;
+    private static final int COL3 = 0x01;
+    private static final int COL4 = 0x01;
+    private static final int COL5 = 0x01;
     private static final int MIDDLE = 0x03;
     private static final int BOTTOM = 0x02;
 
@@ -49,10 +59,22 @@ public enum Alignment {
             value = "MIDDLE";
         } else if (str.startsWith("bot")) {
             value = "BOTTOM";
+        } else if (str.startsWith("left")) {
+            value = "LEFT";
         }
 
         if (str.endsWith("left")) {
             value += "LEFT";
+        } else if (str.endsWith("col1")) {
+            value += "COL1";
+        } else if (str.endsWith("col2")) {
+            value += "COL2";
+        } else if (str.endsWith("col3")) {
+            value += "COL3";
+        } else if (str.endsWith("col4")) {
+            value += "COL4";
+        } else if (str.endsWith("col5")) {
+            value += "COL5";
         } else if (str.endsWith("center")) {
             value += "CENTER";
         } else if (str.endsWith("right")) {
@@ -106,6 +128,11 @@ public enum Alignment {
 
     static {
         TOPLEFT.alignment = TOP | LEFT;
+        LEFTCOL1.alignment = LEFT | COL1;
+        LEFTCOL2.alignment = LEFT | COL2;
+        LEFTCOL3.alignment = LEFT | COL3;
+        LEFTCOL4.alignment = LEFT | COL4;
+        LEFTCOL5.alignment = LEFT | COL5;
         TOPCENTER.alignment = TOP | CENTER;
         TOPRIGHT.alignment = TOP | RIGHT;
         MIDDLELEFT.alignment = MIDDLE | LEFT;

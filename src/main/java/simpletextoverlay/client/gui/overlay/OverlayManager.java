@@ -1,10 +1,11 @@
-package simpletextoverlay.core;
+package simpletextoverlay.client.gui.overlay;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,60 +31,157 @@ import simpletextoverlay.parser.json.JsonParser;
 import simpletextoverlay.printer.IPrinter;
 import simpletextoverlay.printer.json.JsonPrinter;
 import simpletextoverlay.reference.Names;
+import simpletextoverlay.reference.Reference;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 import simpletextoverlay.value.ValueComplex;
 
-public class Core {
+public class OverlayManager {
     private static final Pattern PATTERN = Pattern.compile("\\{ICON\\|( *)\\}", Pattern.CASE_INSENSITIVE);
     private static final Matcher MATCHER = PATTERN.matcher("");
-    public static final Core INSTANCE = new Core();
+    public static final OverlayManager INSTANCE = new OverlayManager();
 
     private IParser parser = new JsonParser();
 
     private final Minecraft client = Minecraft.getMinecraft();
-    private File configDirectory = null;
-    private File configFile = null;
-    private String configFilename;
+    private File overlayDirectory;
+    private String overlayFile = "";
     private final Map<Alignment, List<List<Value>>> format = new HashMap<>();
     private final List<Info> info = new ArrayList<>();
     private final List<Info> infoItemQueue = new ArrayList<>();
 
-    private Core() {
+    private OverlayManager() {
         Tag.setInfo(this.infoItemQueue);
         Value.setInfo(this.infoItemQueue);
     }
 
-    public boolean setConfigDirectory(final File directory) {
-        this.configDirectory = directory;
-        return true;
+    public void init(final File modConfigFile) {
+        this.overlayDirectory = modConfigFile.toPath().resolve(Reference.MODID).toFile();
+        createPath(this.overlayDirectory);
+
+        loadOverlayFile(ConfigHandler.client.general.defaultOverlayFile, false);
+        setupDebugFile(ConfigHandler.client.general.debugOverlayFile);
+    }
+
+    public String getOverlayFile() {
+        return this.overlayFile;
     }
 
     public File getConfigDirectory() {
-        return this.configDirectory;
+        return this.overlayDirectory;
     }
 
-    public boolean loadConfig(final String filename) {
-        final File file = new File(this.configDirectory, filename);
+    public boolean reloadOverlayFile() {
+        return loadOverlayFile(this.overlayFile, true);
+    }
 
-        this.configFilename = filename;
+    public boolean loadOverlayFile(final String filename, boolean reload) {
+        if (!reload && this.overlayFile.equals(filename)) {
+            return true;
+        }
+        final File file = new File(this.overlayDirectory, filename);
+        InputStream inputStream = null;
+
+        this.overlayFile = filename;
+        this.info.clear();
+        this.infoItemQueue.clear();
+        this.format.clear();
+
+        if (!filename.endsWith(Names.Files.EXT_JSON)) {
+            SimpleTextOverlay.logger.error("The overlay config '{}' does not end in .json", filename);
+            return false;
+        }
 
         if (file.exists()) {
-            if (filename.endsWith(Names.Files.EXT_JSON)) {
-                this.configFile = file;
-            }
-            else {
-                SimpleTextOverlay.logger.error("The config '{}' does not end in .json", filename);
+            SimpleTextOverlay.logger.info("Loading overlay config file...");
+            try {
+                inputStream = new FileInputStream(file);
+            } catch (final Exception e) {
+                SimpleTextOverlay.logger.error("Unable to load '{}'.", filename, e);
                 return false;
             }
         }
         else {
-            SimpleTextOverlay.logger.warn("The config '{}' does not exist", filename);
+            try {
+                final ResourceLocation resourceLocation = new ResourceLocation(Reference.MODID, Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH));
+                final IResource resource = this.client.getResourceManager().getResource(resourceLocation);
+                InputStream resourceInputStream = resource.getInputStream();
+
+                SimpleTextOverlay.logger.info("The config '{}' does not exist", filename);
+
+                if (filename.equals(Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH))) {
+                    SimpleTextOverlay.logger.info("Creating default overlay config...", filename);
+
+                    byte[] buffer = new byte[resourceInputStream.available()];
+                    resourceInputStream.read(buffer);
+
+                    OutputStream outStream = new FileOutputStream(file);
+                    outStream.write(buffer);
+
+                    inputStream = new FileInputStream(file);
+                }
+                else {
+                    SimpleTextOverlay.logger.warn("Loading default overlay config...");
+                    inputStream = resourceInputStream;
+                }
+            } catch (final Exception e) {
+                SimpleTextOverlay.logger.error("Unable to create '{}'.", filename, e);
+                return false;
+            }
         }
 
-        return reloadConfig();
+        if (this.parser.load(inputStream)) {
+            if (!this.parser.parse(this.format)) {
+                SimpleTextOverlay.logger.error("Error parsing overlay config file...");
+                return false;
+            };
+        }
+        else {
+            SimpleTextOverlay.logger.error("Error loading overlay config file...");
+            return false;
+        }
+
+        return true;
+    }
+
+    private void setupDebugFile(final String filename) {
+        final File file = new File(this.overlayDirectory, filename);
+
+        if (!filename.endsWith(Names.Files.EXT_JSON)) {
+            SimpleTextOverlay.logger.error("The debug config '{}' does not end in .json", filename);
+            return;
+        }
+
+        if (!file.exists()) {
+            try {
+                final ResourceLocation resourceLocation = new ResourceLocation(Reference.MODID, Names.Files.FILE_DEBUG.toLowerCase(Locale.ENGLISH));
+                final IResource resource = this.client.getResourceManager().getResource(resourceLocation);
+                InputStream resourceInputStream = resource.getInputStream();
+
+                SimpleTextOverlay.logger.info("The debug config '{}' does not exist", filename);
+
+                if (filename.equals(Names.Files.FILE_DEBUG.toLowerCase(Locale.ENGLISH))) {
+                    SimpleTextOverlay.logger.info("Creating default debug overlay config...", filename);
+
+                    byte[] buffer = new byte[resourceInputStream.available()];
+                    resourceInputStream.read(buffer);
+
+                    OutputStream outStream = new FileOutputStream(file);
+                    outStream.write(buffer);
+                }
+            } catch (final Exception e) {
+                SimpleTextOverlay.logger.error("Unable to create '{}'.", filename, e);
+            }
+        }
+    }
+
+    private void createPath(File directory) {
+        if (!directory.exists() && !directory.mkdirs()) {
+            SimpleTextOverlay.logger.error("Failed to create config directory '{}'.",
+                    directory.getAbsolutePath());
+        }
     }
 
     public void updateTagValues() {
@@ -159,7 +257,6 @@ public class Core {
         }
 
         Tag.releaseResources();
-        ValueComplex.ValueFile.tick();
     }
 
     public void renderOverlay() {
@@ -180,71 +277,14 @@ public class Core {
         GlStateManager.popMatrix();
     }
 
-    public boolean reloadConfig() {
-        this.info.clear();
-        this.infoItemQueue.clear();
-        this.format.clear();
-
-        if (this.parser == null) {
-            return false;
-        }
-
-        final InputStream inputStream = getInputStream();
-        if (inputStream == null) {
-            return false;
-        }
-
-        if (this.parser.load(inputStream) && this.parser.parse(this.format)) {
-            return true;
-        }
-
-        this.format.clear();
-        return false;
-    }
-
-    private InputStream getInputStream() {
-        InputStream inputStream = null;
-
-        try {
-            if (this.configFile != null && this.configFile.exists()) {
-                SimpleTextOverlay.logger.warn("Loading file config...");
-                inputStream = new FileInputStream(this.configFile);
-            } else {  
-                final ResourceLocation resourceLocation = new ResourceLocation("simpletextoverlay", Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH));
-                final IResource resource = this.client.getResourceManager().getResource(resourceLocation);
-                InputStream resourceInputStream = resource.getInputStream();
-
-                if (this.configFilename.equals(Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH))) {
-                    SimpleTextOverlay.logger.warn("Creating overlay config...", this.configFilename);
-
-                    byte[] buffer = new byte[resourceInputStream.available()];
-                    resourceInputStream.read(buffer);
-                    this.configFile = new File(this.configDirectory, this.configFilename);
-
-                    OutputStream outStream = new FileOutputStream(this.configFile);
-                    outStream.write(buffer);
-
-                    inputStream = new FileInputStream(this.configFile);
-                }
-                else {
-                    SimpleTextOverlay.logger.warn("Loading default config...");
-                    inputStream = resourceInputStream;
-                }
-            }
-        } catch (final Exception e) {
-            SimpleTextOverlay.logger.error("", e);
-        }
-
-        return inputStream;
-    }
-
     public boolean saveConfig(final String filename) {
         IPrinter printer = null;
-        final File file = new File(this.configDirectory, filename);
+        final File file = new File(this.overlayDirectory, filename);
         if (filename.endsWith(Names.Files.EXT_JSON)) {
             printer = new JsonPrinter();
         } else {
             SimpleTextOverlay.logger.warn("'{}' is an invalid file name");
+            return false;
         }
 
         return printer != null && printer.print(file, this.format);

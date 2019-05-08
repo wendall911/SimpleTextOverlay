@@ -315,6 +315,7 @@ public abstract class TagPlayerGeneral extends Tag {
         TagRegistry.INSTANCE.register(new Sprinting().setName("sprinting"));
         TagRegistry.INSTANCE.register(new Flying().setName("flying"));
         TagRegistry.INSTANCE.register(new Invisible().setName("invisible"));
+        //Would require listening on events and setting props
         TagRegistry.INSTANCE.register(new Eating().setName("eating"));
     }
 }

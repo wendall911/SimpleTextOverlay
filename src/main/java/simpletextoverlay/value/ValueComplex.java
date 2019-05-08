@@ -17,9 +17,9 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
-import simpletextoverlay.core.Core;
 import simpletextoverlay.client.gui.overlay.InfoIcon;
 import simpletextoverlay.client.gui.overlay.InfoItem;
+import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
@@ -180,66 +180,6 @@ public abstract class ValueComplex extends Value {
         }
     }
 
-    public static class ValueFile extends ValueComplex {
-        private static int ticks = 0;
-
-        private Map<String, String> cache = new HashMap<>();
-
-        @Override
-        public boolean isValidSize() {
-            return this.values.size() == 1;
-        }
-
-        @Override
-        public String getValue() {
-            final String filename = getValue(0);
-
-            if (ticks == 0) {
-                if (this.cache.size() > 16) {
-                    SimpleTextOverlay.logger.trace("Clearing file cache...");
-                    this.cache.clear();
-                }
-
-                final File file = new File(Core.INSTANCE.getConfigDirectory(), filename);
-                if (file.exists()) {
-                    this.cache.put(filename, getLine(file));
-                }
-            }
-
-            final String line = this.cache.get(filename);
-            if (line != null) {
-                return line;
-            }
-
-            return "";
-        }
-
-        private String getLine(final File file) {
-            try {
-                final FileReader fileReader = new FileReader(file);
-                final BufferedReader reader = new BufferedReader(fileReader);
-
-                final String line = reader.readLine();
-
-                reader.close();
-
-                if (line.startsWith("\uFEFF")) {
-                    return line.substring(1);
-                }
-
-                return line;
-            } catch (final Exception e) {
-                SimpleTextOverlay.logger.error("", e);
-            }
-
-            return "";
-        }
-
-        public static void tick() {
-            ticks = (ticks + 1) % (ConfigHandler.client.general.fileInterval * 20);
-        }
-    }
-
     public static class ValueIcon extends ValueComplex {
         @Override
         public boolean isValidSize() {
@@ -320,6 +260,5 @@ public abstract class ValueComplex extends Value {
         ValueRegistry.INSTANCE.register(new ValueFormattedTime().setName("formattedtime").setAliases("rltimef"));
         ValueRegistry.INSTANCE.register(new ValueFormattedNumber().setName("formattednumber"));
         ValueRegistry.INSTANCE.register(new ValueIcon().setName("icon").setAliases("img", "image"));
-        ValueRegistry.INSTANCE.register(new ValueFile().setName("file"));
     }
 }

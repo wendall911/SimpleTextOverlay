@@ -17,14 +17,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 
-import simpletextoverlay.core.Core;
+import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.client.gui.tag.GuiTags;
+import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.event.GameOverlayEventHandler;
 import simpletextoverlay.event.TagOverlayEventHandler;
 import simpletextoverlay.reference.Names;
 
 public class SimpleTextOverlayCommand extends CommandBase {
-    private final Core core = Core.INSTANCE;
+    private final OverlayManager overlayManager = OverlayManager.INSTANCE;
 
     @Override
     public String getName() {
@@ -62,10 +63,13 @@ public class SimpleTextOverlayCommand extends CommandBase {
     }
 
     private List<String> getFilenames() {
-        final File[] files = this.core.getConfigDirectory().listFiles((File dir, String name) -> name.startsWith(Names.Files.NAME) && (name.endsWith(Names.Files.EXT_JSON)));
+        final File[] files = this.overlayManager.getConfigDirectory().listFiles(
+                (File dir, String name) ->
+                    name.endsWith(Names.Files.EXT_JSON) &&
+                    !name.contains(ConfigHandler.client.general.debugOverlayFile));
 
         final List<String> filenames = new ArrayList<>();
-        filenames.add("default");
+
         for (final File file : files) {
             filenames.add(file.getName());
         }
@@ -78,7 +82,7 @@ public class SimpleTextOverlayCommand extends CommandBase {
         if (args.length > 0) {
             if (args[0].equalsIgnoreCase(Names.Command.RELOAD)) {
                 sender.sendMessage(new TextComponentTranslation(Names.Command.Message.RELOAD));
-                final boolean success = this.core.reloadConfig();
+                final boolean success = this.overlayManager.reloadOverlayFile();
                 sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                 return;
             } else if (args[0].equalsIgnoreCase(Names.Command.ENABLE)) {
@@ -95,7 +99,7 @@ public class SimpleTextOverlayCommand extends CommandBase {
             } else if (args[0].equalsIgnoreCase(Names.Command.LOAD)) {
                 if (args.length == 2) {
                     sender.sendMessage(new TextComponentTranslation(Names.Command.Message.LOAD, args[1]));
-                    final boolean success = this.core.loadConfig(args[1]);
+                    final boolean success = this.overlayManager.loadOverlayFile(args[1], false);
                     sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                     return;
                 }
@@ -106,7 +110,7 @@ public class SimpleTextOverlayCommand extends CommandBase {
             } else if (args[0].equalsIgnoreCase(Names.Command.SAVE)) {
                 if (args.length == 2) {
                     sender.sendMessage(new TextComponentTranslation(Names.Command.Message.SAVE, args[1]));
-                    final boolean success = this.core.saveConfig(args[1]);
+                    final boolean success = this.overlayManager.saveConfig(args[1]);
                     sender.sendMessage(new TextComponentTranslation(success ? Names.Command.Message.SUCCESS : Names.Command.Message.FAILURE));
                     return;
                 }
