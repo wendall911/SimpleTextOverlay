@@ -24,6 +24,8 @@ public abstract class Tag {
     protected static List<Info> info;
     protected static boolean hasSeed = false;
     protected static long seed = 0;
+    protected static boolean eating = false;
+    protected static String[] blacklist = new String[0];
 
     private String name = null;
     private String[] aliases = new String[0];
@@ -93,6 +95,14 @@ public abstract class Tag {
     public static void unsetSeed() {
         Tag.hasSeed = false;
         Tag.seed = 0;
+    }
+
+    public static void setEating(final boolean status) {
+        Tag.eating = status;
+    }
+
+    public static void setBlacklist(final String... blacklist) {
+        Tag.blacklist = blacklist;
     }
 
     public static void setWorld(final World world) {

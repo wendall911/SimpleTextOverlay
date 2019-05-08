@@ -276,9 +276,7 @@ public abstract class TagPlayerGeneral extends Tag {
     public static class Eating extends TagPlayerGeneral {
         @Override
         public String getValue() {
-            // TODO: remove or fix
-            // return String.valueOf(player.isEating());
-            return String.valueOf(false);
+            return String.valueOf(eating);
         }
     }
 
