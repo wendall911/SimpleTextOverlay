@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Set;
 
 import simpletextoverlay.client.gui.overlay.Info;
+import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.value.registry.ValueRegistry;
@@ -101,6 +103,12 @@ public abstract class Value {
     }
 
     protected String getVariableValue(final String var) {
+        Set<String> tagBlacklist = OverlayManager.INSTANCE.getTagBlacklist();
+
+        if (tagBlacklist.contains(var)) {
+            return "disabled";
+        }
+
         try {
             final String value = TagRegistry.INSTANCE.getValue(var);
             if (value != null) {

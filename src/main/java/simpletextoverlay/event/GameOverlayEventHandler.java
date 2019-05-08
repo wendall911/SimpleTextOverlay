@@ -18,6 +18,7 @@ public class GameOverlayEventHandler {
     public static final GameOverlayEventHandler INSTANCE = new GameOverlayEventHandler();
 
     public static boolean enabled = false;
+    public static boolean forceDebug = false;
 
     private final Minecraft client = Minecraft.getMinecraft();
     private final OverlayManager overlayManager = OverlayManager.INSTANCE;
@@ -65,7 +66,7 @@ public class GameOverlayEventHandler {
     }
 
     private boolean replaceDebugger() {
-        if (ConfigHandler.server.forceDebug) {
+        if (forceDebug) {
             return true;
         }
 
@@ -102,7 +103,7 @@ public class GameOverlayEventHandler {
         return false;
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    @SubscribeEvent
     public void onRenderGameOverlay(final RenderGameOverlayEvent.Text event) {
         if (canRun()) {
             overlayManager.updateTagValues();

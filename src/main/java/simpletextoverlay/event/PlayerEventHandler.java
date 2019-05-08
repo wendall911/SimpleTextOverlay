@@ -1,22 +1,56 @@
 package simpletextoverlay.event;
 
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.ItemFood;
+
+import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
-import simpletextoverlay.network.PacketHandler;
-import simpletextoverlay.network.message.MessageSeed;
-import simpletextoverlay.SimpleTextOverlay;
+import simpletextoverlay.tag.Tag;
+import simpletextoverlay.util.PacketHandlerHelper;
 
 public class PlayerEventHandler {
 
+    @SideOnly(Side.SERVER)
     @SubscribeEvent
     public void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player instanceof EntityPlayerMP) {
-            try {
-                PacketHandler.INSTANCE.sendTo(new MessageSeed(event.player.world.getSeed()), (EntityPlayerMP) event.player);
-            } catch (final Exception ex) {
-                SimpleTextOverlay.logger.error("Failed to send the seed!", ex);
+            EntityPlayerMP player = (EntityPlayerMP) event.player;
+            PacketHandlerHelper.sendServerValues(player);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onEating(final LivingEntityUseItemEvent event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            if (event.getItem().getItem() instanceof ItemFood) {
+                Tag.setEating(true);
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onEating(final LivingEntityUseItemEvent.Stop event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            if (event.getItem().getItem() instanceof ItemFood) {
+                Tag.setEating(false);
+            }
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onEating(final LivingEntityUseItemEvent.Finish event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            if (event.getItem().getItem() instanceof ItemFood) {
+                Tag.setEating(false);
             }
         }
     }

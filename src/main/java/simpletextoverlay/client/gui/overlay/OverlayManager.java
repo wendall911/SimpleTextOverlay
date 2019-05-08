@@ -7,12 +7,15 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.Set;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
@@ -36,7 +39,6 @@ import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
-import simpletextoverlay.value.ValueComplex;
 
 public class OverlayManager {
     private static final Pattern PATTERN = Pattern.compile("\\{ICON\\|( *)\\}", Pattern.CASE_INSENSITIVE);
@@ -51,6 +53,7 @@ public class OverlayManager {
     private final Map<Alignment, List<List<Value>>> format = new HashMap<>();
     private final List<Info> info = new ArrayList<>();
     private final List<Info> infoItemQueue = new ArrayList<>();
+    private Set<String> tagBlacklist = new HashSet<String>();
 
     private OverlayManager() {
         Tag.setInfo(this.infoItemQueue);
@@ -63,6 +66,14 @@ public class OverlayManager {
 
         loadOverlayFile(ConfigHandler.client.general.defaultOverlayFile, false);
         setupDebugFile(ConfigHandler.client.general.debugOverlayFile);
+    }
+
+    public void setTagBlacklist(String[] blacklist) {
+        tagBlacklist = new HashSet<String>(Arrays.asList(blacklist));
+    }
+
+    public Set<String> getTagBlacklist() {
+        return tagBlacklist;
     }
 
     public String getOverlayFile() {

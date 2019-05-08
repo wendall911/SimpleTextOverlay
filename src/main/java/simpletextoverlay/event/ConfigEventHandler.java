@@ -13,6 +13,8 @@ import net.minecraftforge.common.config.Config.Type;
 
 import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.client.gui.overlay.OverlayManager;
+import simpletextoverlay.network.message.ClientValues;
+import simpletextoverlay.network.PacketHandler;
 import simpletextoverlay.reference.Reference;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.Alignment;
@@ -20,11 +22,17 @@ import simpletextoverlay.util.Alignment;
 public class ConfigEventHandler {
 
     public static final ConfigEventHandler INSTANCE = new ConfigEventHandler();
+    private static final OverlayManager overlayManager = OverlayManager.INSTANCE;
 
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(Reference.MODID)) {
-            OverlayManager overlayManager = OverlayManager.INSTANCE;
+            try {
+                SimpleTextOverlay.logger.info("Sending client values to server (onConfigChanged)");
+                PacketHandler.INSTANCE.sendToServer(new ClientValues());
+            } catch (Exception ex) {
+                SimpleTextOverlay.logger.error("Failed to send config change notification!", ex);
+            }
 
             SimpleTextOverlay.logger.info("Config updated.");
             ConfigManager.sync(Reference.MODID, Type.INSTANCE);
@@ -70,6 +78,8 @@ public class ConfigEventHandler {
             alignment.setX(x);
             alignment.setY(y);
         }
+
+        overlayManager.setTagBlacklist(ConfigHandler.server.blacklistTags);
     }
 
 }
