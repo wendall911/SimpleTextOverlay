@@ -34,7 +34,8 @@ public final class Names {
         public static final String EXT_JSON = ".json";
         public static final String[] BUILTINS = new String [] {
             "simpletextoverlay.json",
-            "tsoverlay.json"
+            "tsoverlay.json",
+            "compassoverlay.json"
         };
         public static final String[] DEBUG_BUILTINS = new String [] {
             "debugoverlay.json",
