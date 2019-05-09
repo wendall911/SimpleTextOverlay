@@ -290,9 +290,10 @@ simpletextoverlay.tag.humidity.desc=Wilgotność biomu.
 # keys
 simpletextoverlay.key.category=Simple Text Overlay
 simpletextoverlay.key.toggle=Przełącz Nakładkę.
+simpletextoverlay.key.cycle=Cycle Overlays
 
 # commands
-commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config> [nazwapliku]
+commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config|cycle> [nazwapliku]
 commands.simpletextoverlay.reload=Przeładowanie...
 commands.simpletextoverlay.load=Ładowanie %s...
 commands.simpletextoverlay.save=Zapisywanie %s...

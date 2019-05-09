@@ -11,6 +11,9 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import simpletextoverlay.client.gui.overlay.OverlayManager;
+import simpletextoverlay.config.ConfigHandler;
+import simpletextoverlay.event.GameOverlayEventHandler;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.util.PacketHandlerHelper;
 
@@ -23,6 +26,14 @@ public class PlayerEventHandler {
             EntityPlayerMP player = (EntityPlayerMP) event.player;
             PacketHandlerHelper.sendServerValues(player);
         }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public void onSinglePlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
+        OverlayManager overlayManager = OverlayManager.INSTANCE;
+        overlayManager.setTagBlacklist(ConfigHandler.server.blacklistTags);
+        GameOverlayEventHandler.INSTANCE.forceDebug = ConfigHandler.server.forceDebug;
     }
 
     @SideOnly(Side.CLIENT)

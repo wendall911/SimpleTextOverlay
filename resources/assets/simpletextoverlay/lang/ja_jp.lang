@@ -290,9 +290,10 @@ simpletextoverlay.tag.humidity.desc=バイオームの湿度。
 # keys
 simpletextoverlay.key.category=Simple Text Overlay
 simpletextoverlay.key.toggle=オーバーレイ切り替え
+simpletextoverlay.key.cycle=Cycle Overlays
 
 # commands
-commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config> [ファイル名]
+commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config|cycle> [ファイル名]
 commands.simpletextoverlay.reload=リロード中...
 commands.simpletextoverlay.load=ロード中 %s...
 commands.simpletextoverlay.save=セーブ中 %s...

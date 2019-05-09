@@ -289,9 +289,10 @@ simpletextoverlay.tag.humidity.desc=生態域濕度.
 # keys
 simpletextoverlay.key.category=Simple Text Overlay
 simpletextoverlay.key.toggle=Toggle Overlay
+simpletextoverlay.key.cycle=Cycle Overlays
 
 # commands
-commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config> [文件名]
+commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config|cycle> [文件名]
 commands.simpletextoverlay.reload=正在重新加載...
 commands.simpletextoverlay.load=正在加載%s...
 commands.simpletextoverlay.save=正在保存%s...

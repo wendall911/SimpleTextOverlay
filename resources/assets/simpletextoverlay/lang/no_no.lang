@@ -289,9 +289,10 @@ simpletextoverlay.tag.humidity.desc=Biomefuktighet.
 # keys
 simpletextoverlay.key.category=Simple Text Overlay
 simpletextoverlay.key.toggle=Toggle Overlay
+simpletextoverlay.key.cycle=Cycle Overlays
 
 # commands
-commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config> [filnavn]
+commands.simpletextoverlay.usage=/sto <reload|load|save|enable|disable|taglist|config|cycle> [filnavn]
 commands.simpletextoverlay.reload=Laster inn på nytt...
 commands.simpletextoverlay.load=Laster %s...
 commands.simpletextoverlay.save=Lagrer %s...

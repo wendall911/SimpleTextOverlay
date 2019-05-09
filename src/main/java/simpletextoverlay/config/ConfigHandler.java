@@ -86,6 +86,9 @@ public class ConfigHandler {
             @Config.Comment({"The configuration that should be loaded on startup."})
             public static String defaultOverlayFile = Names.Files.FILE_JSON;
 
+            @Config.Comment({"Overlay configs to cycle through when using /sto cycle or cycle Hotkey."})
+            public static String[] cycleOverlays = Names.Files.BUILTINS;
+
             @Config.Comment({"Replace the debug overlay (F3) with the SimpleTextOverlay overlay."})
             public static boolean replaceDebug = false;
 

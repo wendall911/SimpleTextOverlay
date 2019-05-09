@@ -1,0 +1,41 @@
+{
+  "bottomright": [
+    [
+      {
+        "str": "$7Biome: $8{biome}$7"
+      }
+    ],
+    [
+      {
+        "str": "$7Light: "
+      },
+      {
+        "max": [
+          {
+            "var": "light"
+          },
+          {
+            "num": 7.5
+          },
+          {
+            "str": "$6"
+          },
+          {
+            "str": "$c"
+          }
+        ]
+      },
+      {
+        "var": "light"
+      },
+      {
+        "str": "$r"
+      }
+    ],
+    [
+      {
+        "str": "$7Feet Level: $f{yi}$7"
+      }
+    ]
+  ]
+}

@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.OutputStream;
+import java.lang.ArrayIndexOutOfBoundsException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +54,7 @@ public class OverlayManager {
     private final List<Info> info = new ArrayList<>();
     private final List<Info> infoItemQueue = new ArrayList<>();
     private Set<String> tagBlacklist = new HashSet<String>();
+    private int cycleIndex = getCycleIndex();
 
     private OverlayManager() {
         Tag.setInfo(this.infoItemQueue);
@@ -65,7 +66,6 @@ public class OverlayManager {
         createPath(this.overlayDirectory);
 
         loadOverlayFile(ConfigHandler.client.general.defaultOverlayFile, false);
-        setupDebugFile(ConfigHandler.client.general.debugOverlayFile);
     }
 
     public void setTagBlacklist(String[] blacklist) {
@@ -106,7 +106,6 @@ public class OverlayManager {
         }
 
         if (file.exists()) {
-            SimpleTextOverlay.logger.info("Loading overlay config file...");
             try {
                 inputStream = new FileInputStream(file);
             } catch (final Exception e) {
@@ -115,32 +114,7 @@ public class OverlayManager {
             }
         }
         else {
-            try {
-                final ResourceLocation resourceLocation = new ResourceLocation(Reference.MODID, Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH));
-                final IResource resource = this.client.getResourceManager().getResource(resourceLocation);
-                InputStream resourceInputStream = resource.getInputStream();
-
-                SimpleTextOverlay.logger.info("The config '{}' does not exist", filename);
-
-                if (filename.equals(Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH))) {
-                    SimpleTextOverlay.logger.info("Creating default overlay config...", filename);
-
-                    byte[] buffer = new byte[resourceInputStream.available()];
-                    resourceInputStream.read(buffer);
-
-                    OutputStream outStream = new FileOutputStream(file);
-                    outStream.write(buffer);
-
-                    inputStream = new FileInputStream(file);
-                }
-                else {
-                    SimpleTextOverlay.logger.warn("Loading default overlay config...");
-                    inputStream = resourceInputStream;
-                }
-            } catch (final Exception e) {
-                SimpleTextOverlay.logger.error("Unable to create '{}'.", filename, e);
-                return false;
-            }
+            inputStream = getResourceOverlay(filename);
         }
 
         if (this.parser.load(inputStream)) {
@@ -157,35 +131,33 @@ public class OverlayManager {
         return true;
     }
 
-    private void setupDebugFile(final String filename) {
-        final File file = new File(this.overlayDirectory, filename);
+    private InputStream getResourceOverlay(String name) {
+        InputStream inputStream = null;
 
-        if (!filename.endsWith(Names.Files.EXT_JSON)) {
-            SimpleTextOverlay.logger.error("The debug config '{}' does not end in .json", filename);
-            return;
-        }
+        try {
+            String resourceFile = "overlays/" + name;
+            ResourceLocation resourceLocation = new ResourceLocation(Reference.MODID, resourceFile);
+            IResource resource = this.client.getResourceManager().getResource(resourceLocation);
+            inputStream = resource.getInputStream();
+        } catch (final Exception ex) {
+            SimpleTextOverlay.logger.error("Unable to load resource '{}', loading default overlay...", name);
+            String defaultName = Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH);
 
-        if (!file.exists()) {
+            if (name.equals(ConfigHandler.client.general.debugOverlayFile)) {
+                defaultName = Names.Files.FILE_DEBUG.toLowerCase(Locale.ENGLISH);
+            }
+
             try {
-                final ResourceLocation resourceLocation = new ResourceLocation(Reference.MODID, Names.Files.FILE_DEBUG.toLowerCase(Locale.ENGLISH));
-                final IResource resource = this.client.getResourceManager().getResource(resourceLocation);
-                InputStream resourceInputStream = resource.getInputStream();
-
-                SimpleTextOverlay.logger.info("The debug config '{}' does not exist", filename);
-
-                if (filename.equals(Names.Files.FILE_DEBUG.toLowerCase(Locale.ENGLISH))) {
-                    SimpleTextOverlay.logger.info("Creating default debug overlay config...", filename);
-
-                    byte[] buffer = new byte[resourceInputStream.available()];
-                    resourceInputStream.read(buffer);
-
-                    OutputStream outStream = new FileOutputStream(file);
-                    outStream.write(buffer);
-                }
+                String resourceFile = "overlays/" + defaultName;
+                ResourceLocation resourceLocation = new ResourceLocation(Reference.MODID, resourceFile);
+                IResource resource = this.client.getResourceManager().getResource(resourceLocation);
+                inputStream = resource.getInputStream();
             } catch (final Exception e) {
-                SimpleTextOverlay.logger.error("Unable to create '{}'.", filename, e);
+                SimpleTextOverlay.logger.error("Unable to load resource '{}' '{}' '{}'", defaultName, ex, e);
             }
         }
+
+        return inputStream;
     }
 
     private void createPath(File directory) {
@@ -313,4 +285,35 @@ public class OverlayManager {
 
         return "";
     }
+
+    public boolean cycleOverlay() {
+        String name = "";
+
+        cycleIndex++;
+        try {
+            name = ConfigHandler.client.general.cycleOverlays[cycleIndex];
+        }
+        catch(ArrayIndexOutOfBoundsException e) {
+            cycleIndex = 0;
+            name = ConfigHandler.client.general.cycleOverlays[cycleIndex];
+        }
+
+        return loadOverlayFile(name, false);
+    }
+
+    private int getCycleIndex() {
+        int index = 0;
+        String currentName = getOverlayFile();
+
+        for (int i = 0; i < 5; i++) {
+            try {
+                String name = ConfigHandler.client.general.cycleOverlays[i];
+                index = i;
+            }
+            catch(ArrayIndexOutOfBoundsException e) {}
+        }
+
+        return index;
+    }
+
 }

@@ -15,9 +15,6 @@ public class ClientValues implements IMessage, IMessageHandler<ClientValues, IMe
     public ClientValues() {
     }
 
-    public ClientValues(boolean forceDebug) {
-    }
-
     @Override
     public void fromBytes(ByteBuf buf) {
     }
