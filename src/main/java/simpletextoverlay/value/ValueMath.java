@@ -131,6 +131,19 @@ public abstract class ValueMath extends ValueComplex {
                 final double arg1 = getDoubleValue(1);
                 return String.valueOf(arg0 / arg1 * 100);
             } catch (final Exception e) {
+                return "0.0";
+            }
+        }
+    }
+
+    public static class ValuePercentInt extends ValueMath {
+        @Override
+        public String getValue() {
+            try {
+                final double arg0 = getDoubleValue(0);
+                final double arg1 = getDoubleValue(1);
+                return String.valueOf((int) (Math.round(arg0 / arg1 * 100)));
+            } catch (final Exception e) {
                 return "0";
             }
         }
@@ -145,5 +158,6 @@ public abstract class ValueMath extends ValueComplex {
         ValueRegistry.INSTANCE.register(new ValueMod().setName("mod").setAliases("modulo"));
         ValueRegistry.INSTANCE.register(new ValueModi().setName("modi").setAliases("modint", "moduloi", "moduloint"));
         ValueRegistry.INSTANCE.register(new ValuePercent().setName("pct").setAliases("percent", "percentage"));
+        ValueRegistry.INSTANCE.register(new ValuePercentInt().setName("pctwhole").setAliases("percentwhole", "percentagewhole"));
     }
 }

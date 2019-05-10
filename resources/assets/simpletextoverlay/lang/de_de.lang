@@ -48,6 +48,7 @@ bottomright.tooltip=Offsets für die untere rechte Seite des Bildschirms (X <Lee
 gui.simpletextoverlay.taglist=Tag Liste
 
 # gui - tag list - categories
+simpletextoverlay.tag.category.debug.name=Debug
 simpletextoverlay.tag.category.formatting.name=Formatierung
 simpletextoverlay.tag.category.misc.name=Verschiedenes
 simpletextoverlay.tag.category.mouseover.name=Mouseover
@@ -59,10 +60,6 @@ simpletextoverlay.tag.category.playerpotion.name=Spieler - Trankeffekte
 simpletextoverlay.tag.category.riding.name=Reiten
 simpletextoverlay.tag.category.time.name=Zeit
 simpletextoverlay.tag.category.world.name=Welt
-simpletextoverlay.tag.category.bloodmagic.name=Blood Magic
-simpletextoverlay.tag.category.simplyjetpacks.name=einfacher Jetpack
-simpletextoverlay.tag.category.terrafirmacraft.name=TerraFirmaCraft
-simpletextoverlay.tag.category.thaumcraft.name=Thaumcraft
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=Schwarze Farbe (§0BEISPIEL§r).
@@ -104,6 +101,41 @@ simpletextoverlay.tag.serverip.desc=Server IP, 127.0.0.1 wenn es ein lokales Spi
 simpletextoverlay.tag.serverport.desc=Server Port, -1 wenn es ein lokales Spiel ist.
 simpletextoverlay.tag.ping.desc=Aktueller ping, -1 wenn keine Daten.
 simpletextoverlay.tag.pingicon.desc=Aktueller Ping-Icon, Leer wenn keine Daten.
+simpletextoverlay.tag.forgeversion.desc=Forge version.
+simpletextoverlay.tag.mcpversion.desc=MCP version.
+simpletextoverlay.tag.mcversion.desc=Minecraft version.
+simpletextoverlay.tag.modsactive.desc=Total active mods.
+simpletextoverlay.tag.modstotal.desc=Total mods.
+simpletextoverlay.tag.vsync.desc=Vsync enabled.
+simpletextoverlay.tag.clouds.desc=Type of clouds.
+simpletextoverlay.tag.cpu.desc=CPU information.
+simpletextoverlay.tag.debugloadedentities.desc=Debug screen entities information.
+simpletextoverlay.tag.displaywidth.desc=Game display width.
+simpletextoverlay.tag.displayheight.desc=Game display height.
+simpletextoverlay.tag.effectrenderstats.desc=Effect render stats.
+simpletextoverlay.tag.entitieshidden.desc=Number of hidden entities.
+simpletextoverlay.tag.fancygraphics.desc=Fancy graphics enabled/disabled.
+simpletextoverlay.tag.framerate.desc=Framerate.
+simpletextoverlay.tag.javabit.desc=Java 32-bit or 64-bit.
+simpletextoverlay.tag.javaversion.desc=Java version.
+simpletextoverlay.tag.lightupdates.desc=Light updates.
+simpletextoverlay.tag.memmaxmb.desc=Maximum memory in MB.
+simpletextoverlay.tag.memtotalmb.desc=Total available memory in MB.
+simpletextoverlay.tag.memuse.desc=Percent of memory useage.
+simpletextoverlay.tag.memusemb.desc=Amount of memory in use in MB.
+simpletextoverlay.tag.openglvendor.desc=OpenGL vendor.
+simpletextoverlay.tag.openglversion.desc=OpenGL version.
+simpletextoverlay.tag.providername.desc=Provider name.
+simpletextoverlay.tag.renderchunks.desc=Total render chunks.
+simpletextoverlay.tag.renderchunksmany.desc=Render chunks many.
+simpletextoverlay.tag.renderchunksupdated.desc=Render chunks updated.
+simpletextoverlay.tag.chunksupdated.desc=Render chunks updated.
+simpletextoverlay.tag.renderdebuginfo.desc=Render debug info.
+simpletextoverlay.tag.renderdistancechunks.desc=Render distance chunks.
+simpletextoverlay.tag.renderedchunks.desc=Rendered chunks.
+simpletextoverlay.tag.vbo.desc=VBO enabled/disabled.
+simpletextoverlay.tag.vidcard.desc=Video card information.
+simpletextoverlay.tag.zero.desc=Zero (0) used for comparison calculations in overlays.
 
 # gui - tag list - mouse over
 simpletextoverlay.tag.mouseovername.desc=Name des Objekts oder Blocks unter dem Cursor, leerer String wenn es nichts.
@@ -210,6 +242,7 @@ simpletextoverlay.tag.sneaking.desc=§etrue§r wenn der Spieler schleicht, sonst
 simpletextoverlay.tag.sprinting.desc=§etrue§r wenn der Spieler rennt, sonst §efalse§r.
 simpletextoverlay.tag.invisible.desc=§etrue§r wenn der Spieler unsichtbar ist, sonst §efalse§r.
 simpletextoverlay.tag.eating.desc=§etrue§r wenn der Spieler isst, sonst §efalse§r.
+simpletextoverlay.tag.flying.desc=§etrue§r if the player is flying, §efalse§r otherwise.
 
 # gui - tag list - player position
 simpletextoverlay.tag.chunkx.desc=Spieler X Chunk Koordinate.
@@ -237,6 +270,7 @@ simpletextoverlay.tag.abrroughdirection.desc=Abgekürzte Richtung in welche der 
 simpletextoverlay.tag.abrfinedirection.desc=Abgekürzte genaue Richtung in welche der Spieler schaut (S, SW, W, NW, ...).
 simpletextoverlay.tag.axisdirection.desc=Axis direction the player is currently facing (+Z, -X, -Z, +X).
 simpletextoverlay.tag.directionhud.desc=Eine kleine Textausrichtung des HUD.
+simpletextoverlay.tag.axisdirectionlong.desc=Long axis direction the player is currently facing (like F3 debug screen).
 
 # gui - tag list - player potion
 simpletextoverlay.tag.potioneffect.desc=Name des x-ten Trank-Effekt.
@@ -286,6 +320,8 @@ simpletextoverlay.tag.hardcore.desc=§etrue§r wenn die Welt im Hard-Mode läuft
 simpletextoverlay.tag.temperature.desc=Biome Temperatur.
 simpletextoverlay.tag.localtemperature.desc=Biome temperature at your current position.
 simpletextoverlay.tag.humidity.desc=Biome Luftfeuchtigkeit.
+simpletextoverlay.tag.localdifficultyclamped.desc=Local difficulty clamped.
+
 
 # keys
 simpletextoverlay.key.category=Simple Text Overlay

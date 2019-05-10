@@ -24,6 +24,12 @@ public abstract class TagPlayerPosition extends Tag {
     protected static final String[] AXISDIRECTION = {
             "+Z", "-X", "-Z", "+X"
     };
+    protected static final String[] AXISDIRECTIONLONG = {
+        "Towards positive Z",
+        "Towards negative X",
+        "Towards negative Z",
+        "Towards positive X"
+    };
 
     @Override
     public String getCategory() {
@@ -34,6 +40,13 @@ public abstract class TagPlayerPosition extends Tag {
         @Override
         public String getValue() {
             return String.valueOf(playerPosition.x >> 4);
+        }
+    }
+
+    public static class ChunkY extends TagPlayerPosition {
+        @Override
+        public String getValue() {
+            return String.valueOf(playerPosition.y >> 4);
         }
     }
 
@@ -51,6 +64,13 @@ public abstract class TagPlayerPosition extends Tag {
         }
     }
 
+    public static class ChunkOffsetY extends TagPlayerPosition {
+        @Override
+        public String getValue() {
+            return String.valueOf(playerPosition.y & 0x0F);
+        }
+    }
+
     public static class ChunkOffsetZ extends TagPlayerPosition {
         @Override
         public String getValue() {
@@ -61,28 +81,28 @@ public abstract class TagPlayerPosition extends Tag {
     public static class X extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.2f", player.posX);
+            return String.format(Locale.ENGLISH, "%.3f", player.posX);
         }
     }
 
     public static class Y extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.2f", player.posY);
+            return String.format(Locale.ENGLISH, "%.5f", player.posY);
         }
     }
 
     public static class YEye extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.2f", player.posY + player.getEyeHeight());
+            return String.format(Locale.ENGLISH, "%.3f", player.posY + player.getEyeHeight());
         }
     }
 
     public static class Z extends TagPlayerPosition {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%.2f", player.posZ);
+            return String.format(Locale.ENGLISH, "%.3f", player.posZ);
         }
     }
 
@@ -204,6 +224,13 @@ public abstract class TagPlayerPosition extends Tag {
         }
     }
 
+    public static class AxisDirectionLong extends TagPlayerPosition {
+        @Override
+        public String getValue() {
+            return AXISDIRECTIONLONG[MathHelper.floor(player.rotationYaw * 4.0 / 360.0 + 0.5) & 3];
+        }
+    }
+
     public static class DirectionHud extends TagPlayerPosition {
         @Override
         public String getValue() {
@@ -220,8 +247,10 @@ public abstract class TagPlayerPosition extends Tag {
 
     public static void register() {
         TagRegistry.INSTANCE.register(new ChunkX().setName("chunkx"));
+        TagRegistry.INSTANCE.register(new ChunkY().setName("chunky"));
         TagRegistry.INSTANCE.register(new ChunkZ().setName("chunkz"));
         TagRegistry.INSTANCE.register(new ChunkOffsetX().setName("chunkoffsetx"));
+        TagRegistry.INSTANCE.register(new ChunkOffsetY().setName("chunkoffsety"));
         TagRegistry.INSTANCE.register(new ChunkOffsetZ().setName("chunkoffsetz"));
         TagRegistry.INSTANCE.register(new X().setName("x").setAliases("xr"));
         TagRegistry.INSTANCE.register(new Y().setName("y").setAliases("yr"));
@@ -243,6 +272,7 @@ public abstract class TagPlayerPosition extends Tag {
         TagRegistry.INSTANCE.register(new AbbreviatedRoughDirection().setName("abrroughdirection"));
         TagRegistry.INSTANCE.register(new AbbreviatedFineDirection().setName("abrfinedirection"));
         TagRegistry.INSTANCE.register(new AxisDirection().setName("axisdirection"));
+        TagRegistry.INSTANCE.register(new AxisDirectionLong().setName("axisdirectionlong"));
         TagRegistry.INSTANCE.register(new DirectionHud().setName("directionhud"));
     }
 }

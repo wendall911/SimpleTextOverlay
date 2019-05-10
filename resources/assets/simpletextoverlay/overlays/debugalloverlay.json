@@ -698,9 +698,12 @@
       {
         "str": "potionnegative3: {yellow}{potionnegative3}"
       }
-    ]
-  ],
-  "leftcol4": [
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
     [
       {
         "str": "{underline}Player - General"
@@ -720,7 +723,9 @@
       {
         "str": "armor: {yellow}{armor}"
       }
-    ],
+    ]
+  ],
+  "leftcol4": [
     [
       {
         "str": "burning: {yellow}{burning}"
@@ -870,9 +875,12 @@
       {
         "str": "xpuntilnext: {yellow}{xpuntilnext}"
       }
-    ]
-  ],
-  "leftcol5": [
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
     [
       {
         "str": "{underline}World"
@@ -977,7 +985,9 @@
       {
         "str": "slimes: {yellow}{slimes}"
       }
-    ],
+    ]
+  ],
+  "leftcol5": [
     [
       {
         "str": "snowing: {yellow}{snowing}"
@@ -991,6 +1001,246 @@
     [
       {
         "str": "thundering: {yellow}{thundering}"
+      }
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
+    [
+      {
+        "str": "{underline}Miscellaneous"
+      }
+    ],
+    [
+      {
+        "str": "clouds: {yellow}{clouds}"
+      }
+    ],
+    [
+      {
+        "str": "cpu: {yellow}{cpu}"
+      }
+    ],
+    [
+      {
+        "str": "debugloadedentities: {yellow}{debugloadedentities}"
+      }
+    ],
+    [
+      {
+        "str": "displaywidth: {yellow}{displaywidth}"
+      }
+    ],
+    [
+      {
+        "str": "displaywidth: {yellow}{displaywidth}"
+      }
+    ],
+    [
+      {
+        "str": "effectrenderstats: {yellow}{effectrenderstats}"
+      }
+    ],
+    [
+      {
+        "str": "entitieshidden: {yellow}{entitieshidden}"
+      }
+    ],
+    [
+      {
+        "str": "entitiesrendered: {yellow}{entitiesrendered}"
+      }
+    ],
+    [
+      {
+        "str": "entitiestotal: {yellow}{entitiestotal}"
+      }
+    ],
+    [
+      {
+        "str": "fancygraphics: {yellow}{fancygraphics}"
+      }
+    ],
+    [
+      {
+        "str": "forgeversion: {yellow}{forgeversion}"
+      }
+    ],
+    [
+      {
+        "str": "fps: {yellow}{fps}"
+      }
+    ],
+    [
+      {
+        "str": "framerate: {yellow}{framerate}"
+      }
+    ],
+    [
+      {
+        "str": "javabit: {yellow}{javabit}"
+      }
+    ],
+    [
+      {
+        "str": "javaversion: {yellow}{javaversion}"
+      }
+    ],
+    [
+      {
+        "str": "lightupdates: {yellow}{lightupdates}"
+      }
+    ],
+    [
+      {
+        "str": "mcpversion: {yellow}{mcpversion}"
+      }
+    ],
+    [
+      {
+        "str": "memallocatedmb: {yellow}{memallocatedmb}"
+      }
+    ],
+    [
+      {
+        "str": "memfree: {yellow}{memfree}"
+      }
+    ],
+    [
+      {
+        "str": "memmax: {yellow}{memmax}"
+      }
+    ],
+    [
+      {
+        "str": "memtotal: {yellow}{memtotal}"
+      }
+    ],
+    [
+      {
+        "str": "memtotalmb: {yellow}{memtotalmb}"
+      }
+    ],
+    [
+      {
+        "str": "memused: {yellow}{memused}"
+      }
+    ],
+    [
+      {
+        "str": "memusemb: {yellow}{memusemb}"
+      }
+    ],
+    [
+      {
+        "str": "memuse: {yellow}{memuse}"
+      }
+    ],
+    [
+      {
+        "str": "mcversion: {yellow}{mcversion}"
+      }
+    ],
+    [
+      {
+        "str": "modsactive: {yellow}{modsactive}"
+      }
+    ],
+    [
+      {
+        "str": "modstotal: {yellow}{modstotal}"
+      }
+    ],
+    [
+      {
+        "str": "openglvendor: {yellow}{openglvendor}"
+      }
+    ],
+    [
+      {
+        "str": "openglversion: {yellow}{openglversion}"
+      }
+    ],
+    [
+      {
+        "str": "pingicon: {yellow}{pingicon}"
+      }
+    ],
+    [
+      {
+        "str": "ping: {yellow}{ping}"
+      }
+    ],
+    [
+      {
+        "str": "providername: {yellow}{providername}"
+      }
+    ],
+    [
+      {
+        "str": "renderchunksmany: {yellow}{renderchunksmany}"
+      }
+    ],
+    [
+      {
+        "str": "renderchunks: {yellow}{renderchunks}"
+      }
+    ],
+    [
+      {
+        "str": "renderchunksupdated: {yellow}{renderchunksupdated}"
+      }
+    ],
+    [
+      {
+        "str": "renderdebuginfo: {yellow}{renderdebuginfo}"
+      }
+    ],
+    [
+      {
+        "str": "renderedchunks: {yellow}{renderedchunks}"
+      }
+    ],
+    [
+      {
+        "str": "renderdistancechunks: {yellow}{renderdistancechunks}"
+      }
+    ],
+    [
+      {
+        "str": "resourcepack: {yellow}{resourcepack}"
+      }
+    ],
+    [
+      {
+        "str": "serverip: {yellow}{serverip}"
+      }
+    ],
+    [
+      {
+        "str": "servername: {yellow}{servername}"
+      }
+    ],
+    [
+      {
+        "str": "serverport: {yellow}{serverport}"
+      }
+    ],
+    [
+      {
+        "str": "server: {yellow}{server}"
+      }
+    ],
+    [
+      {
+        "str": "vbo: {yellow}{vbo}"
+      }
+    ],
+    [
+      {
+        "str": "vsync: {yellow}{vsync}"
       }
     ]
   ]

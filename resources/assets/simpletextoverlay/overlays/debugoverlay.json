@@ -1,8 +1,254 @@
 {
-  "leftcol1": [
+  "topleft": [
     [
       {
-        "str": "{underline}Default Debug Overlay"
+        "str": "Minecraft {mcversion} ({mcversion}/fml,forge)"
+      }
+    ],
+    [
+      {
+        "str": "{fps} fps ({renderchunksupdated} chunk updates) T: {framerate} "
+      },
+      {
+        "if": [
+          {
+            "var": "vsync"
+          },
+          {
+            "str": "vsync "
+          }
+        ]
+      },
+      {
+        "if": [
+          {
+            "var": "fancygraphics"
+          },
+          {
+            "str": ""
+          },
+          {
+            "str": "fast "
+          }
+        ]
+      },
+      {
+        "str": "{clouds} "
+      },
+      {
+        "if": [
+          {
+            "var": "vbo"
+          },
+          {
+            "str": "vbo"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "str": "C: {renderedchunks}/{renderchunks} "
+      },
+      {
+        "if": [
+          {
+            "var": "renderchunksmany"
+          },
+          {
+            "str": "(s) "
+          }
+        ]
+      },
+      {
+        "str": "D: {renderdistancechunks} "
+      },
+      {
+        "str": "L: {lightupdates} "
+      },
+      {
+        "str": "{renderdebuginfo}"
+      }
+    ],
+    [
+      {
+        "str": "E: {entitiesrendered}/{entitiestotal} B: {entitieshidden}"
+      }
+    ],
+    [
+      {
+        "str": "P: {effectrenderstats}. T: {debugloadedentities} "
+      }
+    ],
+    [
+      {
+        "str": "{providername}"
+      }
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
+    [
+      {
+        "str": "XYZ {x} / {y} / {z}"
+      }
+    ],
+    [
+      {
+        "str": "Block: {xi} {yi} {zi}"
+      }
+    ],
+    [
+      {
+        "str": "Chunk: {chunkoffsetx} {chunkoffsety} {chunkoffsetz} in {chunkx} {chunky} {chunkz}"
+      }
+    ],
+    [
+      {
+        "str": "Facing {roughdirection} ({axisdirectionlong}) ({direction} / {pitch})"
+      }
+    ],
+    [
+      {
+        "str": "Biome: {biome}"
+      }
+    ],
+    [
+      {
+        "str": "Light: {lighteye} ({lightsun} sky, {lightnosun} block)"
+      }
+    ],
+    [
+      {
+        "str": "Local Difficulty: {localdifficulty} // {localdifficultyclamped} (Day {day})"
+      }
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
+    [
+      {
+        "str": "Debug: Pie [shift]: hidden FPS [alt]: hidden"
+      }
+    ],
+    [
+      {
+        "str": "For help: press F3 + Q"
+      }
+    ]
+  ],
+  "topright": [
+    [
+      {
+        "str": "Java: {javaversion} {javabit}"
+      }
+    ],
+    [
+      {
+        "str": "Mem:  {memuse}% {memusemb}/{memmaxmb}MB"
+      }
+    ],
+    [
+      {
+        "str": "Allocated: "
+      },
+      {
+        "pctwhole": [
+          {
+            "var": "memtotal"
+          },
+          {
+            "var": "memmax"
+          }
+        ]
+      },
+      {
+        "str": "% "
+      },
+      {
+        "str": "{memtotalmb}MB"
+      }
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
+    [
+      {
+        "str": "{cpu}"
+      }
+    ],
+    [
+      {
+        "str": "{vidcard}"
+      }
+    ],
+    [
+      {
+        "str": "{openglversion}"
+      }
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
+    [
+      {
+        "str": "MCP {mcpversion}"
+      }
+    ],
+    [
+      {
+        "str": "Powered by Forge {forgeversion}"
+      }
+    ],
+    [
+      {
+        "str": "{modstotal} mods loaded, {modsactive} mods active"
+      }
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
+    [
+      {
+        "str": "{mouseovername}"
+      }
+    ],
+    [
+      {
+        "str": "{mouseoveruniquename}"
+      }
+    ],
+    [
+      {
+        "min": [
+          {
+            "var": "zero"
+          },
+          {
+            "var": "mouseovermetadata"
+          },
+          {
+            "str": "variant: {mouseovermetadata}"
+          },
+          {
+            "str": " "
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "str": " "
       }
     ]
   ]

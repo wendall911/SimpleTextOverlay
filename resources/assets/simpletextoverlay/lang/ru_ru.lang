@@ -48,6 +48,7 @@ bottomright.tooltip=Смещения для нижней правой части
 gui.simpletextoverlay.taglist=Список тегов
 
 # gui - tag list - categories
+simpletextoverlay.tag.category.debug.name=Debug
 simpletextoverlay.tag.category.formatting.name=Форматирование
 simpletextoverlay.tag.category.misc.name=Разное
 simpletextoverlay.tag.category.mouseover.name=Мышь
@@ -59,10 +60,6 @@ simpletextoverlay.tag.category.playerpotion.name=Игрок - эффекты з�
 simpletextoverlay.tag.category.riding.name=Верховая езда
 simpletextoverlay.tag.category.time.name=Время
 simpletextoverlay.tag.category.world.name=Мир
-simpletextoverlay.tag.category.bloodmagic.name=Blood Magic
-simpletextoverlay.tag.category.simplyjetpacks.name=Simply Jetpacks
-simpletextoverlay.tag.category.terrafirmacraft.name=TerraFirmaCraft
-simpletextoverlay.tag.category.thaumcraft.name=Thaumcraft
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=Черный цвет (§0ПРИМЕР§r).
@@ -104,6 +101,41 @@ simpletextoverlay.tag.serverip.desc=IP сервера, 127.0.0.1, если ло�
 simpletextoverlay.tag.serverport.desc=Порт сервера, -1, если локальная игра.
 simpletextoverlay.tag.ping.desc=Текущая задержка, -1 если нет данных.
 simpletextoverlay.tag.pingicon.desc=Текущая иконка пинга, пустая строка, если нет данных.
+simpletextoverlay.tag.forgeversion.desc=Forge version.
+simpletextoverlay.tag.mcpversion.desc=MCP version.
+simpletextoverlay.tag.mcversion.desc=Minecraft version.
+simpletextoverlay.tag.modsactive.desc=Total active mods.
+simpletextoverlay.tag.modstotal.desc=Total mods.
+simpletextoverlay.tag.vsync.desc=Vsync enabled.
+simpletextoverlay.tag.clouds.desc=Type of clouds.
+simpletextoverlay.tag.cpu.desc=CPU information.
+simpletextoverlay.tag.debugloadedentities.desc=Debug screen entities information.
+simpletextoverlay.tag.displaywidth.desc=Game display width.
+simpletextoverlay.tag.displayheight.desc=Game display height.
+simpletextoverlay.tag.effectrenderstats.desc=Effect render stats.
+simpletextoverlay.tag.entitieshidden.desc=Number of hidden entities.
+simpletextoverlay.tag.fancygraphics.desc=Fancy graphics enabled/disabled.
+simpletextoverlay.tag.framerate.desc=Framerate.
+simpletextoverlay.tag.javabit.desc=Java 32-bit or 64-bit.
+simpletextoverlay.tag.javaversion.desc=Java version.
+simpletextoverlay.tag.lightupdates.desc=Light updates.
+simpletextoverlay.tag.memmaxmb.desc=Maximum memory in MB.
+simpletextoverlay.tag.memtotalmb.desc=Total available memory in MB.
+simpletextoverlay.tag.memuse.desc=Percent of memory useage.
+simpletextoverlay.tag.memusemb.desc=Amount of memory in use in MB.
+simpletextoverlay.tag.openglvendor.desc=OpenGL vendor.
+simpletextoverlay.tag.openglversion.desc=OpenGL version.
+simpletextoverlay.tag.providername.desc=Provider name.
+simpletextoverlay.tag.renderchunks.desc=Total render chunks.
+simpletextoverlay.tag.renderchunksmany.desc=Render chunks many.
+simpletextoverlay.tag.renderchunksupdated.desc=Render chunks updated.
+simpletextoverlay.tag.chunksupdated.desc=Render chunks updated.
+simpletextoverlay.tag.renderdebuginfo.desc=Render debug info.
+simpletextoverlay.tag.renderdistancechunks.desc=Render distance chunks.
+simpletextoverlay.tag.renderedchunks.desc=Rendered chunks.
+simpletextoverlay.tag.vbo.desc=VBO enabled/disabled.
+simpletextoverlay.tag.vidcard.desc=Video card information.
+simpletextoverlay.tag.zero.desc=Zero (0) used for comparison calculations in overlays.
 
 # gui - tag list - mouse over
 simpletextoverlay.tag.mouseovername.desc=Название сущности или блока под курсором, пустая строка, если нет информации.
@@ -210,6 +242,7 @@ simpletextoverlay.tag.sneaking.desc=§eИстина§r если игрок кр�
 simpletextoverlay.tag.sprinting.desc=§eИстина§r если игрок бежит, §eложно§r в противном случае.
 simpletextoverlay.tag.invisible.desc=§eИстина§r если игрок невидим, §eложно§r в противном случае.
 simpletextoverlay.tag.eating.desc=§eИстина§r если игрок есть, §eложно§r в противном случае.
+simpletextoverlay.tag.flying.desc=§etrue§r if the player is flying, §efalse§r otherwise.
 
 # gui - tag list - player position
 simpletextoverlay.tag.chunkx.desc=X координата чанка игрока.
@@ -237,6 +270,7 @@ simpletextoverlay.tag.abrroughdirection.desc=Сокращенное грубое
 simpletextoverlay.tag.abrfinedirection.desc=Сокращенное уточненное направление игрока, на которое он смотрит (Ю, ЮЗ, З, СЗ, ...).
 simpletextoverlay.tag.axisdirection.desc=Axis direction the player is currently facing (+Z, -X, -Z, +X).
 simpletextoverlay.tag.directionhud.desc=Небольшой текстовый HUD направлений.
+simpletextoverlay.tag.axisdirectionlong.desc=Long axis direction the player is currently facing (like F3 debug screen).
 
 # gui - tag list - player potion
 simpletextoverlay.tag.potioneffect.desc=Название эффекта зелья.
@@ -286,6 +320,7 @@ simpletextoverlay.tag.hardcore.desc=§eИстина§r если мир нахо�
 simpletextoverlay.tag.temperature.desc=Температура биома.
 simpletextoverlay.tag.localtemperature.desc=Температура биома в вашем положении.
 simpletextoverlay.tag.humidity.desc=Влажность биома.
+simpletextoverlay.tag.localdifficultyclamped.desc=Local difficulty clamped.
 
 # keys
 simpletextoverlay.key.category=Simple Text Overlay

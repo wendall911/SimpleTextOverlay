@@ -48,6 +48,7 @@ bottomright.tooltip=画面の右下のオフセット (X<スペース>Y)。
 gui.simpletextoverlay.taglist=タグリスト
 
 # gui - tag list - categories
+simpletextoverlay.tag.category.debug.name=Debug
 simpletextoverlay.tag.category.formatting.name=書式設定
 simpletextoverlay.tag.category.misc.name=その他
 simpletextoverlay.tag.category.mouseover.name=マウスオーバー
@@ -59,10 +60,6 @@ simpletextoverlay.tag.category.playerpotion.name=プレイヤー - ポーショ�
 simpletextoverlay.tag.category.riding.name=騎乗
 simpletextoverlay.tag.category.time.name=時間
 simpletextoverlay.tag.category.world.name=ワールド
-simpletextoverlay.tag.category.bloodmagic.name=Blood Magic
-simpletextoverlay.tag.category.simplyjetpacks.name=Simply Jetpacks
-simpletextoverlay.tag.category.terrafirmacraft.name=TerraFirmaCraft
-simpletextoverlay.tag.category.thaumcraft.name=Thaumcraft
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=黒色 (§0サンプル§r)。
@@ -104,6 +101,41 @@ simpletextoverlay.tag.serverip.desc=サーバーのIP。 のローカルゲー�
 simpletextoverlay.tag.serverport.desc=サーバーポート。 ローカルゲームの場合は-1。
 simpletextoverlay.tag.ping.desc=現在のping。 データが無い場合は-1。
 simpletextoverlay.tag.pingicon.desc=現在のpingアイコン。データが無い場合はからの文字列。
+simpletextoverlay.tag.forgeversion.desc=Forge version.
+simpletextoverlay.tag.mcpversion.desc=MCP version.
+simpletextoverlay.tag.mcversion.desc=Minecraft version.
+simpletextoverlay.tag.modsactive.desc=Total active mods.
+simpletextoverlay.tag.modstotal.desc=Total mods.
+simpletextoverlay.tag.vsync.desc=Vsync enabled.
+simpletextoverlay.tag.clouds.desc=Type of clouds.
+simpletextoverlay.tag.cpu.desc=CPU information.
+simpletextoverlay.tag.debugloadedentities.desc=Debug screen entities information.
+simpletextoverlay.tag.displaywidth.desc=Game display width.
+simpletextoverlay.tag.displayheight.desc=Game display height.
+simpletextoverlay.tag.effectrenderstats.desc=Effect render stats.
+simpletextoverlay.tag.entitieshidden.desc=Number of hidden entities.
+simpletextoverlay.tag.fancygraphics.desc=Fancy graphics enabled/disabled.
+simpletextoverlay.tag.framerate.desc=Framerate.
+simpletextoverlay.tag.javabit.desc=Java 32-bit or 64-bit.
+simpletextoverlay.tag.javaversion.desc=Java version.
+simpletextoverlay.tag.lightupdates.desc=Light updates.
+simpletextoverlay.tag.memmaxmb.desc=Maximum memory in MB.
+simpletextoverlay.tag.memtotalmb.desc=Total available memory in MB.
+simpletextoverlay.tag.memuse.desc=Percent of memory useage.
+simpletextoverlay.tag.memusemb.desc=Amount of memory in use in MB.
+simpletextoverlay.tag.openglvendor.desc=OpenGL vendor.
+simpletextoverlay.tag.openglversion.desc=OpenGL version.
+simpletextoverlay.tag.providername.desc=Provider name.
+simpletextoverlay.tag.renderchunks.desc=Total render chunks.
+simpletextoverlay.tag.renderchunksmany.desc=Render chunks many.
+simpletextoverlay.tag.renderchunksupdated.desc=Render chunks updated.
+simpletextoverlay.tag.chunksupdated.desc=Render chunks updated.
+simpletextoverlay.tag.renderdebuginfo.desc=Render debug info.
+simpletextoverlay.tag.renderdistancechunks.desc=Render distance chunks.
+simpletextoverlay.tag.renderedchunks.desc=Rendered chunks.
+simpletextoverlay.tag.vbo.desc=VBO enabled/disabled.
+simpletextoverlay.tag.vidcard.desc=Video card information.
+simpletextoverlay.tag.zero.desc=Zero (0) used for comparison calculations in overlays.
 
 # gui - tag list - mouse over
 simpletextoverlay.tag.mouseovername.desc=カーソルの下のエンティティまたはブロックの名前。何もない場合は空の文字列。
@@ -210,6 +242,7 @@ simpletextoverlay.tag.sneaking.desc=プレイヤーがスニークしている�
 simpletextoverlay.tag.sprinting.desc=プレイヤーがダッシュしている時は§etrue§rを、それ以外の時は§efalse§rを返します。
 simpletextoverlay.tag.invisible.desc=プレイヤーが透明化している時は§etrue§rを、それ以外の時は§efalse§rを返します。
 simpletextoverlay.tag.eating.desc=プレイヤーが食べている時は§etrue§rを、それ以外の時は§efalse§rを返します。
+simpletextoverlay.tag.flying.desc=§etrue§r if the player is flying, §efalse§r otherwise.
 
 # gui - tag list - player position
 simpletextoverlay.tag.chunkx.desc=プレイヤーのXチャンク座標。
@@ -237,6 +270,7 @@ simpletextoverlay.tag.abrroughdirection.desc=プレイヤーが向いている�
 simpletextoverlay.tag.abrfinedirection.desc=プレイヤーが向いている細かな略した方角(S、SW、W、NW、...)。
 simpletextoverlay.tag.axisdirection.desc=プレイヤーが向いている軸方向(+Z, -X, -Z, +X)。
 simpletextoverlay.tag.directionhud.desc=小さなテキストの方角HUD。
+simpletextoverlay.tag.axisdirectionlong.desc=Long axis direction the player is currently facing (like F3 debug screen).
 
 # gui - tag list - player potion
 simpletextoverlay.tag.potioneffect.desc=x番目のポーションエフェクトの名前。
@@ -286,6 +320,7 @@ simpletextoverlay.tag.hardcore.desc=ワールドがハードコアなら§etrue�
 simpletextoverlay.tag.temperature.desc=バイオームの温度。
 simpletextoverlay.tag.localtemperature.desc=現在位置でのバイオームの温度。
 simpletextoverlay.tag.humidity.desc=バイオームの湿度。
+simpletextoverlay.tag.localdifficultyclamped.desc=Local difficulty clamped.
 
 # keys
 simpletextoverlay.key.category=Simple Text Overlay

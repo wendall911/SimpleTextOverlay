@@ -112,6 +112,20 @@ public abstract class TagWorld extends Tag {
         }
     }
 
+    public static class LocalDifficultyClamped extends TagWorld {
+        @Override
+        public String getValue() {
+            DifficultyInstance difficulty = world.getDifficultyForLocation(playerPosition);
+            if (server != null) {
+                final WorldServer worldServer = DimensionManager.getWorld(player.dimension);
+                if (worldServer != null) {
+                    difficulty = worldServer.getDifficultyForLocation(playerPosition);
+                }
+            }
+            return String.format(Locale.ENGLISH, "%.2f", difficulty.getClampedAdditionalDifficulty());
+        }
+    }
+
     public static class Dimension extends TagWorld {
         @Override
         public String getValue() {
@@ -244,6 +258,7 @@ public abstract class TagWorld extends Tag {
         TagRegistry.INSTANCE.register(new Difficulty().setName("difficulty"));
         TagRegistry.INSTANCE.register(new DifficultyId().setName("difficultyid"));
         TagRegistry.INSTANCE.register(new LocalDifficulty().setName("localdifficulty"));
+        TagRegistry.INSTANCE.register(new LocalDifficultyClamped().setName("localdifficultyclamped"));
         TagRegistry.INSTANCE.register(new Dimension().setName("dimension"));
         TagRegistry.INSTANCE.register(new DimensionId().setName("dimensionid"));
         TagRegistry.INSTANCE.register(new Biome().setName("biome"));
