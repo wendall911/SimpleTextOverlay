@@ -353,3 +353,27 @@ commands.simpletextoverlay.enable=Simple Text Overlay オーバーレイが有�
 commands.simpletextoverlay.disable=Simple Text Overlay オーバーレイが無効になりました。
 commands.simpletextoverlay.unknown=Unknown command!
 commands.simpletextoverlay.missing=Filename required!
+
+# Serene Seasons
+simpletextoverlay.season.spring.name=Spring
+simpletextoverlay.season.summer.name=Summer
+simpletextoverlay.season.autumn.name=Autumn
+simpletextoverlay.season.winter.name=Winter
+simpletextoverlay.season.early_spring.name=Early Spring
+simpletextoverlay.season.mid_spring.name=Mid Spring
+simpletextoverlay.season.late_spring.name=Late Spring
+simpletextoverlay.season.early_summer.name=Early Summer
+simpletextoverlay.season.mid_summer.name=Mid Summer
+simpletextoverlay.season.late_summer.name=Late Summer
+simpletextoverlay.season.early_autumn.name=Early Autumn
+simpletextoverlay.season.mid_autumn.name=Mid Autumn
+simpletextoverlay.season.late_autumn.name=Late Autumn
+simpletextoverlay.season.early_winter.name=Early Winter
+simpletextoverlay.season.mid_winter.name=Mid Winter
+simpletextoverlay.season.late_winter.name=Late Winter
+simpletextoverlay.season.early_dry.name=Early Dry
+simpletextoverlay.season.mid_dry.name=Mid Dry
+simpletextoverlay.season.late_dry.name=Late Dry
+simpletextoverlay.season.early_wet.name=Early Wet
+simpletextoverlay.season.mid_wet.name=Mid Wet
+simpletextoverlay.season.late_wet.name=Late Wet

@@ -8,10 +8,13 @@ package simpletextoverlay.integrations;
 
 import java.util.function.Function;
 
+import net.minecraft.client.resources.I18n;
+
 import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 
 import simpletextoverlay.SimpleTextOverlay;
+import simpletextoverlay.reference.Reference;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.tag.Tag;
 
@@ -26,24 +29,18 @@ public final class TagSereneSeasons {
 
     }
 
-    private static <T> void registerTag(String tagname, Function<ISeasonState, T> callback, boolean setCase) {
+    private static <T> void registerTag(String tagname, Function<ISeasonState, T> callback, boolean season) {
         TagRegistry.INSTANCE.register(new SereneSeasonsTag() {
             @Override
             public String getValue() {
                 try {
                     String name = String.valueOf(callback.apply(SeasonHelper.dataProvider.getClientSeasonState()));
-                    if (!setCase) {
+                    if (!season) {
                         return name;
                     }
                     else {
-                        String [] nameParts = name.toLowerCase().split("_");
-                        String seasonName = "";
-
-                        for (int i = 0; i < nameParts.length; i++) {
-                            seasonName += nameParts[i].substring(0, 1).toUpperCase() + nameParts[i].substring(1) + " ";
-                        }
-
-                        return seasonName.trim();
+                        return I18n.format(Reference.MODID + ".season."
+                                + name.toLowerCase() + ".name");
                     }
                 }
                 catch(Exception ex) {
