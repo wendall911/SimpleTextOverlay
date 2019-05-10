@@ -6,6 +6,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import net.minecraftforge.fml.common.Loader;
+
+import simpletextoverlay.integrations.TagSereneSeasons;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.tag.TagFormatting;
@@ -70,9 +73,13 @@ public class TagRegistry {
         TagPlayerPosition.register();
         TagPlayerPotion.register();
         TagRiding.register();
+		if (Loader.isModLoaded("sereneseasons")) {
+			TagSereneSeasons.register();
+		}
         TagTime.register();
         TagWorld.register();
 
         SimpleTextOverlay.logger.info("Registered " + this.stringTagMap.size() + " tags.");
     }
+
 }

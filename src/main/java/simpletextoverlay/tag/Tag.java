@@ -69,7 +69,6 @@ public abstract class Tag {
     }
 
     public String getLocalizedDescription() {
-        SimpleTextOverlay.logger.warn(Reference.MODID + ".tag." + getRawName() + ".desc");
         return I18n.format(Reference.MODID + ".tag." + getRawName() + ".desc");
     }
 

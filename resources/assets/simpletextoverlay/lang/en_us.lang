@@ -59,6 +59,7 @@ simpletextoverlay.tag.category.playerpotion.name=Player - Potion Effects
 simpletextoverlay.tag.category.riding.name=Riding
 simpletextoverlay.tag.category.time.name=Time
 simpletextoverlay.tag.category.world.name=World
+simpletextoverlay.tag.category.sereneseasons.name=Serene Seasons
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=Black color (§0EXAMPLE§r).
@@ -285,6 +286,20 @@ simpletextoverlay.tag.horsehealth.desc=Horse's health.
 simpletextoverlay.tag.horsemaxhealth.desc=Horse's maximum health.
 simpletextoverlay.tag.horsespeed.desc=Horse's speed.
 simpletextoverlay.tag.horsejumpstrength.desc=Horse's jump strength.
+
+# gui - tag list - serene seasons
+simpletextoverlay.tag.currentseasonord.desc=ID of the current season, startint at 0 (Spring).
+simpletextoverlay.tag.currentseason.desc=The current season.
+simpletextoverlay.tag.currentsubseasonord.desc=ID of the current subseason, starting at 0 (Early Spring).
+simpletextoverlay.tag.currentsubseason.desc=The current sub season.
+simpletextoverlay.tag.currenttropicalseason.desc=The current tropical season.
+simpletextoverlay.tag.cycleduration.desc=Duration of an entire cycle (a 'year') in ticks.
+simpletextoverlay.tag.cycleticks.desc=Time elapsed for the current cycle (a 'year') in ticks.
+simpletextoverlay.tag.dayduration.desc=Duration of a single day in ticks.
+simpletextoverlay.tag.dayofseason.desc=Day of the current season.
+simpletextoverlay.tag.seasonduration.desc=Duration of a single season in ticks.
+simpletextoverlay.tag.ssday.desc=Number of days elapsed.
+simpletextoverlay.tag.subseasonduration.desc=Duration of a single sub season in ticks.
 
 # gui - tag list - time
 simpletextoverlay.tag.day.desc=Minecraft day, starting from 0.

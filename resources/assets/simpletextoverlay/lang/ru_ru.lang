@@ -60,6 +60,7 @@ simpletextoverlay.tag.category.playerpotion.name=Игрок - эффекты з�
 simpletextoverlay.tag.category.riding.name=Верховая езда
 simpletextoverlay.tag.category.time.name=Время
 simpletextoverlay.tag.category.world.name=Мир
+simpletextoverlay.tag.category.sereneseasons.name=Serene Seasons
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=Черный цвет (§0ПРИМЕР§r).
@@ -286,6 +287,20 @@ simpletextoverlay.tag.horsehealth.desc=Здоровье лошади.
 simpletextoverlay.tag.horsemaxhealth.desc=Максимальное здоровье лошади.
 simpletextoverlay.tag.horsespeed.desc=Скорость лошади.
 simpletextoverlay.tag.horsejumpstrength.desc=Сила прыжка лошади.
+
+# gui - tag list - serene seasons
+simpletextoverlay.tag.currentseasonord.desc=ID of the current season, startint at 0 (Spring).
+simpletextoverlay.tag.currentseason.desc=The current season.
+simpletextoverlay.tag.currentsubseasonord.desc=ID of the current subseason, starting at 0 (Early Spring).
+simpletextoverlay.tag.currentsubseason.desc=The current sub season.
+simpletextoverlay.tag.currenttropicalseason.desc=The current tropical season.
+simpletextoverlay.tag.cycleduration.desc=Duration of an entire cycle (a 'year') in ticks.
+simpletextoverlay.tag.cycleticks.desc=Time elapsed for the current cycle (a 'year') in ticks.
+simpletextoverlay.tag.dayduration.desc=Duration of a single day in ticks.
+simpletextoverlay.tag.dayofseason.desc=Day of the current season.
+simpletextoverlay.tag.seasonduration.desc=Duration of a single season in ticks.
+simpletextoverlay.tag.ssday.desc=Number of days elapsed.
+simpletextoverlay.tag.subseasonduration.desc=Duration of a single sub season in ticks.
 
 # gui - tag list - time
 simpletextoverlay.tag.day.desc=Minecraft день, начинается от 0.
