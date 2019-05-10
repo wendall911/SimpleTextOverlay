@@ -1,8 +1,8 @@
 /*
- Derived from https://github.com/Xalcon/IGISereneSeasons/blob/master/src/main/java/net/xalcon/igisereneseasons/SereneSeasonTags.java
- MIT License
- Copyright (c) 2019 Xalcon
-*/
+ * Derived from https://github.com/Xalcon/IGISereneSeasons/blob/master/src/main/java/net/xalcon/igisereneseasons/SereneSeasonTags.java
+ * MIT License
+ * Copyright (c) 2019 Xalcon
+ */
 
 package simpletextoverlay.integrations;
 
