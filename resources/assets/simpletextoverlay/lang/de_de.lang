@@ -322,7 +322,6 @@ simpletextoverlay.tag.localtemperature.desc=Biome temperature at your current po
 simpletextoverlay.tag.humidity.desc=Biome Luftfeuchtigkeit.
 simpletextoverlay.tag.localdifficultyclamped.desc=Local difficulty clamped.
 
-
 # keys
 simpletextoverlay.key.category=Simple Text Overlay
 simpletextoverlay.key.toggle=tausche Overlay

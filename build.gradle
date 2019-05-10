@@ -84,6 +84,29 @@ task signJar(type: SignJar, dependsOn: reobfJar) {
 
 build.dependsOn signJar
 
+curseforge {
+    apiKey = project.stocurseApiKey
+    project {
+        id = project.stocurseId
+        changelog = file('build/libs/' + project.getName() + '-' + project.version + '-changelog.txt')
+        releaseType = config.cf_release_type
+        addGameVersion(config.minecraft_version)
+        mainArtifact(jar) {
+            relations {
+                incompatible 'ingame-info-xml'
+                optionalLibrary 'blood-magic'
+                optionalLibrary 'deep-resonance'
+                optionalLibrary 'scaling-health'
+                optionalLibrary 'serene-seasons'
+                optionalLibrary 'thaumcraft'
+                optionalLibrary 'tough-as-nails'
+            }
+        }
+    }
+}
+
+tasks.curseforge.dependsOn build
+
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
 	file = new File('build/libs/' + project.getName() + '-' + project.version + '-changelog.txt');
     templateContent = file('files/templates/changelog.mustache').getText('UTF-8');
