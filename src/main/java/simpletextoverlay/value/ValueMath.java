@@ -12,6 +12,11 @@ public abstract class ValueMath extends ValueComplex {
 
     public static class ValueAdd extends ValueMath {
         @Override
+        public boolean isValidSize() {
+            return this.values.size() == 2;
+        }
+
+        @Override
         public String getValue() {
             try {
                 final int arg0 = getIntValue(0);
@@ -21,7 +26,7 @@ public abstract class ValueMath extends ValueComplex {
                 try {
                     final double arg0 = getDoubleValue(0);
                     final double arg1 = getDoubleValue(1);
-                    return String.valueOf(arg0 + arg1);
+                    return String.format("%.2f", arg0 + arg1);
                 } catch (final Exception e2) {
                     return "0";
                 }
