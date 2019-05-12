@@ -17,8 +17,6 @@ showOnPlayerList=Показать со списком игроков
 showOnPlayerList.tooltip=Показывать оверлей со списком игроков.
 scale=Масштаб
 scale.tooltip=Оверлей будет масштабироваться на это значение.
-fileInterval=Интервал тегов файлов
-fileInterval.tooltip=Интервал между прочтением файлов для 'file' тега (в секундах).
 showOverlayPotions=Show Potion Effects
 showOverlayPotions.tooltip=Display the vanilla potion effects overlay.
 showOverlayItemIcons=Show Item Overlay
@@ -61,6 +59,7 @@ simpletextoverlay.tag.category.riding.name=Верховая езда
 simpletextoverlay.tag.category.time.name=Время
 simpletextoverlay.tag.category.world.name=Мир
 simpletextoverlay.tag.category.sereneseasons.name=Serene Seasons
+simpletextoverlay.tag.category.toughasnails.name=Tough As Nails
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=Черный цвет (§0ПРИМЕР§r).
@@ -146,6 +145,40 @@ simpletextoverlay.tag.mouseovermetadata.desc=Метаданные блока п�
 simpletextoverlay.tag.mouseoverpowerweak.desc=Сила слабого сигнал красного камня на блоке, -1, если ничего нет.
 simpletextoverlay.tag.mouseoverpowerstrong.desc=Сила сильного сигнала красного камня на блоке, -1, если ничего нет.
 simpletextoverlay.tag.mouseoverpowerinput.desc=Сила выхода красного камня из блока, -1, если ничего нет.
+simpletextoverlay.tag.blockage.desc=Block age.
+simpletextoverlay.tag.blockattached.desc=Block attached.
+simpletextoverlay.tag.blockaxis.desc=Block axis.
+simpletextoverlay.tag.blockcheckdecay.desc=Block check decay. 
+simpletextoverlay.tag.blockdecayable.desc=Block decayable.
+simpletextoverlay.tag.blockdelay.desc=Block delay.
+simpletextoverlay.tag.blockeast.desc=Block connected east.
+simpletextoverlay.tag.blockexplode.desc=Block explode.
+simpletextoverlay.tag.blockextended.desc=Block extended.
+simpletextoverlay.tag.blockfacing.desc=Block facing.
+simpletextoverlay.tag.blockhalf.desc=Block half.
+simpletextoverlay.tag.blockhasbottle0.desc=Block has bottle in slot 1.
+simpletextoverlay.tag.blockhasbottle1.desc=Block has bottle in slot 2.
+simpletextoverlay.tag.blockhasbottle2.desc=Block has bottle in slot 3.
+simpletextoverlay.tag.blockhinge.desc=Block hinge.
+simpletextoverlay.tag.blockinwall.desc=Block in wall.
+simpletextoverlay.tag.blocklayers.desc=Block layers.
+simpletextoverlay.tag.blocklevel.desc=Block level.
+simpletextoverlay.tag.blocklocked.desc=Block locked.
+simpletextoverlay.tag.blockopen.desc=Block open.
+simpletextoverlay.tag.blockpowered.desc=Block powered.
+simpletextoverlay.tag.blockshape.desc=Block shape.
+simpletextoverlay.tag.lookingatx.desc=Block looking at X.
+simpletextoverlay.tag.lookingaty.desc=Block looking at Y.
+simpletextoverlay.tag.lookingatz.desc=Block looking at Z.
+simpletextoverlay.tag.blocknorth.desc=Block connected north.
+simpletextoverlay.tag.blocksnowy.desc=Block snowy.
+simpletextoverlay.tag.blocksouth.desc=Block connected south.
+simpletextoverlay.tag.blocktriggered.desc=Block triggered.
+simpletextoverlay.tag.blocktype.desc=Block type.
+simpletextoverlay.tag.blockvariant.desc=Block variant.
+simpletextoverlay.tag.blockwest.desc=Block connected west.
+
+# gui - tag list - nearby player
 
 # gui - tag list - nearby player
 simpletextoverlay.tag.nearbyplayerdistance.desc=Дистанция до игрока.
@@ -249,6 +282,7 @@ simpletextoverlay.tag.flying.desc=§etrue§r if the player is flying, §efalse§
 simpletextoverlay.tag.chunkx.desc=X координата чанка игрока.
 simpletextoverlay.tag.chunkz.desc=Y координата чанка игрока.
 simpletextoverlay.tag.chunkoffsetx.desc=X координата смещения в чанке игрока (0-15).
+simpletextoverlay.tag.chunkoffsety.desc=Player's Y chunk offset coordinate (0-15).
 simpletextoverlay.tag.chunkoffsetz.desc=Z координата смещения в чанке игрока (0-15).
 simpletextoverlay.tag.x.desc=X координата игрока.
 simpletextoverlay.tag.y.desc=Y координата игрока.
@@ -377,3 +411,14 @@ simpletextoverlay.season.late_dry.name=Late Dry
 simpletextoverlay.season.early_wet.name=Early Wet
 simpletextoverlay.season.mid_wet.name=Mid Wet
 simpletextoverlay.season.late_wet.name=Late Wet
+
+# Tough As Nails
+simpletextoverlay.tag.tanarmortemp.desc=Armor temperature offset int (-25 to 25).
+simpletextoverlay.tag.tanarmortempc.desc=Armor temperature offset celcius (-48.3 to 48.3).
+simpletextoverlay.tag.tanarmortempf.desc=Armor temperature offset fahrenheit (-118.94 to 118.94).
+simpletextoverlay.tag.tanbodytemp.desc=Body temperature int (0 to 25).
+simpletextoverlay.tag.tanbodytempc.desc=Body temperature celcius (34.33 to 39.88).
+simpletextoverlay.tag.tanbodytempf.desc=Body temperature fahrenheit (93.80 to 103.80).
+simpletextoverlay.tag.tanenvtemp.desc=Environment temperature int (0 to 25).
+simpletextoverlay.tag.tanenvtempc.desc=Environment temperature celcius (-4.2 to 48.3).
+simpletextoverlay.tag.tanenvtempf.desc=Environment temperature farenheit (24.44 to 118.94).
