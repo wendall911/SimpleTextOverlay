@@ -427,18 +427,11 @@ public abstract class TagMisc extends Tag {
         }
     }
 
-    public static class Zero extends TagMisc {
-        @Override
-        public String getValue() {
-            return "0";
-        }
-    }
-
     public static void register() {
         TagRegistry.INSTANCE.register(new Clouds().setName("clouds"));
         TagRegistry.INSTANCE.register(new CpuInfo().setName("cpu"));
         TagRegistry.INSTANCE.register(new DebugLoadedEntities().setName("debugloadedentities"));
-        TagRegistry.INSTANCE.register(new DisplayHeight().setName("displaywidth"));
+        TagRegistry.INSTANCE.register(new DisplayHeight().setName("displayheight"));
         TagRegistry.INSTANCE.register(new DisplayWidth().setName("displaywidth"));
         TagRegistry.INSTANCE.register(new EffectRenderStats().setName("effectrenderstats"));
         TagRegistry.INSTANCE.register(new EntitiesHidden().setName("entitieshidden"));
@@ -482,6 +475,5 @@ public abstract class TagMisc extends Tag {
         TagRegistry.INSTANCE.register(new UseVbo().setName("vbo"));
         TagRegistry.INSTANCE.register(new VideoCardInfo().setName("vidcard"));
         TagRegistry.INSTANCE.register(new VsyncEnabled().setName("vsync"));
-        TagRegistry.INSTANCE.register(new Zero().setName("zero"));
     }
 }
