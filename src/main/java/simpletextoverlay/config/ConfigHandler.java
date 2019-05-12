@@ -105,10 +105,6 @@ public class ConfigHandler {
             @Config.RangeDouble(min = 0.5, max = 2.0) 
             public static double scale = (double) 1.0;
 
-            @Config.Comment({"The interval between file reads for the 'file' tag (in seconds)."})
-            @Config.RangeInt(min = 5)
-            public static int fileInterval = 5;
-
             @Config.Comment({"Display the vanilla potion effects overlay."})
             public static boolean showOverlayPotions = true;
 
