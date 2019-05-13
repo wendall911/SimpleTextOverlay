@@ -26,7 +26,13 @@ public class ClientValues implements IMessage, IMessageHandler<ClientValues, IMe
     @Override
     public IMessage onMessage(ClientValues message, MessageContext ctx) {
         EntityPlayerMP player = ctx.getServerHandler().player;
-        PacketHandlerHelper.sendServerValues(player);
+
+        player.getServerWorld().addScheduledTask(new Runnable() {
+            @Override
+            public void run() {
+                PacketHandlerHelper.sendServerValues(player);
+            }
+        });
 
         return null;
     }
