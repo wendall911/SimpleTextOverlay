@@ -98,6 +98,20 @@ public abstract class Value {
         return Boolean.parseBoolean(getReplacedValue());
     }
 
+    protected boolean isTruthy(final int index) {
+        String value = getValue(index);
+
+        if (value.equals("false")
+                || value.equals("")
+                || value.equals("0")
+                || value.equals("0.0")
+                || value.equals("0.00")) {
+            return false;
+        }
+
+        return true;
+    }
+
     protected boolean getBooleanValue(final int index) {
         return Boolean.parseBoolean(getValue(index));
     }
