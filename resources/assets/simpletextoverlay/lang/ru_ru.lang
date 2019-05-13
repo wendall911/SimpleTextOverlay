@@ -58,8 +58,6 @@ simpletextoverlay.tag.category.playerpotion.name=Игрок - эффекты з�
 simpletextoverlay.tag.category.riding.name=Верховая езда
 simpletextoverlay.tag.category.time.name=Время
 simpletextoverlay.tag.category.world.name=Мир
-simpletextoverlay.tag.category.sereneseasons.name=Serene Seasons
-simpletextoverlay.tag.category.toughasnails.name=Tough As Nails
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=Черный цвет (§0ПРИМЕР§r).

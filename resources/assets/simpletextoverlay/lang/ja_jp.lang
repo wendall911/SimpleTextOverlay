@@ -58,8 +58,6 @@ simpletextoverlay.tag.category.playerpotion.name=プレイヤー - ポーショ�
 simpletextoverlay.tag.category.riding.name=騎乗
 simpletextoverlay.tag.category.time.name=時間
 simpletextoverlay.tag.category.world.name=ワールド
-simpletextoverlay.tag.category.sereneseasons.name=Serene Seasons
-simpletextoverlay.tag.category.toughasnails.name=Tough As Nails
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=黒色 (§0サンプル§r)。

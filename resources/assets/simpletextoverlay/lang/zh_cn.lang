@@ -58,8 +58,6 @@ simpletextoverlay.tag.category.playerpotion.name=玩家 - 药水效果
 simpletextoverlay.tag.category.riding.name=骑乘
 simpletextoverlay.tag.category.time.name=世界时间
 simpletextoverlay.tag.category.world.name=世界名称
-simpletextoverlay.tag.category.sereneseasons.name=Serene Seasons
-simpletextoverlay.tag.category.toughasnails.name=Tough As Nails
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=黑色(§0例子§r).

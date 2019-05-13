@@ -27,6 +27,12 @@ public final class TagSereneSeasons {
             return "sereneseasons";
         }
 
+
+        @Override
+        public String getLocalizedCategory() {
+            return I18n.format("itemGroup.tabSereneSeasons");
+        }
+
     }
 
     private static <T> void registerTag(String tagname, Function<ISeasonState, T> callback, boolean season) {

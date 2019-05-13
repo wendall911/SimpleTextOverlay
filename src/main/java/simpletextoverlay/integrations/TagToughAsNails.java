@@ -5,6 +5,8 @@
 
 package simpletextoverlay.integrations;
 
+import net.minecraft.client.resources.I18n;
+
 import toughasnails.api.TANCapabilities;
 import toughasnails.api.temperature.IModifierMonitor;
 import toughasnails.temperature.TemperatureDebugger;
@@ -19,6 +21,11 @@ public abstract class TagToughAsNails extends Tag {
     @Override
     public String getCategory() {
         return "toughasnails";
+    }
+
+    @Override
+    public String getLocalizedCategory() {
+        return I18n.format("itemGroup.tabToughAsNails");
     }
 
     private static TemperatureHandler getTempStats() {

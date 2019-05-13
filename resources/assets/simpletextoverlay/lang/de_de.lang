@@ -58,8 +58,6 @@ simpletextoverlay.tag.category.playerpotion.name=Spieler - Trankeffekte
 simpletextoverlay.tag.category.riding.name=Reiten
 simpletextoverlay.tag.category.time.name=Zeit
 simpletextoverlay.tag.category.world.name=Welt
-simpletextoverlay.tag.category.sereneseasons.name=Serene Seasons
-simpletextoverlay.tag.category.toughasnails.name=Tough As Nails
 
 # gui - tag list - formatting tags
 simpletextoverlay.tag.black.desc=Schwarze Farbe (§0BEISPIEL§r).

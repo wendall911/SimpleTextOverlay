@@ -58,8 +58,6 @@ simpletextoverlay.tag.category.playerpotion.name=Gracz - Efekty Mikstur
 simpletextoverlay.tag.category.riding.name=Jazda
 simpletextoverlay.tag.category.time.name=Czas
 simpletextoverlay.tag.category.world.name=Świat
-simpletextoverlay.tag.category.sereneseasons.name=Serene Seasons
-simpletextoverlay.tag.category.toughasnails.name=Tough As Nails
 
 # gui - tag list - serene seasons
 simpletextoverlay.tag.currentseasonord.desc=ID of the current season, startint at 0 (Spring).
