@@ -402,7 +402,7 @@ public abstract class TagMisc extends Tag {
     public static class FrameRate extends TagMisc {
         @Override
         public String getValue() {
-			return minecraft.gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() ? "inf" : String.format("%d", (int)minecraft.gameSettings.limitFramerate);
+            return minecraft.gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() ? "inf" : String.format("%d", (int)minecraft.gameSettings.limitFramerate);
         }
     }
 

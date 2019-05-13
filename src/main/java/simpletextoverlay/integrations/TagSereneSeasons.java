@@ -20,7 +20,7 @@ import simpletextoverlay.tag.Tag;
 
 public final class TagSereneSeasons {
 
-	private abstract static class SereneSeasonsTag extends Tag {
+    private abstract static class SereneSeasonsTag extends Tag {
 
         @Override
         public String getCategory() {
@@ -64,6 +64,6 @@ public final class TagSereneSeasons {
         registerTag("seasonduration", ISeasonState::getSeasonDuration, false);
         registerTag("ssday", ISeasonState::getDay, false);
         registerTag("subseasonduration", ISeasonState::getSubSeasonDuration, false);
-	}
+    }
 
 }
