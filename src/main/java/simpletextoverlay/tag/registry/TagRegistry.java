@@ -8,6 +8,7 @@ import java.util.Map;
 
 import net.minecraftforge.fml.common.Loader;
 
+import simpletextoverlay.integrations.TagBloodMagic;
 import simpletextoverlay.integrations.TagSereneSeasons;
 import simpletextoverlay.integrations.TagToughAsNails;
 import simpletextoverlay.SimpleTextOverlay;
@@ -65,6 +66,9 @@ public class TagRegistry {
     }
 
     public void init() {
+        if (Loader.isModLoaded("bloodmagic")) {
+            TagBloodMagic.register();
+        }
         TagFormatting.register();
         TagMisc.register();
         TagMouseOver.register();

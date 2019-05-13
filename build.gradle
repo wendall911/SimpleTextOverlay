@@ -43,6 +43,17 @@ archivesBaseName = "${config.mod_name}"
 def mcversion = "${config.minecraft_version}"
 def modid = "${config.modid}"
 
+repositories {
+    maven {
+        name = 'TehNut Maven'
+        url 'http://tehnut.info/maven'
+    }
+}
+
+dependencies {
+    deobfCompile "info.amerifrance.guideapi:Guide-API:${config.guideapi_version}"
+}
+
 minecraft {
     version = config.minecraft_version + '-' + config.forge_version
     mappings = config.mappings
