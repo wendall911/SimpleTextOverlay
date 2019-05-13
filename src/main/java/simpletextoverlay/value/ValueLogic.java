@@ -30,6 +30,64 @@ public abstract class ValueLogic extends ValueComplex {
         }
     }
 
+    public static class ValueIfTruthy extends ValueLogic {
+        @Override
+        public boolean isValidSize() {
+            return this.values.size() == 2 || this.values.size() == 3;
+        }
+
+        @Override
+        public String getValue() {
+            try {
+                if (isTruthy(0)) {
+                    return getValue(1);
+                }
+                if (this.values.size() > 2) {
+                    return getValue(2);
+                }
+                return "";
+            } catch (final Exception e) {
+                return "?";
+            }
+        }
+    }
+
+    public static class ValueIfContains extends ValueLogic {
+        @Override
+        public boolean isValidSize() {
+            return this.values.size() == 3 || this.values.size() == 4;
+        }
+
+        @Override
+        public String getValue() {
+            if (getValue(0).contains(getValue(1))) {
+                return getValue(2);
+            }
+            if (this.values.size() > 3) {
+                return getValue(3);
+            }
+            return "";
+        }
+    }
+
+    public static class ValueIfExists extends ValueLogic {
+        @Override
+        public boolean isValidSize() {
+            return this.values.size() == 2 || this.values.size() == 3;
+        }
+
+        @Override
+        public String getValue() {
+            if (getValue(0) != "") {
+                return getValue(1);
+            }
+            if (this.values.size() > 2) {
+                return getValue(2);
+            }
+            return "";
+        }
+    }
+
     public static class ValueNot extends ValueLogic {
         @Override
         public boolean isValidSize() {
@@ -191,6 +249,10 @@ public abstract class ValueLogic extends ValueComplex {
 
     public static void register() {
         ValueRegistry.INSTANCE.register(new ValueIf().setName("if"));
+        ValueRegistry.INSTANCE.register(new ValueIfContains().setName("ifcontains"));
+        ValueRegistry.INSTANCE.register(new ValueIfExists().setName("ifexists"));
+        ValueRegistry.INSTANCE.register(new ValueIfTruthy().setName("iftruthy"));
+        ValueRegistry.INSTANCE.register(new ValueContains().setName("contains"));
         ValueRegistry.INSTANCE.register(new ValueNot().setName("not"));
         ValueRegistry.INSTANCE.register(new ValueAnd().setName("and"));
         ValueRegistry.INSTANCE.register(new ValueOr().setName("or"));

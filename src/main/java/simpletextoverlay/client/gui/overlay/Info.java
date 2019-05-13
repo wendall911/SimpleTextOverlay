@@ -9,10 +9,19 @@ public abstract class Info {
     public int y;
     public int offsetX;
     public int offsetY;
+    public String text;
 
     protected Info(final int x, final int y) {
         this.x = x;
         this.y = y;
+        this.offsetX = 0;
+        this.offsetY = 0;
+    }
+
+    protected Info(final int x, final int y, final String text) {
+        this.x = x;
+        this.y = y;
+        this.text = text;
         this.offsetX = 0;
         this.offsetY = 0;
     }

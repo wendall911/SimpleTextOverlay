@@ -251,7 +251,13 @@ public class OverlayManager {
         GlStateManager.scale(scale, scale, scale);
 
         for (final Info info : this.info) {
+            if (info.text != null && info.text.contains("SCALESMALL")) {
+                GlStateManager.scale(0.5, 0.5, 0.5);
+            }
             info.draw();
+            if (info.text != null && info.text.contains("SCALESMALL")) {
+                GlStateManager.scale(1.0f / 0.5, 1.0f / 0.5, 1.0f / 0.5);
+            }
         }
 
         GlStateManager.scale(1.0f / scale, 1.0f / scale, 1.0f / scale);

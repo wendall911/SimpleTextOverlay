@@ -68,7 +68,9 @@ public abstract class ValueComplex extends Value {
     public static class ValueMin extends ValueComplex {
         @Override
         public boolean isValidSize() {
-            return this.values.size() == 2 || this.values.size() == 4;
+            return this.values.size() == 2
+                || this.values.size() == 3
+                || this.values.size() == 4;
         }
 
         @Override
@@ -76,8 +78,13 @@ public abstract class ValueComplex extends Value {
             try {
                 final double arg0 = getDoubleValue(0);
                 final double arg1 = getDoubleValue(1);
-                final int shift = this.values.size() - 2;
-                return arg0 < arg1 ? getValue(shift) : getValue(1 + shift);
+                if (arg0 < arg1) {
+                    return getValue(2);
+                }
+                if (this.values.size() > 3) {
+                    return getValue(3);
+                }
+                return "";
             } catch (final Exception e) {
                 return "";
             }
@@ -87,7 +94,9 @@ public abstract class ValueComplex extends Value {
     public static class ValueMax extends ValueComplex {
         @Override
         public boolean isValidSize() {
-            return this.values.size() == 2 || this.values.size() == 4;
+            return this.values.size() == 2
+                || this.values.size() == 3
+                || this.values.size() == 4;
         }
 
         @Override
@@ -95,8 +104,13 @@ public abstract class ValueComplex extends Value {
             try {
                 final double arg0 = getDoubleValue(0);
                 final double arg1 = getDoubleValue(1);
-                final int shift = this.values.size() - 2;
-                return arg0 > arg1 ? getValue(shift) : getValue(1 + shift);
+                if (arg0 > arg1) {
+                    return getValue(2);
+                }
+                if (this.values.size() > 3) {
+                    return getValue(3);
+                }
+                return "";
             } catch (final Exception e) {
                 return "";
             }
