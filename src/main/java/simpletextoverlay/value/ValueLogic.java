@@ -252,7 +252,7 @@ public abstract class ValueLogic extends ValueComplex {
         ValueRegistry.INSTANCE.register(new ValueIfContains().setName("ifcontains"));
         ValueRegistry.INSTANCE.register(new ValueIfExists().setName("ifexists"));
         ValueRegistry.INSTANCE.register(new ValueIfTruthy().setName("iftruthy"));
-        ValueRegistry.INSTANCE.register(new ValueContains().setName("contains"));
+        ValueRegistry.INSTANCE.register(new ValueContains().setName("contains").setAliases("in"));
         ValueRegistry.INSTANCE.register(new ValueNot().setName("not"));
         ValueRegistry.INSTANCE.register(new ValueAnd().setName("and"));
         ValueRegistry.INSTANCE.register(new ValueOr().setName("or"));
@@ -260,6 +260,5 @@ public abstract class ValueLogic extends ValueComplex {
         ValueRegistry.INSTANCE.register(new ValueGreater().setName("greater").setAliases("more"));
         ValueRegistry.INSTANCE.register(new ValueLesser().setName("lesser").setAliases("less"));
         ValueRegistry.INSTANCE.register(new ValueEqual().setName("equal").setAliases("equals"));
-        ValueRegistry.INSTANCE.register(new ValueContains().setName("contains").setAliases("in"));
     }
 }
