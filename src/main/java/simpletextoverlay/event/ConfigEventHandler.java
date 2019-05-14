@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import net.minecraft.nbt.NBTTagCompound;
+
 import net.minecraftforge.common.config.ConfigManager;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,9 +29,12 @@ public class ConfigEventHandler {
     @SubscribeEvent
     public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent event) {
         if (event.getModID().equals(Reference.MODID)) {
+            NBTTagCompound data = new NBTTagCompound();
+
+            data.setString("type", "config");
             try {
-                SimpleTextOverlay.logger.info("Sending client values to server (onConfigChanged)");
-                PacketHandler.INSTANCE.sendToServer(new ClientValues());
+                SimpleTextOverlay.logger.info("Sending config change notification to server (onConfigChanged)");
+                PacketHandler.INSTANCE.sendToServer(new ClientValues(data));
             } catch (Exception ex) {
                 SimpleTextOverlay.logger.error("Failed to send config change notification!", ex);
             }

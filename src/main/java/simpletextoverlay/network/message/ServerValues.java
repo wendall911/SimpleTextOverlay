@@ -11,50 +11,44 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.event.GameOverlayEventHandler;
+import simpletextoverlay.integrations.TagBloodMagic;
 import simpletextoverlay.tag.Tag;
 
 public class ServerValues implements IMessage, IMessageHandler<ServerValues, IMessage> {
 
-    private long seed;
-    private boolean forceDebug;
-    private String tagBlacklist;
+    private NBTTagCompound data;
 
-    public ServerValues() {
-        seed = 0;
-        forceDebug = false;
-        tagBlacklist = "";
-    }
+    public ServerValues() {}
 
-    public ServerValues(long seed, boolean debug, String blacklist) {
-        this.seed = seed;
-        this.forceDebug = debug;
-        this.tagBlacklist = blacklist;
+    public ServerValues(NBTTagCompound data) {
+        this.data = data.copy();
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        NBTTagCompound data = ByteBufUtils.readTag(buf);
-        seed = data.getLong("seed");
-        forceDebug = data.getBoolean("forceDebug");
-        tagBlacklist = data.getString("blacklist");
+        data = ByteBufUtils.readTag(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        NBTTagCompound data = new NBTTagCompound();
-        data.setLong("seed", this.seed);
-        data.setBoolean("forceDebug", this.forceDebug);
-        data.setString("blacklist", this.tagBlacklist);
         ByteBufUtils.writeTag(buf, data);
     }
 
     @Override
     public IMessage onMessage(ServerValues message, MessageContext ctx) {
         OverlayManager overlayManager = OverlayManager.INSTANCE;
+        NBTTagCompound mData = message.data;
 
-        Tag.setSeed(message.seed);
-        GameOverlayEventHandler.INSTANCE.forceDebug = message.forceDebug;
-        overlayManager.setTagBlacklist(message.tagBlacklist.split(","));
+        if (mData.hasKey("type") && mData.getString("type").equals("config")) {
+            Tag.setSeed(mData.getLong("seed"));
+            GameOverlayEventHandler.INSTANCE.forceDebug = mData.getBoolean("forceDebug");
+            overlayManager.setTagBlacklist(mData.getString("blacklist").split(","));
+            TagBloodMagic.setIsLoggedIn(true);
+        }
+        else if (mData.hasKey("type") && mData.getString("type").equals("bloodmagic")) {
+            TagBloodMagic.setLp((int) mData.getLong("bmcurrentlp"));
+            TagBloodMagic.setTier((int) mData.getLong("bmorbtier"));
+        }
 
         return null;
     }

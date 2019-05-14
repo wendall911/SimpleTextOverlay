@@ -14,6 +14,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.event.GameOverlayEventHandler;
+import simpletextoverlay.integrations.TagBloodMagic;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.util.PacketHandlerHelper;
 
@@ -24,7 +25,7 @@ public class PlayerEventHandler {
     public void onPlayerLogin(final PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player instanceof EntityPlayerMP) {
             EntityPlayerMP player = (EntityPlayerMP) event.player;
-            PacketHandlerHelper.sendServerValues(player);
+            PacketHandlerHelper.sendServerConfigValues(player);
         }
     }
 
@@ -34,6 +35,7 @@ public class PlayerEventHandler {
         OverlayManager overlayManager = OverlayManager.INSTANCE;
         overlayManager.setTagBlacklist(ConfigHandler.server.blacklistTags);
         GameOverlayEventHandler.INSTANCE.forceDebug = ConfigHandler.server.forceDebug;
+        TagBloodMagic.init();
     }
 
     @SideOnly(Side.CLIENT)

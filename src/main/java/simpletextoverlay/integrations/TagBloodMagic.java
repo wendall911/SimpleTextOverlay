@@ -1,7 +1,14 @@
 package simpletextoverlay.integrations;
 
-import net.minecraft.client.resources.I18n;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
+import net.minecraft.client.resources.I18n;
+import net.minecraft.nbt.NBTTagCompound;
+
+import simpletextoverlay.network.message.ClientValues;
+import simpletextoverlay.network.PacketHandler;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.tag.Tag;
 
@@ -19,10 +26,58 @@ public abstract class TagBloodMagic extends Tag {
         return I18n.format("itemGroup.bloodmagic.creativeTab");
     }
 
+    private static boolean isLoggedIn = false;
+    private static NBTTagCompound data = new NBTTagCompound();
+    private ExecutorService executorService = Executors.newSingleThreadExecutor();
+
+    public static void init() {
+        isLoggedIn = false;
+        data.setLong("bmcurrentlp", 0);
+        data.setLong("bmorbtier", 0);
+    }
+
+    public static void setIsLoggedIn(boolean bool) {
+        isLoggedIn = bool;
+    }
+
+    public static void setLp(int lp) {
+        data.setLong("bmcurrentlp", lp);
+    }
+
+    public static void setTier(int tier) {
+        data.setLong("bmorbtier", tier);
+    }
+
+    protected static long updateTime = System.currentTimeMillis();
+
+    protected void sendDataRequest() {
+        if ((System.currentTimeMillis() - updateTime) > 500) {
+            executorService.submit(new Runnable() {
+                @Override
+                public void run() {
+                    NBTTagCompound requestData = new NBTTagCompound();
+                    requestData.setString("type", "bloodmagic");
+                    updateTime = System.currentTimeMillis();
+                    try {
+                        PacketHandler.INSTANCE.sendToServer(new ClientValues(requestData));
+                    } catch (Exception ex) {
+                        SimpleTextOverlay.logger.error("Failed to send server request for bloodmagic!", ex);
+                    }
+                }
+            });
+        }
+    }
+
     public static class CurrentEssence extends TagBloodMagic {
         @Override
         public String getValue() {
-            return String.valueOf(NetworkHelper.getSoulNetwork(player).getCurrentEssence());
+            if (isLoggedIn) {
+                sendDataRequest();
+            }
+            else {
+                setLp(NetworkHelper.getSoulNetwork(player).getCurrentEssence());
+            }
+            return String.valueOf(data.getLong("bmcurrentlp"));
         }
 
         @Override
@@ -34,7 +89,13 @@ public abstract class TagBloodMagic extends Tag {
     public static class OrbTier extends TagBloodMagic {
         @Override
         public String getValue() {
-            return String.valueOf(NetworkHelper.getSoulNetwork(player).getOrbTier());
+            if (isLoggedIn) {
+                sendDataRequest();
+            }
+            else {
+                setTier(NetworkHelper.getSoulNetwork(player).getOrbTier());
+            }
+            return String.valueOf(data.getLong("bmorbtier"));
         }
 
         @Override
