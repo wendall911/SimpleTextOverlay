@@ -257,7 +257,7 @@
     ],
     [
       {
-        "iftruthy": [
+        "ifexists": [
           {
             "var": "blockage"
           },

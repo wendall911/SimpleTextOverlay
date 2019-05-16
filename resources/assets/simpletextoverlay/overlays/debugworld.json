@@ -1,0 +1,109 @@
+{
+  "leftcol1": [
+    [
+      {
+        "str": "{underline}World"
+      }
+    ],
+    [
+      {
+        "str": "biomeid: {yellow}{biomeid}"
+      }
+    ],
+    [
+      {
+        "str": "biome: {yellow}{biome}"
+      }
+    ],
+    [
+      {
+        "str": "daytime: {yellow}{daytime}"
+      }
+    ],
+    [
+      {
+        "str": "difficultyid: {yellow}{difficultyid}"
+      }
+    ],
+    [
+      {
+        "str": "difficulty: {yellow}{difficulty}"
+      }
+    ],
+    [
+      {
+        "str": "dimensionid: {yellow}{dimensionid}"
+      }
+    ],
+    [
+      {
+        "str": "dimension: {yellow}{dimension}"
+      }
+    ],
+    [
+      {
+        "str": "hardcore: {yellow}{hardcore}"
+      }
+    ],
+    [
+      {
+        "str": "humidity: {yellow}{humidity}"
+      }
+    ],
+    [
+      {
+        "str": "localdifficulty: {yellow}{localdifficulty}"
+      }
+    ],
+    [
+      {
+        "str": "localtemperature: {yellow}{localtemperature}"
+      }
+    ],
+    [
+      {
+        "str": "moonphase: {yellow}{moonphase}"
+      }
+    ],
+    [
+      {
+        "str": "worldname: {yellow}{worldname}"
+      }
+    ],
+    [
+      {
+        "str": "nextweatherchange: {yellow}{nextweatherchange}"
+      }
+    ],
+    [
+      {
+        "str": "raining: {yellow}{raining}"
+      }
+    ],
+    [
+      {
+        "str": "seed: {yellow}{seed}"
+      }
+    ],
+    [
+      {
+        "str": "worldsizemb: {yellow}{worldsizemb}"
+      }
+    ],
+    [
+      {
+        "str": "worldsize: {yellow}{worldsize}"
+      }
+    ],
+    [
+      {
+        "str": "slimechunk: {yellow}{slimechunk}"
+      }
+    ],
+    [
+      {
+        "str": "slimes: {yellow}{slimes}"
+      }
+    ]
+  ]
+}
