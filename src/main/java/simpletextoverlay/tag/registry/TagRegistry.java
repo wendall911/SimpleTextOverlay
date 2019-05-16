@@ -10,6 +10,7 @@ import net.minecraftforge.fml.common.Loader;
 
 import simpletextoverlay.integrations.TagBloodMagic;
 import simpletextoverlay.integrations.TagSereneSeasons;
+import simpletextoverlay.integrations.TagThaumcraft;
 import simpletextoverlay.integrations.TagToughAsNails;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
@@ -80,6 +81,9 @@ public class TagRegistry {
         TagRiding.register();
         if (Loader.isModLoaded("sereneseasons")) {
             TagSereneSeasons.register();
+        }
+        if (Loader.isModLoaded("thaumcraft")) {
+            TagThaumcraft.register();
         }
         if (Loader.isModLoaded("toughasnails")) {
             TagToughAsNails.register();

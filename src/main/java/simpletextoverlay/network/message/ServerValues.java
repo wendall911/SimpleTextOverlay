@@ -12,6 +12,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.event.GameOverlayEventHandler;
 import simpletextoverlay.integrations.TagBloodMagic;
+import simpletextoverlay.integrations.TagThaumcraft;
 import simpletextoverlay.tag.Tag;
 
 public class ServerValues implements IMessage, IMessageHandler<ServerValues, IMessage> {
@@ -40,14 +41,19 @@ public class ServerValues implements IMessage, IMessageHandler<ServerValues, IMe
         NBTTagCompound mData = message.data;
 
         if (mData.hasKey("type") && mData.getString("type").equals("config")) {
+            Tag.setIsLoggedIn(true);
             Tag.setSeed(mData.getLong("seed"));
             GameOverlayEventHandler.INSTANCE.forceDebug = mData.getBoolean("forceDebug");
             overlayManager.setTagBlacklist(mData.getString("blacklist").split(","));
-            TagBloodMagic.setIsLoggedIn(true);
         }
         else if (mData.hasKey("type") && mData.getString("type").equals("bloodmagic")) {
             TagBloodMagic.setLp((int) mData.getLong("bmcurrentlp"));
             TagBloodMagic.setTier((int) mData.getLong("bmorbtier"));
+        }
+        else if (mData.hasKey("type") && mData.getString("type").equals("thaumcraft")) {
+            TagThaumcraft.setAura(mData.getDouble("localaura"));
+            TagThaumcraft.setAuraBase((int) mData.getLong("localaurabase"));
+            TagThaumcraft.setFlux(mData.getDouble("localflux"));
         }
 
         return null;

@@ -26,6 +26,7 @@ public abstract class Tag {
     protected static long seed = 0;
     protected static boolean eating = false;
     protected static String[] blacklist = new String[0];
+    protected static boolean isLoggedIn = false;
 
     private String name = null;
     private String[] aliases = new String[0];
@@ -42,6 +43,10 @@ public abstract class Tag {
     public Tag setAliases(final String... aliases) {
         this.aliases = aliases;
         return this;
+    }
+
+    public static void setIsLoggedIn(boolean bool) {
+        isLoggedIn = bool;
     }
 
     public String[] getAliases() {

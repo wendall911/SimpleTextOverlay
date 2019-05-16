@@ -15,6 +15,7 @@ import simpletextoverlay.client.gui.overlay.OverlayManager;
 import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.event.GameOverlayEventHandler;
 import simpletextoverlay.integrations.TagBloodMagic;
+import simpletextoverlay.integrations.TagThaumcraft;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.util.PacketHandlerHelper;
 
@@ -35,7 +36,9 @@ public class PlayerEventHandler {
         OverlayManager overlayManager = OverlayManager.INSTANCE;
         overlayManager.setTagBlacklist(ConfigHandler.server.blacklistTags);
         GameOverlayEventHandler.INSTANCE.forceDebug = ConfigHandler.server.forceDebug;
+        Tag.setIsLoggedIn(false);
         TagBloodMagic.init();
+        TagThaumcraft.init();
     }
 
     @SideOnly(Side.CLIENT)

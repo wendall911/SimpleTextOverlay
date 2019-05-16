@@ -31,13 +31,8 @@ public abstract class TagBloodMagic extends Tag {
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
     public static void init() {
-        isLoggedIn = false;
         data.setLong("bmcurrentlp", 0);
         data.setLong("bmorbtier", 0);
-    }
-
-    public static void setIsLoggedIn(boolean bool) {
-        isLoggedIn = bool;
     }
 
     public static void setLp(int lp) {
@@ -52,12 +47,12 @@ public abstract class TagBloodMagic extends Tag {
 
     protected void sendDataRequest() {
         if ((System.currentTimeMillis() - updateTime) > 500) {
+            updateTime = System.currentTimeMillis();
             executorService.submit(new Runnable() {
                 @Override
                 public void run() {
                     NBTTagCompound requestData = new NBTTagCompound();
-                    requestData.setString("type", "bloodmagic");
-                    updateTime = System.currentTimeMillis();
+                    requestData.setString("type", getCategory());
                     try {
                         PacketHandler.INSTANCE.sendToServer(new ClientValues(requestData));
                     } catch (Exception ex) {

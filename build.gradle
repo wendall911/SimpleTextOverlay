@@ -45,13 +45,28 @@ def modid = "${config.modid}"
 
 repositories {
     maven {
-        name = 'TehNut Maven'
+        // Guide-API
+        name 'TehNut Maven'
         url 'http://tehnut.info/maven'
+    }
+
+    maven {
+        // Thaumcraft
+        name 'CurseForge Maven'
+        url 'http://minecraft.curseforge.com/api/maven/'
+    }
+
+    maven {
+        // Baubles
+        name 'thiakil'
+        url 'https://maven.thiakil.com'
     }
 }
 
 dependencies {
     deobfCompile "info.amerifrance.guideapi:Guide-API:${config.guideapi_version}"
+    deobfCompile "thaumcraft:Thaumcraft:${mcversion}:${config.thaumcraft_version}"
+    deobfCompile "com.azanor.baubles:Baubles:${config.baubles_version}"
 }
 
 minecraft {

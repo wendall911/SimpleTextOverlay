@@ -11,7 +11,9 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import simpletextoverlay.network.PacketHandler;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.PacketHandlerHelper;
+import simpletextoverlay.util.ThaumcraftHelper;
 
 import WayofTime.bloodmagic.util.helper.NetworkHelper;
 
@@ -49,12 +51,24 @@ public class ClientValues implements IMessage, IMessageHandler<ClientValues, IMe
                     if (type.equals("config")) {
                         PacketHandlerHelper.sendServerConfigValues(player);
                     }
-                    else if (type.equals("bloodmagic")) {
+                    else {
                         NBTTagCompound rData = new NBTTagCompound();
-                        rData.setString("type", "bloodmagic");
-                        rData.setLong("bmcurrentlp", NetworkHelper.getSoulNetwork(player).getCurrentEssence());
-                        rData.setLong("bmorbtier", NetworkHelper.getSoulNetwork(player).getOrbTier());
-                        PacketHandler.INSTANCE.sendTo(new ServerValues(rData), player);
+                        if (type.equals("bloodmagic")) {
+                            rData.setString("type", "bloodmagic");
+                            rData.setLong("bmcurrentlp", NetworkHelper.getSoulNetwork(player).getCurrentEssence());
+                            rData.setLong("bmorbtier", NetworkHelper.getSoulNetwork(player).getOrbTier());
+                        }
+                        if (type.equals("thaumcraft")) {
+                            rData.setDouble("localaura", ThaumcraftHelper.getVis(player.world, player.getPosition()));
+                            rData.setLong("localaurabase", ThaumcraftHelper.getAuraBase(player.world, player.getPosition()));
+                            rData.setDouble("localflux", ThaumcraftHelper.getFlux(player.world, player.getPosition()));
+                        }
+
+                        try {
+                            PacketHandler.INSTANCE.sendTo(new ServerValues(rData), player);
+                        } catch (Exception ex) {
+                            SimpleTextOverlay.logger.error("Failed to send server data!", ex);
+                        }
                     }
                 }
             });
