@@ -1,0 +1,3 @@
+[submodule "wiki"]
+	path = wiki
+	url = git@github.com:wendall911/SimpleTextOverlay.wiki.git
