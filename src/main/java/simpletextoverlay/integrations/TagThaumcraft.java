@@ -76,7 +76,7 @@ public abstract class TagThaumcraft extends Tag {
             else {
                 setAura(ThaumcraftHelper.getVis(player.world, player.getPosition()));
             }
-            return String.format("%2.f", data.getDouble("localaura"));
+            return String.format("%.2f", data.getDouble("localaura"));
         }
 
         @Override
@@ -112,7 +112,7 @@ public abstract class TagThaumcraft extends Tag {
             else {
                 setFlux(ThaumcraftHelper.getFlux(player.world, player.getPosition()));
             }
-            return String.format("%2.f", data.getDouble("localflux"));
+            return String.format("%.2f", data.getDouble("localflux"));
         }
 
         @Override
