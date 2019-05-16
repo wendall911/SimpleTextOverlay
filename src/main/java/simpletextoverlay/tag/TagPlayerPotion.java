@@ -10,8 +10,7 @@ import simpletextoverlay.client.gui.overlay.InfoIcon;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagPlayerPotion extends Tag {
-    // TODO: this shouldn't be hardcoded...
-    public static final int MAXIMUM_INDEX = 32 /* Potion.potionTypes.length */;
+    public static final int MAXIMUM_INDEX = 32;
 
     protected static PotionEffect[] potionEffects = null;
     protected final int index;
