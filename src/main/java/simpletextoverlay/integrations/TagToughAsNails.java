@@ -81,10 +81,14 @@ public abstract class TagToughAsNails extends Tag {
         public String getValue() {
             try {
                 IModifierMonitor.Context armorModifier = getTempDebug().modifiers.get("armor");
+                IModifierMonitor.Context tsArmorModifier = getTempDebug().modifiers.get("tinkersurvival:armor");
                 int armorTemp = 0;
 
                 if (armorModifier != null) {
-                    armorTemp = armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                    armorTemp += armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                }
+                if (tsArmorModifier != null) {
+                    armorTemp += tsArmorModifier.endTemperature.getRawValue() - tsArmorModifier.startTemperature.getRawValue();
                 }
 
                 return String.valueOf(Math.min(Math.max(0, getTempDebug().targetTemperature - armorTemp), 25));
@@ -100,10 +104,14 @@ public abstract class TagToughAsNails extends Tag {
         public String getValue() {
             try {
                 IModifierMonitor.Context armorModifier = getTempDebug().modifiers.get("armor");
+                IModifierMonitor.Context tsArmorModifier = getTempDebug().modifiers.get("tinkersurvival:armor");
                 int armorTemp = 0;
 
                 if (armorModifier != null) {
-                    armorTemp = armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                    armorTemp += armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                }
+                if (tsArmorModifier != null) {
+                    armorTemp += tsArmorModifier.endTemperature.getRawValue() - tsArmorModifier.startTemperature.getRawValue();
                 }
 
                 double rawTemp = (double)Math.min(Math.max(0, getTempDebug().targetTemperature - armorTemp), 25);
@@ -122,10 +130,14 @@ public abstract class TagToughAsNails extends Tag {
         public String getValue() {
             try {
                 IModifierMonitor.Context armorModifier = getTempDebug().modifiers.get("armor");
+                IModifierMonitor.Context tsArmorModifier = getTempDebug().modifiers.get("tinkersurvival:armor");
                 int armorTemp = 0;
 
                 if (armorModifier != null) {
-                    armorTemp = armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                    armorTemp += armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                }
+                if (tsArmorModifier != null) {
+                    armorTemp += tsArmorModifier.endTemperature.getRawValue() - tsArmorModifier.startTemperature.getRawValue();
                 }
 
                 double rawTemp = (double)Math.min(Math.max(0, getTempDebug().targetTemperature - armorTemp), 25);
@@ -144,10 +156,14 @@ public abstract class TagToughAsNails extends Tag {
         public String getValue() {
             try {
                 IModifierMonitor.Context armorModifier = getTempDebug().modifiers.get("armor");
+                IModifierMonitor.Context tsArmorModifier = getTempDebug().modifiers.get("tinkersurvival:armor");
                 int armorTemp = 0;
 
                 if (armorModifier != null) {
-                    armorTemp = armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                    armorTemp += armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                }
+                if (tsArmorModifier != null) {
+                    armorTemp += tsArmorModifier.endTemperature.getRawValue() - tsArmorModifier.startTemperature.getRawValue();
                 }
                 return String.valueOf(armorTemp);
             } catch (Throwable e) {
@@ -162,10 +178,14 @@ public abstract class TagToughAsNails extends Tag {
         public String getValue() {
             try {
                 IModifierMonitor.Context armorModifier = getTempDebug().modifiers.get("armor");
+                IModifierMonitor.Context tsArmorModifier = getTempDebug().modifiers.get("tinkersurvival:armor");
                 double armorTemp = 0.0;
 
                 if (armorModifier != null) {
-                    armorTemp = (double)armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                    armorTemp += (double)armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                }
+                if (tsArmorModifier != null) {
+                    armorTemp += tsArmorModifier.endTemperature.getRawValue() - tsArmorModifier.startTemperature.getRawValue();
                 }
 
                 double celciusTemp = (armorTemp * 2.1);
@@ -183,10 +203,14 @@ public abstract class TagToughAsNails extends Tag {
         public String getValue() {
             try {
                 IModifierMonitor.Context armorModifier = getTempDebug().modifiers.get("armor");
+                IModifierMonitor.Context tsArmorModifier = getTempDebug().modifiers.get("tinkersurvival:armor");
                 double armorTemp = 0.0;
 
                 if (armorModifier != null) {
-                    armorTemp = (double)armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                    armorTemp += (double)armorModifier.endTemperature.getRawValue() - armorModifier.startTemperature.getRawValue();
+                }
+                if (tsArmorModifier != null) {
+                    armorTemp += tsArmorModifier.endTemperature.getRawValue() - tsArmorModifier.startTemperature.getRawValue();
                 }
                 double fahrenheitTemp = (armorTemp * 3.78);
 
