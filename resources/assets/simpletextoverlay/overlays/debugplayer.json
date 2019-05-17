@@ -396,38 +396,6 @@
   "leftcol3": [
     [
       {
-        "str": "{underline}Riding"
-      }
-    ],
-    [
-      {
-        "str": "horsehealth: {yellow}{horsehealth}"
-      }
-    ],
-    [
-      {
-        "str": "horsejumpstrength: {yellow}{horsejumpstrength}"
-      }
-    ],
-    [
-      {
-        "str": "horsemaxhealth: {yellow}{horsemaxhealth}"
-      }
-    ],
-    [
-      {
-        "str": "horsespeed: {yellow}{horsespeed}"
-      }
-    ],
-    [
-      {
-        "str": "ridinghorse: {yellow}{ridinghorse}"
-      }
-    ]
-  ],
-  "leftcol4": [
-    [
-      {
         "str": "{underline}Player - Equipment"
       }
     ],
@@ -572,14 +540,14 @@
       }
     ],
     [
-        {
-            "str": "mainhandattackdamage: {yellow}{mainhandattackdamage}"
-        }
+      {
+        "str": "mainhandattackdamage: {yellow}{mainhandattackdamage}"
+      }
     ],
     [
-        {
-            "str": "mainhandattackspeed: {yellow}{mainhandattackspeed}"
-        }
+      {
+        "str": "mainhandattackspeed: {yellow}{mainhandattackspeed}"
+      }
     ],
     [
       {
@@ -617,14 +585,14 @@
       }
     ],
     [
-        {
-            "str": "offhandattackdamage: {yellow}{offhandattackdamage}"
-        }
+      {
+        "str": "offhandattackdamage: {yellow}{offhandattackdamage}"
+      }
     ],
     [
-        {
-            "str": "offhandattackspeed: {yellow}{offhandattackspeed}"
-        }
+      {
+        "str": "offhandattackspeed: {yellow}{offhandattackspeed}"
+      }
     ],
     [
       {
@@ -659,6 +627,183 @@
     [
       {
         "str": "offhanduniquename: {yellow}{offhanduniquename}"
+      }
+    ]
+  ],
+  "leftcol5": [
+    [
+      {
+        "str": "amuleticon: {yellow}{amuleticon}"
+      }
+    ],
+    [
+      {
+        "str": "amuletlargeicon: {yellow}{amuletlargeicon}"
+      }
+    ],
+    [
+      {
+        "str": "amuletname: {yellow}{amuletname}"
+      }
+    ],
+    [
+      {
+        "str": "amuletuniquename: {yellow}{amuletuniquename}"
+      }
+    ],
+    [
+      {
+        "str": "ringoneicon: {yellow}{ringoneicon}"
+      }
+    ],
+    [
+      {
+        "str": "ringonelargeicon: {yellow}{ringonelargeicon}"
+      }
+    ],
+    [
+      {
+        "str": "ringonename: {yellow}{ringonename}"
+      }
+    ],
+    [
+      {
+        "str": "ringoneuniquename: {yellow}{ringoneuniquename}"
+      }
+    ],
+    [
+      {
+        "str": "ringtwoicon: {yellow}{ringtwoicon}"
+      }
+    ],
+    [
+      {
+        "str": "ringtwolargeicon: {yellow}{ringtwolargeicon}"
+      }
+    ],
+    [
+      {
+        "str": "ringtwoname: {yellow}{ringtwoname}"
+      }
+    ],
+    [
+      {
+        "str": "ringtwouniquename: {yellow}{ringtwouniquename}"
+      }
+    ],
+    [
+      {
+        "str": "belticon: {yellow}{belticon}"
+      }
+    ],
+    [
+      {
+        "str": "beltlargeicon: {yellow}{beltlargeicon}"
+      }
+    ],
+    [
+      {
+        "str": "beltname: {yellow}{beltname}"
+      }
+    ],
+    [
+      {
+        "str": "beltuniquename: {yellow}{beltuniquename}"
+      }
+    ],
+    [
+      {
+        "str": "headicon: {yellow}{headicon}"
+      }
+    ],
+    [
+      {
+        "str": "headlargeicon: {yellow}{headlargeicon}"
+      }
+    ],
+    [
+      {
+        "str": "headname: {yellow}{headname}"
+      }
+    ],
+    [
+      {
+        "str": "headuniquename: {yellow}{headuniquename}"
+      }
+    ],
+    [
+      {
+        "str": "bodyicon: {yellow}{bodyicon}"
+      }
+    ],
+    [
+      {
+        "str": "bodylargeicon: {yellow}{bodylargeicon}"
+      }
+    ],
+    [
+      {
+        "str": "bodyname: {yellow}{bodyname}"
+      }
+    ],
+    [
+      {
+        "str": "bodyuniquename: {yellow}{bodyuniquename}"
+      }
+    ],
+    [
+      {
+        "str": "charmicon: {yellow}{charmicon}"
+      }
+    ],
+    [
+      {
+        "str": "charmlargeicon: {yellow}{charmlargeicon}"
+      }
+    ],
+    [
+      {
+        "str": "charmname: {yellow}{charmname}"
+      }
+    ],
+    [
+      {
+        "str": "charmuniquename: {yellow}{charmuniquename}"
+      }
+    ],
+    [
+      {
+        "str": " "
+      }
+    ],
+    [
+      {
+        "str": "{underline}Riding"
+      }
+    ],
+    [
+      {
+        "str": "horsehealth: {yellow}{horsehealth}"
+      }
+    ],
+    [
+      {
+        "str": "horsejumpstrength: {yellow}{horsejumpstrength}"
+      }
+    ],
+    [
+      {
+        "str": "horsemaxhealth: {yellow}{horsemaxhealth}"
+      }
+    ],
+    [
+      {
+        "str": "horsespeed: {yellow}{horsespeed}"
+      }
+    ],
+    [
+      {
+        "str": "ridinghorse: {yellow}{ridinghorse}"
       }
     ]
   ]

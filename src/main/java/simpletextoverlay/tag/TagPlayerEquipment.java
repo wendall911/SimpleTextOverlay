@@ -1,7 +1,11 @@
 package simpletextoverlay.tag;
 
+import baubles.api.BaublesApi;
+
 import com.google.common.collect.Multimap;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -17,22 +21,40 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
+import net.minecraftforge.fml.common.Loader;
+
 import simpletextoverlay.client.gui.overlay.InfoItem;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.EntityHelper;
 
 public abstract class TagPlayerEquipment extends Tag {
-    public static final String[] TYPES = new String[] {
-            "offhand", "mainhand", "helmet", "chestplate", "leggings", "boots"
-    };
-    public static final int[] SLOTS = new int[] {
-            -2, -1, 3, 2, 1, 0
-    };
-    protected final int slot;
 
-    public TagPlayerEquipment(final int slot) {
-        this.slot = slot;
+    private static Map<String, SlotInfo> slots = new HashMap<String, SlotInfo>() {
+        {
+            put("offhand", new SlotInfo("vanilla", -2));
+            put("mainhand", new SlotInfo("vanilla", -1));
+            put("helmet", new SlotInfo("vanilla", 3));
+            put("chestplate", new SlotInfo("vanilla", 2));
+            put("leggings", new SlotInfo("vanilla", 1));
+            put("boots", new SlotInfo("vanilla", 0));
+
+            if (Loader.isModLoaded("baubles")) {
+                put("amulet", new SlotInfo("bauble", 0));
+                put("ringone", new SlotInfo("bauble", 1));
+                put("ringtwo", new SlotInfo("bauble", 2));
+                put("belt", new SlotInfo("bauble", 3));
+                put("head", new SlotInfo("bauble", 4));
+                put("body", new SlotInfo("bauble", 5));
+                put("charm", new SlotInfo("bauble", 6));
+            }
+        }
+    };
+
+    protected final String slotName;
+
+    public TagPlayerEquipment(final String slotName) {
+        this.slotName = slotName;
     }
 
     private static final UUID ATTACK_DAMAGE_MODIFIER = UUID.fromString("CB3F55D3-645C-4F38-A497-9C13A33DB5CF");
@@ -43,26 +65,48 @@ public abstract class TagPlayerEquipment extends Tag {
         return "playerequipment";
     }
 
-    protected ItemStack getItemStack(final int slot) {
-        if (slot == -2) {
+    private static class SlotInfo {
+
+        public String type;
+        public int slot;
+
+        public SlotInfo(String type, int slot) {
+            this.type = type;
+            this.slot = slot;
+        }
+
+    }
+
+    protected ItemStack getItemStack(final String slotName) {
+        SlotInfo info = slots.get(slotName);
+
+        if (slotName.equals("offhand")) {
             return player.getHeldItemOffhand();
         }
 
-        if (slot == -1) {
+        if (slotName.equals("mainhand")) {
             return player.getHeldItemMainhand();
         }
 
-        return player.inventory.armorItemInSlot(slot);
+        if (info.type.equals("vanilla")) {
+            return player.inventory.armorItemInSlot(info.slot);
+        }
+
+        if (info.type.equals("bauble")) {
+            return BaublesApi.getBaubles(player).getStackInSlot(info.slot);
+        }
+
+        return ItemStack.EMPTY;
     }
 
     public static class Name extends TagPlayerEquipment {
-        public Name(final int slot) {
-            super(slot);
+        public Name(final String slotName) {
+            super(slotName);
         }
 
         @Override
         public String getValue() {
-            final ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slotName);
             if (itemStack.isEmpty()) {
                 return "";
             }
@@ -88,13 +132,13 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     public static class UniqueName extends TagPlayerEquipment {
-        public UniqueName(final int slot) {
-            super(slot);
+        public UniqueName(final String slotName) {
+            super(slotName);
         }
 
         @Override
         public String getValue() {
-            final ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slotName);
             if (itemStack.isEmpty()) {
                 return "";
             }
@@ -104,13 +148,13 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     public static class AttackDamage extends TagPlayerEquipment {
-        public AttackDamage(final int slot) {
-            super(slot);
+        public AttackDamage(final String slotName) {
+            super(slotName);
         }
 
         @Override
         public String getValue() {
-            final ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slotName);
             String attackDamage = "";
 
             Multimap<String, AttributeModifier> modifierMap = itemStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
@@ -129,13 +173,13 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     public static class AttackSpeed extends TagPlayerEquipment {
-        public AttackSpeed(final int slot) {
-            super(slot);
+        public AttackSpeed(final String slotName) {
+            super(slotName);
         }
 
         @Override
         public String getValue() {
-            final ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slotName);
             String attackSpeed = "";
 
             Multimap<String, AttributeModifier> modifierMap = itemStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
@@ -153,13 +197,13 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     public static class Durability extends TagPlayerEquipment {
-        public Durability(final int slot) {
-            super(slot);
+        public Durability(final String slotName) {
+            super(slotName);
         }
 
         @Override
         public String getValue() {
-            final ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slotName);
             if (itemStack.isEmpty()) {
                 return String.valueOf(-1);
             }
@@ -169,13 +213,13 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     public static class MaximumDurability extends TagPlayerEquipment {
-        public MaximumDurability(final int slot) {
-            super(slot);
+        public MaximumDurability(final String slotName) {
+            super(slotName);
         }
 
         @Override
         public String getValue() {
-            final ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slotName);
             if (itemStack.isEmpty()) {
                 return String.valueOf(-1);
             }
@@ -185,13 +229,13 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     public static class DurabilityRemaining extends TagPlayerEquipment {
-        public DurabilityRemaining(final int slot) {
-            super(slot);
+        public DurabilityRemaining(final String slotName) {
+            super(slotName);
         }
 
         @Override
         public String getValue() {
-            final ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slotName);
             if (itemStack.isEmpty()) {
                 return String.valueOf(-1);
             }
@@ -203,14 +247,14 @@ public abstract class TagPlayerEquipment extends Tag {
     public static class Icon extends TagPlayerEquipment {
         private final boolean large;
 
-        public Icon(final int slot, final boolean large) {
-            super(slot);
+        public Icon(final String slotName, final boolean large) {
+            super(slotName);
             this.large = large;
         }
 
         @Override
         public String getValue() {
-            final ItemStack itemStack = getItemStack(this.slot);
+            final ItemStack itemStack = getItemStack(this.slotName);
             final InfoItem item = new InfoItem(itemStack, this.large);
             info.add(item);
             return getIconTag(item);
@@ -218,20 +262,24 @@ public abstract class TagPlayerEquipment extends Tag {
     }
 
     public static void register() {
-        for (int i = 0; i < 2; i++) {
-            TagRegistry.INSTANCE.register(new AttackDamage(SLOTS[i]).setName(TYPES[i] + "attackdamage"));
-            TagRegistry.INSTANCE.register(new AttackDamage(SLOTS[i]).setName(TYPES[i] + "attackdamage"));
-            TagRegistry.INSTANCE.register(new AttackSpeed(SLOTS[i]).setName(TYPES[i] + "attackspeed"));
-            TagRegistry.INSTANCE.register(new AttackSpeed(SLOTS[i]).setName(TYPES[i] + "attackspeed"));
-        }
-        for (int i = 0; i < TYPES.length; i++) {
-            TagRegistry.INSTANCE.register(new Name(SLOTS[i]).setName(TYPES[i] + "name"));
-            TagRegistry.INSTANCE.register(new UniqueName(SLOTS[i]).setName(TYPES[i] + "uniquename"));
-            TagRegistry.INSTANCE.register(new Durability(SLOTS[i]).setName(TYPES[i] + "durability"));
-            TagRegistry.INSTANCE.register(new MaximumDurability(SLOTS[i]).setName(TYPES[i] + "maxdurability"));
-            TagRegistry.INSTANCE.register(new DurabilityRemaining(SLOTS[i]).setName(TYPES[i] + "durabilityremaining"));
-            TagRegistry.INSTANCE.register(new Icon(SLOTS[i], false).setName(TYPES[i] + "icon"));
-            TagRegistry.INSTANCE.register(new Icon(SLOTS[i], true).setName(TYPES[i] + "largeicon"));
+        for (String key : slots.keySet()) {
+            SlotInfo info = slots.get(key);
+
+            if (key.equals("mainhand") || key.equals("offhand")) {
+                TagRegistry.INSTANCE.register(new AttackDamage(key).setName(key + "attackdamage"));
+                TagRegistry.INSTANCE.register(new AttackSpeed(key).setName(key + "attackspeed"));
+            }
+
+            TagRegistry.INSTANCE.register(new Name(key).setName(key + "name"));
+            TagRegistry.INSTANCE.register(new UniqueName(key).setName(key + "uniquename"));
+            if (!info.type.equals("bauble")) {
+                TagRegistry.INSTANCE.register(new Durability(key).setName(key + "durability"));
+                TagRegistry.INSTANCE.register(new MaximumDurability(key).setName(key + "maxdurability"));
+                TagRegistry.INSTANCE.register(new DurabilityRemaining(key).setName(key + "durabilityremaining"));
+            }
+            TagRegistry.INSTANCE.register(new Icon(key, false).setName(key + "icon"));
+            TagRegistry.INSTANCE.register(new Icon(key, true).setName(key + "largeicon"));
         }
     }
+
 }
