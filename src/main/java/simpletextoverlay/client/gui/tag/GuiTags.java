@@ -10,6 +10,7 @@ import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.resources.I18n;
 
 public class GuiTags extends GuiScreen {
+
     private GuiTagList guiTagList;
     private GuiTextField guiTextField;
     private GuiButton btnDone;
@@ -75,4 +76,5 @@ public class GuiTags extends GuiScreen {
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
+
 }

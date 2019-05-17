@@ -5,6 +5,7 @@ import simpletextoverlay.value.registry.ValueRegistry;
 import java.util.Locale;
 
 public abstract class ValueMath extends ValueComplex {
+
     @Override
     public boolean isValidSize() {
         return this.values.size() == 2;
@@ -165,4 +166,5 @@ public abstract class ValueMath extends ValueComplex {
         ValueRegistry.INSTANCE.register(new ValuePercent().setName("pct").setAliases("percent", "percentage"));
         ValueRegistry.INSTANCE.register(new ValuePercentInt().setName("pctwhole").setAliases("percentwhole", "percentagewhole"));
     }
+
 }

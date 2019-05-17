@@ -15,6 +15,7 @@ import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.util.ChunkHelper;
 
 public abstract class TagWorld extends Tag {
+
     @Override
     public String getCategory() {
         return "world";
@@ -276,4 +277,5 @@ public abstract class TagWorld extends Tag {
         TagRegistry.INSTANCE.register(new LocalTemperature().setName("localtemperature"));
         TagRegistry.INSTANCE.register(new Humidity().setName("humidity"));
     }
+
 }

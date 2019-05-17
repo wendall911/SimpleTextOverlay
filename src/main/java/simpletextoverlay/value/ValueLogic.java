@@ -3,6 +3,7 @@ package simpletextoverlay.value;
 import simpletextoverlay.value.registry.ValueRegistry;
 
 public abstract class ValueLogic extends ValueComplex {
+
     @Override
     public boolean isValidSize() {
         return this.values.size() > 1;
@@ -261,4 +262,5 @@ public abstract class ValueLogic extends ValueComplex {
         ValueRegistry.INSTANCE.register(new ValueLesser().setName("lesser").setAliases("less"));
         ValueRegistry.INSTANCE.register(new ValueEqual().setName("equal").setAliases("equals"));
     }
+
 }

@@ -3,6 +3,7 @@ package simpletextoverlay.tag;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagFormatting extends Tag {
+
     private static final String SIGN = "\u00a7";
 
     @Override
@@ -188,4 +189,5 @@ public abstract class TagFormatting extends Tag {
         TagRegistry.INSTANCE.register(new Italic().setName("italic").setAliases("italics", "i"));
         TagRegistry.INSTANCE.register(new Reset().setName("reset").setAliases("r"));
     }
+
 }

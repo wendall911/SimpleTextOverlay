@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import simpletextoverlay.config.ConfigHandler;
 
 public class InfoItem extends Info {
+
     private static final Minecraft MINECRAFT = Minecraft.getMinecraft();
     private final ItemStack itemStack;
     private final boolean large;
@@ -80,4 +81,5 @@ public class InfoItem extends Info {
     public String toString() {
         return String.format("InfoItem{itemStack: %s, x: %d, y: %d, offsetX: %d, offsetY: %d, children: %s}", this.itemStack, this.x, this.y, this.offsetX, this.offsetY, this.children);
     }
+
 }

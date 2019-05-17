@@ -14,6 +14,7 @@ import simpletextoverlay.client.gui.overlay.InfoIcon;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagNearbyPlayer extends Tag {
+
     public static final int MAXIMUM_INDEX = 16;
 
     private static final Comparator<EntityPlayer> PLAYER_DISTANCE_COMPARATOR = (EntityPlayer playerA, EntityPlayer playerB) -> {
@@ -152,4 +153,5 @@ public abstract class TagNearbyPlayer extends Tag {
     public static void releaseResources() {
         nearbyPlayers = null;
     }
+
 }

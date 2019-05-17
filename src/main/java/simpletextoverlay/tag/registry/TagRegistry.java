@@ -27,6 +27,7 @@ import simpletextoverlay.tag.TagTime;
 import simpletextoverlay.tag.TagWorld;
 
 public class TagRegistry {
+
     public static final TagRegistry INSTANCE = new TagRegistry();
 
     private Map<String, Tag> stringTagMap = new HashMap<>();

@@ -3,6 +3,7 @@ package simpletextoverlay.value;
 import simpletextoverlay.value.registry.ValueRegistry;
 
 public abstract class ValueSimple extends Value {
+
     @Override
     public Value setRawValue(final String value, final boolean isText) {
         this.value = value.replaceAll("\\$(?=[0-9a-fk-or])", "\u00a7");
@@ -83,4 +84,5 @@ public abstract class ValueSimple extends Value {
         ValueRegistry.INSTANCE.register(new ValueVariable().setName("var").setAliases("variable"));
         ValueRegistry.INSTANCE.register(new ValueInvalid().setName("invalid"));
     }
+
 }

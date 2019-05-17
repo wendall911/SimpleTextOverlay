@@ -8,7 +8,9 @@ import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 
 public interface IParser {
+
     boolean load(InputStream inputStream);
 
     boolean parse(Map<Alignment, List<List<Value>>> format);
+
 }

@@ -10,6 +10,7 @@ import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.util.MBlockPos;
 
 public abstract class TagPlayerGeneral extends Tag {
+
     protected final MBlockPos pos = new MBlockPos();
 
     @Override
@@ -316,4 +317,5 @@ public abstract class TagPlayerGeneral extends Tag {
         //Would require listening on events and setting props
         TagRegistry.INSTANCE.register(new Eating().setName("eating"));
     }
+
 }

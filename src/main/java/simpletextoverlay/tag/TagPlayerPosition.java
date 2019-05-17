@@ -7,6 +7,7 @@ import net.minecraft.util.math.MathHelper;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagPlayerPosition extends Tag {
+
     private static final int TICKS = 20;
 
     protected static final String[] ROUGHDIRECTION = {
@@ -275,4 +276,5 @@ public abstract class TagPlayerPosition extends Tag {
         TagRegistry.INSTANCE.register(new AxisDirectionLong().setName("axisdirectionlong"));
         TagRegistry.INSTANCE.register(new DirectionHud().setName("directionhud"));
     }
+
 }

@@ -8,6 +8,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
 public class MBlockPos extends BlockPos {
+
     public int x;
     public int y;
     public int z;
@@ -188,4 +189,5 @@ public class MBlockPos extends BlockPos {
     public int getZ() {
         return this.z;
     }
+
 }

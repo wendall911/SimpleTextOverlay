@@ -17,6 +17,7 @@ import simpletextoverlay.tag.Tag;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public class GuiTagList extends GuiListExtended {
+
     public static final int OFFSET_X = 150;
     public static final int SCROLLBAR_WIDTH = 6;
 
@@ -188,4 +189,5 @@ public class GuiTagList extends GuiListExtended {
             return this.desc;
         }
     }
+
 }

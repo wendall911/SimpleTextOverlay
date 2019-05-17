@@ -3,6 +3,7 @@ package simpletextoverlay.util;
 import net.minecraft.client.gui.FontRenderer;
 
 public class FontRendererHelper {
+
     public static void drawLeftAlignedString(final FontRenderer fontRenderer, final String str, final int x, final int y, final int color) {
         fontRenderer.drawStringWithShadow(str, x, y, color);
     }

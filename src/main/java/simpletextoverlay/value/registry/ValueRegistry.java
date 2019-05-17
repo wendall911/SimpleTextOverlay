@@ -12,6 +12,7 @@ import simpletextoverlay.value.ValueMath;
 import simpletextoverlay.value.ValueSimple;
 
 public class ValueRegistry {
+
     public static final ValueRegistry INSTANCE = new ValueRegistry();
 
     private Map<String, Value> stringValueMap = new HashMap<>();
@@ -75,4 +76,5 @@ public class ValueRegistry {
         ValueMath.register();
         ValueSimple.register();
     }
+
 }

@@ -10,6 +10,7 @@ import simpletextoverlay.client.gui.overlay.InfoIcon;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagPlayerPotion extends Tag {
+
     public static final int MAXIMUM_INDEX = 32;
 
     protected static PotionEffect[] potionEffects = null;
@@ -180,4 +181,5 @@ public abstract class TagPlayerPotion extends Tag {
     public static void releaseResources() {
         potionEffects = null;
     }
+
 }

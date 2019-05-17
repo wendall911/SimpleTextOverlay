@@ -15,6 +15,7 @@ import simpletextoverlay.util.GuiHelper;
 import simpletextoverlay.util.Vector2f;
 
 public class InfoIcon extends Info {
+
     private final static TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
     private final ResourceLocation resourceLocation;
     private final Vector2f xy0 = new Vector2f();
@@ -91,4 +92,5 @@ public class InfoIcon extends Info {
     public String toString() {
         return String.format("InfoIcon{resource: %s, x: %d, y: %d, offsetX: %d, offsetY: %d, children: %s}", this.resourceLocation, this.x, this.y, this.offsetX, this.offsetY, this.children);
     }
+
 }

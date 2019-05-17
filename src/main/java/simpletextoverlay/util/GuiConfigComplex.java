@@ -11,6 +11,7 @@ import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
 
 public abstract class GuiConfigComplex extends GuiConfig {
+
     public GuiConfigComplex(final GuiScreen parent, final String modID, final Configuration configuration, final String langPrefix) {
         super(parent, getConfigElements(configuration, langPrefix), modID, false, false, GuiConfig.getAbridgedConfigPath(configuration.toString()));
     }
@@ -26,4 +27,5 @@ public abstract class GuiConfigComplex extends GuiConfig {
 
         return elements;
     }
+
 }

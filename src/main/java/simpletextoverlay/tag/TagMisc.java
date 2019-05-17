@@ -19,6 +19,7 @@ import simpletextoverlay.client.gui.overlay.InfoIcon;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagMisc extends Tag {
+
     protected static final ResourcePackRepository resourcePackRepository = minecraft.getResourcePackRepository();
 
     @Override
@@ -476,4 +477,5 @@ public abstract class TagMisc extends Tag {
         TagRegistry.INSTANCE.register(new VideoCardInfo().setName("vidcard"));
         TagRegistry.INSTANCE.register(new VsyncEnabled().setName("vsync"));
     }
+
 }

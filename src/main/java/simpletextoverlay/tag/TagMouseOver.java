@@ -17,6 +17,7 @@ import net.minecraft.util.math.RayTraceResult;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagMouseOver extends Tag {
+
     @Override
     public String getCategory() {
         return "mouseover";
@@ -480,4 +481,5 @@ public abstract class TagMouseOver extends Tag {
         TagRegistry.INSTANCE.register(new Variant().setName("blockvariant"));
         TagRegistry.INSTANCE.register(new West().setName("blockwest"));
     }
+
 }

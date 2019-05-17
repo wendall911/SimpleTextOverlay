@@ -27,6 +27,7 @@ import simpletextoverlay.util.EntityHelper;
 import simpletextoverlay.value.registry.ValueRegistry;
 
 public abstract class ValueComplex extends Value {
+
     @Override
     public boolean isSimple() {
         return false;
@@ -275,4 +276,5 @@ public abstract class ValueComplex extends Value {
         ValueRegistry.INSTANCE.register(new ValueFormattedNumber().setName("formattednumber"));
         ValueRegistry.INSTANCE.register(new ValueIcon().setName("icon").setAliases("img", "image"));
     }
+
 }

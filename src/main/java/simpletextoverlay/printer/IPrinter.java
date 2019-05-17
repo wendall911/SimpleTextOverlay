@@ -8,5 +8,7 @@ import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 
 public interface IPrinter {
+
     boolean print(File file, Map<Alignment, List<List<Value>>> format);
+
 }

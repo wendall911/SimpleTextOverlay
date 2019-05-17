@@ -3,6 +3,7 @@ package simpletextoverlay.util;
 import java.util.Locale;
 
 public enum Alignment {
+
     TOPLEFT(2, 2),
     LEFTCOL1(2, 2),
     LEFTCOL2(150, 2),

@@ -14,7 +14,7 @@ public class ConfigHandler {
 
         public static Align alignment;
         public static class Align {
-            
+
             @Config.RangeInt(min = -100, max = 100)
             @Config.Comment({"Offsets for the top left side of the screen."})
             public static int topleftX = Alignment.TOPLEFT.defaultX;
@@ -102,7 +102,7 @@ public class ConfigHandler {
             public static boolean showOnPlayerList = true;
 
             @Config.Comment({"The overlay will be scaled by this amount."})
-            @Config.RangeDouble(min = 0.5, max = 2.0) 
+            @Config.RangeDouble(min = 0.5, max = 2.0)
             public static double scale = (double) 1.0;
 
             @Config.Comment({"Display the vanilla potion effects overlay."})

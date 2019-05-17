@@ -12,6 +12,7 @@ import simpletextoverlay.event.GameOverlayEventHandler;
 import simpletextoverlay.reference.Names;
 
 public class KeyInputEventHandler {
+
     public static final KeyInputEventHandler INSTANCE = new KeyInputEventHandler();
 
     private static final KeyBinding KEY_BINDING_TOGGLE = new KeyBinding(Names.Keys.TOGGLE, Keyboard.KEY_NONE, Names.Keys.CATEGORY);
@@ -39,4 +40,5 @@ public class KeyInputEventHandler {
             }
         }
     }
+
 }

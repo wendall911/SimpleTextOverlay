@@ -1,6 +1,7 @@
 package simpletextoverlay.util;
 
 public class Vector3f extends Vector2f {
+
     private float z;
 
     public Vector3f() {
@@ -43,4 +44,5 @@ public class Vector3f extends Vector2f {
     public String toString() {
         return String.format("[%s, %s, %s]", this.getX(), this.getY(), this.getZ());
     }
+
 }

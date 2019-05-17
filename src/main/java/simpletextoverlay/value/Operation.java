@@ -1,6 +1,7 @@
 package simpletextoverlay.value;
 
 public enum Operation {
+
     INVALID {
         @Override
         public String getValue(final Value value) {
@@ -131,4 +132,5 @@ public enum Operation {
 
         return INVALID;
     }
+
 }

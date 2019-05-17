@@ -15,6 +15,7 @@ import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 
 public class GameOverlayEventHandler {
+
     public static final GameOverlayEventHandler INSTANCE = new GameOverlayEventHandler();
 
     public static boolean enabled = false;

@@ -7,6 +7,7 @@ import java.util.Locale;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagTime extends Tag {
+
     @Override
     public String getCategory() {
         return "time";
@@ -90,4 +91,5 @@ public abstract class TagTime extends Tag {
         TagRegistry.INSTANCE.register(new Real24().setName("rltime24").setAliases("rltime"));
         TagRegistry.INSTANCE.register(new Real12().setName("rltime12"));
     }
+
 }

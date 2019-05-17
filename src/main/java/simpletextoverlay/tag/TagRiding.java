@@ -12,6 +12,7 @@ import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagRiding extends Tag {
+
     private static final int TICKS = 20;
     private static final double CONSTANT = 2.15858575199013618; // playerSpeed / internalPlayerSpeed (0.1)
 
@@ -105,4 +106,5 @@ public abstract class TagRiding extends Tag {
         TagRegistry.INSTANCE.register(new HorseSpeed().setName("horsespeed"));
         TagRegistry.INSTANCE.register(new HorseJump().setName("horsejumpstrength").setAliases("horsejumpstr"));
     }
+
 }

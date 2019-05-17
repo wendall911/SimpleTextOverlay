@@ -14,6 +14,7 @@ import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.value.registry.ValueRegistry;
 
 public abstract class Value {
+
     private static final Pattern PATTERN = Pattern.compile("\\{([a-z0-9]+)\\}", Pattern.CASE_INSENSITIVE);
     private static final Matcher MATCHER = PATTERN.matcher("");
     protected static List<Info> info;
@@ -156,4 +157,5 @@ public abstract class Value {
     public static String toString(final Value value) {
         return ValueRegistry.INSTANCE.forClass(value.getClass());
     }
+
 }

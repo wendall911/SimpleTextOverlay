@@ -41,6 +41,7 @@ import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 
 public class OverlayManager {
+
     private static final Pattern PATTERN = Pattern.compile("\\{ICON\\|( *)\\}", Pattern.CASE_INSENSITIVE);
     private static final Matcher MATCHER = PATTERN.matcher("");
     public static final OverlayManager INSTANCE = new OverlayManager();

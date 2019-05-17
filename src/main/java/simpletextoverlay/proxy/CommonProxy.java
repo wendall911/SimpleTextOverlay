@@ -11,6 +11,7 @@ import simpletextoverlay.event.PlayerEventHandler;
 import simpletextoverlay.network.PacketHandler;
 
 public class CommonProxy {
+
     public void preInit(final FMLPreInitializationEvent event) {
         PacketHandler.init();
     }
@@ -27,4 +28,5 @@ public class CommonProxy {
 
     public void serverStopping(final FMLServerStoppingEvent event) {
     }
+
 }

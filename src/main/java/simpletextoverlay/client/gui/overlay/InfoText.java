@@ -6,6 +6,7 @@ import simpletextoverlay.config.ConfigHandler;
 import simpletextoverlay.util.FontRendererHelper;
 
 public class InfoText extends Info {
+
     private final FontRenderer fontRenderer;
     public final String text;
     private String textModified;
@@ -63,4 +64,5 @@ public class InfoText extends Info {
     public String toString() {
         return String.format("InfoText{text: %s, x: %d, y: %d, offsetX: %d, offsetY: %d, children: %s}", this.textModified, this.x, this.y, this.offsetX, this.offsetY, this.children);
     }
+
 }

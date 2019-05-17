@@ -15,6 +15,7 @@ import simpletextoverlay.util.MBlockPos;
 import simpletextoverlay.util.Vector3f;
 
 public abstract class Tag {
+
     protected static final Minecraft minecraft = Minecraft.getMinecraft();
     protected static final MBlockPos playerPosition = new MBlockPos();
     protected static final Vector3f playerMotion = new Vector3f();
@@ -140,4 +141,5 @@ public abstract class Tag {
         }
         return String.format("{ICON|%s}", str);
     }
+
 }

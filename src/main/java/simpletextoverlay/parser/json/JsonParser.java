@@ -17,6 +17,7 @@ import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 
 public class JsonParser implements IParser {
+
     private JsonElement element;
 
     @Override
@@ -95,4 +96,5 @@ public class JsonParser implements IParser {
 
         return values;
     }
+
 }

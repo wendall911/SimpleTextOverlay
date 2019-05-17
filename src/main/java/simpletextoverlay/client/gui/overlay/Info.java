@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class Info {
+
     public final List<Info> children = new ArrayList<>();
     public int x;
     public int y;
@@ -59,4 +60,5 @@ public abstract class Info {
     public String toString() {
         return "Info";
     }
+
 }

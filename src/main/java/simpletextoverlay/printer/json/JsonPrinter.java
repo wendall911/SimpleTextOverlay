@@ -18,6 +18,7 @@ import simpletextoverlay.util.Alignment;
 import simpletextoverlay.value.Value;
 
 public class JsonPrinter implements IPrinter {
+
     @Override
     public boolean print(final File file, final Map<Alignment, List<List<Value>>> format) {
         try {
@@ -91,4 +92,5 @@ public class JsonPrinter implements IPrinter {
             jsonValues.add(obj);
         }
     }
+
 }
