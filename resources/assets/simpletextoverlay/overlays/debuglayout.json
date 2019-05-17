@@ -1,0 +1,65 @@
+{
+  "topleft": [
+    [
+      {
+        "str": "TOPLEFT"
+      }
+    ]
+  ],
+  "topcenter": [
+    [
+      {
+        "str": "TOPCENTER"
+      }
+    ]
+  ],
+  "topright": [
+    [
+      {
+        "str": "TOPRIGHT"
+      }
+    ]
+  ],
+  "middleleft": [
+    [
+      {
+        "str": "MIDDLELEFT"
+      }
+    ]
+  ],
+  "middlecenter": [
+    [
+      {
+        "str": "MIDDLECENTER"
+      }
+    ]
+  ],
+  "middleright": [
+    [
+      {
+        "str": "MIDDLERIGHT"
+      }
+    ]
+  ],
+  "bottomleft": [
+    [
+      {
+        "str": "BOTTOMLEFT"
+      }
+    ]
+  ],
+  "bottomcenter": [
+    [
+      {
+        "str": "BOTTOMCENTER"
+      }
+    ]
+  ],
+  "bottomright": [
+    [
+      {
+        "str": "BOTTOMRIGHT"
+      }
+    ]
+  ]
+}
