@@ -1,6 +1,5 @@
 package simpletextoverlay.reference;
 
-@SuppressWarnings("HardCodedStringLiteral")
 public final class Names {
 
     public static final class Command {

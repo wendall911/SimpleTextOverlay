@@ -299,6 +299,7 @@ public abstract class TagMouseOver extends Tag {
         return blockState.getActualState(world, blockPos);
     }
 
+    @SuppressWarnings("unchecked")
     protected <T extends Comparable<T>> String getProp(String prop) {
         final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
         IProperty<T> iproperty;

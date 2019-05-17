@@ -46,7 +46,7 @@ public class ConfigEventHandler {
         }
     }
 
-    public Map getAlignment() {
+    public Map<String, Integer> getAlignment() {
         Map<String, Integer> alignmentMap = new HashMap<>();
 
         alignmentMap.put("topleftX", ConfigHandler.client.alignment.topleftX);
@@ -72,7 +72,7 @@ public class ConfigEventHandler {
     }
 
     public void applyConfigSettings() {
-        Map<String, Integer>  alignmentMap = getAlignment();
+        Map<String, Integer> alignmentMap = getAlignment();
         for (Alignment alignment : Alignment.values()) {
             String alignmentName = alignment.toString().toLowerCase(Locale.ENGLISH);
             String alignmentNameX = alignmentName + "X";

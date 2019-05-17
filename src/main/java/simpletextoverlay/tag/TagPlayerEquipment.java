@@ -1,6 +1,8 @@
 package simpletextoverlay.tag;
 
-import baubles.api.BaublesApi;
+import baubles.api.cap.BaublesCapabilities;
+import baubles.api.cap.IBaublesItemHandler;
+import baubles.api.inv.BaublesInventoryWrapper;
 
 import com.google.common.collect.Multimap;
 
@@ -15,6 +17,7 @@ import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBow;
 import net.minecraft.item.ItemStack;
@@ -93,10 +96,16 @@ public abstract class TagPlayerEquipment extends Tag {
         }
 
         if (info.type.equals("bauble")) {
-            return BaublesApi.getBaubles(player).getStackInSlot(info.slot);
+            return getBaubles().getStackInSlot(info.slot);
         }
 
         return ItemStack.EMPTY;
+    }
+
+    private IInventory getBaubles() {
+        IBaublesItemHandler handler = player.getCapability(BaublesCapabilities.CAPABILITY_BAUBLES, null);
+        handler.setPlayer(player);
+        return new BaublesInventoryWrapper(handler, player);
     }
 
     public static class Name extends TagPlayerEquipment {
