@@ -120,9 +120,8 @@ curseforge {
         mainArtifact(jar) {
             relations {
                 incompatible 'ingame-info-xml'
+                optionalLibrary 'baubles'
                 optionalLibrary 'blood-magic'
-                optionalLibrary 'deep-resonance'
-                optionalLibrary 'scaling-health'
                 optionalLibrary 'serene-seasons'
                 optionalLibrary 'thaumcraft'
                 optionalLibrary 'tough-as-nails'
