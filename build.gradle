@@ -124,6 +124,7 @@ curseforge {
                 optionalLibrary 'blood-magic'
                 optionalLibrary 'serene-seasons'
                 optionalLibrary 'thaumcraft'
+                optionalLibrary 'tinkersurvival'
                 optionalLibrary 'tough-as-nails'
             }
         }
