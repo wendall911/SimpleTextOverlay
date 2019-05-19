@@ -82,7 +82,6 @@ public class MBlockPos extends BlockPos {
         return new MBlockPos(this.x * factor, this.y * factor, this.z * factor);
     }
 
-    //@SuppressWarnings("override")
     public MBlockPos subtract(final Vec3i vec) {
         return subtract(vec.getX(), vec.getY(), vec.getZ());
     }
