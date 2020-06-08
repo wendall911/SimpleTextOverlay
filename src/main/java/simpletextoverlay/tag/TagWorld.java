@@ -197,7 +197,7 @@ public abstract class TagWorld extends Tag {
                 return "?";
             }
 
-            final WorldInfo worldInfo = server.getWorld(0).getWorldInfo();
+            final WorldInfo worldInfo = world.getWorldInfo();
             final int clearTime = worldInfo.getCleanWeatherTime();
             final float seconds = (clearTime > 0 ? clearTime : worldInfo.getRainTime()) / 20f;
             if (seconds < 60) {

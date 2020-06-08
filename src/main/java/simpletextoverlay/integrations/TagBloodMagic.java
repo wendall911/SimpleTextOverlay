@@ -26,7 +26,6 @@ public abstract class TagBloodMagic extends Tag {
         return I18n.format("itemGroup.bloodmagic.creativeTab");
     }
 
-    private static boolean isLoggedIn = false;
     private static NBTTagCompound data = new NBTTagCompound();
     private ExecutorService executorService = Executors.newSingleThreadExecutor();
 
