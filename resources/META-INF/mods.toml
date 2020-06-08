@@ -1,0 +1,26 @@
+modLoader="javafml"
+loaderVersion="[31,)"
+
+[[mods]]
+  modId="${modid}"
+  displayName="Simple Text Overlay"
+  description="Display extra information on top of your in-game screen."
+  version="${mod_version}"
+  displayURL="https://github.com/wendall911/SimpleTextOverlay"
+  updateJSONURL="https://raw.githubusercontent.com/wendall911/SimpleTextOverlay/1.15.2/files/updates.json"
+  authors="${mod_author}"
+  credits="DaftPVF, bspkrs, Lunatrius, ashar42"
+  logoFile=""
+
+[[dependencies.betterdays]]
+    modId="forge"
+    mandatory=true
+    versionRange="[31,)"
+    ordering="NONE"
+    side="SERVER"
+[[dependencies.betterdays]]
+    modId="minecraft"
+    mandatory=true
+    versionRange="[1.15.2]"
+    ordering="NONE"
+    side="SERVER"

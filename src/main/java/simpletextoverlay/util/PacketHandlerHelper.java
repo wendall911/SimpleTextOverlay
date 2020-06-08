@@ -1,41 +1,31 @@
 package simpletextoverlay.util;
 
-import java.util.StringJoiner;
-
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTTagCompound;
-
-import simpletextoverlay.config.ConfigHandler;
-import simpletextoverlay.network.message.ServerValues;
-import simpletextoverlay.network.PacketHandler;
 import simpletextoverlay.SimpleTextOverlay;
+import simpletextoverlay.config.SyncedConfig;
+import simpletextoverlay.config.OverlayOption;
+import simpletextoverlay.handler.message.ConfigUpdate;
+import simpletextoverlay.handler.PacketHandler;
+
+import net.minecraft.entity.player.ServerPlayerEntity;
+
+import net.minecraft.nbt.CompoundNBT;
+
+import net.minecraftforge.fml.network.NetworkDirection;
 
 public class PacketHandlerHelper {
 
-    public static void sendServerConfigValues(EntityPlayerMP player) {
-        NBTTagCompound data = new NBTTagCompound();
+    public static void sendServerConfigValues(ServerPlayerEntity player) {
+        CompoundNBT data = new CompoundNBT();
 
-        data.setString("type", "config");
-        data.setLong("seed", player.world.getSeed());
-        data.setBoolean("forceDebug", ConfigHandler.server.forceDebug);
-        data.setString("blacklist", getBlacklistString());
+        SimpleTextOverlay.logger.info("Sending server config values to player.");
 
-        try {
-            SimpleTextOverlay.logger.info("Sending server values to player.");
-            PacketHandler.INSTANCE.sendTo(new ServerValues(data), player);
-        } catch (Exception ex) {
-            SimpleTextOverlay.logger.error("Failed to send server settings!", ex);
-        }
-    }
+        data.putString(OverlayOption.BLACKLIST_TAGS.getName(),
+                String.valueOf(SyncedConfig.getValue(OverlayOption.BLACKLIST_TAGS)));
+        data.putString(OverlayOption.FORCE_DEBUG.getName(),
+                String.valueOf(SyncedConfig.getBooleanValue(OverlayOption.FORCE_DEBUG)));
 
-    public static String getBlacklistString() {
-        StringJoiner bl = new StringJoiner(",");
-
-        for (String s : ConfigHandler.server.blacklistTags) {
-            bl.add(s);
-        }
-
-        return bl.toString();
+        PacketHandler.INSTANCE.sendTo(new ConfigUpdate(data), player.connection.getConnection(), NetworkDirection.PLAY_TO_CLIENT);
     }
 
 }
+

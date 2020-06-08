@@ -3,3 +3,9 @@ build
 .gradle
 libs
 run
+
+# IntelliJ
+.idea
+
+#mappings
+mappings/mcp

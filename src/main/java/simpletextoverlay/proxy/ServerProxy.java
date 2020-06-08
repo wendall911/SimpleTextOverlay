@@ -1,12 +1,15 @@
 package simpletextoverlay.proxy;
 
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import simpletextoverlay.handler.ServerEventHandler;
 
-public class ServerProxy extends CommonProxy {
+import net.minecraftforge.common.MinecraftForge;
 
-    @Override
-    public void init(final FMLInitializationEvent event) {
-        super.init(event);
+public class ServerProxy {
+
+    public ServerProxy() {
+
+        MinecraftForge.EVENT_BUS.register(new ServerEventHandler());
+
     }
 
 }

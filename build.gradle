@@ -10,113 +10,92 @@ buildscript {
             name = 'forge'
             url = 'http://files.minecraftforge.net/maven'
         }
-        maven {
-            name = 'sonatype'
-            url = 'https://oss.sonatype.org/content/repositories/snapshots/'
-        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        classpath 'gradle.plugin.se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.55'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '3.+', changing: true
+        classpath 'gradle.plugin.com.matthewprenger:CurseGradle:1.4.0'
+        classpath 'se.bjurr.gitchangelog:git-changelog-gradle-plugin:1.64'
     }
 }
 
-plugins {
-	id 'com.matthewprenger.cursegradle' version '1.2.0'
-}
-
-apply plugin: 'net.minecraftforge.gradle.forge'
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'maven-publish'
 apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
+apply plugin: 'com.matthewprenger.cursegradle'
 
-// External properties
-ext.configFile = file 'build.properties'
-configFile.withReader {
-    // Load config.  It shall from now be referenced as simply config or project.config
-    def prop = new Properties()
-    prop.load(it)
-    project.ext.config = new ConfigSlurper().parse prop
+repositories {
+    mavenLocal()
 }
 
 group = 'com.github.wendall911.simpletextoverlay'
-version = "${config.minecraft_version}-${config.mod_version}"
-archivesBaseName = "${config.mod_name}"
-def mcversion = "${config.minecraft_version}"
-def modid = "${config.modid}"
+version = "${minecraft_version}-${mod_version}"
+archivesBaseName = "${mod_name}"
+def modid = "${modid}"
 
-repositories {
-    maven {
-        // Guide-API
-        name 'TehNut Maven'
-        url 'http://tehnut.info/maven'
-    }
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
-    maven {
-        // Thaumcraft
-        name 'CurseForge Maven'
-        url 'http://minecraft.curseforge.com/api/maven/'
-    }
+minecraft {
+    mappings channel: 'snapshot', version: mappings_version
 
-    maven {
-        // Baubles
-        name 'thiakil'
-        url 'https://maven.thiakil.com'
-    }
+    runs {
+        client {
+            workingDirectory project.file("run").canonicalPath
 
-    maven {
-        name 'JitPack'
-        url 'https://jitpack.io'
-    }
+            mods {
+                simpletextoverlay {
+                    source sourceSets.main
+                }
+            }
+        }
+        server {
+            workingDirectory project.file("run").canonicalPath
+
+            mods {
+                simpletextoverlay {
+                    source sourceSets.main
+                }
+            }
+        }
+    }    
 }
 
 dependencies {
-    deobfCompile "info.amerifrance.guideapi:Guide-API:${config.guideapi_version}"
-    deobfCompile "thaumcraft:Thaumcraft:${mcversion}:${config.thaumcraft_version}"
-    deobfCompile "com.azanor.baubles:Baubles:${config.baubles_version}"
-    deobfCompile "com.wayoftime.bloodmagic:BloodMagic:${config.minecraft_version}-${config.bloodmagic_version}"
-    deobfProvided "com.github.wendall911:SereneSeasons:${config.serene_seasons_version}:api"
-    deobfProvided "com.github.wendall911:ToughAsNails:${config.minecraft_version}-${config.tan_version}:universal"
-}
-
-minecraft {
-    version = config.minecraft_version + '-' + config.forge_version
-    mappings = config.mappings
-    runDir = 'run'
-    replace '@MOD_NAME@', archivesBaseName
-    replace '@MODID@', modid
-    replace '@MOD_VERSION@', config.mod_version
-    replace '@FORGE_VERSION@', config.forge_version
-	if (project.hasProperty('keyFingerprint')) {
-		replace '@FINGERPRINT@', project.keyFingerprint
-	}
-    else {
-		replace '@FINGERPRINT@', ''
-    }
-    replaceIn 'reference/Reference.java'
-    useDepAts = true
-}
-
-def commonManifest = {
-    attributes 'FMLAT': config.extra_fmlat
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    compileOnly fg.deobf("com.github.glitchfiend.biomesoplenty:SereneSeasons:${minecraft_version}-${serene_seasons_version}:api")
 }
 
 jar {
-    manifest commonManifest
-}
-
-task signJar(type: SignJar, dependsOn: reobfJar) {
-    onlyIf { // Skip the task if our secret data isn't available
-        project.hasProperty('keyStore')
+    manifest {
+        attributes([
+            "Specification-Title": "${mod_name}",
+            "Specification-Vendor": "${mod_author}",
+            "Specification-Version": "${version}",
+            "Implementation-Title": "${mod_name}",
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"${mod_author}",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
     }
-
-    keyStore = project.keyStore // This needs to be a path to the keystore file
-    alias = project.keyStoreAlias
-    storePass = project.keyStorePass
-    keyPass = project.keyStoreKeyPass
-    inputFile = jar.archivePath
-    outputFile = jar.archivePath
 }
 
-build.dependsOn signJar
+def reobfFile = file("$buildDir/reobfJar/output.jar")
+def reobfArtifact = artifacts.add('default', reobfFile) {
+    type 'jar'
+    builtBy 'reobfJar'
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact reobfArtifact
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
 
 tasks.withType(JavaCompile) {
     options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
@@ -126,18 +105,12 @@ curseforge {
     apiKey = project.stocurseApiKey
     project {
         id = project.stocurseId
-        changelog = file('build/libs/' + project.getName() + '-' + project.version + '-changelog.txt')
-        releaseType = config.cf_release_type
-        addGameVersion(config.minecraft_version)
+        changelog = file('build/libs/' + project.getName() + '-' + version + '-changelog.txt')
+        releaseType = cf_release_type
+        addGameVersion(minecraft_version)
         mainArtifact(jar) {
             relations {
-                incompatible 'ingame-info-xml'
-                optionalLibrary 'baubles'
-                optionalLibrary 'blood-magic'
                 optionalLibrary 'serene-seasons'
-                optionalLibrary 'thaumcraft'
-                optionalLibrary 'tinkersurvival'
-                optionalLibrary 'tough-as-nails'
             }
         }
     }
@@ -146,10 +119,10 @@ curseforge {
 tasks.curseforge.dependsOn build
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-	file = new File('build/libs/' + project.getName() + '-' + project.version + '-changelog.txt');
+	file = new File('build/libs/' + project.getName() + '-' + version + '-changelog.txt');
     templateContent = file('files/templates/changelog.mustache').getText('UTF-8');
-	toRef = "${config.mod_version}";
-	fromRef = "${config.last_mod_version}";
+	toRef = "${mod_version}";
+	fromRef = "${last_mod_version}";
 }
 
 tasks.build.dependsOn('changelog')
@@ -165,8 +138,6 @@ task sourcesJar(type: Jar) {
 
 task deobfJar(type: Jar) {
     from sourceSets.main.output
-
-    manifest commonManifest
     classifier = 'deobf'
 }
 
@@ -180,17 +151,18 @@ sourceSets {
 
 processResources {
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+        include 'META-INF/mods.toml'
 
         // replaces
         expand ([
             'modid': modid,
             'mod_version': version,
-            'minecraft_version': mcversion
+            'mod_author': mod_author
         ])
     }
 
     from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        exclude 'META-INF/mods.toml'
     }
 }
+
