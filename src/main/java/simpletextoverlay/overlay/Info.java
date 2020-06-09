@@ -1,4 +1,4 @@
-package simpletextoverlay.client.gui.overlay;
+package simpletextoverlay.overlay;
 
 import java.util.ArrayList;
 import java.util.List;

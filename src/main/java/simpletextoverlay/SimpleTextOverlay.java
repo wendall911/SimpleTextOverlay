@@ -2,7 +2,7 @@ package simpletextoverlay;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.handler.PacketHandler;
-import simpletextoverlay.proxy.CommonProxy;
+import simpletextoverlay.proxy.ClientProxy;
 import simpletextoverlay.proxy.ServerProxy;
 
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +23,7 @@ public class SimpleTextOverlay {
         PacketHandler.setup();
 		OverlayConfig.setup();
 
-        DistExecutor.runForDist(() -> CommonProxy::new, () -> ServerProxy::new);
+        DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
     }
     
 }

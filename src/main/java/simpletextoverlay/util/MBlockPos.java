@@ -1,7 +1,7 @@
 package simpletextoverlay.util;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
@@ -18,7 +18,7 @@ public class MBlockPos extends BlockPos {
     }
 
     public MBlockPos(final Entity source) {
-        this(source.posX, source.posY, source.posZ);
+        this(source.getX(), source.getY(), source.getZ());
     }
 
     public MBlockPos(final Vec3d source) {
@@ -41,7 +41,7 @@ public class MBlockPos extends BlockPos {
     }
 
     public MBlockPos set(final Entity source) {
-        return set(source.posX, source.posY, source.posZ);
+        return set(source.getX(), source.getY(), source.getZ());
     }
 
     public MBlockPos set(final Vec3d source) {
@@ -63,17 +63,14 @@ public class MBlockPos extends BlockPos {
         return this;
     }
 
-    @Override
     public MBlockPos add(final Vec3i vec) {
         return add(vec.getX(), vec.getY(), vec.getZ());
     }
 
-    @Override
     public MBlockPos add(final double x, final double y, final double z) {
         return add(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
     }
 
-    @Override
     public MBlockPos add(final int x, final int y, final int z) {
         return new MBlockPos(this.x + x, this.y + y, this.z + z);
     }
@@ -82,6 +79,7 @@ public class MBlockPos extends BlockPos {
         return new MBlockPos(this.x * factor, this.y * factor, this.z * factor);
     }
 
+    @Override
     public MBlockPos subtract(final Vec3i vec) {
         return subtract(vec.getX(), vec.getY(), vec.getZ());
     }
@@ -94,24 +92,20 @@ public class MBlockPos extends BlockPos {
         return new MBlockPos(this.x - x, this.y - y, this.z - z);
     }
 
-    @Override
     public MBlockPos up() {
         return up(1);
     }
 
-    @Override
     public MBlockPos up(final int n) {
-        return offset(EnumFacing.UP, n);
+        return offset(Direction.UP, n);
     }
 
-    @Override
     public MBlockPos down() {
         return down(1);
     }
 
-    @Override
     public MBlockPos down(final int n) {
-        return offset(EnumFacing.DOWN, n);
+        return offset(Direction.DOWN, n);
     }
 
     @Override
@@ -121,7 +115,7 @@ public class MBlockPos extends BlockPos {
 
     @Override
     public MBlockPos north(final int n) {
-        return offset(EnumFacing.NORTH, n);
+        return offset(Direction.NORTH, n);
     }
 
     @Override
@@ -131,7 +125,7 @@ public class MBlockPos extends BlockPos {
 
     @Override
     public MBlockPos south(final int n) {
-        return offset(EnumFacing.SOUTH, n);
+        return offset(Direction.SOUTH, n);
     }
 
     @Override
@@ -141,7 +135,7 @@ public class MBlockPos extends BlockPos {
 
     @Override
     public MBlockPos west(final int n) {
-        return offset(EnumFacing.WEST, n);
+        return offset(Direction.WEST, n);
     }
 
     @Override
@@ -151,25 +145,21 @@ public class MBlockPos extends BlockPos {
 
     @Override
     public MBlockPos east(final int n) {
-        return offset(EnumFacing.EAST, n);
+        return offset(Direction.EAST, n);
     }
 
-    @Override
-    public MBlockPos offset(final EnumFacing facing) {
+    public MBlockPos offset(final Direction facing) {
         return offset(facing, 1);
     }
 
-    @Override
-    public MBlockPos offset(final EnumFacing facing, final int n) {
-        return new MBlockPos(this.x + facing.getXOffset() * n, this.y + facing.getYOffset() * n, this.z + facing.getZOffset() * n);
+    public MBlockPos offset(final Direction facing, final int n) {
+        return new MBlockPos(this.x + facing.getStepX() * n, this.y + facing.getStepY() * n, this.z + facing.getStepZ() * n);
     }
 
-    @Override
     public MBlockPos crossProduct(final Vec3i vec) {
         return new MBlockPos(this.y * vec.getZ() - this.z * vec.getY(), this.z * vec.getX() - this.x * vec.getZ(), this.x * vec.getY() - this.y * vec.getX());
     }
 
-    @Override
     public BlockPos toImmutable() {
         return new BlockPos(this);
     }

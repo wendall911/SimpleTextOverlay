@@ -1,8 +1,8 @@
-package simpletextoverlay.client.gui.overlay;
+package simpletextoverlay.overlay;
 
 import net.minecraft.client.gui.FontRenderer;
 
-import simpletextoverlay.config.ConfigHandler;
+import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.util.FontRendererHelper;
 
 public class InfoText extends Info {
@@ -30,17 +30,17 @@ public class InfoText extends Info {
 
     @Override
     public int getWidth() {
-        return this.fontRenderer.getStringWidth(this.textModified);
+        return this.fontRenderer.width(this.textModified);
     }
 
     @Override
     public int getHeight() {
-        return this.fontRenderer.FONT_HEIGHT;
+        return this.fontRenderer.lineHeight;
     }
 
     @Override
     public int getX() {
-        final float scale = (float) ConfigHandler.client.general.scale;
+        final double scale = OverlayConfig.CLIENT.scale.get();
         final int multiplier = (int) (scale / 0.5);
         if (text.contains("SCALESMALL")) {
             return (this.x + this.offsetX) * multiplier;
@@ -50,7 +50,7 @@ public class InfoText extends Info {
 
     @Override
     public int getY() {
-        final float scale = (float) ConfigHandler.client.general.scale;
+        final double scale = OverlayConfig.CLIENT.scale.get();
         final int multiplier = (int) (scale / 0.5);
         if (text.contains("SCALESMALL")) {
             return (this.y + this.offsetY) * multiplier;

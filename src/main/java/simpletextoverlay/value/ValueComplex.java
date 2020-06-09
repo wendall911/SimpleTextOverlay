@@ -9,21 +9,23 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.minecraft.client.resources.I18n;
+
+/*
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import simpletextoverlay.client.gui.overlay.InfoIcon;
-import simpletextoverlay.client.gui.overlay.InfoItem;
-import simpletextoverlay.client.gui.overlay.OverlayManager;
-import simpletextoverlay.config.ConfigHandler;
+import simpletextoverlay.overlay.InfoItem;
+*/
+import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
-import simpletextoverlay.util.EntityHelper;
+//import simpletextoverlay.util.EntityHelper;
 import simpletextoverlay.value.registry.ValueRegistry;
 
 public abstract class ValueComplex extends Value {
@@ -118,6 +120,7 @@ public abstract class ValueComplex extends Value {
         }
     }
 
+    /*
     public static class ValueItemQuantity extends ValueComplex {
         @Override
         public boolean isValidSize() {
@@ -138,11 +141,13 @@ public abstract class ValueComplex extends Value {
                     itemDamage = getIntValue(1);
                 }
                 return String.valueOf(EntityHelper.getItemCountInInventory(Minecraft.getMinecraft().player.inventory, item, itemDamage));
+                return "0";
             } catch (final Exception e2) {
                 return "0";
             }
         }
     }
+    */
 
     public static class ValueTranslate extends ValueComplex {
         @Override
@@ -154,7 +159,7 @@ public abstract class ValueComplex extends Value {
         public String getValue() {
             try {
                 final String format = getValue(0);
-                return I18n.format(format);
+                return I18n.get(format);
             } catch (final Exception e) {
                 return "?";
             }
@@ -195,6 +200,7 @@ public abstract class ValueComplex extends Value {
         }
     }
 
+    /*
     public static class ValueIcon extends ValueComplex {
         @Override
         public boolean isValidSize() {
@@ -264,17 +270,18 @@ public abstract class ValueComplex extends Value {
             }
         }
     }
+    */
 
     public static void register() {
         ValueRegistry.INSTANCE.register(new ValueOperation().setName("op").setAliases("operation"));
         ValueRegistry.INSTANCE.register(new ValueConcat().setName("concat"));
         ValueRegistry.INSTANCE.register(new ValueMax().setName("max").setAliases("maximum"));
         ValueRegistry.INSTANCE.register(new ValueMin().setName("min").setAliases("minimum"));
-        ValueRegistry.INSTANCE.register(new ValueItemQuantity().setName("itemquantity"));
+        //ValueRegistry.INSTANCE.register(new ValueItemQuantity().setName("itemquantity"));
         ValueRegistry.INSTANCE.register(new ValueTranslate().setName("trans").setAliases("translate"));
         ValueRegistry.INSTANCE.register(new ValueFormattedTime().setName("formattedtime").setAliases("rltimef"));
         ValueRegistry.INSTANCE.register(new ValueFormattedNumber().setName("formattednumber"));
-        ValueRegistry.INSTANCE.register(new ValueIcon().setName("icon").setAliases("img", "image"));
+        //ValueRegistry.INSTANCE.register(new ValueIcon().setName("icon").setAliases("img", "image"));
     }
 
 }

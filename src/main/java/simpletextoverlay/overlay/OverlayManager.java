@@ -1,11 +1,8 @@
-package simpletextoverlay.client.gui.overlay;
+package simpletextoverlay.overlay;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.lang.ArrayIndexOutOfBoundsException;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -18,23 +15,21 @@ import java.util.regex.Pattern;
 import java.util.Set;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.IResource;
+
+import net.minecraft.resources.IResource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import simpletextoverlay.client.gui.overlay.Info;
-import simpletextoverlay.client.gui.overlay.InfoText;
-import simpletextoverlay.config.ConfigHandler;
+import com.mojang.blaze3d.systems.RenderSystem;
+
+import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.parser.IParser;
 import simpletextoverlay.parser.json.JsonParser;
 import simpletextoverlay.printer.IPrinter;
 import simpletextoverlay.printer.json.JsonPrinter;
 import simpletextoverlay.reference.Names;
-import simpletextoverlay.reference.Reference;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 import simpletextoverlay.util.Alignment;
@@ -48,7 +43,7 @@ public class OverlayManager {
 
     private IParser parser = new JsonParser();
 
-    private final Minecraft client = Minecraft.getMinecraft();
+    private final Minecraft client = Minecraft.getInstance();
     private File overlayDirectory;
     private String overlayFile = "";
     private final Map<Alignment, List<List<Value>>> format = new HashMap<>();
@@ -63,10 +58,10 @@ public class OverlayManager {
     }
 
     public void init(final File modConfigFile) {
-        this.overlayDirectory = modConfigFile.toPath().resolve(Reference.MODID).toFile();
+        this.overlayDirectory = modConfigFile.toPath().resolve(SimpleTextOverlay.MODID).toFile();
         createPath(this.overlayDirectory);
 
-        loadOverlayFile(ConfigHandler.client.general.defaultOverlayFile, false);
+        loadOverlayFile(OverlayConfig.CLIENT.defaultOverlayFile.get(), false);
     }
 
     public void setTagBlacklist(String[] blacklist) {
@@ -137,20 +132,20 @@ public class OverlayManager {
 
         try {
             String resourceFile = "overlays/" + name;
-            ResourceLocation resourceLocation = new ResourceLocation(Reference.MODID, resourceFile);
+            ResourceLocation resourceLocation = new ResourceLocation(SimpleTextOverlay.MODID, resourceFile);
             IResource resource = this.client.getResourceManager().getResource(resourceLocation);
             inputStream = resource.getInputStream();
         } catch (final Exception ex) {
             SimpleTextOverlay.logger.error("Unable to load resource '{}', loading default overlay...", name);
             String defaultName = Names.Files.FILE_JSON.toLowerCase(Locale.ENGLISH);
 
-            if (name.equals(ConfigHandler.client.general.debugOverlayFile)) {
+            if (name.equals(OverlayConfig.CLIENT.debugOverlayFile.get())) {
                 defaultName = Names.Files.FILE_DEBUG.toLowerCase(Locale.ENGLISH);
             }
 
             try {
                 String resourceFile = "overlays/" + defaultName;
-                ResourceLocation resourceLocation = new ResourceLocation(Reference.MODID, resourceFile);
+                ResourceLocation resourceLocation = new ResourceLocation(SimpleTextOverlay.MODID, resourceFile);
                 IResource resource = this.client.getResourceManager().getResource(resourceLocation);
                 inputStream = resource.getInputStream();
             } catch (final Exception e) {
@@ -169,19 +164,18 @@ public class OverlayManager {
     }
 
     public void updateTagValues() {
-        final World world = this.client.world;
+        final World world = this.client.level.getLevel();
         if (world == null) {
             return;
         }
 
-        final ScaledResolution scaledResolution = new ScaledResolution(this.client);
-        final float scale = (float) ConfigHandler.client.general.scale;
-        final int scaledWidth = (int) (scaledResolution.getScaledWidth() / scale);
-        final int scaledHeight = (int) (scaledResolution.getScaledHeight() / scale);
+        final double scale = OverlayConfig.CLIENT.scale.get();
+        final int scaledWidth = (int) (client.getWindow().getGuiScaledWidth() / scale);
+        final int scaledHeight = (int) (client.getWindow().getGuiScaledHeight() / scale);
 
         Tag.setWorld(world);
 
-        final EntityPlayerSP player = this.client.player;
+        final ClientPlayerEntity player = this.client.player;
         if (player == null) {
             return;
         }
@@ -197,7 +191,7 @@ public class OverlayManager {
                 continue;
             }
 
-            final FontRenderer fontRenderer = this.client.fontRenderer;
+            final FontRenderer fontRenderer = this.client.font;
             final List<Info> queue = new ArrayList<>();
 
             for (final List<Value> line : lines) {
@@ -211,7 +205,7 @@ public class OverlayManager {
                 if (str.length() > 0) {
                     final String processed = str.toString().replaceAll("\\{ICON\\|( *)\\}", "$1");
 
-                    x = alignment.getX(scaledWidth, fontRenderer.getStringWidth(processed));
+                    x = alignment.getX(scaledWidth, fontRenderer.width(processed));
                     final InfoText text = new InfoText(fontRenderer, processed, x, 0);
 
                     if (this.infoItemQueue.size() > 0) {
@@ -219,7 +213,7 @@ public class OverlayManager {
 
                         for (int i = 0; i < this.infoItemQueue.size() && MATCHER.find(); i++) {
                             final Info item = this.infoItemQueue.get(i);
-                            item.x = fontRenderer.getStringWidth(str.substring(0, MATCHER.start()));
+                            item.x = fontRenderer.width(str.substring(0, MATCHER.start()));
                             text.children.add(item);
 
                             str = new StringBuilder(str.toString().replaceFirst(Pattern.quote(MATCHER.group(0)), MATCHER.group(1)));
@@ -230,11 +224,11 @@ public class OverlayManager {
                 }
             }
 
-            y = alignment.getY(scaledHeight, queue.size() * (fontRenderer.FONT_HEIGHT + 1));
+            y = alignment.getY(scaledHeight, queue.size() * (fontRenderer.lineHeight + 1));
             for (final Info item : queue) {
                 item.y = y;
                 this.info.add(item);
-                y += fontRenderer.FONT_HEIGHT + 1;
+                y += fontRenderer.lineHeight + 1;
             }
 
             this.info.addAll(queue);
@@ -244,27 +238,27 @@ public class OverlayManager {
     }
 
     public void renderOverlay() {
-        final float scale = (float) ConfigHandler.client.general.scale;
+        final double scale = OverlayConfig.CLIENT.scale.get();
 
-        GlStateManager.pushMatrix();
+        RenderSystem.pushMatrix();
 
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-        GlStateManager.scale(scale, scale, scale);
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.scaled(scale, scale, scale);
 
         for (final Info info : this.info) {
             if (info.text != null && info.text.contains("SCALESMALL")) {
-                GlStateManager.scale(0.5, 0.5, 0.5);
+                RenderSystem.scaled(0.5, 0.5, 0.5);
             }
             info.draw();
             if (info.text != null && info.text.contains("SCALESMALL")) {
-                GlStateManager.scale(1.0f / 0.5, 1.0f / 0.5, 1.0f / 0.5);
+                RenderSystem.scaled(1.0f / 0.5, 1.0f / 0.5, 1.0f / 0.5);
             }
         }
 
-        GlStateManager.scale(1.0f / scale, 1.0f / scale, 1.0f / scale);
-        GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
+        RenderSystem.scaled(1.0f / scale, 1.0f / scale, 1.0f / scale);
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
 
-        GlStateManager.popMatrix();
+        RenderSystem.popMatrix();
     }
 
     public boolean saveConfig(final String filename) {
@@ -298,29 +292,18 @@ public class OverlayManager {
 
         cycleIndex++;
         try {
-            name = ConfigHandler.client.general.cycleOverlays[cycleIndex];
+            name = OverlayConfig.CLIENT.cycleOverlays.get().get(cycleIndex);
         }
         catch(ArrayIndexOutOfBoundsException e) {
             cycleIndex = 0;
-            name = ConfigHandler.client.general.cycleOverlays[cycleIndex];
+            name = OverlayConfig.CLIENT.cycleOverlays.get().get(cycleIndex);
         }
 
         return loadOverlayFile(name, false);
     }
 
     private int getCycleIndex() {
-        int index = 0;
-        String currentName = getOverlayFile();
-
-        for (int i = 0; i < 5; i++) {
-            try {
-                String name = ConfigHandler.client.general.cycleOverlays[i];
-                index = i;
-            }
-            catch(ArrayIndexOutOfBoundsException e) {}
-        }
-
-        return index;
+        return OverlayConfig.CLIENT.cycleOverlays.get().size();
     }
 
 }

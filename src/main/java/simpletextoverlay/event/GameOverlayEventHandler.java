@@ -1,19 +1,22 @@
 package simpletextoverlay.event;
 
+import net.minecraft.client.gui.screen.ChatScreen;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiChat;
+import net.minecraft.client.util.InputMappings;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.eventbus.api.EventPriority;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
-import simpletextoverlay.config.ConfigHandler;
-import simpletextoverlay.client.gui.overlay.OverlayManager;
+import simpletextoverlay.config.OverlayConfig;
+import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
 
+@Mod.EventBusSubscriber(modid = SimpleTextOverlay.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class GameOverlayEventHandler {
 
     public static final GameOverlayEventHandler INSTANCE = new GameOverlayEventHandler();
@@ -21,7 +24,7 @@ public class GameOverlayEventHandler {
     public static boolean enabled = false;
     public static boolean forceDebug = false;
 
-    private final Minecraft client = Minecraft.getMinecraft();
+    private final Minecraft client = Minecraft.getInstance();
     private final OverlayManager overlayManager = OverlayManager.INSTANCE;
     private boolean firstJoin = false;
     private String lastOverlayFile = "";
@@ -40,9 +43,9 @@ public class GameOverlayEventHandler {
     public void onRenderGameOverlayEventPre(final RenderGameOverlayEvent.Pre event) {
         if (replaceDebugger()) {
             if (event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
-                if (!overlayManager.getOverlayFile().equals(ConfigHandler.client.general.debugOverlayFile)) {
+                if (!overlayManager.getOverlayFile().equals(OverlayConfig.CLIENT.debugOverlayFile.get())) {
                     lastOverlayFile = overlayManager.getOverlayFile();
-                    overlayManager.loadOverlayFile(ConfigHandler.client.general.debugOverlayFile, false);
+                    overlayManager.loadOverlayFile(OverlayConfig.CLIENT.debugOverlayFile.get(), false);
                 }
 
                 event.setCanceled(true);
@@ -50,20 +53,20 @@ public class GameOverlayEventHandler {
 
             if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT &&
                     !isDebugger() &&
-                    overlayManager.getOverlayFile().equals(ConfigHandler.client.general.debugOverlayFile)) {
+                    overlayManager.getOverlayFile().equals(OverlayConfig.CLIENT.debugOverlayFile.get())) {
                 overlayManager.loadOverlayFile(lastOverlayFile, false);
             }
         }
 
-        if ( enabled && !ConfigHandler.client.general.showOverlayPotions &&
+        if ( enabled && !OverlayConfig.CLIENT.showOverlayPotions.get() &&
                 event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
             event.setCanceled(true);
         }
     }
 
     private boolean isDebugger() {
-        return client.profiler.profilingEnabled || //SHIFT+<F3>
-            client.gameSettings.showDebugInfo; //<F3>
+        //return client.options.renderDebug || //SHIFT+<F3
+        return client.options.renderDebug; //<F3>
     }
 
     private boolean replaceDebugger() {
@@ -71,36 +74,38 @@ public class GameOverlayEventHandler {
             return true;
         }
 
-        return enabled && ConfigHandler.client.general.replaceDebug;
+        return enabled && OverlayConfig.CLIENT.replaceDebug.get();
     }
 
     private boolean canRun() {
-        if (client.gameSettings != null && enabled) {
-            if (!ConfigHandler.client.general.replaceDebug &&
+        if (client.options != null && enabled) {
+            /*
+            if (!OverlayConfig.CLIENT.replaceDebug.get() &&
                 client.profiler.profilingEnabled) {
                 return false;
             }
+             */
 
-            if (!ConfigHandler.client.general.showOnPlayerList &&
-                    client.gameSettings.keyBindPlayerList.isKeyDown()) {
+            if (!OverlayConfig.CLIENT.showOnPlayerList.get() &&
+                    InputMappings.isKeyDown(client.getWindow().getWindow(), 258)) {
                 return false;
             }
 
-            if (!ConfigHandler.client.general.replaceDebug &&
-                    client.gameSettings.showDebugInfo) {
+            if (!OverlayConfig.CLIENT.replaceDebug.get() &&
+                    client.options.renderDebug) {
                 return false;
             }
 
-            if (client.gameSettings.hideGUI) {
+            if (client.options.hideGui) {
                 return false;
             }
 
-            return client.currentScreen == null ||
-                ConfigHandler.client.general.showInChat &&
-                client.currentScreen instanceof GuiChat;
+            return client.screen == null || OverlayConfig.CLIENT.showInChat.get() &&
+                client.screen instanceof ChatScreen;
 
         }
 
+        SimpleTextOverlay.logger.info("canRun 5");
         return false;
     }
 
@@ -110,7 +115,7 @@ public class GameOverlayEventHandler {
             overlayManager.updateTagValues();
             overlayManager.renderOverlay();
         }
-        if (!enabled || client.gameSettings == null) {
+        if (!enabled || client.options == null) {
             Tag.releaseResources();
         }
     }

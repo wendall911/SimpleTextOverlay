@@ -1,5 +1,9 @@
 package simpletextoverlay.reference;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public final class Names {
 
     public static final class Command {
@@ -28,18 +32,23 @@ public final class Names {
     }
 
     public static final class Files {
-        public static final String FILE_JSON = "simpletextoverlay.json";
+        public static final String FILE_JSON = "basicoverlay.json";
         public static final String FILE_DEBUG = "debugoverlay.json";
         public static final String EXT_JSON = ".json";
-        public static final String[] BUILTINS = new String [] {
-            "simpletextoverlay.json",
-            "basicoverlay.json",
-            "compassoverlay.json"
-        };
-        public static final String[] DEBUG_BUILTINS = new String [] {
-            "debugoverlay.json",
-            "debugalloverlay.json"
-        };
+        public static final List<String> BUILTINS = new ArrayList<String>(
+                Arrays.asList(
+                    "simpletextoverlay.json",
+                    "basicoverlay.json",
+                    "compassoverlay.json"
+                )
+        );
+
+        public static List<String> DEBUG_BUILTINS = new ArrayList<String>(
+            Arrays.asList(
+                "debugoverlay.json",
+                "debugalloverlay.json"
+            )
+        );
     }
 
     public static final class Keys {

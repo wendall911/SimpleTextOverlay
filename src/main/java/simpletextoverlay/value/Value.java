@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.Set;
 
-import simpletextoverlay.client.gui.overlay.Info;
-import simpletextoverlay.client.gui.overlay.OverlayManager;
+import simpletextoverlay.overlay.Info;
+import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.value.registry.ValueRegistry;
