@@ -1,5 +1,7 @@
 package simpletextoverlay.config;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,10 +13,13 @@ import net.minecraft.server.management.PlayerList;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
@@ -52,6 +57,8 @@ public class OverlayConfig {
 		CLIENT = specPair.getLeft();
 		CLIENT_SPEC = specPair.getRight();
 	}
+
+    public static Side side;
 
     public static class Client {
         public static ForgeConfigSpec.IntValue topleftX;
@@ -209,6 +216,22 @@ public class OverlayConfig {
             builder.pop();
         }
 
+        public static void onLoad() {
+            side = side.CLIENT;
+            OverlayManager overlayManager = OverlayManager.INSTANCE;
+            Path configPath = FMLPaths.CONFIGDIR.get();
+            Path modConfigPath = Paths.get(configPath.toAbsolutePath().toString());
+
+            overlayManager.init(modConfigPath.toFile());
+            overlayManager.setTagBlacklist(SERVER.blacklistTags.get().stream().toArray(String[]::new));
+
+            applyConfigSettings();
+        }
+
+        public static void onFileChange() {
+            applyConfigSettings();
+        }
+
     }
 
     public static class Server {
@@ -219,7 +242,7 @@ public class OverlayConfig {
             builder.push("Server Configuration");
 
             blacklistTags = builder
-                .comment("List of tags disallowed.")
+                .comment("List of tags disallowed. Example: [\"tag1\", \"tag2\"]")
                 .defineList("blacklistTags", new ArrayList<String>(), e -> e instanceof String);
 
             forceDebug = builder
@@ -239,6 +262,23 @@ public class OverlayConfig {
             updateOption(OverlayOption.FORCE_DEBUG, forceDebug);
         }
 
+        public static void onLoad() {
+            side = side.SERVER;
+            registerSyncOptions();
+        }
+
+        public static void onFileChange() {
+            updateSyncOptions();
+
+            MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
+            if (currentServer == null) return;
+            
+            PlayerList players = currentServer.getPlayerList();
+            for (PlayerEntity player : players.getPlayers()) {
+                PacketHandlerHelper.sendServerConfigValues((ServerPlayerEntity)player);
+            }
+        }
+
     }
 	
 	public static void setup() {
@@ -249,26 +289,14 @@ public class OverlayConfig {
 	
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading event) {
-        Server.registerSyncOptions();
-        OverlayManager.INSTANCE.loadOverlayFile(CLIENT.defaultOverlayFile.get(), false);
-
-        applyConfigSettings();
+        DistExecutor.runWhenOn(Dist.DEDICATED_SERVER, ()->()->Server.onLoad());
+        DistExecutor.runWhenOn(Dist.CLIENT, ()->()->Client.onLoad());
     }
 
     @SubscribeEvent
     public static void onFileChange(final ModConfig.Reloading event) {
-        Server.updateSyncOptions();
-
-        OverlayManager.INSTANCE.loadOverlayFile(CLIENT.defaultOverlayFile.get(), false);
-        applyConfigSettings();
-
-		MinecraftServer currentServer = ServerLifecycleHooks.getCurrentServer();
-		if (currentServer == null) return;
-		
-		PlayerList players = currentServer.getPlayerList();
-		for (PlayerEntity player : players.getPlayers()) {
-            PacketHandlerHelper.sendServerConfigValues((ServerPlayerEntity)player);
-		}
+        DistExecutor.runWhenOn(Dist.DEDICATED_SERVER, ()->()->Server.onFileChange());
+        DistExecutor.runWhenOn(Dist.CLIENT, ()->()->Client.onFileChange());
     }
 
     public static void addOption(ISyncedOption option, ForgeConfigSpec.ConfigValue<?> value) {
@@ -317,8 +345,15 @@ public class OverlayConfig {
             alignment.setX(x);
             alignment.setY(y);
         }
+    }
 
-        //overlayManager.setTagBlacklist(ConfigHandler.server.blacklistTags);
+    public enum Side {
+
+        CLIENT(),
+        SERVER();
+
+        Side() {}
+
     }
 
 }

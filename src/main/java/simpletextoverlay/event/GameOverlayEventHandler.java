@@ -79,13 +79,6 @@ public class GameOverlayEventHandler {
 
     private boolean canRun() {
         if (client.options != null && enabled) {
-            /*
-            if (!OverlayConfig.CLIENT.replaceDebug.get() &&
-                client.profiler.profilingEnabled) {
-                return false;
-            }
-             */
-
             if (!OverlayConfig.CLIENT.showOnPlayerList.get() &&
                     InputMappings.isKeyDown(client.getWindow().getWindow(), 258)) {
                 return false;
@@ -105,7 +98,6 @@ public class GameOverlayEventHandler {
 
         }
 
-        SimpleTextOverlay.logger.info("canRun 5");
         return false;
     }
 

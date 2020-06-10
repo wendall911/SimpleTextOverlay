@@ -50,7 +50,7 @@ public class OverlayManager {
     private final List<Info> info = new ArrayList<>();
     private final List<Info> infoItemQueue = new ArrayList<>();
     private Set<String> tagBlacklist = new HashSet<String>();
-    private int cycleIndex = getCycleIndex();
+    private int cycleIndex = 0;
 
     private OverlayManager() {
         Tag.setInfo(this.infoItemQueue);
@@ -60,6 +60,8 @@ public class OverlayManager {
     public void init(final File modConfigFile) {
         this.overlayDirectory = modConfigFile.toPath().resolve(SimpleTextOverlay.MODID).toFile();
         createPath(this.overlayDirectory);
+
+        cycleIndex = getCycleIndex();
 
         loadOverlayFile(OverlayConfig.CLIENT.defaultOverlayFile.get(), false);
     }
@@ -97,7 +99,7 @@ public class OverlayManager {
         this.format.clear();
 
         if (!filename.endsWith(Names.Files.EXT_JSON)) {
-            SimpleTextOverlay.logger.error("The overlay config '{}' does not end in .json", filename);
+            SimpleTextOverlay.logger.error("The overlay config '%s' does not end in .json", filename);
             return false;
         }
 
@@ -105,7 +107,7 @@ public class OverlayManager {
             try {
                 inputStream = new FileInputStream(file);
             } catch (final Exception e) {
-                SimpleTextOverlay.logger.error("Unable to load '{}'.", filename, e);
+                SimpleTextOverlay.logger.error("Unable to load '%s'.", filename, e);
                 return false;
             }
         }
@@ -288,22 +290,27 @@ public class OverlayManager {
     }
 
     public boolean cycleOverlay() {
-        String name = "";
+        int size = OverlayConfig.CLIENT.cycleOverlays.get().size();
 
         cycleIndex++;
-        try {
-            name = OverlayConfig.CLIENT.cycleOverlays.get().get(cycleIndex);
-        }
-        catch(ArrayIndexOutOfBoundsException e) {
+
+        if (cycleIndex > size) {
             cycleIndex = 0;
-            name = OverlayConfig.CLIENT.cycleOverlays.get().get(cycleIndex);
         }
 
-        return loadOverlayFile(name, false);
+        return loadOverlayFile(OverlayConfig.CLIENT.cycleOverlays.get().get(cycleIndex), false);
     }
 
     private int getCycleIndex() {
-        return OverlayConfig.CLIENT.cycleOverlays.get().size();
+        int size = OverlayConfig.CLIENT.cycleOverlays.get().size();
+        String currentName = getOverlayFile();
+
+        for (int i = 0; i < size; i++) {
+            String name = OverlayConfig.CLIENT.cycleOverlays.get().get(i);
+            if (name == currentName) return i;
+        }
+
+        return 0;
     }
 
 }
