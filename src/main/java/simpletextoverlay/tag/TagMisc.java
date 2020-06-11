@@ -1,26 +1,15 @@
 package simpletextoverlay.tag;
 
-import java.util.List;
-import java.util.Map;
+import com.mojang.blaze3d.platform.PlatformDescriptors;
+import net.minecraft.client.network.play.NetworkPlayerInfo;
+import net.minecraft.client.settings.AbstractOption;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.network.NetworkPlayerInfo;
-import net.minecraft.client.renderer.chunk.RenderChunk;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
-import net.minecraft.client.resources.ResourcePackRepository;
-import net.minecraft.client.settings.GameSettings;
+import net.minecraftforge.fml.ModList;
 
-import net.minecraftforge.fml.common.Loader;
-
-import org.lwjgl.opengl.Display;
-
-import simpletextoverlay.client.gui.overlay.InfoIcon;
+import simpletextoverlay.overlay.InfoIcon;
 import simpletextoverlay.tag.registry.TagRegistry;
 
 public abstract class TagMisc extends Tag {
-
-    protected static final ResourcePackRepository resourcePackRepository = minecraft.getResourcePackRepository();
 
     @Override
     public String getCategory() {
@@ -95,47 +84,39 @@ public abstract class TagMisc extends Tag {
     public static class FPS extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(Minecraft.getDebugFPS());
-        }
-    }
-
-    public static class ResourcePack extends TagMisc {
-        @Override
-        public String getValue() {
-            final List<ResourcePackRepository.Entry> repositoryEntries = resourcePackRepository.getRepositoryEntries();
-            if (repositoryEntries.size() > 0) {
-                return repositoryEntries.get(0).getResourcePackName();
-            }
-            return resourcePackRepository.rprDefaultResourcePack.getPackName();
+            String fpsString = minecraft.fpsString;
+            return fpsString.split(" ")[0];
         }
     }
 
     public static class EntitiesRendered extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(minecraft.renderGlobal.countEntitiesRendered);
+            String entities = minecraft.levelRenderer.getEntityStatistics();
+            return entities.split("/")[0].split(",")[1];
         }
     }
 
     public static class EntitiesTotal extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(minecraft.renderGlobal.countEntitiesTotal);
+            String entities = minecraft.levelRenderer.getEntityStatistics();
+            return entities.split("/")[1].split(",")[0];
         }
     }
 
     public static class EntitiesHidden extends TagMisc {
         @Override
         public String getValue() {
-            String entities = minecraft.renderGlobal.getDebugInfoEntities();
-            return entities.split(" ")[3];
+            String entities = minecraft.levelRenderer.getEntityStatistics();
+            return entities.split(" ")[2];
         }
     }
 
     public static class Server extends TagMisc {
         @Override
         public String getValue() {
-            final String str = player.connection.getNetworkManager().getRemoteAddress().toString();
+            final String str = player.connection.getConnection().getRemoteAddress().toString();
             final int i = str.indexOf("/");
             final int j = str.indexOf(":");
             if (i < 0) {
@@ -151,7 +132,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerName extends TagMisc {
         @Override
         public String getValue() {
-            final String str = player.connection.getNetworkManager().getRemoteAddress().toString();
+            final String str = player.connection.getConnection().getRemoteAddress().toString();
             final int i = str.indexOf("/");
             if (i < 0) {
                 return "localhost";
@@ -165,7 +146,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerIP extends TagMisc {
         @Override
         public String getValue() {
-            final String str = player.connection.getNetworkManager().getRemoteAddress().toString();
+            final String str = player.connection.getConnection().getRemoteAddress().toString();
             final int i = str.indexOf("/");
             if (i < 0) {
                 return "127.0.0.1";
@@ -177,7 +158,7 @@ public abstract class TagMisc extends Tag {
     public static class ServerPort extends TagMisc {
         @Override
         public String getValue() {
-            final String str = player.connection.getNetworkManager().getRemoteAddress().toString();
+            final String str = player.connection.getConnection().getRemoteAddress().toString();
             final int i = str.indexOf("/");
             if (i < 0) {
                 return "-1";
@@ -190,8 +171,8 @@ public abstract class TagMisc extends Tag {
         @Override
         public String getValue() {
             try {
-                final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUniqueID());
-                return String.valueOf(playerInfo.getResponseTime());
+                final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUUID());
+                return String.valueOf(playerInfo.getLatency());
             } catch (final Exception e) {
             }
             return "-1";
@@ -202,8 +183,8 @@ public abstract class TagMisc extends Tag {
         @Override
         public String getValue() {
             try {
-                final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUniqueID());
-                final int responseTime = playerInfo.getResponseTime();
+                final NetworkPlayerInfo playerInfo = minecraft.getConnection().getPlayerInfo(player.getUUID());
+                final int responseTime = playerInfo.getLatency();
                 int pingIndex = 4;
                 if (responseTime < 0) {
                     pingIndex = 5;
@@ -231,119 +212,121 @@ public abstract class TagMisc extends Tag {
     public static class MinecraftVersion extends TagMisc {
         @Override
         public String getValue() {
-            return net.minecraftforge.common.ForgeVersion.mcVersion;
+            return net.minecraftforge.versions.mcp.MCPVersion.getMCPVersion();
         }
     }
 
     public static class ForgeVersion extends TagMisc {
         @Override
         public String getValue() {
-            return net.minecraftforge.common.ForgeVersion.getVersion();
+            return net.minecraftforge.versions.forge.ForgeVersion.getVersion();
         }
     }
 
     public static class MCPVersion extends TagMisc {
         @Override
         public String getValue() {
-            return net.minecraftforge.common.ForgeVersion.mcpVersion;
+            return net.minecraftforge.versions.mcp.MCPVersion.getMCPVersion();
         }
     }
 
     public static class ModsTotal extends TagMisc {
         @Override
         public String getValue() {
-            return String.format("%d", Loader.instance().getModList().size());
+            return String.format("%d", ModList.get().size());
         }
     }
 
     public static class ModsActive extends TagMisc {
         @Override
         public String getValue() {
-            return String.format("%d", Loader.instance().getActiveModList().size());
+            return String.format("%d", ModList.get().size());
         }
     }
 
     public static class VsyncEnabled extends TagMisc {
         @Override
         public String getValue() {
-            return minecraft.getPlayerUsageSnooper().getCurrentStats().get("vsync_enabled");
+            //return minecraft.getPlayerUsageSnooper().getCurrentStats().get("vsync_enabled");
+            return minecraft.getSnooper().toString();
         }
     }
 
     public static class JavaVersion extends TagMisc {
         @Override
         public String getValue() {
-            return minecraft.getPlayerUsageSnooper().getCurrentStats().get("java_version");
+            return System.getProperty("java.version");
         }
     }
 
     public static class JavaBit extends TagMisc {
         @Override
         public String getValue() {
-            return (minecraft.isJava64bit() ? "64" : "32") + "bit";
+            return (minecraft.is64Bit() ? "64" : "32") + "bit";
         }
     }
 
     public static class CpuInfo extends TagMisc {
         @Override
         public String getValue() {
-            return OpenGlHelper.getCpu();
+            return PlatformDescriptors.getCpuInfo();
         }
     }
 
     public static class DebugLoadedEntities extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(minecraft.world.getDebugLoadedEntities());
+            String entities = minecraft.levelRenderer.getEntityStatistics();
+            return entities.split("/")[0].split(",")[1];
         }
     }
 
     public static class DisplayWidth extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(Display.getWidth());
+            return String.valueOf(minecraft.getWindow().getWidth());
         }
     }
 
     public static class DisplayHeight extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(Display.getHeight());
+            return String.valueOf(minecraft.getWindow().getHeight());
         }
     }
 
     public static class ProviderName extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(minecraft.world.getProviderName());
+            return String.valueOf("ProviderName");
         }
     }
 
     public static class OpenglVendor extends TagMisc {
         @Override
         public String getValue() {
-            return GlStateManager.glGetString(7936);
+            return PlatformDescriptors.getVendor();
         }
     }
 
     public static class VideoCardInfo extends TagMisc {
         @Override
         public String getValue() {
-            return GlStateManager.glGetString(7937);
+            return PlatformDescriptors.getRenderer();
         }
     }
 
     public static class OpenglVersion extends TagMisc {
         @Override
         public String getValue() {
-            return GlStateManager.glGetString(7938);
+            return PlatformDescriptors.getOpenGLVersion();
         }
     }
 
     public static class RenderChunks extends TagMisc {
         @Override
         public String getValue() {
-            String debug = minecraft.renderGlobal.getDebugInfoRenders();
+            String debug = minecraft.levelRenderer.getChunkStatistics();
             return debug.split("D:")[0].split(" ")[1].split("/")[1];
         }
     }
@@ -351,7 +334,7 @@ public abstract class TagMisc extends Tag {
     public static class RenderedChunks extends TagMisc {
         @Override
         public String getValue() {
-            String debug = minecraft.renderGlobal.getDebugInfoRenders();
+            String debug = minecraft.levelRenderer.getChunkStatistics();
             return debug.split("D:")[0].split(" ")[1].split("/")[0];
         }
     }
@@ -359,28 +342,31 @@ public abstract class TagMisc extends Tag {
     public static class RenderChunksUpdated extends TagMisc {
         @Override
         public String getValue() {
-            return String.format("%d", RenderChunk.renderChunksUpdated);
+            //return String.format("%d", RenderChunk.renderChunksUpdated);
+            return "?";
         }
     }
 
     public static class RenderChunksMany extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(minecraft.renderChunksMany);
+            //return String.valueOf(minecraft.renderChunksMany);
+            return "?";
         }
     }
 
     public static class EffectRenderStats extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(minecraft.effectRenderer.getStatistics());
+            //return String.valueOf(minecraft.effectRenderer.getStatistics());
+            return "?";
         }
     }
 
     public static class RenderDistanceChunks extends TagMisc {
         @Override
         public String getValue() {
-            String debug = minecraft.renderGlobal.getDebugInfoRenders();
+            String debug = minecraft.levelRenderer.getChunkStatistics();
             return debug.split("D: ")[1].split(" ")[0].split(",")[0];
         }
     }
@@ -388,7 +374,7 @@ public abstract class TagMisc extends Tag {
     public static class LightUpdates extends TagMisc {
         @Override
         public String getValue() {
-            String debug = minecraft.renderGlobal.getDebugInfoRenders();
+            String debug = minecraft.levelRenderer.getChunkStatistics();
             return debug.split("D: ")[1].split(" ")[2].split(",")[0];
         }
     }
@@ -396,35 +382,35 @@ public abstract class TagMisc extends Tag {
     public static class RenderDebugInfo extends TagMisc {
         @Override
         public String getValue() {
-            return "pC" + minecraft.renderGlobal.getDebugInfoRenders().split("pC")[1];
+            return "pC" + minecraft.levelRenderer.getChunkStatistics().split("pC")[1];
         }
     }
 
     public static class FrameRate extends TagMisc {
         @Override
         public String getValue() {
-            return minecraft.gameSettings.limitFramerate == GameSettings.Options.FRAMERATE_LIMIT.getValueMax() ? "inf" : String.format("%d", (int)minecraft.gameSettings.limitFramerate);
+            return minecraft.options.framerateLimit == AbstractOption.FRAMERATE_LIMIT.getMaxValue() ? "inf" : String.format("%d", (int)minecraft.options.framerateLimit);
         }
     }
 
     public static class FancyGraphics extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(minecraft.gameSettings.fancyGraphics);
+            return String.valueOf(minecraft.options.fancyGraphics);
         }
     }
 
     public static class Clouds extends TagMisc {
         @Override
         public String getValue() {
-            return minecraft.gameSettings.clouds == 0 ? "no-clouds" : (minecraft.gameSettings.clouds == 1 ? "fast-clouds" : "fancy-clouds");
+            return minecraft.options.renderClouds.getId() == 0 ? "no-clouds" : (minecraft.options.renderClouds.getId() == 1 ? "fast-clouds" : "fancy-clouds");
         }
     }
 
     public static class UseVbo extends TagMisc {
         @Override
         public String getValue() {
-            return String.valueOf(OpenGlHelper.useVbo());
+            return String.valueOf(true);
         }
     }
 
@@ -468,7 +454,6 @@ public abstract class TagMisc extends Tag {
         TagRegistry.INSTANCE.register(new RenderDebugInfo().setName("renderdebuginfo"));
         TagRegistry.INSTANCE.register(new RenderedChunks().setName("renderedchunks"));
         TagRegistry.INSTANCE.register(new RenderDistanceChunks().setName("renderdistancechunks"));
-        TagRegistry.INSTANCE.register(new ResourcePack().setName("resourcepack"));
         TagRegistry.INSTANCE.register(new ServerIP().setName("serverip"));
         TagRegistry.INSTANCE.register(new ServerName().setName("servername"));
         TagRegistry.INSTANCE.register(new ServerPort().setName("serverport"));

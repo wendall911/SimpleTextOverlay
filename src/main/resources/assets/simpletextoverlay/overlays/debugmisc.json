@@ -114,7 +114,9 @@
       {
         "str": "memtotal: {yellow}{memtotal}"
       }
-    ],
+    ]
+  ],
+  "leftcol2": [
     [
       {
         "str": "memtotalmb: {yellow}{memtotalmb}"

@@ -8,20 +8,20 @@ import java.util.Map;
 
 import net.minecraftforge.fml.ModList;
 
-//import simpletextoverlay.integrations.TagSereneSeasons;
+import simpletextoverlay.integrations.TagSereneSeasons;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.tag.Tag;
-//import simpletextoverlay.tag.TagFormatting;
-//import simpletextoverlay.tag.TagMisc;
+import simpletextoverlay.tag.TagFormatting;
+import simpletextoverlay.tag.TagMisc;
 //import simpletextoverlay.tag.TagMouseOver;
 //import simpletextoverlay.tag.TagNearbyPlayer;
 //import simpletextoverlay.tag.TagPlayerEquipment;
-//import simpletextoverlay.tag.TagPlayerGeneral;
-//import simpletextoverlay.tag.TagPlayerPosition;
+import simpletextoverlay.tag.TagPlayerGeneral;
+import simpletextoverlay.tag.TagPlayerPosition;
 //import simpletextoverlay.tag.TagPlayerPotion;
 //import simpletextoverlay.tag.TagRiding;
-//import simpletextoverlay.tag.TagTime;
-//import simpletextoverlay.tag.TagWorld;
+import simpletextoverlay.tag.TagTime;
+import simpletextoverlay.tag.TagWorld;
 
 public class TagRegistry {
 
@@ -65,20 +65,20 @@ public class TagRegistry {
     }
 
     public void init() {
-        //TagFormatting.register();
-        //TagMisc.register();
+        TagFormatting.register();
+        TagMisc.register();
         //TagMouseOver.register();
         //TagNearbyPlayer.register();
         //TagPlayerEquipment.register();
-        //TagPlayerGeneral.register();
-        //TagPlayerPosition.register();
+        TagPlayerGeneral.register();
+        TagPlayerPosition.register();
         //TagPlayerPotion.register();
         //TagRiding.register();
-        //if (ModList.get().isLoaded("sereneseasons")) {
-        //    TagSereneSeasons.register();
-        //}
-        //TagTime.register();
-        //TagWorld.register();
+        if (ModList.get().isLoaded("sereneseasons")) {
+            TagSereneSeasons.register();
+        }
+        TagTime.register();
+        TagWorld.register();
 
         SimpleTextOverlay.logger.info("Registered " + this.stringTagMap.size() + " tags.");
     }

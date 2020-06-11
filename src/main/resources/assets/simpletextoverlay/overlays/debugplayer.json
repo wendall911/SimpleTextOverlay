@@ -77,27 +77,22 @@
     ],
     [
       {
-        "str": "lighteye: {yellow}{lighteye}"
+        "str": "lightsky: {yellow}{lightsky}"
       }
     ],
     [
       {
-        "str": "lightnosun: {yellow}{lightnosun}"
+        "str": "lightblock: {yellow}{lightblock}"
       }
     ],
     [
       {
-        "str": "lightnosuneye: {yellow}{lightnosuneye}"
+        "str": "serverlightsky: {yellow}{serverlightsky}"
       }
     ],
     [
       {
-        "str": "lightsun: {yellow}{lightsun}"
-      }
-    ],
-    [
-      {
-        "str": "lightsuneye: {yellow}{lightsuneye}"
+        "str": "serverlightblock: {yellow}{serverlightblock}"
       }
     ],
     [

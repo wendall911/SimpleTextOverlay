@@ -1,8 +1,9 @@
-package simpletextoverlay.client.gui.overlay;
+package simpletextoverlay.overlay;
+
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -16,7 +17,7 @@ import simpletextoverlay.util.Vector2f;
 
 public class InfoIcon extends Info {
 
-    private final static TextureManager textureManager = Minecraft.getMinecraft().getTextureManager();
+    private final static TextureManager textureManager = Minecraft.getInstance().getTextureManager();
     private final ResourceLocation resourceLocation;
     private final Vector2f xy0 = new Vector2f();
     private final Vector2f xy1 = new Vector2f();
@@ -60,19 +61,23 @@ public class InfoIcon extends Info {
     @Override
     public void drawInfo() {
         try {
-            textureManager.bindTexture(this.resourceLocation);
+            textureManager.bind(this.resourceLocation);
 
-            GlStateManager.translate(getX(), getY(), 0);
+            RenderSystem.translatef(getX(), getY(), 0);
 
             final Tessellator tessellator = Tessellator.getInstance();
-            final BufferBuilder buffer = tessellator.getBuffer();
+            final BufferBuilder buffer = tessellator.getBuilder();
 
+            RenderSystem.enableBlend();
+            RenderSystem.blendFuncSeparate(770, 771, 1, 0);
+            RenderSystem.color4f(255, 255, 255, 255);
+            
             buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             double zLevel = 300;
             GuiHelper.drawTexturedRectangle(buffer, this.xy0.getX(), this.xy0.getY(), this.xy1.getX(), this.xy1.getY(), zLevel, this.uv0.getX(), this.uv0.getY(), this.uv1.getX(), this.uv1.getY());
-            tessellator.draw();
+            tessellator.end();
 
-            GlStateManager.translate(-getX(), -getY(), 0);
+            RenderSystem.translatef(-getX(), -getY(), 0);
         } catch (final Exception e) {
             SimpleTextOverlay.logger.debug(e);
         }

@@ -7,11 +7,6 @@
     ],
     [
       {
-        "str": "biomeid: {yellow}{biomeid}"
-      }
-    ],
-    [
-      {
         "str": "biome: {yellow}{biome}"
       }
     ],
@@ -53,6 +48,11 @@
     [
       {
         "str": "localdifficulty: {yellow}{localdifficulty}"
+      }
+    ],
+    [
+      {
+        "str": "localdifficultyclamped: {yellow}{localdifficultyclamped}"
       }
     ],
     [

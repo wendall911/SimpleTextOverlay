@@ -14,7 +14,6 @@ import sereneseasons.api.season.ISeasonState;
 import sereneseasons.api.season.SeasonHelper;
 
 import simpletextoverlay.SimpleTextOverlay;
-import simpletextoverlay.reference.Reference;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.tag.Tag;
 
@@ -25,12 +24,6 @@ public final class TagSereneSeasons {
         @Override
         public String getCategory() {
             return "sereneseasons";
-        }
-
-
-        @Override
-        public String getLocalizedCategory() {
-            return I18n.format("itemGroup.tabSereneSeasons");
         }
 
     }
@@ -45,7 +38,7 @@ public final class TagSereneSeasons {
                         return name;
                     }
                     else {
-                        return I18n.format(Reference.MODID + ".season."
+                        return I18n.get(SimpleTextOverlay.MODID + ".season."
                                 + name.toLowerCase() + ".name");
                     }
                 }

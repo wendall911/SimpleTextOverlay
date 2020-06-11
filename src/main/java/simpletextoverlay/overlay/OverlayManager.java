@@ -294,7 +294,7 @@ public class OverlayManager {
 
         cycleIndex++;
 
-        if (cycleIndex > size) {
+        if (cycleIndex >= size) {
             cycleIndex = 0;
         }
 

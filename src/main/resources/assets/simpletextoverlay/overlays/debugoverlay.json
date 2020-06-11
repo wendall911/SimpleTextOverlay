@@ -117,7 +117,7 @@
     ],
     [
       {
-        "str": "Light: {lighteye} ({lightsun} sky, {lightnosun} block)"
+        "str": "Light: {light} ({lightsky} sky, {lightblock} block)"
       }
     ],
     [

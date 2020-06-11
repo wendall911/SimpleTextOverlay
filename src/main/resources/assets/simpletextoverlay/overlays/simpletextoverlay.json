@@ -68,7 +68,7 @@
       {
         "max": [
           {
-            "var": "lighteye"
+            "var": "lightsky"
           },
           {
             "num": 7.5
@@ -82,7 +82,7 @@
         ]
       },
       {
-        "var": "lighteye"
+        "var": "lightsky"
       },
       {
         "str": "$r)"

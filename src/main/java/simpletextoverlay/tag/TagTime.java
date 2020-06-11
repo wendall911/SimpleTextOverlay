@@ -16,14 +16,14 @@ public abstract class TagTime extends Tag {
     public static class MinecraftDay extends TagTime {
         @Override
         public String getValue() {
-            return String.format(Locale.ENGLISH, "%d", world.getWorldTime() / 24000);
+            return String.format(Locale.ENGLISH, "%d", world.getLevel().getDayTime() / 24000);
         }
     }
 
     public static class MinecraftHour extends TagTime {
         @Override
         public String getValue() {
-            final long hour = (world.getWorldTime() / 1000 + 6) % 24;
+            final long hour = (world.getLevel().getDayTime() / 1000 + 6) % 24;
             return String.format(Locale.ENGLISH, "%02d", hour);
         }
     }
@@ -31,7 +31,7 @@ public abstract class TagTime extends Tag {
     public static class MinecraftMinute extends TagTime {
         @Override
         public String getValue() {
-            final long minute = (world.getWorldTime() % 1000) * 60 / 1000;
+            final long minute = (world.getLevel().getDayTime() % 1000) * 60 / 1000;
             return String.format(Locale.ENGLISH, "%02d", minute);
         }
     }
@@ -39,7 +39,7 @@ public abstract class TagTime extends Tag {
     public static class Minecraft24 extends TagTime {
         @Override
         public String getValue() {
-            final long time = world.getWorldTime();
+            final long time = world.getLevel().getDayTime();
             final long hour = (time / 1000 + 6) % 24;
             final long minute = (time % 1000) * 60 / 1000;
             return String.format(Locale.ENGLISH, "%02d:%02d", hour, minute);
@@ -49,7 +49,7 @@ public abstract class TagTime extends Tag {
     public static class Minecraft12 extends TagTime {
         @Override
         public String getValue() {
-            final long time = world.getWorldTime();
+            final long time = world.getLevel().getDayTime();
             long hour = (time / 1000 + 6) % 24;
             final long minute = (time % 1000) * 60 / 1000;
             String ampm = "AM";

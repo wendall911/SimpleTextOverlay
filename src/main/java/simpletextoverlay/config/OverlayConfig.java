@@ -30,6 +30,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.reference.Names;
 import simpletextoverlay.SimpleTextOverlay;
+import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.PacketHandlerHelper;
 
@@ -58,7 +59,7 @@ public class OverlayConfig {
 		CLIENT_SPEC = specPair.getRight();
 	}
 
-    public static Side side;
+    public static boolean loaded = false;
 
     public static class Client {
         public static ForgeConfigSpec.IntValue topleftX;
@@ -217,7 +218,6 @@ public class OverlayConfig {
         }
 
         public static void onLoad() {
-            side = side.CLIENT;
             OverlayManager overlayManager = OverlayManager.INSTANCE;
             Path configPath = FMLPaths.CONFIGDIR.get();
             Path modConfigPath = Paths.get(configPath.toAbsolutePath().toString());
@@ -226,6 +226,8 @@ public class OverlayConfig {
             overlayManager.setTagBlacklist(SERVER.blacklistTags.get().stream().toArray(String[]::new));
 
             applyConfigSettings();
+
+            TagRegistry.INSTANCE.init();
         }
 
         public static void onFileChange() {
@@ -263,7 +265,6 @@ public class OverlayConfig {
         }
 
         public static void onLoad() {
-            side = side.SERVER;
             registerSyncOptions();
         }
 
@@ -289,8 +290,11 @@ public class OverlayConfig {
 	
     @SubscribeEvent
     public static void onLoad(final ModConfig.Loading event) {
-        DistExecutor.runWhenOn(Dist.DEDICATED_SERVER, ()->()->Server.onLoad());
-        DistExecutor.runWhenOn(Dist.CLIENT, ()->()->Client.onLoad());
+        if (!loaded) {
+            DistExecutor.runWhenOn(Dist.DEDICATED_SERVER, ()->()->Server.onLoad());
+            DistExecutor.runWhenOn(Dist.CLIENT, ()->()->Client.onLoad());
+            loaded = true;
+        }
     }
 
     @SubscribeEvent
@@ -300,6 +304,7 @@ public class OverlayConfig {
     }
 
     public static void addOption(ISyncedOption option, ForgeConfigSpec.ConfigValue<?> value) {
+        SimpleTextOverlay.logger.warn("Adding sync config option %s %s", option.getName(), String.valueOf(value.get()));
         SyncedConfig.addOption(option, String.valueOf(value.get()));
     }
 
@@ -345,15 +350,6 @@ public class OverlayConfig {
             alignment.setX(x);
             alignment.setY(y);
         }
-    }
-
-    public enum Side {
-
-        CLIENT(),
-        SERVER();
-
-        Side() {}
-
     }
 
 }

@@ -36,6 +36,7 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: 'snapshot', version: mappings_version
+    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -139,14 +140,6 @@ task sourcesJar(type: Jar) {
 task deobfJar(type: Jar) {
     from sourceSets.main.output
     classifier = 'deobf'
-}
-
-sourceSets {
-    main {
-        resources {
-            srcDir 'resources'
-        }   
-    }   
 }
 
 processResources {
