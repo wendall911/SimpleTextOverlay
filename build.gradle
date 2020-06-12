@@ -117,6 +117,7 @@ curseforge {
             relations {
                 optionalLibrary 'serene-seasons'
                 optionalLibrary 'curios'
+                optionalLibrary 'backpacked'
             }
         }
     }
