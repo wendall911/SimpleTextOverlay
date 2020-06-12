@@ -32,8 +32,9 @@ public class ConfigUpdate {
             ctx.get().enqueueWork(() -> {
                 SimpleTextOverlay.logger.info("Applying config updates from server.");
                 for (String key : message.data.getAllKeys()) {
-                    SyncedConfig.SyncedConfigOption entry = SyncedConfig.getEntry(key);
-                    entry.value = message.data.getString(key);
+                    //TODO: Fix sync options from server
+                    //SyncedConfig.SyncedConfigOption entry = SyncedConfig.getEntry(key);
+                    //entry.value = message.data.getString(key);
                 }
             });
             ctx.get().setPacketHandled(true);

@@ -1,18 +1,18 @@
 package simpletextoverlay.tag;
 
-import com.google.common.collect.UnmodifiableIterator;
-
+import java.util.Iterator;
 import java.util.Map.Entry;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityList;
+import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.state.IProperty;
+import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.world.World;
 
 import simpletextoverlay.tag.registry.TagRegistry;
 
@@ -26,15 +26,18 @@ public abstract class TagMouseOver extends Tag {
     public static class Name extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null) {
-                if (objectMouseOver.typeOfHit == RayTraceResult.Type.ENTITY) {
-                    return objectMouseOver.entityHit.getDisplayName().getFormattedText();
-                } else if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    final IBlockState blockState = getBlockState(objectMouseOver);
+            final RayTraceResult hitResult = minecraft.hitResult;
+
+            if (hitResult != null) {
+                if (hitResult.getType() == RayTraceResult.Type.ENTITY) {
+                    final EntityRayTraceResult entity = (EntityRayTraceResult)hitResult;
+                    return entity.getEntity().getDisplayName().getContents();
+                } else if (hitResult.getType() == RayTraceResult.Type.BLOCK) {
+                    final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                    final BlockState blockState = world.getBlockState(pos);
                     final Block block = blockState.getBlock();
-                    final ItemStack pickBlock = block.getPickBlock(blockState, objectMouseOver, world, objectMouseOver.getBlockPos(), player);
-                    return pickBlock.getDisplayName();
+                    final ItemStack pickBlock = block.getPickBlock(blockState, hitResult, world, pos, player);
+                    return pickBlock.getHoverName().getContents();
                 }
             }
             return "";
@@ -44,16 +47,15 @@ public abstract class TagMouseOver extends Tag {
     public static class UniqueName extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null) {
-                if (objectMouseOver.typeOfHit == RayTraceResult.Type.ENTITY) {
-                    final String name = EntityList.getEntityString(objectMouseOver.entityHit);
-                    if (name != null) {
-                        return name;
-                    }
-                } else if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    final Block block = world.getBlockState(objectMouseOver.getBlockPos()).getBlock();
-                    return String.valueOf(Block.REGISTRY.getNameForObject(block));
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                if (hitResult.getType() == RayTraceResult.Type.ENTITY) {
+                    final EntityRayTraceResult entity = (EntityRayTraceResult)hitResult;
+                    return entity.getEntity().getCustomName().getContents();
+                } else if (hitResult.getType() == RayTraceResult.Type.BLOCK) {
+                    final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                    final BlockState blockState = world.getBlockState(pos);
+                    return blockState.getBlock().getName().getContents();
                 }
             }
             return "";
@@ -63,27 +65,30 @@ public abstract class TagMouseOver extends Tag {
     public static class Id extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null) {
-                if (objectMouseOver.typeOfHit == RayTraceResult.Type.ENTITY) {
-                    return String.valueOf(objectMouseOver.entityHit.getEntityId());
-                } else if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    final Block block = world.getBlockState(objectMouseOver.getBlockPos()).getBlock();
-                    return String.valueOf(Block.REGISTRY.getIDForObject(block));
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                if (hitResult.getType() == RayTraceResult.Type.ENTITY) {
+                    final EntityRayTraceResult entity = (EntityRayTraceResult)hitResult;
+                    return String.valueOf(entity.getEntity().getId());
+                } else if (hitResult.getType() == RayTraceResult.Type.BLOCK) {
+                    final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                    final BlockState blockState = world.getBlockState(pos);
+                    return blockState.getBlock().getDescriptionId();
                 }
             }
             return "0";
         }
     }
 
-    public static class Metadata extends TagMouseOver {
+    public static class HarvestLevel extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null) {
-                if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    final IBlockState blockState = getBlockState(objectMouseOver);
-                    return String.valueOf(blockState.getBlock().getMetaFromState(blockState));
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                if (hitResult.getType() == RayTraceResult.Type.BLOCK) {
+                    final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                    final BlockState blockState = world.getBlockState(pos);
+                    return String.valueOf(blockState.getBlock().getHarvestLevel(blockState));
                 }
             }
             return "0";
@@ -293,23 +298,17 @@ public abstract class TagMouseOver extends Tag {
         }
     }
 
-    private static IBlockState getBlockState(RayTraceResult objectMouseOver) {
-        final BlockPos blockPos = objectMouseOver.getBlockPos();
-        final IBlockState blockState = world.getBlockState(blockPos);
-
-        return blockState.getActualState(world, blockPos);
-    }
-
     @SuppressWarnings("unchecked")
     protected <T extends Comparable<T>> String getProp(String prop) {
-        final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
+        final RayTraceResult hitResult = minecraft.hitResult;
         IProperty<T> iproperty;
 
-        if (objectMouseOver != null) {
-            if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                final IBlockState blockState = getBlockState(objectMouseOver);
+        if (hitResult != null) {
+            if (hitResult.getType() == RayTraceResult.Type.BLOCK) {
+                final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                final BlockState blockState = world.getBlockState(pos).getBlockState();
 
-                for (UnmodifiableIterator unmodifiableiterator = blockState.getProperties().entrySet().iterator(); unmodifiableiterator.hasNext();) {
+                for (Iterator<IProperty<?>> unmodifiableiterator = blockState.getProperties().iterator(); unmodifiableiterator.hasNext();) {
                     Entry < IProperty<?>, Comparable<? >> entry = (Entry)unmodifiableiterator.next();
                     iproperty = (IProperty)entry.getKey();
                     if (iproperty.getName() == prop) {
@@ -325,15 +324,13 @@ public abstract class TagMouseOver extends Tag {
     public static class PowerWeak extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null) {
-                if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                if (hitResult.getType() == RayTraceResult.Type.BLOCK) {
                     int power = -1;
-                    for (final EnumFacing side : EnumFacing.VALUES) {
-                        final BlockPos pos = objectMouseOver.getBlockPos().offset(side);
-                        IBlockState blockState = world.getBlockState(pos);
-                        blockState = blockState.getActualState(world, pos);
-                        power = Math.max(power, blockState.getWeakPower(world, pos, side));
+                    for (final Direction side : Direction.values()) {
+                        final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos().offset(side.getNormal());
+                        power = Math.max(power, world.getSignal(pos, side));
 
                         if (power >= 15) {
                             break;
@@ -349,15 +346,13 @@ public abstract class TagMouseOver extends Tag {
     public static class PowerStrong extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null) {
-                if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    final BlockPos pos = objectMouseOver.getBlockPos();
-                    IBlockState blockState = world.getBlockState(pos);
-                    blockState = blockState.getActualState(world, pos);
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                if (hitResult.getType() == RayTraceResult.Type.BLOCK) {
+                    final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
                     int power = -1;
-                    for (final EnumFacing side : EnumFacing.VALUES) {
-                        power = Math.max(power, blockState.getStrongPower(world, pos, side));
+                    for (final Direction side : Direction.values()) {
+                        power = Math.max(power, world.getDirectSignal(pos, side));
 
                         if (power >= 15) {
                             break;
@@ -373,10 +368,11 @@ public abstract class TagMouseOver extends Tag {
     public static class PowerInput extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null) {
-                if (objectMouseOver.typeOfHit == RayTraceResult.Type.BLOCK) {
-                    return String.valueOf(isBlockIndirectlyGettingPowered(world, objectMouseOver.getBlockPos()));
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                if (hitResult.getType() == RayTraceResult.Type.BLOCK) {
+                    final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                    return String.valueOf(isBlockIndirectlyGettingPowered(world, pos));
                 }
             }
             return "-1";
@@ -386,10 +382,10 @@ public abstract class TagMouseOver extends Tag {
     public static int isBlockIndirectlyGettingPowered(World world, BlockPos pos) {
         int i = 0;
 
-        for (EnumFacing enumfacing : EnumFacing.values()) {
-            final BlockPos offset = pos.offset(enumfacing);
-            if (world.isBlockLoaded(offset)) {
-                int j = world.getRedstonePower(offset, enumfacing);
+        for (final Direction side : Direction.values()) {
+            final BlockPos offset = pos.offset(side.getNormal());
+            if (!world.isEmptyBlock(offset)) {
+                int j = world.getSignal(offset, side);
 
                 if (j >= 15) {
                     return 15;
@@ -407,10 +403,12 @@ public abstract class TagMouseOver extends Tag {
     public static class LookingAtX extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null && objectMouseOver.getBlockPos() != null) {
-                BlockPos blockpos = objectMouseOver.getBlockPos();
-                return String.valueOf(blockpos.getX());
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                if (pos != null) {
+                    return String.valueOf(pos.getX());
+                }
             }
             return "";
         }
@@ -419,10 +417,12 @@ public abstract class TagMouseOver extends Tag {
     public static class LookingAtY extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null && objectMouseOver.getBlockPos() != null) {
-                BlockPos blockpos = objectMouseOver.getBlockPos();
-                return String.valueOf(blockpos.getY());
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                if (pos != null) {
+                    return String.valueOf(pos.getY());
+                }
             }
             return "";
         }
@@ -431,10 +431,12 @@ public abstract class TagMouseOver extends Tag {
     public static class LookingAtZ extends TagMouseOver {
         @Override
         public String getValue() {
-            final RayTraceResult objectMouseOver = minecraft.objectMouseOver;
-            if (objectMouseOver != null && objectMouseOver.getBlockPos() != null) {
-                BlockPos blockpos = objectMouseOver.getBlockPos();
-                return String.valueOf(blockpos.getZ());
+            final RayTraceResult hitResult = minecraft.hitResult;
+            if (hitResult != null) {
+                final BlockPos pos = ((BlockRayTraceResult) hitResult).getBlockPos();
+                if (pos != null) {
+                    return String.valueOf(pos.getZ());
+                }
             }
             return "";
         }
@@ -469,7 +471,7 @@ public abstract class TagMouseOver extends Tag {
         TagRegistry.INSTANCE.register(new LookingAtX().setName("lookingatx"));
         TagRegistry.INSTANCE.register(new LookingAtY().setName("lookingaty"));
         TagRegistry.INSTANCE.register(new LookingAtZ().setName("lookingatz"));
-        TagRegistry.INSTANCE.register(new Metadata().setName("mouseovermetadata"));
+        TagRegistry.INSTANCE.register(new HarvestLevel().setName("mouseoverharvestlevel"));
         TagRegistry.INSTANCE.register(new North().setName("blocknorth"));
         TagRegistry.INSTANCE.register(new PowerWeak().setName("mouseoverpowerweak"));
         TagRegistry.INSTANCE.register(new PowerStrong().setName("mouseoverpowerstrong"));

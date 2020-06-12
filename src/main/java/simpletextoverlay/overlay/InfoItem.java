@@ -1,16 +1,17 @@
-package simpletextoverlay.client.gui.overlay;
+package simpletextoverlay.overlay;
+
+import com.mojang.blaze3d.systems.RenderSystem;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.item.ItemStack;
 
-import simpletextoverlay.config.ConfigHandler;
+import simpletextoverlay.config.OverlayConfig;
 
 public class InfoItem extends Info {
 
-    private static final Minecraft MINECRAFT = Minecraft.getMinecraft();
+    private static final Minecraft MINECRAFT = Minecraft.getInstance();
     private final ItemStack itemStack;
     private final boolean large;
     private final int size;
@@ -36,34 +37,34 @@ public class InfoItem extends Info {
     @Override
     public void drawInfo() {
         if (!this.itemStack.isEmpty()) {
-            GlStateManager.color(1.0f, 1.0f, 1.0f, 1.0f);
-            GlStateManager.enableRescaleNormal();
-            RenderHelper.enableGUIStandardItemLighting();
+            RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
+            RenderSystem.enableRescaleNormal();
+            RenderHelper.setupForFlatItems();
 
-            GlStateManager.translate(getX(), getY(), 0);
+            RenderSystem.translatef(getX(), getY(), 0);
             if (!this.large) {
-                GlStateManager.scale(0.5f, 0.5f, 0.5f);
+                RenderSystem.scaled(0.5f, 0.5f, 0.5f);
             }
 
-            final RenderItem renderItem = MINECRAFT.getRenderItem();
-            final float zLevel = renderItem.zLevel;
-            renderItem.zLevel = 300;
-            renderItem.renderItemAndEffectIntoGUI(this.itemStack, 0, 0);
+            final ItemRenderer renderItem = MINECRAFT.getItemRenderer();
+            final float zLevel = renderItem.blitOffset;
+            renderItem.blitOffset = 300;
+            renderItem.renderGuiItem(this.itemStack, 0, 0);
 
-            if (ConfigHandler.client.general.showOverlayItemIcons) {
-                renderItem.renderItemOverlayIntoGUI(MINECRAFT.fontRenderer, this.itemStack, 0, 0, "");
+            if (OverlayConfig.CLIENT.showOverlayItemIcons.get()) {
+                renderItem.renderGuiItemDecorations(MINECRAFT.font, this.itemStack, 0, 0, "");
             }
 
-            renderItem.zLevel = zLevel;
+            renderItem.blitOffset = zLevel;
 
             if (!this.large) {
-                GlStateManager.scale(2.0f, 2.0f, 2.0f);
+                RenderSystem.scaled(2.0f, 2.0f, 2.0f);
             }
-            GlStateManager.translate(-getX(), -getY(), 0);
+            RenderSystem.translatef(-getX(), -getY(), 0);
 
-            RenderHelper.disableStandardItemLighting();
-            GlStateManager.disableRescaleNormal();
-            GlStateManager.disableBlend();
+            RenderHelper.turnOff();
+            RenderSystem.disableRescaleNormal();
+            RenderSystem.disableBlend();
         }
     }
 

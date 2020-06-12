@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
@@ -71,7 +72,7 @@ public class InfoIcon extends Info {
             RenderSystem.enableBlend();
             RenderSystem.blendFuncSeparate(770, 771, 1, 0);
             RenderSystem.color4f(255, 255, 255, 255);
-            
+
             buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.POSITION_TEX);
             double zLevel = 300;
             GuiHelper.drawTexturedRectangle(buffer, this.xy0.getX(), this.xy0.getY(), this.xy1.getX(), this.xy1.getY(), zLevel, this.uv0.getX(), this.uv0.getY(), this.uv1.getX(), this.uv1.getY());

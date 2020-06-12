@@ -1,9 +1,5 @@
 package simpletextoverlay.tag;
 
-import baubles.api.cap.BaublesCapabilities;
-import baubles.api.cap.IBaublesItemHandler;
-import baubles.api.inv.BaublesInventoryWrapper;
-
 import com.google.common.collect.Multimap;
 
 import java.util.HashMap;
@@ -12,24 +8,24 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.EnumCreatureAttribute;
 import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBow;
+import net.minecraft.inventory.EquipmentSlotType;
+import net.minecraft.item.Items;
+import net.minecraft.item.BowItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 
-import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.fml.ModList;
 
-import simpletextoverlay.client.gui.overlay.InfoItem;
+import simpletextoverlay.overlay.InfoItem;
 import simpletextoverlay.tag.registry.TagRegistry;
-import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.EntityHelper;
+
+import top.theillusivec4.curios.api.CuriosAPI;
+import top.theillusivec4.curios.api.capability.ICurioItemHandler;
+import top.theillusivec4.curios.api.inventory.CurioStackHandler;
 
 public abstract class TagPlayerEquipment extends Tag {
 
@@ -41,15 +37,17 @@ public abstract class TagPlayerEquipment extends Tag {
             put("chestplate", new SlotInfo("vanilla", 2));
             put("leggings", new SlotInfo("vanilla", 1));
             put("boots", new SlotInfo("vanilla", 0));
-
-            if (Loader.isModLoaded("baubles")) {
-                put("amulet", new SlotInfo("bauble", 0));
-                put("ringone", new SlotInfo("bauble", 1));
-                put("ringtwo", new SlotInfo("bauble", 2));
-                put("belt", new SlotInfo("bauble", 3));
-                put("head", new SlotInfo("bauble", 4));
-                put("body", new SlotInfo("bauble", 5));
-                put("charm", new SlotInfo("bauble", 6));
+            if (ModList.get().isLoaded("curios")) {
+                put("back", new SlotInfo("curio", 0));
+                put("backpacked", new SlotInfo("curio", 0));
+                put("belt", new SlotInfo("curio", 0));
+                put("body", new SlotInfo("curio", 0));
+                put("charm", new SlotInfo("curio", 0));
+                put("head", new SlotInfo("curio", 0));
+                put("hands", new SlotInfo("curio", 0));
+                put("necklace", new SlotInfo("curio", 0));
+                put("ring", new SlotInfo("curio", 0));
+                put("ringtwo", new SlotInfo("curio", 1));
             }
         }
     };
@@ -84,28 +82,49 @@ public abstract class TagPlayerEquipment extends Tag {
         SlotInfo info = slots.get(slotName);
 
         if (slotName.equals("offhand")) {
-            return player.getHeldItemOffhand();
+            return player.getOffhandItem();
         }
 
         if (slotName.equals("mainhand")) {
-            return player.getHeldItemMainhand();
+            return player.getMainHandItem();
         }
 
         if (info.type.equals("vanilla")) {
-            return player.inventory.armorItemInSlot(info.slot);
+            return player.inventory.getArmor(info.slot);
         }
 
-        if (info.type.equals("bauble")) {
-            return getBaubles().getStackInSlot(info.slot);
+        if (ModList.get().isLoaded("curios") && info.type.equals("curio")) {
+            return getCuriosHandler().map((curios) -> {
+                String name = slotName;
+
+                if (slotName.contains("ring")) {
+                    name = "ring";
+                }
+
+                CurioStackHandler handler = curios.getStackHandler(name);
+                if (handler != null) {
+                    int found = 0;
+                    for (int i = 0; i < handler.getSlots(); i++) {
+                        ItemStack stack = handler.getStackInSlot(i);
+                        if (!stack.isEmpty()) {
+                            if (found == info.slot) {
+                                return stack;
+                            }
+                            else {
+                                found++;
+                            }
+                        }
+                    }
+                }
+                return ItemStack.EMPTY;
+            }).orElse(ItemStack.EMPTY);
         }
 
         return ItemStack.EMPTY;
     }
 
-    private IInventory getBaubles() {
-        IBaublesItemHandler handler = player.getCapability(BaublesCapabilities.CAPABILITY_BAUBLES, null);
-        handler.setPlayer(player);
-        return new BaublesInventoryWrapper(handler, player);
+    private static LazyOptional<ICurioItemHandler> getCuriosHandler() {
+        return CuriosAPI.getCuriosHandler(player);
     }
 
     public static class Name extends TagPlayerEquipment {
@@ -121,14 +140,14 @@ public abstract class TagPlayerEquipment extends Tag {
             }
 
             final String arrows;
-            if (itemStack.getItem() instanceof ItemBow) {
+            if (itemStack.getItem() instanceof BowItem) {
                 final StringBuilder arrowBuilder = new StringBuilder();
                 final int regularArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.ARROW);
                 final int spectralArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.SPECTRAL_ARROW);
                 final int tippedArrows = EntityHelper.getItemCountInInventory(player.inventory, Items.TIPPED_ARROW);
 
                 arrowBuilder.append(" (")
-                        .append(Integer.toString(regularArrows + spectralArrows + tippedArrows))
+                        .append(regularArrows + spectralArrows + tippedArrows)
                         .append(")");
 
                 arrows = arrowBuilder.toString();
@@ -136,7 +155,7 @@ public abstract class TagPlayerEquipment extends Tag {
                 arrows = "";
             }
 
-            return itemStack.getDisplayName() + arrows;
+            return itemStack.getItem().getName(itemStack).getContents() + arrows;
         }
     }
 
@@ -152,7 +171,7 @@ public abstract class TagPlayerEquipment extends Tag {
                 return "";
             }
 
-            return String.valueOf(Item.REGISTRY.getNameForObject(itemStack.getItem()));
+            return itemStack.getItem().getName(itemStack).getContents();
         }
     }
 
@@ -166,13 +185,13 @@ public abstract class TagPlayerEquipment extends Tag {
             final ItemStack itemStack = getItemStack(this.slotName);
             String attackDamage = "";
 
-            Multimap<String, AttributeModifier> modifierMap = itemStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+            Multimap<String, AttributeModifier> modifierMap = itemStack.getAttributeModifiers(EquipmentSlotType.MAINHAND);
             for (Entry<String, AttributeModifier> entry : modifierMap.entries()) {
                 AttributeModifier attributeModifier = entry.getValue();
-                if (attributeModifier.getID().equals(ATTACK_DAMAGE_MODIFIER)) {
+                if (attributeModifier.getId().equals(ATTACK_DAMAGE_MODIFIER)) {
                     double damageModifier = attributeModifier.getAmount();
-                    damageModifier = damageModifier + player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue();
-                    damageModifier = damageModifier + (double)EnchantmentHelper.getModifierForCreature(itemStack, EnumCreatureAttribute.UNDEFINED);
+                    damageModifier = damageModifier + player.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue();
+                    damageModifier = damageModifier + (double)EnchantmentHelper.getDamageBonus(itemStack, CreatureAttribute.UNDEFINED);
                     attackDamage = String.format("%.1f", Math.round(damageModifier * 10.0) / 10.0);
                 }
             }
@@ -191,12 +210,12 @@ public abstract class TagPlayerEquipment extends Tag {
             final ItemStack itemStack = getItemStack(this.slotName);
             String attackSpeed = "";
 
-            Multimap<String, AttributeModifier> modifierMap = itemStack.getAttributeModifiers(EntityEquipmentSlot.MAINHAND);
+            Multimap<String, AttributeModifier> modifierMap = itemStack.getAttributeModifiers(EquipmentSlotType.MAINHAND);
             for (Entry<String, AttributeModifier> entry : modifierMap.entries()) {
                 AttributeModifier attributeModifier = entry.getValue();
-                if (attributeModifier.getID().equals(ATTACK_SPEED_MODIFIER)) {
+                if (attributeModifier.getId().equals(ATTACK_SPEED_MODIFIER)) {
                     double speedModifier = attributeModifier.getAmount();
-                    speedModifier += player.getEntityAttribute(SharedMonsterAttributes.ATTACK_SPEED).getBaseValue();
+                    speedModifier += player.getAttribute(SharedMonsterAttributes.ATTACK_SPEED).getBaseValue();
                     attackSpeed = String.format("%.2f", Math.round(speedModifier * 100.0) / 100.0);
                 }
             }
@@ -217,7 +236,7 @@ public abstract class TagPlayerEquipment extends Tag {
                 return String.valueOf(-1);
             }
 
-            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getItemDamage() : 0);
+            return String.valueOf(itemStack.isDamageableItem() ? itemStack.getDamageValue() : 0);
         }
     }
 
@@ -233,7 +252,7 @@ public abstract class TagPlayerEquipment extends Tag {
                 return String.valueOf(-1);
             }
 
-            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() : 0);
+            return String.valueOf(itemStack.isDamageableItem() ? itemStack.getMaxDamage() : 0);
         }
     }
 
@@ -249,7 +268,7 @@ public abstract class TagPlayerEquipment extends Tag {
                 return String.valueOf(-1);
             }
 
-            return String.valueOf(itemStack.isItemStackDamageable() ? itemStack.getMaxDamage() - itemStack.getItemDamage() : 0);
+            return String.valueOf(itemStack.isDamageableItem() ? itemStack.getMaxDamage() - itemStack.getDamageValue() : 0);
         }
     }
 
@@ -281,7 +300,7 @@ public abstract class TagPlayerEquipment extends Tag {
 
             TagRegistry.INSTANCE.register(new Name(key).setName(key + "name"));
             TagRegistry.INSTANCE.register(new UniqueName(key).setName(key + "uniquename"));
-            if (!info.type.equals("bauble")) {
+            if (!info.type.equals("curio")) {
                 TagRegistry.INSTANCE.register(new Durability(key).setName(key + "durability"));
                 TagRegistry.INSTANCE.register(new MaximumDurability(key).setName(key + "maxdurability"));
                 TagRegistry.INSTANCE.register(new DurabilityRemaining(key).setName(key + "durabilityremaining"));

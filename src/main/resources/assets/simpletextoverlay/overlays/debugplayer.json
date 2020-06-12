@@ -301,91 +301,6 @@
       {
         "str": "zi: {yellow}{zi}"
       }
-    ],
-    [
-      {
-        "str": " "
-      }
-    ],
-    [
-      {
-        "str": "{underline}Player - Potion Effects"
-      }
-    ],
-    [
-      {
-        "str": "potionduration0: {yellow}{potionduration0}"
-      }
-    ],
-    [
-      {
-        "str": "potionduration2: {yellow}{potionduration2}"
-      }
-    ],
-    [
-      {
-        "str": "potionduration3: {yellow}{potionduration3}"
-      }
-    ],
-    [
-      {
-        "str": "potiondurationticks0: {yellow}{potiondurationticks0}"
-      }
-    ],
-    [
-      {
-        "str": "potiondurationticks2: {yellow}{potiondurationticks2}"
-      }
-    ],
-    [
-      {
-        "str": "potiondurationticks3: {yellow}{potiondurationticks3}"
-      }
-    ],
-    [
-      {
-        "str": "potionicon0: {yellow}{potionicon0}"
-      }
-    ],
-    [
-      {
-        "str": "potionicon2: {yellow}{potionicon2}"
-      }
-    ],
-    [
-      {
-        "str": "potionicon3: {yellow}{potionicon3}"
-      }
-    ],
-    [
-      {
-        "str": "potionlargeicon0: {yellow}{potionlargeicon0}"
-      }
-    ],
-    [
-      {
-        "str": "potionlargeicon2: {yellow}{potionlargeicon2}"
-      }
-    ],
-    [
-      {
-        "str": "potionlargeicon3: {yellow}{potionlargeicon3}"
-      }
-    ],
-    [
-      {
-        "str": "potionnegative0: {yellow}{potionnegative0}"
-      }
-    ],
-    [
-      {
-        "str": "potionnegative2: {yellow}{potionnegative2}"
-      }
-    ],
-    [
-      {
-        "str": "potionnegative3: {yellow}{potionnegative3}"
-      }
     ]
   ],
   "leftcol3": [
@@ -764,41 +679,6 @@
     [
       {
         "str": "charmuniquename: {yellow}{charmuniquename}"
-      }
-    ],
-    [
-      {
-        "str": " "
-      }
-    ],
-    [
-      {
-        "str": "{underline}Riding"
-      }
-    ],
-    [
-      {
-        "str": "horsehealth: {yellow}{horsehealth}"
-      }
-    ],
-    [
-      {
-        "str": "horsejumpstrength: {yellow}{horsejumpstrength}"
-      }
-    ],
-    [
-      {
-        "str": "horsemaxhealth: {yellow}{horsemaxhealth}"
-      }
-    ],
-    [
-      {
-        "str": "horsespeed: {yellow}{horsespeed}"
-      }
-    ],
-    [
-      {
-        "str": "ridinghorse: {yellow}{ridinghorse}"
       }
     ]
   ]

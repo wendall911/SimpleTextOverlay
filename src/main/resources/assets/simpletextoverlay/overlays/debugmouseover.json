@@ -172,7 +172,7 @@
     ],
     [
       {
-        "str": "mouseovermetadata: {yellow}{mouseovermetadata}"
+        "str": "mouseoverharvestlevel: {yellow}{mouseoverharvestlevel}"
       }
     ],
     [

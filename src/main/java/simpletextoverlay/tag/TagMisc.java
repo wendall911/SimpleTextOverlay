@@ -93,7 +93,7 @@ public abstract class TagMisc extends Tag {
         @Override
         public String getValue() {
             String entities = minecraft.levelRenderer.getEntityStatistics();
-            return entities.split("/")[0].split(",")[1];
+            return entities.split("/")[0].split(" ")[1];
         }
     }
 

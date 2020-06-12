@@ -12,13 +12,13 @@ public class EntityHelper {
     }
 
     public static int getItemCountInInventory(final IInventory inventory, final Item item, final int itemDamage) {
-        final int inventorySize = inventory.getSizeInventory();
+        final int inventorySize = inventory.getContainerSize();
         int count = 0;
 
         for (int slot = 0; slot < inventorySize; slot++) {
-            final ItemStack itemStack = inventory.getStackInSlot(slot);
+            final ItemStack itemStack = inventory.getItem(slot);
 
-            if (itemStack.getItem() == item && (itemDamage == -1 || itemDamage == itemStack.getItemDamage())) {
+            if (itemStack.getItem() == item && (itemDamage == -1 || itemDamage == itemStack.getMaxDamage())) {
                 count += itemStack.getCount();
             }
         }
