@@ -1,11 +1,12 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/simpletextoverlay",
   "1.15.2": {
+    "2.0.0.2": "https://github.com/wendall911/SimpleTextOverlay/releases/tag/2.0.0.2",
     "2.0.0.1": "https://github.com/wendall911/SimpleTextOverlay/releases/tag/2.0.0.1",
     "2.0.0.0": "https://github.com/wendall911/SimpleTextOverlay/releases/tag/2.0.0.0"
   },
   "promos": {
-    "1.15.2-latest": "2.0.0.1",
-    "1.15.2-recommended": "2.0.0.1"
+    "1.15.2-latest": "2.0.0.2",
+    "1.15.2-recommended": "2.0.0.2"
   }
 }
