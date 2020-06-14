@@ -180,7 +180,12 @@ public abstract class TagPlayerPosition extends Tag {
     public static class Direction extends TagPlayerPosition {
         @Override
         public String getValue() {
-            float direction = player.yRot % 180;
+            float direction = player.yRot % 360;
+            if (direction >= 180) {
+                direction -= 360;
+            } else if (direction < -180) {
+                direction += 360;
+            }
 
             return String.format(Locale.ENGLISH, "%.2f", direction);
         }
