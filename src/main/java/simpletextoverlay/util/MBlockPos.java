@@ -4,8 +4,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
+//import net.minecraft.util.math.Vec3d;
+//import net.minecraft.util.math.Vec3i;
 
 public class MBlockPos extends BlockPos {
 
@@ -21,13 +21,17 @@ public class MBlockPos extends BlockPos {
         this(source.getX(), source.getY(), source.getZ());
     }
 
+    /*
     public MBlockPos(final Vec3d source) {
         this(source.x, source.y, source.z);
     }
+    */
 
+    /*
     public MBlockPos(final Vec3i source) {
         this(source.getX(), source.getY(), source.getZ());
     }
+    */
 
     public MBlockPos(final double x, final double y, final double z) {
         this(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
@@ -44,13 +48,17 @@ public class MBlockPos extends BlockPos {
         return set(source.getX(), source.getY(), source.getZ());
     }
 
+    /*
     public MBlockPos set(final Vec3d source) {
         return set(source.x, source.y, source.z);
     }
+    */
 
+    /*
     public MBlockPos set(final Vec3i source) {
         return set(source.getX(), source.getY(), source.getZ());
     }
+    */
 
     public MBlockPos set(final double x, final double y, final double z) {
         return set(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
@@ -63,9 +71,11 @@ public class MBlockPos extends BlockPos {
         return this;
     }
 
+    /*
     public MBlockPos add(final Vec3i vec) {
         return add(vec.getX(), vec.getY(), vec.getZ());
     }
+    */
 
     public MBlockPos add(final double x, final double y, final double z) {
         return add(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
@@ -79,10 +89,12 @@ public class MBlockPos extends BlockPos {
         return new MBlockPos(this.x * factor, this.y * factor, this.z * factor);
     }
 
+    /*
     @Override
     public MBlockPos subtract(final Vec3i vec) {
         return subtract(vec.getX(), vec.getY(), vec.getZ());
     }
+    */
 
     public MBlockPos subtract(final double x, final double y, final double z) {
         return subtract(MathHelper.floor(x), MathHelper.floor(y), MathHelper.floor(z));
@@ -156,9 +168,11 @@ public class MBlockPos extends BlockPos {
         return new MBlockPos(this.x + facing.getStepX() * n, this.y + facing.getStepY() * n, this.z + facing.getStepZ() * n);
     }
 
+    /*
     public MBlockPos crossProduct(final Vec3i vec) {
         return new MBlockPos(this.y * vec.getZ() - this.z * vec.getY(), this.z * vec.getX() - this.x * vec.getZ(), this.x * vec.getY() - this.y * vec.getX());
     }
+    */
 
     public BlockPos toImmutable() {
         return new BlockPos(this);

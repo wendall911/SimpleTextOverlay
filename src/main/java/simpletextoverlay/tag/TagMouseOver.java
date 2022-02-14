@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.item.ItemStack;
-import net.minecraft.state.IProperty;
+//import net.minecraft.state.IProperty;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.BlockPos;
@@ -300,6 +300,7 @@ public abstract class TagMouseOver extends Tag {
 
     @SuppressWarnings("unchecked")
     protected <T extends Comparable<T>> String getProp(String prop) {
+        /*
         final RayTraceResult hitResult = minecraft.hitResult;
         IProperty<T> iproperty;
 
@@ -317,6 +318,7 @@ public abstract class TagMouseOver extends Tag {
                 }
             }
         }
+        */
 
         return "";
     }

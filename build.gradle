@@ -66,7 +66,7 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     compileOnly fg.deobf("com.github.glitchfiend.biomesoplenty:SereneSeasons:${minecraft_version}-${serene_seasons_version}:api")
-    compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${minecraft_version}-${curios_version}:api")
+    //compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${minecraft_version}-${curios_version}:api")
 }
 
 jar {
@@ -107,17 +107,19 @@ tasks.withType(JavaCompile) {
 }
 
 curseforge {
-    apiKey = project.stocurseApiKey
-    project {
-        id = project.stocurseId
-        changelog = file('build/libs/' + project.getName() + '-' + version + '-changelog.txt')
-        releaseType = cf_release_type
-        addGameVersion(minecraft_version)
-        mainArtifact(jar) {
-            relations {
-                optionalLibrary 'serene-seasons'
-                optionalLibrary 'curios'
-                optionalLibrary 'backpacked'
+    if (project.hasProperty('curseApiKey')) {
+        apiKey = project.stocurseApiKey
+        project {
+            id = project.stocurseId
+            changelog = file('build/libs/' + project.getName() + '-' + version + '-changelog.txt')
+            releaseType = cf_release_type
+            addGameVersion(minecraft_version)
+            mainArtifact(jar) {
+                relations {
+                    optionalLibrary 'serene-seasons'
+                    optionalLibrary 'curios'
+                    optionalLibrary 'backpacked'
+                }
             }
         }
     }

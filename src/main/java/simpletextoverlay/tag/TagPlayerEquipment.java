@@ -10,7 +10,7 @@ import java.util.UUID;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.CreatureAttribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.SharedMonsterAttributes;
+//import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Items;
 import net.minecraft.item.BowItem;
@@ -23,9 +23,11 @@ import simpletextoverlay.overlay.InfoItem;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.util.EntityHelper;
 
+/*
 import top.theillusivec4.curios.api.CuriosAPI;
 import top.theillusivec4.curios.api.capability.ICurioItemHandler;
 import top.theillusivec4.curios.api.inventory.CurioStackHandler;
+*/
 
 public abstract class TagPlayerEquipment extends Tag {
 
@@ -94,6 +96,7 @@ public abstract class TagPlayerEquipment extends Tag {
         }
 
         if (ModList.get().isLoaded("curios") && info.type.equals("curio")) {
+            /*
             return getCuriosHandler().map((curios) -> {
                 String name = slotName;
 
@@ -118,14 +121,17 @@ public abstract class TagPlayerEquipment extends Tag {
                 }
                 return ItemStack.EMPTY;
             }).orElse(ItemStack.EMPTY);
+            */
         }
 
         return ItemStack.EMPTY;
     }
 
+    /*
     private static LazyOptional<ICurioItemHandler> getCuriosHandler() {
         return CuriosAPI.getCuriosHandler(player);
     }
+    */
 
     public static class Name extends TagPlayerEquipment {
         public Name(final String slotName) {
@@ -190,7 +196,7 @@ public abstract class TagPlayerEquipment extends Tag {
                 AttributeModifier attributeModifier = entry.getValue();
                 if (attributeModifier.getId().equals(ATTACK_DAMAGE_MODIFIER)) {
                     double damageModifier = attributeModifier.getAmount();
-                    damageModifier = damageModifier + player.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue();
+                    //damageModifier = damageModifier + player.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getBaseValue();
                     damageModifier = damageModifier + (double)EnchantmentHelper.getDamageBonus(itemStack, CreatureAttribute.UNDEFINED);
                     attackDamage = String.format("%.1f", Math.round(damageModifier * 10.0) / 10.0);
                 }
@@ -215,7 +221,7 @@ public abstract class TagPlayerEquipment extends Tag {
                 AttributeModifier attributeModifier = entry.getValue();
                 if (attributeModifier.getId().equals(ATTACK_SPEED_MODIFIER)) {
                     double speedModifier = attributeModifier.getAmount();
-                    speedModifier += player.getAttribute(SharedMonsterAttributes.ATTACK_SPEED).getBaseValue();
+                    //speedModifier += player.getAttribute(SharedMonsterAttributes.ATTACK_SPEED).getBaseValue();
                     attackSpeed = String.format("%.2f", Math.round(speedModifier * 100.0) / 100.0);
                 }
             }

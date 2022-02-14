@@ -2,7 +2,7 @@ package simpletextoverlay.tag;
 
 import com.mojang.blaze3d.platform.PlatformDescriptors;
 import net.minecraft.client.network.play.NetworkPlayerInfo;
-import net.minecraft.client.settings.AbstractOption;
+//import net.minecraft.client.settings.AbstractOption;
 
 import net.minecraftforge.fml.ModList;
 
@@ -389,7 +389,8 @@ public abstract class TagMisc extends Tag {
     public static class FrameRate extends TagMisc {
         @Override
         public String getValue() {
-            return minecraft.options.framerateLimit == AbstractOption.FRAMERATE_LIMIT.getMaxValue() ? "inf" : String.format("%d", (int)minecraft.options.framerateLimit);
+            //return minecraft.options.framerateLimit == AbstractOption.FRAMERATE_LIMIT.getMaxValue() ? "inf" : String.format("%d", (int)minecraft.options.framerateLimit);
+            return -1;
         }
     }
 

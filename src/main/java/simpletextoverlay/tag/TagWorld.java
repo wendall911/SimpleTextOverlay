@@ -5,11 +5,11 @@ import java.util.Locale;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.DifficultyInstance;
-import net.minecraft.world.dimension.DimensionType;
+//import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.WorldInfo;
+//import net.minecraft.world.storage.WorldInfo;
 
-import net.minecraftforge.common.DimensionManager;
+//import net.minecraftforge.common.DimensionManager;
 
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.util.ChunkHelper;
@@ -24,12 +24,14 @@ public abstract class TagWorld extends Tag {
     public static class Name extends TagWorld {
         @Override
         public String getValue() {
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
                     return worldServer.getLevelData().getLevelName();
                 }
             }
+            */
             return world.getLevelData().getLevelName();
         }
     }
@@ -37,12 +39,14 @@ public abstract class TagWorld extends Tag {
     public static class Size extends TagWorld {
         @Override
         public String getValue() {
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
                     return String.valueOf(worldServer.getLevel().getLevelData().sizeOnDisk);
                 }
             }
+            */
             return String.valueOf(world.getLevel().getLevelData().sizeOnDisk);
         }
     }
@@ -50,12 +54,14 @@ public abstract class TagWorld extends Tag {
     public static class SizeMB extends TagWorld {
         @Override
         public String getValue() {
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
                     return String.format(Locale.ENGLISH, "%.1f", worldServer.getLevel().getLevelData().sizeOnDisk / 1048576.0);
                 }
             }
+            */
             return String.format(Locale.ENGLISH, "%.1f", world.getLevel().getLevelData().sizeOnDisk / 1048576.0);
         }
     }
@@ -71,6 +77,7 @@ public abstract class TagWorld extends Tag {
         @Override
         public String getValue() {
             String dname = "";
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
@@ -80,6 +87,7 @@ public abstract class TagWorld extends Tag {
             else {
                 dname = minecraft.options.difficulty.name();
             }
+            */
 
             return I18n.get(dname.substring(0,1).toUpperCase() + dname.substring(1).toLowerCase());
         }
@@ -88,12 +96,14 @@ public abstract class TagWorld extends Tag {
     public static class DifficultyId extends TagWorld {
         @Override
         public String getValue() {
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
                     return String.valueOf(worldServer.getDifficulty().ordinal());
                 }
             }
+            */
 
             return String.valueOf(minecraft.options.difficulty.ordinal());
         }
@@ -103,12 +113,14 @@ public abstract class TagWorld extends Tag {
         @Override
         public String getValue() {
             DifficultyInstance difficulty = world.getLevel().getCurrentDifficultyAt(playerPosition);
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
                     difficulty = worldServer.getLevel().getCurrentDifficultyAt(playerPosition);
                 }
             }
+            */
             return String.format(Locale.ENGLISH, "%.2f", difficulty.getEffectiveDifficulty());
         }
     }
@@ -117,12 +129,14 @@ public abstract class TagWorld extends Tag {
         @Override
         public String getValue() {
             DifficultyInstance difficulty = world.getLevel().getCurrentDifficultyAt(playerPosition);
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
                     difficulty = worldServer.getLevel().getCurrentDifficultyAt(playerPosition);
                 }
             }
+            */
             return String.format(Locale.ENGLISH, "%.2f", difficulty.getSpecialMultiplier());
         }
     }
@@ -130,7 +144,8 @@ public abstract class TagWorld extends Tag {
     public static class Dimension extends TagWorld {
         @Override
         public String getValue() {
-            return DimensionType.getName(player.level.dimension.getType()).toString();
+            return "";
+            //return DimensionType.getName(player.level.dimension.getType()).toString();
             //return player.level.dimension.getType().toString();
         }
     }
@@ -191,6 +206,7 @@ public abstract class TagWorld extends Tag {
                 return "?";
             }
 
+            /*
             final WorldInfo worldInfo = world.getLevelData();
             final int clearTime = worldInfo.getClearWeatherTime();
             final float seconds = (clearTime > 0 ? clearTime : worldInfo.getRainTime()) / 20f;
@@ -200,6 +216,8 @@ public abstract class TagWorld extends Tag {
                 return String.format(Locale.ENGLISH, "%.1fm", seconds / 60);
             }
             return String.format(Locale.ENGLISH, "%.1fh", seconds / 3600);
+            */
+            return "";
         }
     }
 

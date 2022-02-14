@@ -4,7 +4,7 @@ import java.util.Locale;
 
 import net.minecraft.world.LightType;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.common.DimensionManager;
+//import net.minecraftforge.common.DimensionManager;
 import simpletextoverlay.tag.registry.TagRegistry;
 import simpletextoverlay.util.MBlockPos;
 
@@ -72,12 +72,14 @@ public abstract class TagPlayerGeneral extends Tag {
         @Override
         public String getValue() {
             //return I18n.get("selectWorld.gameMode." + minecraft.getCurrentGameType().getName());
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
                     return worldServer.getLevelData().getGameType().getName();
                 }
             }
+            */
             return world.getLevelData().getGameType().getName();
         }
     }
@@ -86,12 +88,14 @@ public abstract class TagPlayerGeneral extends Tag {
         @Override
         public String getValue() {
             //return String.valueOf(minecraft.playerController.getCurrentGameType().getID());
+            /*
             if (server != null) {
                 final ServerWorld worldServer = DimensionManager.getWorld(server, player.dimension, false, false);
                 if (worldServer != null) {
                     return String.valueOf(worldServer.getLevelData().getGameType().getId());
                 }
             }
+            */
             return String.valueOf(world.getLevelData().getGameType().getId());
         }
     }

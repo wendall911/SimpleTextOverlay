@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.dimension.DimensionType;
+//import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.World;
 
 import simpletextoverlay.overlay.Info;
@@ -86,7 +86,8 @@ public abstract class Tag {
         Tag.server = server;
 
         try {
-            setSeed(Tag.server.getLevel(DimensionType.OVERWORLD).getSeed());
+            //setSeed(Tag.server.getLevel(DimensionType.OVERWORLD).getSeed());
+            setSeed(1);
         } catch (final Exception e) {
             unsetSeed();
         }
