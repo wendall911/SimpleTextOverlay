@@ -31,8 +31,10 @@ public class OverlayConfig {
     private static Color labelColorDecoded;
     private static Color footColorDecoded;
     private static Color biomeColorDecoded;
-    private static Predicate<Object> hexValidator = s -> ((String) s).matches("#{1}[[a-z][A-Z][0-9]]{6}");
-    private static Predicate<Object> hexRangeValidator = s -> ((String) s).matches("#{1}[[a-z][A-Z][0-9]]{6}-{1}>{1}#{1}[[a-z][A-Z][0-9]]{6}");
+    private static Predicate<Object> hexValidator = s -> s instanceof String
+            && ((String) s).matches("#{1}[[a-z][A-Z][0-9]]{6}");
+    private static Predicate<Object> hexRangeValidator = s -> s instanceof String
+            && ((String) s).matches("#{1}[[a-z][A-Z][0-9]]{6}-{1}>{1}#{1}[[a-z][A-Z][0-9]]{6}");
 
     public final BooleanValue enabled;
     public final BooleanValue textShadow;
@@ -86,7 +88,7 @@ public class OverlayConfig {
             .define("lightLabel", "Light: ");
         lightColorRange = builder
             .comment("Light color range (Format (dark->bright): #b02e26->#ffd83d)")
-            .define("lightColorRange", "#b02e26->#ffd83d)", hexRangeValidator);
+            .define("lightColorRange", "#b02e26->#ffd83d", hexRangeValidator);
         footLabel = builder
             .comment("Label for foot level.")
             .define("footLabel", "Foot level: ");
