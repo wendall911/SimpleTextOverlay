@@ -7,7 +7,7 @@ import net.minecraft.network.chat.TranslatableComponent;
 
 import simpletextoverlay.config.OverlayConfig;
 
-public class Font {
+public class FontHelper {
 
     public static void draw(Minecraft mc, PoseStack matrix, TranslatableComponent label, int x, int y, int color) {
 

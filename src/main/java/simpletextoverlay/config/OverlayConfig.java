@@ -3,8 +3,10 @@ package simpletextoverlay.config;
 import java.awt.Color;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
+import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.List;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -29,6 +31,8 @@ public class OverlayConfig {
     private static Color labelColorDecoded;
     private static Color footColorDecoded;
     private static Color biomeColorDecoded;
+    private static Predicate<Object> hexValidator = s -> ((String) s).matches("#{1}[[a-z][A-Z][0-9]]{6}");
+    private static Predicate<Object> hexRangeValidator = s -> ((String) s).matches("#{1}[[a-z][A-Z][0-9]]{6}-{1}>{1}#{1}[[a-z][A-Z][0-9]]{6}");
 
     public final BooleanValue enabled;
     public final BooleanValue textShadow;
@@ -76,31 +80,31 @@ public class OverlayConfig {
             .define("textShadow", true);
         labelColor = builder
             .comment("Label color (Format: #9c9d97)")
-            .define("labelColor", "#9c9d97");
+            .define("labelColor", "#9c9d97", hexValidator);
         lightLabel = builder
             .comment("Label for light level.")
             .define("lightLabel", "Light: ");
         lightColorRange = builder
             .comment("Light color range (Format (dark->bright): #b02e26->#ffd83d)")
-            .define("lightColorRange", "#b02e26->#ffd83d)");
+            .define("lightColorRange", "#b02e26->#ffd83d)", hexRangeValidator);
         footLabel = builder
             .comment("Label for foot level.")
             .define("footLabel", "Foot level: ");
         footColor = builder
             .comment("Foot level color (Format: #825432)")
-            .define("footColor", "#825432");
+            .define("footColor", "#825432", hexValidator);
         biomeLabel = builder
             .comment("Label for biome.")
             .define("biomeLabel", "Biome: ");
         biomeColor = builder
             .comment("Biome color (Format: #474f52)")
-            .define("biomeColor", "#474f52");
+            .define("biomeColor", "#474f52", hexValidator);
     }
 
     public static boolean enabled() {
         return CONFIG.enabled.get();
     }
-    
+
     public static String position() {
         return CONFIG.position.get();
     }
@@ -125,7 +129,7 @@ public class OverlayConfig {
             Collections.reverse(fields);
         }
 
-        // Populate light colors here to initialize when building list.
+        // Populate light colors here to initialize when building fields list.
         String[] lightColors = CONFIG.lightColorRange.get().split("->");
 
         if (lightColors.length == 2) {
@@ -179,4 +183,5 @@ public class OverlayConfig {
         String[] fields = new String[] { "light", "foot", "biome" };
         return () -> Arrays.asList(fields);
     }
+
 }

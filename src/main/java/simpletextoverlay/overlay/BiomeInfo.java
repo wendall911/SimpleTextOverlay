@@ -12,7 +12,7 @@ import net.minecraft.world.level.biome.Biome;
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.ColorHelper;
-import simpletextoverlay.util.Font;
+import simpletextoverlay.util.FontHelper;
 
 public class BiomeInfo extends Info {
 
@@ -29,11 +29,11 @@ public class BiomeInfo extends Info {
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(biomeName));
         int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-        Font.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
 
         x = x + mc.font.width(super.label);
 
-        Font.draw(mc, matrix, biomeName, x, y, OverlayConfig.biomeColor().getRGB());
+        FontHelper.draw(mc, matrix, biomeName, x, y, OverlayConfig.biomeColor().getRGB());
     }
 
 }

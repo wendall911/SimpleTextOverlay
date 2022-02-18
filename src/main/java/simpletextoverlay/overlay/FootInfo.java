@@ -7,7 +7,7 @@ import net.minecraft.core.BlockPos;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.util.Alignment;
-import simpletextoverlay.util.Font;
+import simpletextoverlay.util.FontHelper;
 
 public class FootInfo extends Info {
 
@@ -21,11 +21,11 @@ public class FootInfo extends Info {
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label + footLevel));
         int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-        Font.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
 
         x = x + mc.font.width(super.label);
 
-        Font.draw(mc, matrix, footLevel, x, y, OverlayConfig.footColor().getRGB());
+        FontHelper.draw(mc, matrix, footLevel, x, y, OverlayConfig.footColor().getRGB());
     }
 
 }
