@@ -24,11 +24,6 @@ apply plugin: 'com.matthewprenger.cursegradle'
 
 repositories {
     mavenLocal()
-    /*
-    maven {
-        url = 'https://maven.theillusivec4.top/'
-    }
-    */
 }
 
 group = 'com.github.wendall911.simpletextoverlay'
@@ -40,19 +35,9 @@ sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = co
 
 minecraft {
     mappings channel: "${mappings_channel}", version: mappings_version
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
-            workingDirectory project.file("run").canonicalPath
-
-            mods {
-                simpletextoverlay {
-                    source sourceSets.main
-                }
-            }
-        }
-        server {
             workingDirectory project.file("run").canonicalPath
 
             mods {
@@ -66,8 +51,6 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    //compileOnly fg.deobf("com.github.glitchfiend.biomesoplenty:SereneSeasons:${minecraft_version}-${serene_seasons_version}:api")
-    //compileOnly fg.deobf("top.theillusivec4.curios:curios:FORGE-${minecraft_version}-${curios_version}:api")
 }
 
 jar {
@@ -103,10 +86,6 @@ publishing {
     }
 }
 
-tasks.withType(JavaCompile) {
-    options.compilerArgs += ['-Xlint:deprecation', '-Xlint:unchecked']
-}
-
 curseforge {
     if (project.hasProperty('curseApiKey')) {
         apiKey = project.stocurseApiKey
@@ -117,9 +96,8 @@ curseforge {
             addGameVersion(minecraft_version)
             mainArtifact(jar) {
                 relations {
-                    optionalLibrary 'serene-seasons'
-                    optionalLibrary 'curios'
-                    optionalLibrary 'backpacked'
+                    optionalLibrary 'configured'
+                    optionalLibrary 'catalogue'
                 }
             }
         }
@@ -152,21 +130,3 @@ task deobfJar(type: Jar) {
     classifier = 'deobf'
 }
 
-/*
-processResources {
-    from(sourceSets.main.resources.srcDirs) {
-        include 'META-INF/mods.toml'
-
-        // replaces
-        expand ([
-            'modid': modid,
-            'mod_version': version,
-            'mod_author': mod_author
-        ])
-    }
-
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'META-INF/mods.toml'
-    }
-}
-*/
