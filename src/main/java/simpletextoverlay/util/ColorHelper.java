@@ -14,16 +14,16 @@ public class ColorHelper {
         Color bright = OverlayConfig.lightColorBright();
         Color dark = OverlayConfig.lightColorDark();
 
-        int dRed = dark.getRed() - bright.getRed();
-        int dGreen = dark.getGreen() - bright.getGreen();
-        int dBlue = dark.getBlue() - bright.getBlue();
+        int bRed = bright.getRed() - dark.getRed();
+        int bGreen = bright.getGreen() - dark.getGreen();
+        int bBlue = bright.getBlue() - bright.getBlue();
 
         step = step + 1;
 
         return new Color(
-            bright.getRed() + ((dRed * step) / 16),
-            bright.getGreen() + ((dGreen * step) / 16),
-            bright.getBlue() + ((dBlue * step) / 16)).getRGB();
+            dark.getRed() + ((bRed * step) / 16),
+            dark.getGreen() + ((bGreen * step) / 16),
+            dark.getBlue() + ((bBlue * step) / 16)).getRGB();
     }
 
     public static Color decode(String color) {
