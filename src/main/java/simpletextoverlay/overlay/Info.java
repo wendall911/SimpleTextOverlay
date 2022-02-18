@@ -1,64 +1,20 @@
 package simpletextoverlay.overlay;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.BlockPos;
 
 public abstract class Info {
 
-    public final List<Info> children = new ArrayList<>();
-    public int x;
-    public int y;
-    public int offsetX;
-    public int offsetY;
-    public String text;
+    public String label;
+    public int lineNum;
 
-    protected Info(final int x, final int y) {
-        this.x = x;
-        this.y = y;
-        this.offsetX = 0;
-        this.offsetY = 0;
+    protected Info(String label, int lineNum) {
+        this.label = label;
+        this.lineNum = lineNum;
     }
 
-    protected Info(final int x, final int y, final String text) {
-        this.x = x;
-        this.y = y;
-        this.text = text;
-        this.offsetX = 0;
-        this.offsetY = 0;
-    }
-
-    public void draw() {
-        drawInfo();
-
-        for (final Info child : this.children) {
-            child.offsetX = this.x;
-            child.offsetY = this.y;
-
-            child.draw();
-        }
-    }
-
-    public abstract void drawInfo();
-
-    public int getX() {
-        return this.x + this.offsetX;
-    }
-
-    public int getY() {
-        return this.y + this.offsetY;
-    }
-
-    public int getWidth() {
-        return 0;
-    }
-
-    public int getHeight() {
-        return 0;
-    }
-
-    @Override
-    public String toString() {
-        return "Info";
-    }
+    public abstract void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight);
 
 }

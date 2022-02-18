@@ -1,114 +1,56 @@
 package simpletextoverlay.event;
 
-import net.minecraft.client.gui.screen.ChatScreen;
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.util.InputMappings;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.client.gui.IIngameOverlay;
+import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
-import simpletextoverlay.tag.Tag;
 
-@Mod.EventBusSubscriber(modid = SimpleTextOverlay.MODID, bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
+@EventBusSubscriber(modid=SimpleTextOverlay.MODID, value=Dist.CLIENT)
 public class GameOverlayEventHandler {
 
+    private final OverlayManager overlayManager = OverlayManager.INSTANCE;
     public static final GameOverlayEventHandler INSTANCE = new GameOverlayEventHandler();
 
-    public static boolean enabled = false;
-    public static boolean forceDebug = false;
+    private static boolean enabled = false;
 
-    private final Minecraft client = Minecraft.getInstance();
-    private final OverlayManager overlayManager = OverlayManager.INSTANCE;
-    private boolean firstJoin = false;
-    private String lastOverlayFile = "";
+    private IIngameOverlay OVERLAY;
 
-    private GameOverlayEventHandler() {}
+    static {
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onLoadComplete);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onModConfigReloading);
+    }
 
-    @SubscribeEvent
-    public void onEntityJoinWorld(final EntityJoinWorldEvent event) {
-        if (!firstJoin) {
-            enabled = true;
-            firstJoin = true;
+    public GameOverlayEventHandler() {
+        OVERLAY = OverlayRegistry.registerOverlayAbove(ForgeIngameGui.HUD_TEXT_ELEMENT, SimpleTextOverlay.MODID + ":overlay", this::callRenderOverlay);
+    }
+
+    public void callRenderOverlay(ForgeIngameGui gui, PoseStack matrix, float partialTicks, int width, int height) {
+        if (enabled && OverlayConfig.enabled() && !Minecraft.getInstance().options.renderDebug) {
+            overlayManager.renderOverlay(gui, matrix, partialTicks, width, height);
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onRenderGameOverlayEventPre(final RenderGameOverlayEvent.Pre event) {
-        if (replaceDebugger()) {
-            if (event.getType() == RenderGameOverlayEvent.ElementType.DEBUG) {
-                if (!overlayManager.getOverlayFile().equals(OverlayConfig.CLIENT.debugOverlayFile.get())) {
-                    lastOverlayFile = overlayManager.getOverlayFile();
-                    overlayManager.loadOverlayFile(OverlayConfig.CLIENT.debugOverlayFile.get(), false);
-                }
-
-                event.setCanceled(true);
-            }
-
-            if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT &&
-                    !isDebugger() &&
-                    overlayManager.getOverlayFile().equals(OverlayConfig.CLIENT.debugOverlayFile.get())) {
-                overlayManager.loadOverlayFile(lastOverlayFile, false);
-            }
-        }
-
-        if ( enabled && !OverlayConfig.CLIENT.showOverlayPotions.get() &&
-                event.getType() == RenderGameOverlayEvent.ElementType.POTION_ICONS) {
-            event.setCanceled(true);
-        }
+    public void onLoadComplete(FMLLoadCompleteEvent event) {
+        enabled = true;
+        overlayManager.init();
     }
 
-    private boolean isDebugger() {
-        //return client.options.renderDebug || //SHIFT+<F3
-        return client.options.renderDebug; //<F3>
-    }
-
-    private boolean replaceDebugger() {
-        if (forceDebug) {
-            return true;
-        }
-
-        return enabled && OverlayConfig.CLIENT.replaceDebug.get();
-    }
-
-    private boolean canRun() {
-        if (client.options != null && enabled) {
-            if (!OverlayConfig.CLIENT.showOnPlayerList.get() &&
-                    InputMappings.isKeyDown(client.getWindow().getWindow(), 258)) {
-                return false;
-            }
-
-            if (!OverlayConfig.CLIENT.replaceDebug.get() &&
-                    client.options.renderDebug) {
-                return false;
-            }
-
-            if (client.options.hideGui) {
-                return false;
-            }
-
-            return client.screen == null || OverlayConfig.CLIENT.showInChat.get() &&
-                client.screen instanceof ChatScreen;
-
-        }
-
-        return false;
-    }
-
-    @SubscribeEvent
-    public void onRenderGameOverlay(final RenderGameOverlayEvent.Text event) {
-        if (canRun()) {
-            overlayManager.updateTagValues();
-            overlayManager.renderOverlay();
-        }
-        if (!enabled || client.options == null) {
-            Tag.releaseResources();
+    public void onModConfigReloading(ModConfigEvent.Reloading event) {
+        if (enabled && event.getConfig().getSpec() == OverlayConfig.CONFIG_SPEC) {
+            overlayManager.init();
+            OverlayRegistry.enableOverlay(OVERLAY, OverlayConfig.enabled());
         }
     }
 

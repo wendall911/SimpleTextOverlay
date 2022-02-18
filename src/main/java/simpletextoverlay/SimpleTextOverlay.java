@@ -1,30 +1,23 @@
 package simpletextoverlay;
 
-import simpletextoverlay.config.OverlayConfig;
-import simpletextoverlay.handler.PacketHandler;
-import simpletextoverlay.proxy.ClientProxy;
-import simpletextoverlay.proxy.ServerProxy;
-
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.ModLoadingContext;
 
-import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import simpletextoverlay.config.OverlayConfig;
 
 @Mod(SimpleTextOverlay.MODID)
 public class SimpleTextOverlay {
 
     public static final String MODID = "simpletextoverlay";
 
-    public static final Logger logger = LogManager.getFormatterLogger(SimpleTextOverlay.MODID);
+    public static Logger logger = LogManager.getLogger(MODID);
 
     public SimpleTextOverlay() {
-        PacketHandler.setup();
-		OverlayConfig.setup();
+		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, OverlayConfig.CONFIG_SPEC);
+	}
 
-        DistExecutor.runForDist(() -> ClientProxy::new, () -> ServerProxy::new);
-    }
-    
 }
-
