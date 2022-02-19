@@ -14,20 +14,44 @@ public class ColorHelper {
         Color bright = OverlayConfig.lightColorBright();
         Color dark = OverlayConfig.lightColorDark();
 
-        int bRed = bright.getRed() - dark.getRed();
-        int bGreen = bright.getGreen() - dark.getGreen();
-        int bBlue = bright.getBlue() - bright.getBlue();
+        return getRangeColor(dark, bright, 16, step + 1);
+    }
 
-        step = step + 1;
+    public static int getTimeColor(long hour, long minute) {
+        Color bright = OverlayConfig.timeColorBright();
+        Color dark = OverlayConfig.timeColorDark();
 
-        return new Color(
-            dark.getRed() + ((bRed * step) / 16),
-            dark.getGreen() + ((bGreen * step) / 16),
-            dark.getBlue() + ((bBlue * step) / 16)).getRGB();
+        //Sunrise/Sunset
+        if (hour == 5 || hour == 18) {
+            if (hour == 5) {
+                return getRangeColor(dark, bright, 60, (int)minute + 1);
+            }
+            else {
+                return getRangeColor(bright, dark, 60, (int)minute + 1);
+            }
+        }
+        //Night
+        else if (hour < 5 || hour > 18) {
+            return dark.getRGB();
+        }
+
+        //Day
+        return bright.getRGB();
     }
 
     public static Color decode(String color) {
         return Color.decode(color);
+    }
+
+    private static int getRangeColor(Color from, Color to, int steps, int step) {
+        int diffRed = to.getRed() - from.getRed();
+        int diffGreen = to.getGreen() - from.getGreen();
+        int diffBlue = to.getBlue() - from.getBlue();
+
+        return new Color(
+            from.getRed() + ((diffRed * step) / steps),
+            from.getGreen() + ((diffGreen * step) / steps),
+            from.getBlue() + ((diffBlue * step) / steps)).getRGB();
     }
 
 }

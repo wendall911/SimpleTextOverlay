@@ -19,17 +19,21 @@ public class LightInfo extends Info {
 
     @Override
     public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        int brightnessVal = mc.getCameraEntity().getLevel().getBrightness(LightLayer.SKY, pos);
-        String brightness = String.valueOf(brightnessVal);
+        int brightnessVal = mc.getCameraEntity().getLevel().getChunkSource().getLightEngine().getRawBrightness(pos, 0);
+        boolean canSeeSky = mc.getCameraEntity().getLevel().canSeeSky(pos.above());
 
-        int x = Alignment.getX(scaledWidth, mc.font.width(super.label + brightness));
-        int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
+        if (!canSeeSky) {
+            String brightness = String.valueOf(brightnessVal);
 
-        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+            int x = Alignment.getX(scaledWidth, mc.font.width(super.label + brightness));
+            int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-        x = x + mc.font.width(super.label);
+            FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
 
-        FontHelper.draw(mc, matrix, brightness, x, y, ColorHelper.getLightColor(brightnessVal));
+            x = x + mc.font.width(super.label);
+
+            FontHelper.draw(mc, matrix, brightness, x, y, ColorHelper.getLightColor(brightnessVal));
+        }
     }
 
 }

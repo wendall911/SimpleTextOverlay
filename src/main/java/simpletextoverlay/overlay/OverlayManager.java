@@ -13,6 +13,7 @@ import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.BiomeInfo;
 import simpletextoverlay.overlay.FootInfo;
 import simpletextoverlay.overlay.LightInfo;
+import simpletextoverlay.overlay.TimeInfo;
 
 public class OverlayManager {
 
@@ -36,6 +37,9 @@ public class OverlayManager {
                     break;
                 case "biome":
                     lines.add(new BiomeInfo(OverlayConfig.biomeLabel(), lineNum));
+                    break;
+                case "time":
+                    lines.add(new TimeInfo(OverlayConfig.timeLabel(), lineNum));
                     break;
             }
             lineNum++;

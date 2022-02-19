@@ -28,6 +28,8 @@ public class OverlayConfig {
     private static final List<String> fieldList = Arrays.asList("fields");
     private static Color lightColorDark = ColorHelper.decode("#b02e26");
     private static Color lightColorBright = ColorHelper.decode("#ffd83d");
+    private static Color timeColorDark = ColorHelper.decode("#474f52");
+    private static Color timeColorBright = ColorHelper.decode("#ffd83d");
     private static Color labelColorDecoded;
     private static Color footColorDecoded;
     private static Color biomeColorDecoded;
@@ -46,6 +48,9 @@ public class OverlayConfig {
     public final ConfigValue<String> labelColor;
     public final ConfigValue<String> lightLabel;
     public final ConfigValue<String> lightColorRange;
+    public final ConfigValue<String> timeLabel;
+    public final ConfigValue<String> timeColorRange;
+    public final BooleanValue timeUse12;
     public final ConfigValue<String> footLabel;
     public final ConfigValue<String> footColor;
     public final ConfigValue<String> biomeLabel;
@@ -75,7 +80,7 @@ public class OverlayConfig {
             .comment("The size of the biome info (multiplier)")
             .defineInRange("scale", 1.0, 0.5, 2.0);
         fields = builder
-            .comment("Fields to show. Will display in same order as defined. Options: " + fieldList.toString())
+            .comment("Fields to show. Will display in same order as defined. Options: " + getFields().toString())
             .defineListAllowEmpty(fieldList, getFields(), s -> (s instanceof String));
         textShadow = builder
             .comment("Show text shadow.")
@@ -89,6 +94,15 @@ public class OverlayConfig {
         lightColorRange = builder
             .comment("Light color range (Format (dark->bright): #b02e26->#ffd83d)")
             .define("lightColorRange", "#b02e26->#ffd83d", hexRangeValidator);
+        timeLabel = builder
+            .comment("Label for time.")
+            .define("timeLabel", "");
+        timeColorRange = builder
+            .comment("Time color range (Format (dark->bright): #474f52->#ffd83d)")
+            .define("timeColorRange", "#474f52->#ffd83d", hexRangeValidator);
+        timeUse12 = builder
+            .comment("Use 12 hour AM/PM display.")
+            .define("timeUse12", true);
         footLabel = builder
             .comment("Label for foot level.")
             .define("footLabel", "Foot level: ");
@@ -131,16 +145,17 @@ public class OverlayConfig {
             Collections.reverse(fields);
         }
 
-        // Populate light colors here to initialize when building fields list.
+        // Populate range colors here to initialize when building fields list.
         String[] lightColors = CONFIG.lightColorRange.get().split("->");
+        String[] timeColors = CONFIG.timeColorRange.get().split("->");
 
-        if (lightColors.length == 2) {
-            lightColorDark = ColorHelper.decode(lightColors[0]);
-            lightColorBright = ColorHelper.decode(lightColors[1]);
-            labelColorDecoded = ColorHelper.decode(CONFIG.labelColor.get());
-            footColorDecoded = ColorHelper.decode(CONFIG.footColor.get());
-            biomeColorDecoded = ColorHelper.decode(CONFIG.biomeColor.get());
-        }
+        lightColorDark = ColorHelper.decode(lightColors[0]);
+        lightColorBright = ColorHelper.decode(lightColors[1]);
+        timeColorDark = ColorHelper.decode(timeColors[0]);
+        timeColorBright = ColorHelper.decode(timeColors[1]);
+        labelColorDecoded = ColorHelper.decode(CONFIG.labelColor.get());
+        footColorDecoded = ColorHelper.decode(CONFIG.footColor.get());
+        biomeColorDecoded = ColorHelper.decode(CONFIG.biomeColor.get());
 
         return fields;
     }
@@ -165,6 +180,22 @@ public class OverlayConfig {
         return lightColorBright;
     }
 
+    public static String timeLabel() {
+        return CONFIG.timeLabel.get();
+    }
+
+    public static Color timeColorDark() {
+        return timeColorDark;
+    }
+
+    public static Color timeColorBright() {
+        return timeColorBright;
+    }
+
+    public static boolean timeUse12() {
+        return CONFIG.timeUse12.get();
+    }
+
     public static String footLabel() {
         return CONFIG.footLabel.get();
     }
@@ -182,7 +213,7 @@ public class OverlayConfig {
     }
 
     private static Supplier<List<? extends String>> getFields() {
-        String[] fields = new String[] { "light", "foot", "biome" };
+        String[] fields = new String[] { "light", "time", "foot", "biome" };
         return () -> Arrays.asList(fields);
     }
 
