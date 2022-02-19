@@ -89,7 +89,7 @@ publishing {
 }
 
 curseforge {
-    if (project.hasProperty('curseApiKey')) {
+    if (project.hasProperty('stocurseApiKey')) {
         apiKey = project.stocurseApiKey
         project {
             id = project.stocurseId
