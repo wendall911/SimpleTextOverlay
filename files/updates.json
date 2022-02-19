@@ -1,6 +1,7 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/simpletextoverlay",
   "1.18.1": {
+    "3.0.1.0": "https://github.com/wendall911/SimpleTextOverlay/releases/tag/3.0.1.0",
     "3.0.0.1": "https://github.com/wendall911/SimpleTextOverlay/releases/tag/3.0.0.1",
     "3.0.0.0": "https://github.com/wendall911/SimpleTextOverlay/releases/tag/3.0.0.0"
   },
