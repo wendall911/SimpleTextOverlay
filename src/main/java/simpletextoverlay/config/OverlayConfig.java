@@ -26,6 +26,7 @@ public class OverlayConfig {
 
     private static final List<String> positions = Arrays.asList("TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT");
     private static final List<String> fieldList = Arrays.asList("fields");
+    private static String[] fieldStrings = new String[] { "light", "time", "foot", "biome" };
     private static Color lightColorDark = ColorHelper.decode("#b02e26");
     private static Color lightColorBright = ColorHelper.decode("#ffd83d");
     private static Color timeColorDark = ColorHelper.decode("#474f52");
@@ -80,7 +81,7 @@ public class OverlayConfig {
             .comment("The size of the biome info (multiplier)")
             .defineInRange("scale", 1.0, 0.5, 2.0);
         fields = builder
-            .comment("Fields to show. Will display in same order as defined. Options: " + getFields().toString())
+            .comment("Fields to show. Will display in same order as defined. Options: " + fieldStrings.toString())
             .defineListAllowEmpty(fieldList, getFields(), s -> (s instanceof String));
         textShadow = builder
             .comment("Show text shadow.")
@@ -213,8 +214,7 @@ public class OverlayConfig {
     }
 
     private static Supplier<List<? extends String>> getFields() {
-        String[] fields = new String[] { "light", "time", "foot", "biome" };
-        return () -> Arrays.asList(fields);
+        return () -> Arrays.asList(fieldStrings);
     }
 
 }
