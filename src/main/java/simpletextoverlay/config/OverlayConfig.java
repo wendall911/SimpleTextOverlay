@@ -81,7 +81,8 @@ public class OverlayConfig {
             .comment("The size of the biome info (multiplier)")
             .defineInRange("scale", 1.0, 0.5, 2.0);
         fields = builder
-            .comment("Fields to show. Will display in same order as defined. Options: " + fieldStrings.toString())
+            .comment("Fields to show. Will display in same order as defined. Options: "
+                    + "[\"" + String.join("\", \"", fieldStrings) + "\"]")
             .defineListAllowEmpty(fieldList, getFields(), s -> (s instanceof String));
         textShadow = builder
             .comment("Show text shadow.")
@@ -108,8 +109,8 @@ public class OverlayConfig {
             .comment("Label for foot level.")
             .define("footLabel", "Foot level: ");
         footColor = builder
-            .comment("Foot level color (Format: #825432)")
-            .define("footColor", "#825432", hexValidator);
+            .comment("Foot level color (Format: #5d7c15)")
+            .define("footColor", "#5d7c15", hexValidator);
         biomeLabel = builder
             .comment("Label for biome.")
             .define("biomeLabel", "Biome: ");
