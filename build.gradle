@@ -22,10 +22,6 @@ apply plugin: 'maven-publish'
 apply plugin: 'se.bjurr.gitchangelog.git-changelog-gradle-plugin'
 apply plugin: 'com.matthewprenger.cursegradle'
 
-repositories {
-    mavenLocal()
-}
-
 group = 'com.github.wendall911.simpletextoverlay'
 version = "${minecraft_version}-${mod_version}"
 archivesBaseName = "${mod_name}"
