@@ -7,12 +7,15 @@ import java.util.List;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
+
 import net.minecraftforge.client.gui.ForgeIngameGui;
+import net.minecraftforge.fml.ModList;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.BiomeInfo;
 import simpletextoverlay.overlay.FootInfo;
 import simpletextoverlay.overlay.LightInfo;
+import simpletextoverlay.overlay.SeasonInfo;
 import simpletextoverlay.overlay.TimeInfo;
 
 public class OverlayManager {
@@ -28,6 +31,8 @@ public class OverlayManager {
         this.lines.clear();
 
         for (String fieldName : OverlayConfig.fields()) {
+            boolean skip = false;
+
             switch (fieldName) {
                 case "light":
                     lines.add(new LightInfo(OverlayConfig.lightLabel(), lineNum));
@@ -41,8 +46,19 @@ public class OverlayManager {
                 case "time":
                     lines.add(new TimeInfo(OverlayConfig.timeLabel(), lineNum));
                     break;
+                case "season":
+                    if (ModList.get().isLoaded("sereneseasons")) {
+                        lines.add(new SeasonInfo("", lineNum));
+                    }
+                    else {
+                        skip = true;
+                    }
+                    break;
             }
-            lineNum++;
+
+            if (!skip) {
+                lineNum++;
+            }
         };
     }
 

@@ -14,7 +14,7 @@ public class SimpleTextOverlay {
 
     public static final String MODID = "simpletextoverlay";
 
-    public static Logger logger = LogManager.getLogger(MODID);
+    public static final Logger LOGGER = LogManager.getLogger(MODID);
 
     public SimpleTextOverlay() {
 		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, OverlayConfig.CONFIG_SPEC);

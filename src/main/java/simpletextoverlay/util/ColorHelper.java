@@ -2,6 +2,8 @@ package simpletextoverlay.util;
 
 import java.awt.Color;
 
+import sereneseasons.api.season.Season.SubSeason;
+
 import simpletextoverlay.config.OverlayConfig;
 
 public class ColorHelper {
@@ -37,6 +39,55 @@ public class ColorHelper {
 
         //Day
         return bright.getRGB();
+    }
+
+    public static int getSeasonColor(SubSeason subSeason) {
+        Color spring = decode("#80c71f");
+        Color summer = decode("#ffd83d");
+        Color fall = decode("#f9801d");
+        Color winter = decode("#3ab3da");
+        int color = winter.getRGB();
+
+        switch(subSeason) {
+            case EARLY_SPRING:
+                color = getRangeColor(winter, spring, 4, 3);
+                break;
+            case MID_SPRING:
+                color = getRangeColor(winter, spring, 4, 4);
+                break;
+            case LATE_SPRING:
+                color = getRangeColor(spring, summer, 4, 2);
+                break;
+            case EARLY_SUMMER:
+                color = getRangeColor(spring, summer, 4, 3);
+                break;
+            case MID_SUMMER:
+                color = getRangeColor(spring, summer, 4, 4);
+                break;
+            case LATE_SUMMER:
+                color = getRangeColor(summer, fall, 4, 2);
+                break;
+            case EARLY_AUTUMN:
+                color = getRangeColor(summer, fall, 4, 3);
+                break;
+            case MID_AUTUMN:
+                color = getRangeColor(summer, fall, 4, 4);
+                break;
+            case LATE_AUTUMN:
+                color = getRangeColor(fall, winter, 4, 2);
+                break;
+            case EARLY_WINTER:
+                color = getRangeColor(fall, winter, 4, 3);
+                break;
+            case MID_WINTER:
+                color = getRangeColor(fall, winter, 4, 4);
+                break;
+            case LATE_WINTER:
+                color = getRangeColor(winter, spring, 4, 2);
+                break;
+        }
+
+        return color;
     }
 
     public static Color decode(String color) {

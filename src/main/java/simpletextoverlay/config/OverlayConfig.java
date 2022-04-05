@@ -26,7 +26,7 @@ public class OverlayConfig {
 
     private static final List<String> positions = Arrays.asList("TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT");
     private static final List<String> fieldList = Arrays.asList("fields");
-    private static String[] fieldStrings = new String[] { "light", "time", "foot", "biome" };
+    private static String[] fieldStrings = new String[] { "light", "time", "foot", "biome", "season" };
     private static Color lightColorDark = ColorHelper.decode("#b02e26");
     private static Color lightColorBright = ColorHelper.decode("#ffd83d");
     private static Color timeColorDark = ColorHelper.decode("#474f52");
