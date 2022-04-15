@@ -14,6 +14,7 @@ import net.minecraftforge.fml.ModList;
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.BiomeInfo;
 import simpletextoverlay.overlay.FootInfo;
+import simpletextoverlay.overlay.HudCompass;
 import simpletextoverlay.overlay.LightInfo;
 import simpletextoverlay.overlay.SeasonInfo;
 import simpletextoverlay.overlay.TimeInfo;
@@ -22,6 +23,7 @@ public class OverlayManager {
 
     public static final OverlayManager INSTANCE = new OverlayManager();
     public final List<Info> lines = new ArrayList<>();
+    public final HudCompass hudCompass = new HudCompass();
 
     private OverlayManager() {}
 
@@ -76,6 +78,10 @@ public class OverlayManager {
 
             for (final Info line : this.lines) {
                 line.renderText(matrix, mc, pos, scaledWidth, scaledHeight);
+            }
+
+            if (OverlayConfig.showCompass()) {
+                hudCompass.renderText(matrix, mc, scaledWidth, scaledHeight, partialTicks);
             }
 
             matrix.popPose();

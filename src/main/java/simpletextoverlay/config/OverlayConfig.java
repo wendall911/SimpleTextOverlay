@@ -56,6 +56,8 @@ public class OverlayConfig {
     public final ConfigValue<String> footColor;
     public final ConfigValue<String> biomeLabel;
     public final ConfigValue<String> biomeColor;
+    public final BooleanValue showCompass;
+    public final IntValue compassOpacity;
 
     static {
         Pair<OverlayConfig,ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(OverlayConfig::new);
@@ -117,6 +119,12 @@ public class OverlayConfig {
         biomeColor = builder
             .comment("Biome color (Format: #474f52)")
             .define("biomeColor", "#474f52", hexValidator);
+        showCompass = builder
+            .comment("Show HUD compass.")
+            .define("enabled", true);
+        compassOpacity = builder
+            .comment("Compass background opacity.")
+            .defineInRange("compassOpacity", 10, 0, 100);
     }
 
     public static boolean enabled() {
@@ -214,8 +222,16 @@ public class OverlayConfig {
         return biomeColorDecoded;
     }
 
+    public static boolean showCompass() {
+        return CONFIG.showCompass.get();
+    }
+
     private static Supplier<List<? extends String>> getFields() {
         return () -> Arrays.asList(fieldStrings);
+    }
+
+    public static int getCompassOpacity() {
+        return CONFIG.compassOpacity.get();
     }
 
 }

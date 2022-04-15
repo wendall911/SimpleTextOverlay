@@ -31,4 +31,12 @@ public class Alignment {
         return y;
     }
 
+    public static int getCompassX(int screenWidth, int textWidth) {
+        return (screenWidth - textWidth) / 2;
+    }
+
+    public static int getCompassY() {
+        return OverlayConfig.offsetY();
+    }
+
 }
