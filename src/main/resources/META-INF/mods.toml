@@ -1,12 +1,12 @@
 modLoader="javafml"
-loaderVersion="[38,)"
+loaderVersion="${loader_version}"
 license="MIT"
 
 [[mods]]
   modId="simpletextoverlay"
   displayName="Simple Text Overlay"
   description="Display extra information on top of your in-game screen."
-  version="${file.jarVersion}"
+  version="${version}"
   displayURL="https://github.com/wendall911/SimpleTextOverlay"
   updateJSONURL="https://raw.githubusercontent.com/wendall911/SimpleTextOverlay/1.18.1/files/updates.json"
   authors="wendall911"
@@ -16,12 +16,12 @@ license="MIT"
 [[dependencies.simpletextoverlay]]
     modId="forge"
     mandatory=true
-    versionRange="[39,)"
+    versionRange="[40,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.simpletextoverlay]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.18.1]"
+    versionRange="${minecraft_version}"
     ordering="NONE"
     side="BOTH"
