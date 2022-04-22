@@ -1,7 +1,5 @@
 package simpletextoverlay.event;
 
-import java.util.Objects;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
@@ -45,9 +43,7 @@ public class PlayerEventHandler {
                 if (worldKey.location().toString().contains(DimensionType.OVERWORLD_EFFECTS.toString())) {
                     PointPin spawnPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
 
-                    if (spawnPos != null) {
-                        PinHelper.setPointPin(pinsData, spawnPin);
-                    }
+                    PinHelper.setPointPin(pinsData, spawnPin);
                 }
 
                 if (lastDeath != null) {

@@ -15,6 +15,8 @@ import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
 
+import java.util.Objects;
+
 public class SeasonInfo extends Info {
 
     public SeasonInfo(String label, int lineNum) {
@@ -23,11 +25,11 @@ public class SeasonInfo extends Info {
 
     @Override
     public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        if (BiomeConfig.enablesSeasonalEffects(mc.level.getBiomeName(pos).orElse(null))) {
+        if (BiomeConfig.enablesSeasonalEffects(Objects.requireNonNull(mc.level).getBiome(pos))) {
 
             SubSeason subSeason = SeasonHelper.getSeasonState(mc.level).getSubSeason();
 
-            if (BiomeConfig.enablesSeasonalEffects(mc.level.getBiomeName(pos).orElse(null))) {
+            if (BiomeConfig.enablesSeasonalEffects(mc.level.getBiome(pos))) {
                 TranslatableComponent seasonName = new TranslatableComponent("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
 
                 int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(seasonName));

@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.List;
-import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -16,7 +15,6 @@ import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
 
-import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.ColorHelper;
 
 public class OverlayConfig {
@@ -26,7 +24,7 @@ public class OverlayConfig {
 
     private static final List<String> positions = Arrays.asList("TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT");
     private static final List<String> fieldList = Arrays.asList("fields");
-    private static String[] fieldStrings = new String[] { "light", "time", "foot", "biome", "season" };
+    private static final String[] fieldStrings = new String[] { "light", "time", "foot", "biome", "season" };
     private static Color lightColorDark = ColorHelper.decode("#b02e26");
     private static Color lightColorBright = ColorHelper.decode("#ffd83d");
     private static Color timeColorDark = ColorHelper.decode("#474f52");
@@ -34,10 +32,10 @@ public class OverlayConfig {
     private static Color labelColorDecoded;
     private static Color footColorDecoded;
     private static Color biomeColorDecoded;
-    private static Predicate<Object> hexValidator = s -> s instanceof String
-            && ((String) s).matches("#{1}[[a-z][A-Z][0-9]]{6}");
-    private static Predicate<Object> hexRangeValidator = s -> s instanceof String
-            && ((String) s).matches("#{1}[[a-z][A-Z][0-9]]{6}-{1}>{1}#{1}[[a-z][A-Z][0-9]]{6}");
+    private static final Predicate<Object> hexValidator = s -> s instanceof String
+            && ((String) s).matches("#[a-zA-Z\\d]{6}");
+    private static final Predicate<Object> hexRangeValidator = s -> s instanceof String
+            && ((String) s).matches("#[a-zA-Z\\d]{6}->#[a-zA-Z\\d]{6}");
 
     public final BooleanValue enabled;
     public final BooleanValue textShadow;
@@ -71,7 +69,7 @@ public class OverlayConfig {
             .comment("Show overlay")
             .define("enabled", true);
         position = builder
-            .comment("Position, one of: " + positions.toString())
+            .comment("Position, one of: " + positions)
             .defineInList("position", "BOTTOMRIGHT", positions);
         offsetX = builder
             .comment("X offset")

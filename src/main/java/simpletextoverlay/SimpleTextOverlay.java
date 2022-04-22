@@ -42,14 +42,14 @@ public class SimpleTextOverlay {
         BUS = FMLJavaModLoadingContext.get().getModEventBus();
         INSTANCE = this;
 
-		ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, OverlayConfig.CONFIG_SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, OverlayConfig.CONFIG_SPEC);
 
         BUS.addListener(INSTANCE::onRegisterCapabilities);
         BUS.addListener(INSTANCE::onSetup);
         BUS.addGenericListener(PinInfoType.class, this::pinInfoTypes);
 
         PIN_INFO_TYPES.register(BUS);
-	}
+    }
 
     public void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
         DataManager.init(event);

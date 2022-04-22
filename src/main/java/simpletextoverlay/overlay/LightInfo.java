@@ -13,6 +13,8 @@ import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
 
+import java.util.Objects;
+
 public class LightInfo extends Info {
 
     public LightInfo(String label, int lineNum) {
@@ -21,12 +23,11 @@ public class LightInfo extends Info {
 
     @Override
     public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        Level level = mc.getCameraEntity().getLevel();
+        Level level = Objects.requireNonNull(mc.getCameraEntity()).getLevel();
         int brightnessVal;
         int skyLight;
 
         if (level.dimensionType().hasSkyLight()) {
-            boolean canSeeSky = level.canSeeSky(pos.above());
             int blockLight = level.getChunkSource().getLightEngine().getRawBrightness(pos.above(), 15);
 
             int i = level.getBrightness(LightLayer.SKY, pos.above()) - level.getSkyDarken();

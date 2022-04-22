@@ -46,48 +46,22 @@ public class ColorHelper {
         Color summer = decode("#ffd83d");
         Color fall = decode("#f9801d");
         Color winter = decode("#3ab3da");
-        int color = winter.getRGB();
+        winter.getRGB();
 
-        switch(subSeason) {
-            case EARLY_SPRING:
-                color = getRangeColor(winter, spring, 4, 3);
-                break;
-            case MID_SPRING:
-                color = getRangeColor(winter, spring, 4, 4);
-                break;
-            case LATE_SPRING:
-                color = getRangeColor(spring, summer, 4, 2);
-                break;
-            case EARLY_SUMMER:
-                color = getRangeColor(spring, summer, 4, 3);
-                break;
-            case MID_SUMMER:
-                color = getRangeColor(spring, summer, 4, 4);
-                break;
-            case LATE_SUMMER:
-                color = getRangeColor(summer, fall, 4, 2);
-                break;
-            case EARLY_AUTUMN:
-                color = getRangeColor(summer, fall, 4, 3);
-                break;
-            case MID_AUTUMN:
-                color = getRangeColor(summer, fall, 4, 4);
-                break;
-            case LATE_AUTUMN:
-                color = getRangeColor(fall, winter, 4, 2);
-                break;
-            case EARLY_WINTER:
-                color = getRangeColor(fall, winter, 4, 3);
-                break;
-            case MID_WINTER:
-                color = getRangeColor(fall, winter, 4, 4);
-                break;
-            case LATE_WINTER:
-                color = getRangeColor(winter, spring, 4, 2);
-                break;
-        }
-
-        return color;
+        return switch (subSeason) {
+            case EARLY_SPRING -> getRangeColor(winter, spring, 4, 3);
+            case MID_SPRING -> getRangeColor(winter, spring, 4, 4);
+            case LATE_SPRING -> getRangeColor(spring, summer, 4, 2);
+            case EARLY_SUMMER -> getRangeColor(spring, summer, 4, 3);
+            case MID_SUMMER -> getRangeColor(spring, summer, 4, 4);
+            case LATE_SUMMER -> getRangeColor(summer, fall, 4, 2);
+            case EARLY_AUTUMN -> getRangeColor(summer, fall, 4, 3);
+            case MID_AUTUMN -> getRangeColor(summer, fall, 4, 4);
+            case LATE_AUTUMN -> getRangeColor(fall, winter, 4, 2);
+            case EARLY_WINTER -> getRangeColor(fall, winter, 4, 3);
+            case MID_WINTER -> getRangeColor(fall, winter, 4, 4);
+            case LATE_WINTER -> getRangeColor(winter, spring, 4, 2);
+        };
     }
 
     public static Color decode(String color) {

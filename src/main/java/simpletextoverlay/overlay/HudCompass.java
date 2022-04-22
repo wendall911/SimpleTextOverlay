@@ -9,7 +9,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec2;
-import net.minecraft.world.phys.Vec3;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.compass.DataManager;
@@ -19,28 +18,34 @@ import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
 import simpletextoverlay.util.VecMath;
 
+import javax.annotation.Nullable;
+
 public class HudCompass extends GuiComponent {
 
     public HudCompass() {}
 
     public void renderText(PoseStack matrix, Minecraft mc, int scaledWidth, int scaledHeight, float _partialTicks) {
         final Player player = mc.player;
+
+        if (player == null) {
+            return;
+        }
         final float partialTicks = mc.isPaused() ? 0 : _partialTicks;
-        final double posX = Mth.lerp(partialTicks, mc.player.xo, mc.player.getX());
-        final double posY = Mth.lerp(partialTicks, mc.player.yo, mc.player.getY());
-        final double posZ = Mth.lerp(partialTicks, mc.player.zo, mc.player.getZ());
+        final double posX = Mth.lerp(partialTicks, player.xo, player.getX());
+        final double posY = Mth.lerp(partialTicks, player.yo, player.getY());
+        final double posZ = Mth.lerp(partialTicks, player.zo, player.getZ());
         final String compassText = "·";
         final String worldSpawnText = "⊙";
         final String bedSpawnText = "⌂";
         final String lastDeathText = "✕";
-        final float yaw = Mth.lerp(partialTicks, mc.player.yRotO, mc.player.getYRot()) % 360;
+        final float yaw = Mth.lerp(partialTicks, player.yRotO, player.getYRot()) % 360;
 
         final int x = Alignment.getCompassX(scaledWidth, mc.font.width(compassText));
         final int y = Alignment.getCompassY();
 
         final int bgColor = ColorHelper.rgb(0, 0, 0, OverlayConfig.getCompassOpacity());
 
-        this.fill(matrix, x - 92, y - 1, x + 96, mc.font.lineHeight + 2, bgColor);
+        fill(matrix, x - 92, y - 1, x + 96, mc.font.lineHeight + 2, bgColor);
 
         drawCardinal(mc, matrix, yaw, 0, x, y, "S");
         drawCardinal(mc, matrix, yaw, 90, x, y, "W");

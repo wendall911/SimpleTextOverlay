@@ -7,17 +7,16 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryManager;
 
 import simpletextoverlay.overlay.compass.PinInfo;
 import simpletextoverlay.overlay.compass.PinInfoType;
 
+import simpletextoverlay.SimpleTextOverlay;
+
 public class PinInfoRegistry {
 
-    public static IForgeRegistry<PinInfoType<?>> REGISTRY = RegistryManager.ACTIVE.getRegistry(PinInfoType.class);
+    public static IForgeRegistry<PinInfoType<?>> REGISTRY = SimpleTextOverlay.PIN_INFO_TYPES_REGISTRY.get();
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    @Nonnull
     public static CompoundTag serializePin(@Nonnull PinInfo<?> pinData) {
         PinInfoType type = pinData.getType();
         ResourceLocation typeId = type.getRegistryName();
@@ -28,9 +27,8 @@ public class PinInfoRegistry {
 
         CompoundTag tag = new CompoundTag();
         tag.putString("Type", type.getRegistryName().toString());
-        tag = pinData.write(tag);
 
-        return tag;
+        return pinData.write(tag);
     }
 
     @Nonnull
@@ -48,20 +46,11 @@ public class PinInfoRegistry {
         return info;
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     public static void serializePin(PinInfo<?> pinData, FriendlyByteBuf buffer) {
         PinInfoType type = pinData.getType();
 
         buffer.writeRegistryIdUnsafe(REGISTRY, type);
         pinData.writeToPacket(buffer);
-    }
-
-    @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void serializePinWithoutId(PinInfo<?> pinData, FriendlyByteBuf buffer) {
-        PinInfoType type = pinData.getType();
-
-        buffer.writeRegistryIdUnsafe(REGISTRY, type);
-        pinData.writeToPacketWithoutId(buffer);
     }
 
     @Nonnull
@@ -74,20 +63,6 @@ public class PinInfoRegistry {
 
         PinInfo<?> info = serializer.create();
         info.readFromPacket(buffer);
-
-        return info;
-    }
-
-    @Nonnull
-    public static PinInfo<?> deserializePinWithoutId(FriendlyByteBuf buffer) {
-        PinInfoType<?> serializer = buffer.readRegistryIdUnsafe(REGISTRY);
-
-        if (serializer == null) {
-            throw new IllegalStateException("Server returned unknown serializer");
-        }
-
-        PinInfo<?> info = serializer.create();
-        info.readFromPacketWithoutId(buffer);
 
         return info;
     }

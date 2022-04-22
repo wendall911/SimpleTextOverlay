@@ -12,7 +12,7 @@ public final class PinInfoType<T extends PinInfo<T>> extends ForgeRegistryEntry<
         this.factory = factory;
     }
 
-    public final T create() {
+    public T create() {
         return factory.get();
     }
 

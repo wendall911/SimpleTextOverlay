@@ -38,7 +38,6 @@ import net.minecraftforge.network.PacketDistributor;
 
 import simpletextoverlay.network.NetworkManager;
 import simpletextoverlay.network.SyncData;
-import simpletextoverlay.overlay.compass.PinInfo;
 import simpletextoverlay.SimpleTextOverlay;
 
 public class DataManager {
@@ -208,7 +207,7 @@ public class DataManager {
     }
 
     private Pins getInternal(ResourceKey<Level> worldKey, Supplier<ResourceKey<DimensionType>> dimensionTypeKey) {
-        return worldPins.computeIfAbsent(Objects.requireNonNull(worldKey), worldKey1 -> new Pins(worldKey1, dimensionTypeKey.get()));
+        return worldPins.computeIfAbsent(Objects.requireNonNull(worldKey), worldKey1 -> new Pins(dimensionTypeKey.get()));
     }
 
     @Nullable
@@ -232,13 +231,11 @@ public class DataManager {
 
     public class Pins {
 
-        private final ResourceKey<Level> worldKey;
         @Nullable
         private final ResourceKey<DimensionType> dimensionTypeKey;
-        private Map<String, PinInfo<?>> pins = Maps.newHashMap();
+        private final Map<String, PinInfo<?>> pins = Maps.newHashMap();
 
-        public Pins(ResourceKey<Level> worldKey, @Nullable ResourceKey<DimensionType> dimensionTypeKey) {
-            this.worldKey = worldKey;
+        public Pins(@Nullable ResourceKey<DimensionType> dimensionTypeKey) {
             this.dimensionTypeKey = dimensionTypeKey;
         }
 
@@ -287,15 +284,7 @@ public class DataManager {
             }
         }
 
-        public void addPin(PinInfo<?> pin) {
-            pin.setPins(this);
-
-            PinInfo<?> oldPin = pins.put(pin.getInternalId(), pin);
-
-            if (oldPin != null) {
-                oldPin.setPins(null);
-            }
-
+        public void addPin() {
             sync();
         }
 
@@ -307,7 +296,7 @@ public class DataManager {
             PinInfo<?> pin = pins.get(id);
 
             if (pin != null) {
-                pin.setPins(null);
+                pin.setPins();
                 pins.remove(pin.getInternalId());
             }
 

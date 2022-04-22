@@ -1,19 +1,11 @@
 package simpletextoverlay.overlay.compass;
 
-import java.util.Objects;
-
-import javax.annotation.Nullable;
-
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.registries.ObjectHolder;
-
-import simpletextoverlay.overlay.compass.PinInfo;
-import simpletextoverlay.overlay.compass.PinInfoType;
 
 public class Pin extends PinInfo<Pin> {
 
@@ -26,14 +18,6 @@ public class Pin extends PinInfo<Pin> {
         super(TYPE, "none");
     }
 
-    public Pin(BlockPos exactPosition, String id) {
-        this(toVec3d(exactPosition), id);
-    }
-
-    public Pin(Vec3 exactPosition, String id) {
-        this(TYPE, exactPosition, id);
-    }
-
     public Pin(PinInfoType<? extends Pin> type, Vec3 exactPosition, String id) {
         super(type, id);
 
@@ -43,12 +27,6 @@ public class Pin extends PinInfo<Pin> {
     @Override
     public Vec3 getPosition() {
         return position;
-    }
-
-    public void setPosition(Vec3 position) {
-        if (Mth.equal(position.distanceToSqr(position), 0)) {
-            this.position = position;
-        }
     }
 
     @Override

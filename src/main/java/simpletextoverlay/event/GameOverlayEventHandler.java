@@ -25,7 +25,7 @@ public class GameOverlayEventHandler {
 
     private static boolean enabled = false;
 
-    private IIngameOverlay OVERLAY;
+    private final IIngameOverlay OVERLAY;
 
     static {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onLoadComplete);
@@ -33,12 +33,16 @@ public class GameOverlayEventHandler {
     }
 
     public GameOverlayEventHandler() {
-        OVERLAY = OverlayRegistry.registerOverlayAbove(ForgeIngameGui.HUD_TEXT_ELEMENT, SimpleTextOverlay.MODID + ":overlay", this::callRenderOverlay);
+        OVERLAY = OverlayRegistry.registerOverlayAbove(
+            ForgeIngameGui.HUD_TEXT_ELEMENT,
+            SimpleTextOverlay.MODID + ":overlay",
+            (matrix, partialTicks, width, height, height2) -> callRenderOverlay(partialTicks, width)
+        );
     }
 
-    public void callRenderOverlay(ForgeIngameGui gui, PoseStack matrix, float partialTicks, int width, int height) {
+    public void callRenderOverlay(PoseStack matrix, float partialTicks) {
         if (enabled && OverlayConfig.enabled() && !Minecraft.getInstance().options.renderDebug) {
-            overlayManager.renderOverlay(gui, matrix, partialTicks, width, height);
+            overlayManager.renderOverlay(matrix, partialTicks);
         }
     }
 

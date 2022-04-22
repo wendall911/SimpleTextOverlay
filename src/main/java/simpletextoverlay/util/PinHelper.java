@@ -15,7 +15,7 @@ import simpletextoverlay.overlay.compass.DataManager;
 public class PinHelper {
 
     public static PointPin getPointPin(DataManager pinsData, ResourceKey<Level> worldKey, @Nullable BlockPos pos, String type) {
-        String loc = worldKey.location().toString() + "_" + type;
+        String loc = worldKey.location() + "_" + type;
         PointPin point = pinsData.getOrCreatePinData(loc, PointPin::new);
 
         boolean posChanged = !Objects.equals(point.position, pos);
@@ -35,7 +35,7 @@ public class PinHelper {
     }
 
     public static void setPointPin(DataManager pinsData, PointPin point) {
-        pinsData.get(point.worldKey).addPin(point.pin);
+        pinsData.get(point.worldKey).addPin();
     }
 
     public static class PointPin {

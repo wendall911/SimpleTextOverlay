@@ -4,6 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -61,12 +62,12 @@ public class OverlayManager {
             if (!skip) {
                 lineNum++;
             }
-        };
+        }
     }
 
-    public void renderOverlay(ForgeIngameGui gui, PoseStack matrix, float partialTicks, int width, int height) {
+    public void renderOverlay(PoseStack matrix, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
-        BlockPos pos = mc.getCameraEntity().blockPosition();
+        BlockPos pos = Objects.requireNonNull(mc.getCameraEntity()).blockPosition();
 
         if (mc.level != null && mc.level.isLoaded(pos)) {
             float scale = (float) OverlayConfig.scale();

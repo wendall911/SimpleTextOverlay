@@ -24,14 +24,4 @@ public class VecMath {
         return dist < -180 ? (dist + 360) : dist;
     }
 
-    public static boolean isCloserThan(BlockPos pos, int radius) {
-        Vec3 position = convertBlockPos(pos);
-
-        return position.closerThan(position, (double)radius);
-    }
-
-    public static Vec3 convertBlockPos(BlockPos pos) {
-        return new Vec3((double)pos.getX(), (double)pos.getY(), (double)pos.getZ());
-    }
-
 }
