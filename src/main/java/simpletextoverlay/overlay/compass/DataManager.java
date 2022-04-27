@@ -106,7 +106,6 @@ public class DataManager {
 
         for (int i = 0; i < numWorlds; i++) {
             ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, buffer.readResourceLocation());
-
             boolean hasDimensionType = buffer.readBoolean();
             ResourceKey<DimensionType> dimType = hasDimensionType
                     ? ResourceKey.create(Registry.DIMENSION_TYPE_REGISTRY, buffer.readResourceLocation())
@@ -141,7 +140,6 @@ public class DataManager {
         for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.entrySet()) {
             ResourceKey<Level> key = entry.getKey();
             Pins value = entry.getValue();
-
             buffer.writeResourceLocation(key.location());
 
             if (value.getDimensionTypeKey() != null) {
@@ -256,7 +254,6 @@ public class DataManager {
 
         public void read(FriendlyByteBuf buffer) {
             int numPins = buffer.readVarInt();
-
             pins.clear();
 
             for (int i = 0; i < numPins; i++) {
@@ -284,7 +281,9 @@ public class DataManager {
             }
         }
 
-        public void addPin() {
+        public void addPin(PinInfo<?> pin) {
+            pins.put(pin.getInternalId(), pin);
+
             sync();
         }
 
@@ -296,7 +295,6 @@ public class DataManager {
             PinInfo<?> pin = pins.get(id);
 
             if (pin != null) {
-                pin.setPins();
                 pins.remove(pin.getInternalId());
             }
 

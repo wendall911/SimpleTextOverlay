@@ -35,7 +35,7 @@ public class PinHelper {
     }
 
     public static void setPointPin(DataManager pinsData, PointPin point) {
-        pinsData.get(point.worldKey).addPin();
+        pinsData.get(point.worldKey).addPin(point.pin);
     }
 
     public static class PointPin {

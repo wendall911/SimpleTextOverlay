@@ -30,9 +30,6 @@ public abstract class PinInfo<T extends PinInfo<T>> {
 
     public abstract Vec3 getPosition();
 
-    void setPins() {
-    }
-
     public final CompoundTag write(CompoundTag tag) {
         tag.putString("ID", internalId);
         serializeAdditional(tag);
