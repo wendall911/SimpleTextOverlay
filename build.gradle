@@ -58,7 +58,7 @@ minecraft {
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
-	implementation fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_version}")
+    implementation fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_version}")
 }
 
 jar {
@@ -118,11 +118,11 @@ curseforge {
 tasks.curseforge.dependsOn build
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
-	file = new File('build/libs/' + project.getName() + '-' + version + '-changelog.txt');
+    file = new File('build/libs/' + project.getName() + '-' + version + '-changelog.txt');
     templateContent = file('files/templates/changelog.mustache').getText('UTF-8');
     fromRepo = file("$projectDir");
-	toRef = "HEAD";
-	fromRef = "${last_mod_version}";
+    toRef = "HEAD";
+    fromRef = "${last_mod_version}";
 }
 
 tasks.build.dependsOn('changelog')
