@@ -1,32 +1,13 @@
 package simpletextoverlay;
 
-import java.util.function.Supplier;
-
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
-
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
-import net.minecraftforge.registries.RegistryBuilder;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import simpletextoverlay.overlay.compass.DataManager;
-import simpletextoverlay.overlay.compass.Pin;
-import simpletextoverlay.overlay.compass.PinInfoType;
-import simpletextoverlay.config.OverlayConfig;
-import simpletextoverlay.network.NetworkManager;
+import simpletextoverlay.proxy.ClientProxy;
+import simpletextoverlay.proxy.CommonProxy;
 
 @Mod(SimpleTextOverlay.MODID)
 public class SimpleTextOverlay {
@@ -34,50 +15,11 @@ public class SimpleTextOverlay {
     public static final String MODID = "simpletextoverlay";
 
     public static final Logger LOGGER = LogManager.getFormatterLogger(MODID);
-
-    public static SimpleTextOverlay INSTANCE;
-    public static IEventBus BUS;
-
-    public static final ResourceKey<Registry<PinInfoType<?>>> PIN_INFO_KEY =
-            ResourceKey.createRegistryKey(new ResourceLocation(MODID, "pin_info_types"));
-    public static final DeferredRegister<PinInfoType<?>> PIN_INFO_TYPES =
-            DeferredRegister.create(PIN_INFO_KEY, MODID);
-    public static final Supplier<IForgeRegistry<PinInfoType<?>>> PIN_INFO_TYPES_REGISTRY = PIN_INFO_TYPES
-            .makeRegistry(Generic.from(PinInfoType.class), () -> new RegistryBuilder<PinInfoType<?>>().disableSaving());
+    public static CommonProxy PROXY;
 
     public SimpleTextOverlay() {
-        BUS = FMLJavaModLoadingContext.get().getModEventBus();
-        INSTANCE = this;
-
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, OverlayConfig.CONFIG_SPEC);
-
-        BUS.addListener(INSTANCE::onRegisterCapabilities);
-        BUS.addListener(INSTANCE::onSetup);
-        BUS.addGenericListener(PinInfoType.class, this::pinInfoTypes);
-
-        PIN_INFO_TYPES.register(BUS);
-    }
-
-    public void onRegisterCapabilities(RegisterCapabilitiesEvent event) {
-        DataManager.init(event);
-    }
-
-    public void onSetup(final FMLCommonSetupEvent event) {
-        NetworkManager.setup();
-    }
-
-    public void pinInfoTypes(RegistryEvent.Register<PinInfoType<?>> event) {
-        event.getRegistry().registerAll(
-            new PinInfoType<>(Pin::new).setRegistryName("pin")
-        );
-    }
-
-    private static class Generic {
-
-        public static <T extends IForgeRegistryEntry<T>> Class<T> from(Class<? super T> cls) {
-            return (Class<T>) cls;
-        }
-
+        PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
+        PROXY.start();
     }
 
 }

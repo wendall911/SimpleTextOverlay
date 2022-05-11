@@ -10,12 +10,12 @@ import net.minecraftforge.registries.IForgeRegistry;
 
 import simpletextoverlay.overlay.compass.PinInfo;
 import simpletextoverlay.overlay.compass.PinInfoType;
-
+import simpletextoverlay.proxy.CommonProxy;
 import simpletextoverlay.SimpleTextOverlay;
 
 public class PinInfoRegistry {
 
-    public static IForgeRegistry<PinInfoType<?>> REGISTRY = SimpleTextOverlay.PIN_INFO_TYPES_REGISTRY.get();
+    public static IForgeRegistry<PinInfoType<?>> REGISTRY = CommonProxy.PIN_INFO_TYPES_REGISTRY.get();
 
     public static CompoundTag serializePin(@Nonnull PinInfo<?> pinData) {
         PinInfoType type = pinData.getType();

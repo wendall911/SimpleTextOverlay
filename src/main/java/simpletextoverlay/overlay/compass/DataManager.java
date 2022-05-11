@@ -51,15 +51,11 @@ public class DataManager {
 
     public DataManager() {}
 
-    public static void init(RegisterCapabilitiesEvent event) {
-        MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, DataManager::attachCapabilities);
-    }
-
     public <T> T getOrCreatePinData(String pinId, Supplier<T> factory) {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
     }
 
-    private static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+    public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
         Player cPlayer = event.getObject() instanceof Player ? (Player)event.getObject() : null;
 
         if (cPlayer != null) {

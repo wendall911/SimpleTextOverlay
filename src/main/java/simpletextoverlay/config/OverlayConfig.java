@@ -14,10 +14,19 @@ import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.DoubleValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
 import net.minecraftforge.common.ForgeConfigSpec.ConfigValue;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.ModLoadingContext;
 
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.util.ColorHelper;
 
-public class OverlayConfig {
+@Mod.EventBusSubscriber(modid = SimpleTextOverlay.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+public final class OverlayConfig {
+
+    public static void init() {
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, CONFIG_SPEC);
+    }
 
     public static final ForgeConfigSpec CONFIG_SPEC;
     private static final OverlayConfig CONFIG;
