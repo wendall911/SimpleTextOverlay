@@ -48,11 +48,13 @@ public class GameOverlayEventHandler {
 
     public void onLoadComplete(FMLLoadCompleteEvent event) {
         enabled = true;
+        OverlayConfig.setup();
         overlayManager.init();
     }
 
     public void onModConfigReloading(ModConfigEvent.Reloading event) {
         if (enabled && event.getConfig().getSpec() == OverlayConfig.CONFIG_SPEC) {
+            OverlayConfig.setup();
             overlayManager.init();
             OverlayRegistry.enableOverlay(OVERLAY, OverlayConfig.enabled());
         }

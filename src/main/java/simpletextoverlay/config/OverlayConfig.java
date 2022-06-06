@@ -34,6 +34,7 @@ public final class OverlayConfig {
     private static final List<String> positions = Arrays.asList("TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT");
     private static final List<String> fieldList = Arrays.asList("fields");
     private static final String[] fieldStrings = new String[] { "light", "time", "foot", "biome", "season" };
+    private static List<String> sortedFields;
     private static Color lightColorDark = ColorHelper.decode("#b02e26");
     private static Color lightColorBright = ColorHelper.decode("#ffd83d");
     private static Color timeColorDark = ColorHelper.decode("#474f52");
@@ -154,8 +155,12 @@ public final class OverlayConfig {
         return CONFIG.scale.get();
     }
 
-    @SuppressWarnings("unchecked")
     public static List<String> fields() {
+        return sortedFields;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void setup() {
         List<String> fields = (List<String>) CONFIG.fields.get();
 
         if (CONFIG.position.get().startsWith("BOTTOM")) {
@@ -174,7 +179,7 @@ public final class OverlayConfig {
         footColorDecoded = ColorHelper.decode(CONFIG.footColor.get());
         biomeColorDecoded = ColorHelper.decode(CONFIG.biomeColor.get());
 
-        return fields;
+        sortedFields = fields;
     }
 
     public static boolean textShadow() {
