@@ -7,11 +7,8 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
@@ -19,7 +16,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.registries.RegisterEvent;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import simpletextoverlay.config.OverlayConfig;
@@ -39,25 +36,20 @@ public class CommonProxy {
     public static final DeferredRegister<PinInfoType<?>> PIN_INFO_TYPES =
             DeferredRegister.create(PIN_INFO_KEY, SimpleTextOverlay.MODID);
     public static final Supplier<IForgeRegistry<PinInfoType<?>>> PIN_INFO_TYPES_REGISTRY = PIN_INFO_TYPES
-            .makeRegistry(Generic.from(PinInfoType.class), () -> new RegistryBuilder<PinInfoType<?>>().disableSaving());
+            .makeRegistry(() -> new RegistryBuilder<PinInfoType<?>>().disableSaving());
+    private static final ResourceLocation LOCATION = new ResourceLocation(SimpleTextOverlay.MODID, "pin");
+    public static PinInfoType<Pin> TYPE = new PinInfoType<>(Pin::new, LOCATION);
 
     public void start() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 
         OverlayConfig.init();
         registerListeners(bus);
-        bus.addGenericListener(PinInfoType.class, this::pinInfoTypes);
         PIN_INFO_TYPES.register(bus);
     }
 
     public void registerListeners(IEventBus bus) {
         bus.register(RegistryListener.class);
-    }
-
-    public void pinInfoTypes(RegistryEvent.Register<PinInfoType<?>> event) {
-        event.getRegistry().registerAll(
-            new PinInfoType<>(Pin::new).setRegistryName("pin")
-        );
     }
 
     public static final class RegistryListener {
@@ -68,12 +60,9 @@ public class CommonProxy {
             MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, DataManager::attachCapabilities);
         }
 
-    }
-
-    private static class Generic {
-
-        public static <T extends IForgeRegistryEntry<T>> Class<T> from(Class<? super T> cls) {
-            return (Class<T>) cls;
+        @SubscribeEvent
+        public static void registerPin(RegisterEvent event) {
+            PIN_INFO_TYPES_REGISTRY.get().register("pin", TYPE);
         }
 
     }

@@ -8,25 +8,22 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.registries.IForgeRegistry;
 
-import simpletextoverlay.overlay.compass.PinInfo;
-import simpletextoverlay.overlay.compass.PinInfoType;
 import simpletextoverlay.proxy.CommonProxy;
-import simpletextoverlay.SimpleTextOverlay;
 
 public class PinInfoRegistry {
 
     public static IForgeRegistry<PinInfoType<?>> REGISTRY = CommonProxy.PIN_INFO_TYPES_REGISTRY.get();
 
     public static CompoundTag serializePin(@Nonnull PinInfo<?> pinData) {
-        PinInfoType type = pinData.getType();
-        ResourceLocation typeId = type.getRegistryName();
+        PinInfoType<?> type = pinData.getType();
+        ResourceLocation typeId = type.getName();
 
         if(typeId == null) {
             throw new IllegalStateException(String.format("Serializer name is null %s", type.getClass().getName()));
         }
 
         CompoundTag tag = new CompoundTag();
-        tag.putString("Type", type.getRegistryName().toString());
+        tag.putString("Type", type.getName().toString());
 
         return pinData.write(tag);
     }
@@ -47,7 +44,7 @@ public class PinInfoRegistry {
     }
 
     public static void serializePin(PinInfo<?> pinData, FriendlyByteBuf buffer) {
-        PinInfoType type = pinData.getType();
+        PinInfoType<?> type = pinData.getType();
 
         buffer.writeRegistryIdUnsafe(REGISTRY, type);
         pinData.writeToPacket(buffer);

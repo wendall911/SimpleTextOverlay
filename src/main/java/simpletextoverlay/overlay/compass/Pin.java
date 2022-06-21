@@ -2,20 +2,16 @@ package simpletextoverlay.overlay.compass;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
-import net.minecraftforge.registries.ObjectHolder;
+import simpletextoverlay.proxy.CommonProxy;
 
 public class Pin extends PinInfo<Pin> {
-
-    @ObjectHolder("simpletextoverlay:pin")
-    public static PinInfoType<Pin> TYPE = null;
 
     private Vec3 position;
 
     public Pin() {
-        super(TYPE, "none");
+        super(CommonProxy.TYPE, "none");
     }
 
     public Pin(PinInfoType<? extends Pin> type, Vec3 exactPosition, String id) {

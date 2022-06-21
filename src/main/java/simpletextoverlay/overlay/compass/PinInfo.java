@@ -1,8 +1,5 @@
 package simpletextoverlay.overlay.compass;
 
-import javax.annotation.Nullable;
-
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;

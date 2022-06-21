@@ -11,6 +11,7 @@ import net.minecraft.world.phys.Vec3;
 
 import simpletextoverlay.overlay.compass.Pin;
 import simpletextoverlay.overlay.compass.DataManager;
+import simpletextoverlay.proxy.CommonProxy;
 
 public class PinHelper {
 
@@ -28,7 +29,7 @@ public class PinHelper {
         if (pos != null) {
             point.worldKey = worldKey;
             point.position = pos;
-            point.pin = new Pin(Pin.TYPE, Vec3.atCenterOf(pos), type);
+            point.pin = new Pin(CommonProxy.TYPE, Vec3.atCenterOf(pos), type);
         }
 
         return point;
