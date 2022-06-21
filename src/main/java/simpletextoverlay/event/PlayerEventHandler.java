@@ -5,7 +5,7 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.dimension.DimensionType;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.Level;
 
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -40,7 +40,7 @@ public class PlayerEventHandler {
                 ResourceKey<Level> worldKey = sp.getRespawnDimension();
                 BlockPos spawnPos = sp.getLevel().getSharedSpawnPos();
 
-                if (worldKey.location().toString().contains(DimensionType.OVERWORLD_EFFECTS.toString())) {
+                if (worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
                     PointPin spawnPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
 
                     PinHelper.setPointPin(pinsData, spawnPin);
@@ -68,7 +68,7 @@ public class PlayerEventHandler {
             final Player player = event.getPlayer();
             final ResourceKey<Level> worldKey = event.getTo();
 
-            if (!worldKey.location().toString().contains(DimensionType.OVERWORLD_EFFECTS.toString())) {
+            if (!worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
                 player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
                     BlockPos spawnPos = new BlockPos(player.getX(), player.getY(), player.getZ());
                     PointPin portalPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
