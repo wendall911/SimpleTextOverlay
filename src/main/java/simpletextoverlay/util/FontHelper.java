@@ -3,13 +3,13 @@ package simpletextoverlay.util;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 import simpletextoverlay.config.OverlayConfig;
 
 public class FontHelper {
 
-    public static void draw(Minecraft mc, PoseStack matrix, TranslatableComponent label, int x, int y, int color) {
+    public static void draw(Minecraft mc, PoseStack matrix, Component label, int x, int y, int color) {
         if (OverlayConfig.textShadow()) {
             mc.font.drawShadow(matrix, label, x, y, color);
         }

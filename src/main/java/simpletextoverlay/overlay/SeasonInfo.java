@@ -4,7 +4,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 
 import sereneseasons.config.BiomeConfig;
 import sereneseasons.api.season.Season.SubSeason;
@@ -30,7 +30,7 @@ public class SeasonInfo extends Info {
             SubSeason subSeason = SeasonHelper.getSeasonState(mc.level).getSubSeason();
 
             if (BiomeConfig.enablesSeasonalEffects(mc.level.getBiome(pos))) {
-                TranslatableComponent seasonName = new TranslatableComponent("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
+                Component seasonName = Component.translatable("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
 
                 int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(seasonName));
                 int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);

@@ -6,7 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
 import net.minecraft.Util;
 import net.minecraft.world.level.biome.Biome;
 
@@ -26,7 +26,7 @@ public class BiomeInfo extends Info {
     public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
         Holder<Biome> biome = Objects.requireNonNull(mc.level).getBiome(pos);
 
-        TranslatableComponent biomeName = new TranslatableComponent(Util.makeDescriptionId("biome", mc.level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getKey(biome.value())));
+        Component biomeName = Component.translatable(Util.makeDescriptionId("biome", mc.level.registryAccess().registryOrThrow(Registry.BIOME_REGISTRY).getKey(biome.value())));
 
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(biomeName));
         int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
