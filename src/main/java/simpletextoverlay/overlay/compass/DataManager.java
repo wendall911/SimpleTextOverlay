@@ -2,7 +2,7 @@ package simpletextoverlay.overlay.compass;
 
 import com.google.common.collect.Maps;
 
-import io.netty.buffer.Unpooled;
+import static io.netty.buffer.Unpooled.wrappedBuffer;
 
 import java.util.function.Supplier;
 import java.util.Map;
@@ -30,8 +30,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.network.PacketDistributor;
@@ -93,7 +91,7 @@ public class DataManager {
 
     public static void handleSync(Player hPlayer, byte[] packet) {
         hPlayer.getCapability(DataManager.INSTANCE).ifPresent(data -> {
-            data.read(new FriendlyByteBuf(Unpooled.wrappedBuffer(packet)));
+            data.read(new FriendlyByteBuf(wrappedBuffer(packet)));
         });
     }
 
