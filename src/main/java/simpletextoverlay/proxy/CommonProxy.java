@@ -12,12 +12,8 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegisterEvent;
-import net.minecraftforge.registries.RegistryBuilder;
+import net.minecraftforge.registries.*;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.network.NetworkManager;
@@ -62,7 +58,9 @@ public class CommonProxy {
 
         @SubscribeEvent
         public static void registerPin(RegisterEvent event) {
-            PIN_INFO_TYPES_REGISTRY.get().register("pin", TYPE);
+            event.register(Registry.CUSTOM_STAT_REGISTRY, cr -> {
+                PIN_INFO_TYPES_REGISTRY.get().register("pin", TYPE);
+            });
         }
 
     }
