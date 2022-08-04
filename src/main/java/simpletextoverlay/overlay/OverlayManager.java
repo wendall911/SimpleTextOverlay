@@ -9,16 +9,9 @@ import java.util.Objects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 
-import net.minecraftforge.client.gui.ForgeIngameGui;
 import net.minecraftforge.fml.ModList;
 
 import simpletextoverlay.config.OverlayConfig;
-import simpletextoverlay.overlay.BiomeInfo;
-import simpletextoverlay.overlay.FootInfo;
-import simpletextoverlay.overlay.HudCompass;
-import simpletextoverlay.overlay.LightInfo;
-import simpletextoverlay.overlay.SeasonInfo;
-import simpletextoverlay.overlay.TimeInfo;
 
 public class OverlayManager {
 
@@ -48,6 +41,9 @@ public class OverlayManager {
                     break;
                 case "time":
                     lines.add(new TimeInfo(OverlayConfig.timeLabel(), lineNum));
+                    break;
+                case "days":
+                    lines.add(new DaysInfo(OverlayConfig.daysLabel(), lineNum));
                     break;
                 case "season":
                     if (ModList.get().isLoaded("sereneseasons")) {
