@@ -33,7 +33,8 @@ public final class OverlayConfig {
 
     private static final List<String> positions = Arrays.asList("TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT");
     private static final List<String> fieldList = Arrays.asList("fields");
-    private static final String[] fieldStrings = new String[] { "light", "time", "foot", "biome", "season" };
+    private static final String[] fieldStrings = new String[] { "light", "time", "days", "foot", "biome", "season" };
+    private static final String[] defaultFields = new String[] { "light", "time", "foot", "biome", "season" };
     private static List<String> sortedFields;
     private static Color lightColorDark = ColorHelper.decode("#b02e26");
     private static Color lightColorBright = ColorHelper.decode("#ffd83d");
@@ -42,6 +43,7 @@ public final class OverlayConfig {
     private static Color labelColorDecoded;
     private static Color footColorDecoded;
     private static Color biomeColorDecoded;
+    private static Color daysColorDecoded;
     private static final Predicate<Object> hexValidator = s -> s instanceof String
             && ((String) s).matches("#[a-zA-Z\\d]{6}");
     private static final Predicate<Object> hexRangeValidator = s -> s instanceof String
@@ -64,6 +66,8 @@ public final class OverlayConfig {
     public final ConfigValue<String> footColor;
     public final ConfigValue<String> biomeLabel;
     public final ConfigValue<String> biomeColor;
+    public final ConfigValue<String> daysLabel;
+    public final ConfigValue<String> daysColor;
     public final BooleanValue showCompass;
     public final IntValue compassOpacity;
 
@@ -133,6 +137,12 @@ public final class OverlayConfig {
         compassOpacity = builder
             .comment("Compass background opacity.")
             .defineInRange("compassOpacity", 10, 0, 100);
+        daysLabel = builder
+                .comment("Label for total days.")
+                .define("daysLabel", "Day: ");
+        daysColor = builder
+                .comment("Days color (Format: #3c44a9)")
+                .define("daysColor", "#3c44a9", hexValidator);
     }
 
     public static boolean enabled() {
@@ -178,6 +188,7 @@ public final class OverlayConfig {
         labelColorDecoded = ColorHelper.decode(CONFIG.labelColor.get());
         footColorDecoded = ColorHelper.decode(CONFIG.footColor.get());
         biomeColorDecoded = ColorHelper.decode(CONFIG.biomeColor.get());
+        daysColorDecoded = ColorHelper.decode(CONFIG.daysColor.get());
 
         sortedFields = fields;
     }
@@ -239,11 +250,19 @@ public final class OverlayConfig {
     }
 
     private static Supplier<List<? extends String>> getFields() {
-        return () -> Arrays.asList(fieldStrings);
+        return () -> Arrays.asList(defaultFields);
     }
 
     public static int getCompassOpacity() {
         return CONFIG.compassOpacity.get();
+    }
+
+    public static String daysLabel() {
+        return CONFIG.daysLabel.get();
+    }
+
+    public static Color daysColor() {
+        return daysColorDecoded;
     }
 
 }
