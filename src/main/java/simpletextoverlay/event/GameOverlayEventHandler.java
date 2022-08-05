@@ -1,13 +1,10 @@
 package simpletextoverlay.event;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
 
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.gui.ForgeIngameGui;
-import net.minecraftforge.client.gui.IIngameOverlay;
-import net.minecraftforge.client.gui.OverlayRegistry;
+import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
+import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -25,25 +22,20 @@ public class GameOverlayEventHandler {
 
     private static boolean enabled = false;
 
-    private final IIngameOverlay OVERLAY;
+    private final IGuiOverlay OVERLAY;
 
     static {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onLoadComplete);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onModConfigReloading);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onRegisterOverlays);
     }
 
     public GameOverlayEventHandler() {
-        OVERLAY = OverlayRegistry.registerOverlayAbove(
-            ForgeIngameGui.HUD_TEXT_ELEMENT,
-            SimpleTextOverlay.MODID + ":overlay",
-            (matrix, partialTicks, width, height, height2) -> callRenderOverlay(partialTicks, width)
-        );
-    }
-
-    public void callRenderOverlay(PoseStack matrix, float partialTicks) {
-        if (enabled && OverlayConfig.enabled() && !Minecraft.getInstance().options.renderDebug) {
-            overlayManager.renderOverlay(matrix, partialTicks);
-        }
+        OVERLAY = (gui, poseStack, partialTick, width, height) -> {
+            if (enabled && OverlayConfig.enabled() && !Minecraft.getInstance().options.renderDebug) {
+                overlayManager.renderOverlay(poseStack, partialTick);
+            }
+        };
     }
 
     public void onLoadComplete(FMLLoadCompleteEvent event) {
@@ -56,8 +48,11 @@ public class GameOverlayEventHandler {
         if (enabled && event.getConfig().getSpec() == OverlayConfig.CONFIG_SPEC) {
             OverlayConfig.setup();
             overlayManager.init();
-            OverlayRegistry.enableOverlay(OVERLAY, OverlayConfig.enabled());
         }
+    }
+
+    public void onRegisterOverlays(RegisterGuiOverlaysEvent event) {
+        event.registerAboveAll(SimpleTextOverlay.MODID + "_overlay", INSTANCE.OVERLAY);
     }
 
 }

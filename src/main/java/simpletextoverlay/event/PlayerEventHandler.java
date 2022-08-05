@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 import net.minecraft.world.level.Level;
 
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
@@ -30,7 +30,7 @@ public class PlayerEventHandler {
     private static PointPin lastDeath;
 
     @SubscribeEvent
-    public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
+    public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         Player player = event.getEntity() instanceof Player ? (Player) event.getEntity() : null;
 
         if (player != null && !player.level.isClientSide) {
@@ -64,8 +64,8 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if (!event.getPlayer().level.isClientSide) {
-            final Player player = event.getPlayer();
+        if (!event.getEntity().level.isClientSide) {
+            final Player player = event.getEntity();
             final ResourceKey<Level> worldKey = event.getTo();
 
             if (!worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
@@ -81,8 +81,8 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerSetSpawn(PlayerSetSpawnEvent event) {
-        if (!event.getPlayer().level.isClientSide) {
-            final Player player = event.getPlayer();
+        if (!event.getEntity().level.isClientSide) {
+            final Player player = event.getEntity();
 
             player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
                 ResourceKey<Level> worldKey = player.level.dimension();
