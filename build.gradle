@@ -95,10 +95,26 @@ def replaceResources = tasks.register("replaceResources", Copy) {
     }
 
     it.from(sourceSets.main.resources) {
-        include "META-INF/mods.toml"
-        expand 'version': version, 'minecraft_version_range': minecraft_version_range, 'forge_version_range': forge_version_range, "loader_version": loader_version
+        include 'META-INF/mods.toml'
+        expand  'version': version,
+                'minecraft_version_range': minecraft_version_range,
+                'forge_version_range': forge_version_range,
+                'loader_version': loader_version
     }
     it.into "$buildDir/resources/main/"
+}
+
+def updates = tasks.register("generateUpdates", Copy) {
+    it.outputs.upToDateWhen {
+        false
+    }
+
+    it.from("./files/templates/") {
+        include 'updates.json'
+        expand 'mod_version': mod_version
+    }
+
+    it.into 'files/'
 }
 
 processResources {
@@ -106,6 +122,7 @@ processResources {
     exclude('META-INF/mods.toml')
     configure {
         finalizedBy(replaceResources)
+        finalizedBy(updates)
     }
 }
 
