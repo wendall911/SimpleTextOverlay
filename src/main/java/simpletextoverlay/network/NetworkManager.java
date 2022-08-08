@@ -23,7 +23,7 @@ public class NetworkManager {
         INSTANCE.messageBuilder(SyncData.class, 0, NetworkDirection.PLAY_TO_CLIENT)
             .encoder(SyncData::encode)
             .decoder(SyncData::new)
-            .consumer(SyncData::handle).add();
+            .consumerNetworkThread(SyncData::handle).add();
     }
 
 }
