@@ -41,7 +41,7 @@ public class GameOverlayEventHandler {
     }
 
     public void callRenderOverlay(PoseStack matrix, float partialTicks) {
-        if (enabled && OverlayConfig.enabled() && !Minecraft.getInstance().options.renderDebug) {
+        if (enabled && !Minecraft.getInstance().options.renderDebug) {
             overlayManager.renderOverlay(matrix, partialTicks);
         }
     }
