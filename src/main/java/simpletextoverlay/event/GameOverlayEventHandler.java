@@ -32,7 +32,7 @@ public class GameOverlayEventHandler {
 
     public GameOverlayEventHandler() {
         OVERLAY = (gui, poseStack, partialTick, width, height) -> {
-            if (enabled && OverlayConfig.enabled() && !Minecraft.getInstance().options.renderDebug) {
+            if (enabled && !Minecraft.getInstance().options.renderDebug) {
                 overlayManager.renderOverlay(poseStack, partialTick);
             }
         };
