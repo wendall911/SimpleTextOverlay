@@ -24,7 +24,7 @@ import simpletextoverlay.util.PinHelper.PointPin;
 public class PlayerEventHandler {
 
     private static final String BEDSPAWN = "bedspawn";
-    private static final String LASTDEATH = "lastdeath";
+    public static final String LASTDEATH = "lastdeath";
     private static final String WORLDSPAWN = "worldspawn";
     
     private static PointPin lastDeath;

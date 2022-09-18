@@ -52,7 +52,7 @@ public class CommonProxy {
 
         @SubscribeEvent
         public static void setup(FMLCommonSetupEvent event) {
-            NetworkManager.setup();
+            NetworkManager.init();
             MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, DataManager::attachCapabilities);
         }
 

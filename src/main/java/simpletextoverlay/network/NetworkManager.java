@@ -1,13 +1,15 @@
 package simpletextoverlay.network;
 
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
-import net.minecraftforge.network.NetworkDirection;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-import simpletextoverlay.network.SyncData;
 import simpletextoverlay.SimpleTextOverlay;
+
+import java.util.function.Function;
 
 public class NetworkManager {
 
@@ -19,11 +21,23 @@ public class NetworkManager {
         PROTOCOL_VERSION::equals
     );
 
-    public static void setup() {
-        INSTANCE.messageBuilder(SyncData.class, 0, NetworkDirection.PLAY_TO_CLIENT)
-            .encoder(SyncData::encode)
-            .decoder(SyncData::new)
-            .consumerNetworkThread(SyncData::handle).add();
+    public static void init() {
+        int id = 0;
+
+        registerMessage(++id, SyncData.class, SyncData::new);
+
+        if (ModList.get().isLoaded("corpse")) {
+            RequestDeathHistory.init(++id);
+            OpenHistory.init(++id);
+            SetDeathLocation.init(++id);
+        }
+    }
+
+    public static <T extends IData> void registerMessage(int idx, Class<T> type, Function<FriendlyByteBuf, T> decoder) {
+        INSTANCE.registerMessage(idx, type, IData::encode, decoder, (msg, ctx) -> {
+            msg.process(ctx);
+            ctx.get().setPacketHandled(true);
+        });
     }
 
 }

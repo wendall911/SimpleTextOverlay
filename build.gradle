@@ -73,6 +73,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     implementation fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_version}")
+    implementation fg.deobf("curse.maven:corpse-316582:${corpse_version}")
 }
 
 jar {
@@ -163,6 +164,7 @@ curseforge {
                     optionalLibrary 'configured'
                     optionalLibrary 'catalogue'
                     optionalLibrary 'serene-seasons'
+                    optionalLibrary 'corpse'
                 }
             }
         }

@@ -6,12 +6,13 @@ import io.netty.buffer.Unpooled;
 
 import net.minecraft.network.FriendlyByteBuf;
 
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
 import simpletextoverlay.client.DataHandler;
 import simpletextoverlay.overlay.compass.DataManager;
 
-public class SyncData {
+public class SyncData implements IData {
 
     public byte[] bytes;
 
@@ -29,14 +30,16 @@ public class SyncData {
         tmp.readBytes(bytes, 0, bytes.length);
     }
 
+    @Override
     public void encode(FriendlyByteBuf buffer) {
         buffer.writeByteArray(bytes);
     }
 
-    public boolean handle(Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> DataHandler.handleSync(bytes));
-
-        return true;
+    @Override
+    public void process(Supplier<NetworkEvent.Context> ctx) {
+        if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
+            ctx.get().enqueueWork(() -> DataHandler.handleSync(bytes));
+        }
     }
 
 }
