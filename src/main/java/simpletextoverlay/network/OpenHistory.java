@@ -12,6 +12,8 @@ import net.minecraft.nbt.ListTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -61,11 +63,16 @@ public class OpenHistory implements IData {
     @Override
     public void process(Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-            if (deaths.size() > 0) {
-                ctx.get().enqueueWork(() -> Minecraft.getInstance().setScreen(new SetDeathHistoryScreen(deaths)));
-            } else if (Minecraft.getInstance().player != null) {
-                ctx.get().enqueueWork(() -> Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.corpse.no_death_history"), true));
-            }
+            openScreen(ctx);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void openScreen(Supplier<NetworkEvent.Context> ctx) {
+        if (deaths.size() > 0) {
+            ctx.get().enqueueWork(() -> Minecraft.getInstance().setScreen(new SetDeathHistoryScreen(deaths)));
+        } else if (Minecraft.getInstance().player != null) {
+            ctx.get().enqueueWork(() -> Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.corpse.no_death_history"), true));
         }
     }
 
