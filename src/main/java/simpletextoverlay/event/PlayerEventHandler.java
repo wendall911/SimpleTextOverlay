@@ -70,7 +70,7 @@ public class PlayerEventHandler {
 
             if (!worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
                 player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
-                    BlockPos spawnPos = new BlockPos(player.getX(), player.getY(), player.getZ());
+                    BlockPos spawnPos = new BlockPos((int) player.getX(), (int) player.getY(), (int) player.getZ());
                     PointPin portalPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
 
                     PinHelper.setPointPin(pinsData, portalPin);
@@ -112,7 +112,7 @@ public class PlayerEventHandler {
 
         sp.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
             ResourceKey<Level> worldKey = sp.level.dimension();
-            BlockPos deathPos = new BlockPos(sp.getX(), sp.getY(), sp.getZ());
+            BlockPos deathPos = new BlockPos((int) sp.getX(), (int) sp.getY(), (int) sp.getZ());
 
             lastDeath = PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH);
         });
