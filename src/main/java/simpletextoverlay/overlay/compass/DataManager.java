@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 import net.minecraft.core.Direction;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
@@ -32,7 +32,6 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
 
 import simpletextoverlay.network.NetworkManager;
@@ -100,10 +99,10 @@ public class DataManager {
         int numWorlds = buffer.readVarInt();
 
         for (int i = 0; i < numWorlds; i++) {
-            ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, buffer.readResourceLocation());
+            ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, buffer.readResourceLocation());
             boolean hasDimensionType = buffer.readBoolean();
             ResourceKey<DimensionType> dimType = hasDimensionType
-                    ? ResourceKey.create(Registry.DIMENSION_TYPE_REGISTRY, buffer.readResourceLocation())
+                    ? ResourceKey.create(Registries.DIMENSION_TYPE, buffer.readResourceLocation())
                     : null;
             Pins pins = get(key, dimType);
             pins.read(buffer);
@@ -115,11 +114,11 @@ public class DataManager {
 
         for (int i = 0; i < nbt.size(); i++) {
             CompoundTag tag = nbt.getCompound(i);
-            ResourceKey<Level> key = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(tag.getString("World")));
+            ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(tag.getString("World")));
             ResourceKey<DimensionType> dimType = null;
 
             if (tag.contains("DimensionKey", Tag.TAG_STRING)) {
-                dimType = ResourceKey.create(Registry.DIMENSION_TYPE_REGISTRY, new ResourceLocation(tag.getString("DimensionKey")));
+                dimType = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation(tag.getString("DimensionKey")));
             }
 
             Pins pins = get(key, dimType);
@@ -206,13 +205,13 @@ public class DataManager {
     @Nullable
     private static ResourceKey<DimensionType> getDimensionTypeKey(Level world, @Nullable ResourceKey<DimensionType> fallback) {
         DimensionType dimType = world.dimensionType();
-        ResourceLocation key = world.registryAccess().registryOrThrow(Registry.DIMENSION_TYPE_REGISTRY).getKey(dimType);
+        ResourceLocation key = world.registryAccess().registryOrThrow(Registries.DIMENSION_TYPE).getKey(dimType);
 
         if (key == null) {
             return fallback;
         }
 
-        return ResourceKey.create(Registry.DIMENSION_TYPE_REGISTRY, key);
+        return ResourceKey.create(Registries.DIMENSION_TYPE, key);
     }
 
     private void sync() {

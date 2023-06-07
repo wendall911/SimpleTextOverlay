@@ -5,7 +5,7 @@ import java.util.function.Supplier;
 import de.maxhenkel.corpse.corelib.death.Death;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
@@ -55,7 +55,7 @@ public class SetDeathLocation implements IData {
 
     private void setDeathLocation(ServerPlayer sp, Death death) {
         sp.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
-            ResourceKey<Level> worldKey = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(death.getDimension()));
+            ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(death.getDimension()));
             BlockPos deathPos = death.getBlockPos();
             PinHelper.PointPin lastDeath = PinHelper.getPointPin(pinsData, worldKey, deathPos, PlayerEventHandler.LASTDEATH);
 

@@ -3,6 +3,7 @@ package simpletextoverlay.proxy;
 import java.util.function.Supplier;
 
 import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
@@ -58,7 +59,7 @@ public class CommonProxy {
 
         @SubscribeEvent
         public static void registerPin(RegisterEvent event) {
-            event.register(Registry.CUSTOM_STAT_REGISTRY, cr -> {
+            event.register(Registries.CUSTOM_STAT,cr -> {
                 PIN_INFO_TYPES_REGISTRY.get().register("pin", TYPE);
             });
         }
