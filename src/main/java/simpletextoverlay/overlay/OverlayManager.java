@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 
 import net.minecraftforge.fml.ModList;
@@ -61,7 +62,7 @@ public class OverlayManager {
         }
     }
 
-    public void renderOverlay(PoseStack matrix, float partialTicks) {
+    public void renderOverlay(GuiGraphics guiGraphics, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
         BlockPos pos = Objects.requireNonNull(mc.getCameraEntity()).blockPosition();
 
@@ -69,16 +70,17 @@ public class OverlayManager {
             float scale = (float) OverlayConfig.scale();
             int scaledWidth = (int) (mc.getWindow().getGuiScaledWidth() / scale);
             int scaledHeight = (int) (mc.getWindow().getGuiScaledHeight() / scale);
+            PoseStack matrix = guiGraphics.pose();
 
             matrix.pushPose();
             matrix.scale(scale, scale, scale);
 
             for (final Info line : this.lines) {
-                line.renderText(matrix, mc, pos, scaledWidth, scaledHeight);
+                line.renderText(guiGraphics, mc, pos, scaledWidth, scaledHeight);
             }
 
             if (OverlayConfig.showCompass()) {
-                hudCompass.renderText(matrix, mc, scaledWidth, scaledHeight, partialTicks);
+                hudCompass.renderText(guiGraphics, mc, scaledWidth, scaledHeight, partialTicks);
             }
 
             matrix.popPose();

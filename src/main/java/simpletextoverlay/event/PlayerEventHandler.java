@@ -33,12 +33,12 @@ public class PlayerEventHandler {
     public static void onEntityJoinLevel(EntityJoinLevelEvent event) {
         Player player = event.getEntity() instanceof Player ? (Player) event.getEntity() : null;
 
-        if (player != null && !player.level.isClientSide) {
+        if (player != null && !player.level().isClientSide) {
             ServerPlayer sp = (ServerPlayer) player;
 
             player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
                 ResourceKey<Level> worldKey = sp.getRespawnDimension();
-                BlockPos spawnPos = sp.getLevel().getSharedSpawnPos();
+                BlockPos spawnPos = sp.level().getSharedSpawnPos();
 
                 if (worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
                     PointPin spawnPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
@@ -64,7 +64,7 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        if (!event.getEntity().level.isClientSide) {
+        if (!event.getEntity().level().isClientSide) {
             final Player player = event.getEntity();
             final ResourceKey<Level> worldKey = event.getTo();
 
@@ -81,11 +81,11 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerSetSpawn(PlayerSetSpawnEvent event) {
-        if (!event.getEntity().level.isClientSide) {
+        if (!event.getEntity().level().isClientSide) {
             final Player player = event.getEntity();
 
             player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
-                ResourceKey<Level> worldKey = player.level.dimension();
+                ResourceKey<Level> worldKey = player.level().dimension();
                 BlockPos respawnPos = event.getNewSpawn();
                 PointPin bedPin = PinHelper.getPointPin(pinsData, worldKey, respawnPos, BEDSPAWN);
 
@@ -106,12 +106,12 @@ public class PlayerEventHandler {
 
         ServerPlayer sp = (ServerPlayer) entity;
 
-        if (sp.level.isClientSide) {
+        if (sp.level().isClientSide) {
             return;
         }
 
         sp.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
-            ResourceKey<Level> worldKey = sp.level.dimension();
+            ResourceKey<Level> worldKey = sp.level().dimension();
             BlockPos deathPos = new BlockPos((int) sp.getX(), (int) sp.getY(), (int) sp.getZ());
 
             lastDeath = PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH);

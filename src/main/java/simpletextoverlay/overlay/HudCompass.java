@@ -1,10 +1,10 @@
 package simpletextoverlay.overlay;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import java.util.Map;
 
-import net.minecraft.client.gui.GuiComponent;
+import com.mojang.blaze3d.vertex.PoseStack;
+
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -18,13 +18,9 @@ import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
 import simpletextoverlay.util.VecMath;
 
-import javax.annotation.Nullable;
+public class HudCompass {
 
-public class HudCompass extends GuiComponent {
-
-    public HudCompass() {}
-
-    public void renderText(PoseStack matrix, Minecraft mc, int scaledWidth, int scaledHeight, float _partialTicks) {
+    public void renderText(GuiGraphics guiGraphics, Minecraft mc, int scaledWidth, int scaledHeight, float _partialTicks) {
         final Player player = mc.player;
 
         if (player == null) {
@@ -45,47 +41,48 @@ public class HudCompass extends GuiComponent {
 
         final int bgColor = ColorHelper.rgb(0, 0, 0, OverlayConfig.getCompassOpacity());
 
-        fill(matrix, x - 92, y - 1, x + 96, mc.font.lineHeight + 2, bgColor);
+        guiGraphics.fill(x - 92, y - 1, x + 96, mc.font.lineHeight + 2, bgColor);
 
-        drawCardinal(mc, matrix, yaw, 0, x, y, "S");
-        drawCardinal(mc, matrix, yaw, 90, x, y, "W");
-        drawCardinal(mc, matrix, yaw, 180, x, y, "N");
-        drawCardinal(mc, matrix, yaw, 270, x, y, "E");
+        drawCardinal(mc, guiGraphics, yaw, 0, x, y, "S");
+        drawCardinal(mc, guiGraphics, yaw, 90, x, y, "W");
+        drawCardinal(mc, guiGraphics, yaw, 180, x, y, "N");
+        drawCardinal(mc, guiGraphics, yaw, 270, x, y, "E");
 
-        FontHelper.draw(mc, matrix, compassText, x, y, ColorHelper.decode("#b02e26").getRGB(), false);
+        FontHelper.draw(mc, guiGraphics, compassText, x, y, ColorHelper.decode("#b02e26").getRGB(), false);
 
         player.getCapability(DataManager.INSTANCE).ifPresent(pinsData -> {
-            final Map<String, PinInfo<?>> pins = pinsData.get(player.level).getPins();
+            final Map<String, PinInfo<?>> pins = pinsData.get(player.level()).getPins();
             float offset = 0.5F;
 
             if (pins.get("bedspawn") != null) {
                 final PinInfo<?> bedSpawn = pins.get("bedspawn");
                 final Vec2 bedSpawnAngle = VecMath.angleFromPos(bedSpawn.getPosition(), posX, posY, posZ);
 
-                drawInfo(mc, matrix, yaw, bedSpawnAngle.x, x, y + 3, bedSpawnText, 0.5F, offset, ColorHelper.decode("#9c9d97").getRGB());
+                drawInfo(mc, guiGraphics, yaw, bedSpawnAngle.x, x, y + 3, bedSpawnText, 0.5F, offset, ColorHelper.decode("#9c9d97").getRGB());
             }
 
             if (pins.get("lastdeath") != null) {
                 final PinInfo<?> lastDeath = pins.get("lastdeath");
                 final Vec2 lastDeathAngle = VecMath.angleFromPos(lastDeath.getPosition(), posX, posY, posZ);
 
-                drawInfo(mc, matrix, yaw, lastDeathAngle.x, x, y, lastDeathText, 0.5F, offset, ColorHelper.decode("#b02e26").getRGB());
+                drawInfo(mc, guiGraphics, yaw, lastDeathAngle.x, x, y, lastDeathText, 0.5F, offset, ColorHelper.decode("#b02e26").getRGB());
             }
 
             if (pins.get("worldspawn") != null) {
                 final PinInfo<?> worldSpawn = pins.get("worldspawn");
                 final Vec2 worldSpawnAngle = VecMath.angleFromPos(worldSpawn.getPosition(), posX, posY, posZ);
 
-                drawInfo(mc, matrix, yaw, worldSpawnAngle.x, x, y, worldSpawnText, 1.0F, offset, ColorHelper.decode("#5d7c15").getRGB());
+                drawInfo(mc, guiGraphics, yaw, worldSpawnAngle.x, x, y, worldSpawnText, 1.0F, offset, ColorHelper.decode("#5d7c15").getRGB());
             }
         });
     }
 
-    private void drawCardinal(Minecraft mc, PoseStack matrix, float yaw, float angle, int x, int y, String text) {
-        drawInfo(mc, matrix, yaw, angle, x, y, text, 1.0F, 1.0F, ColorHelper.decode("#FFFFFF").getRGB());
+    private void drawCardinal(Minecraft mc, GuiGraphics guiGraphics, float yaw, float angle, int x, int y, String text) {
+        drawInfo(mc, guiGraphics, yaw, angle, x, y, text, 1.0F, 1.0F, ColorHelper.decode("#FFFFFF").getRGB());
     }
 
-    private void drawInfo(Minecraft mc, PoseStack matrix, float yaw, float angle, int x, int y, String text, float size, float offset, int color) {
+    private void drawInfo(Minecraft mc, GuiGraphics guiGraphics, float yaw, float angle, int x, int y, String text, float size, float offset, int color) {
+        PoseStack matrix = guiGraphics.pose();
         int aDist = (int)VecMath.angleDistance(yaw, angle);
         float scale = (float) OverlayConfig.scale();
         float resize = 1 / size;
@@ -107,7 +104,7 @@ public class HudCompass extends GuiComponent {
                 matrix.scale(size, size, size);
             }
 
-            FontHelper.draw(mc, matrix, text, xPos, yPos, color);
+            FontHelper.draw(mc, guiGraphics, text, xPos, yPos, color);
 
             if (size != 1.0) {
                 matrix.popPose();

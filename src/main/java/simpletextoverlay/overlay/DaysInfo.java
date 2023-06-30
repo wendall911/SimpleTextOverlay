@@ -3,9 +3,8 @@ package simpletextoverlay.overlay;
 import java.util.Locale;
 import java.util.Objects;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 
 import simpletextoverlay.config.OverlayConfig;
@@ -19,7 +18,7 @@ public class DaysInfo extends Info {
     }
 
     @Override
-    public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+    public void renderText(GuiGraphics matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
         String numberDays = String.format(Locale.ENGLISH, "%d", Math.max(Objects.requireNonNull(mc.level).getDayTime() / 24000, 1));
 
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label + numberDays));

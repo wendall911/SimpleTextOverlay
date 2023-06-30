@@ -1,8 +1,7 @@
 package simpletextoverlay.overlay;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 
 public abstract class Info {
@@ -15,6 +14,6 @@ public abstract class Info {
         this.lineNum = lineNum;
     }
 
-    public abstract void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight);
+    public abstract void renderText(GuiGraphics matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight);
 
 }

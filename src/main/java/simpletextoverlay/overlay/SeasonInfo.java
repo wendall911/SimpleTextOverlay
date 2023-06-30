@@ -3,6 +3,7 @@ package simpletextoverlay.overlay;
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 
@@ -23,7 +24,9 @@ public class SeasonInfo extends Info {
     }
 
     @Override
-    public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+    public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+        PoseStack matrix = guiGraphics.pose();
+
         if (ServerConfig.isDimensionWhitelisted(mc.level.dimension())) {
             SubSeason subSeason = SeasonHelper.getSeasonState(mc.level).getSubSeason();
 
@@ -32,7 +35,7 @@ public class SeasonInfo extends Info {
             int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(seasonName));
             int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-            FontHelper.draw(mc, matrix, seasonName, x, y, ColorHelper.getSeasonColor(subSeason));
+            FontHelper.draw(mc, guiGraphics, seasonName, x, y, ColorHelper.getSeasonColor(subSeason));
         }
     }
 

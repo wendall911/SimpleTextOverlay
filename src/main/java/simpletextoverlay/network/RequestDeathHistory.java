@@ -7,6 +7,7 @@ import de.maxhenkel.corpse.corelib.death.Death;
 import de.maxhenkel.corpse.corelib.death.DeathManager;
 
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 import net.minecraftforge.network.NetworkEvent;
@@ -36,7 +37,7 @@ public class RequestDeathHistory implements IData {
     }
 
     public static void sendDeathHistory(ServerPlayer sp) {
-        List<Death> deaths = DeathManager.getDeaths(sp.getLevel(), sp.getUUID());
+        List<Death> deaths = DeathManager.getDeaths((ServerLevel) sp.level(), sp.getUUID());
 
         if (deaths != null) {
             NetworkManager.INSTANCE.send(

@@ -1,11 +1,12 @@
 package simpletextoverlay.overlay;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import java.util.Locale;
 import java.util.Objects;
 
+import com.mojang.blaze3d.vertex.PoseStack;
+
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 
 import simpletextoverlay.config.OverlayConfig;
@@ -20,8 +21,9 @@ public class TimeInfo extends Info {
     }
 
     @Override
-    public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        long time = Objects.requireNonNull(mc.getCameraEntity()).getLevel().getDayTime();
+    public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+        PoseStack matrix = guiGraphics.pose();
+        long time = Objects.requireNonNull(mc.getCameraEntity()).level().getDayTime();
         long hour = (time / 1000 + 6) % 24;
         long ampmHour = hour;
         long minute = (time % 1000) * 60 / 1000;
@@ -45,11 +47,11 @@ public class TimeInfo extends Info {
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label + formattedTime));
         int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+        FontHelper.draw(mc, guiGraphics, super.label, x, y, OverlayConfig.labelColor().getRGB());
 
         x = x + mc.font.width(super.label);
 
-        FontHelper.draw(mc, matrix, formattedTime, x, y, ColorHelper.getTimeColor(hour, minute));
+        FontHelper.draw(mc, guiGraphics, formattedTime, x, y, ColorHelper.getTimeColor(hour, minute));
     }
 
 }

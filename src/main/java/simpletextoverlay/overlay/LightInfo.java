@@ -1,8 +1,7 @@
 package simpletextoverlay.overlay;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
@@ -22,8 +21,8 @@ public class LightInfo extends Info {
     }
 
     @Override
-    public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        Level level = Objects.requireNonNull(mc.getCameraEntity()).getLevel();
+    public void renderText(GuiGraphics matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+        Level level = Objects.requireNonNull(mc.getCameraEntity()).level();
         int brightnessVal;
         int skyLight;
 

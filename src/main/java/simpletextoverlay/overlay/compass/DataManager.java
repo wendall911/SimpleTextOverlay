@@ -180,11 +180,11 @@ public class DataManager {
 
     public Pins get(ResourceKey<Level> worldKey, @Nullable ResourceKey<DimensionType> dimensionTypeKey) {
         return getInternal(worldKey, () -> {
-            if (player.level.dimension() == worldKey) {
-                return getDimensionTypeKey(player.level, dimensionTypeKey);
+            if (player.level().dimension() == worldKey) {
+                return getDimensionTypeKey(player.level(), dimensionTypeKey);
             }
 
-            MinecraftServer server = player.level.getServer();
+            MinecraftServer server = player.level().getServer();
             if (server == null) {
                 return dimensionTypeKey;
             }
