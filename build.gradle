@@ -112,7 +112,7 @@ def updates = tasks.register("generateUpdates", Copy) {
 
     it.from("./files/templates/") {
         include 'updates.json'
-        expand 'mod_version': mod_version
+        expand 'version': version
     }
 
     it.into 'files/'
