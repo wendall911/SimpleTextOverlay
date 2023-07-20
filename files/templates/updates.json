@@ -1,11 +1,7 @@
 {
   "homepage": "https://minecraft.curseforge.com/projects/simpletextoverlay",
   "promos": {
-    "1.19-latest": "${mod_version}",
-    "1.19-recommended": "${mod_version}",
-    "1.19.1-latest": "${mod_version}",
-    "1.19.1-recommended": "${mod_version}",
-    "1.19.2-latest": "${mod_version}",
-    "1.19.2-recommended": "${mod_version}"
+    "${minecraft_version}-latest": "${version}",
+    "${minecraft_version}-recommended": "${version}"
   }
 }
