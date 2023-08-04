@@ -3,6 +3,7 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'org.spongepowered.mixin' version '0.7.+'
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8'
     id 'com.modrinth.minotaur' version '2.+'
@@ -18,10 +19,14 @@ repositories {
     }
 }
 
-group = 'com.github.wendall911.simpletextoverlay'
-version = "${minecraft_version}-${mod_version}"
 archivesBaseName = "${mod_name}"
-def modid = "${modid}"
+version = "${minecraft_version}-${mod_version}"
+
+mixin {
+    add sourceSets.main, "${mod_id}-refmap.json"
+
+    config "${mod_id}.mixins.json"
+}
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '17'
 
@@ -31,6 +36,9 @@ minecraft {
     runs {
         client {
             workingDirectory project.file("run").canonicalPath
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            args "-mixin.config=${mod_id}.mixins.json"
 
             mods {
                 simpletextoverlay {
@@ -43,6 +51,7 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_version}")
     implementation fg.deobf("curse.maven:corpse-316582:${corpse_version}")
@@ -62,11 +71,12 @@ jar {
     }
 }
 
-def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
-def replaceProperties = [ 'version': version,
-    'minecraft_version_range': minecraft_version_range,
-    'forge_version_range': forge_version_range,
-    "loader_version_range": loader_version_range
+def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', '*.mixins.json']
+def replaceProperties = [
+    'version': version, 'forge_mc_version_range': forge_mc_version_range, 'forge_version_range': forge_version_range,
+    'license': license, 'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
+    'mod_name': mod_name, 'issue_tracker': issue_tracker, 'mod_credits': mod_credits,
+    'loader_version_range': loader_version_range, 'mod_update_branch': mod_update_branch
 ]
 
 processResources {
@@ -118,7 +128,7 @@ task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
     templateContent = file('files/templates/changelog.mustache').getText('UTF-8');
     fromRepo = file("$projectDir");
     toRef = "HEAD";
-    fromRef = "${last_mod_version}";
+    fromRef = "${minecraft_version}-${last_mod_version}";
 }
 
 tasks.build.dependsOn('changelog', 'generateUpdates')
@@ -160,8 +170,6 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
     }
 }
 
-tasks.curseforge.dependsOn build
-
 modrinth {
     if (project.hasProperty('stoModrinthId')) {
         token = project.modrinthKey
@@ -179,5 +187,3 @@ modrinth {
         }
     }
 }
-
-tasks.modrinth.dependsOn build
