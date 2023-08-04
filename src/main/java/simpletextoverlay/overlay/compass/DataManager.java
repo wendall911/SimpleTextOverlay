@@ -1,9 +1,8 @@
 package simpletextoverlay.overlay.compass;
 
-import com.google.common.collect.Maps;
-
 import static io.netty.buffer.Unpooled.wrappedBuffer;
 
+import java.util.HashMap;
 import java.util.function.Supplier;
 import java.util.Map;
 import java.util.Objects;
@@ -32,7 +31,6 @@ import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.PacketDistributor;
 
 import simpletextoverlay.network.NetworkManager;
@@ -41,12 +39,12 @@ import simpletextoverlay.SimpleTextOverlay;
 
 public class DataManager {
 
-    public static Capability<DataManager> INSTANCE = CapabilityManager.get(new CapabilityToken<>(){});
+    public static final Capability<DataManager> INSTANCE = CapabilityManager.get(new CapabilityToken<>(){});
 
     private static final ResourceLocation PROVIDER = new ResourceLocation(SimpleTextOverlay.MODID, "sto_provider");
     private Player player;
-    private final Map<ResourceKey<Level>, Pins> worldPins = Maps.newHashMap();
-    private final Map<String, Object> pinData = Maps.newHashMap();
+    private final Map<ResourceKey<Level>, Pins> worldPins = new HashMap<>();
+    private final Map<String, Object> pinData = new HashMap<>();
 
     public DataManager() {}
 
@@ -226,7 +224,7 @@ public class DataManager {
 
         @Nullable
         private final ResourceKey<DimensionType> dimensionTypeKey;
-        private final Map<String, PinInfo<?>> pins = Maps.newHashMap();
+        private final Map<String, PinInfo<?>> pins = new HashMap<>();
 
         public Pins(@Nullable ResourceKey<DimensionType> dimensionTypeKey) {
             this.dimensionTypeKey = dimensionTypeKey;
