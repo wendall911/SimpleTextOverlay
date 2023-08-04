@@ -18,6 +18,10 @@ import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
 import simpletextoverlay.util.VecMath;
 
+import static simpletextoverlay.event.PlayerEventHandler.BEDSPAWN;
+import static simpletextoverlay.event.PlayerEventHandler.LASTDEATH;
+import static simpletextoverlay.event.PlayerEventHandler.WORLDSPAWN;
+
 public class HudCompass {
 
     public void renderText(GuiGraphics guiGraphics, Minecraft mc, int scaledWidth, int scaledHeight, float _partialTicks) {
@@ -53,23 +57,24 @@ public class HudCompass {
         player.getCapability(DataManager.INSTANCE).ifPresent(pinsData -> {
             final Map<String, PinInfo<?>> pins = pinsData.get(player.level()).getPins();
             float offset = 0.5F;
+            final PinInfo<?> bedSpawn = pins.get(BEDSPAWN);
+            final PinInfo<?> lastDeath = pins.get(LASTDEATH);
+            final PinInfo<?> worldSpawn = pins.get(WORLDSPAWN);
 
-            if (pins.get("bedspawn") != null) {
-                final PinInfo<?> bedSpawn = pins.get("bedspawn");
+            if (bedSpawn != null) {
+
                 final Vec2 bedSpawnAngle = VecMath.angleFromPos(bedSpawn.getPosition(), posX, posY, posZ);
 
                 drawInfo(mc, guiGraphics, yaw, bedSpawnAngle.x, x, y + 3, bedSpawnText, 0.5F, offset, ColorHelper.decode("#9c9d97").getRGB());
             }
 
-            if (pins.get("lastdeath") != null) {
-                final PinInfo<?> lastDeath = pins.get("lastdeath");
+            if (lastDeath != null) {
                 final Vec2 lastDeathAngle = VecMath.angleFromPos(lastDeath.getPosition(), posX, posY, posZ);
 
                 drawInfo(mc, guiGraphics, yaw, lastDeathAngle.x, x, y, lastDeathText, 0.5F, offset, ColorHelper.decode("#b02e26").getRGB());
             }
 
-            if (pins.get("worldspawn") != null) {
-                final PinInfo<?> worldSpawn = pins.get("worldspawn");
+            if (worldSpawn != null) {
                 final Vec2 worldSpawnAngle = VecMath.angleFromPos(worldSpawn.getPosition(), posX, posY, posZ);
 
                 drawInfo(mc, guiGraphics, yaw, worldSpawnAngle.x, x, y, worldSpawnText, 1.0F, offset, ColorHelper.decode("#5d7c15").getRGB());

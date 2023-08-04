@@ -1,17 +1,16 @@
 modLoader="javafml"
 loaderVersion="${loader_version_range}"
-issueTrackerURL="https://github.com/wendall911/SimpleTextOverlay/issues"
-license="MIT"
+issueTrackerURL="${issue_tracker}"
+license="${license}"
 
 [[mods]]
-  modId="simpletextoverlay"
-  displayName="Simple Text Overlay"
-  description="Display extra information on top of your in-game screen."
+  modId="${mod_id}"
+  displayName="${mod_name}"
+  description="${mod_description}"
   version="${version}"
-  displayURL="https://github.com/wendall911/SimpleTextOverlay"
-  updateJSONURL="https://raw.githubusercontent.com/wendall911/SimpleTextOverlay/1.19/files/updates.json"
-  authors="wendall911"
-  credits="DaftPVF, bspkrs, Lunatrius, ashar42"
+  updateJSONURL="https://raw.githubusercontent.com/wendall911/SimpleTextOverlay/${mod_update_branch}/files/updates.json"
+  authors="${mod_author}"
+  credits="${mod_credits}"
   logoFile="logo.png"
   itemIcon="minecraft:compass"
 
@@ -24,6 +23,6 @@ license="MIT"
 [[dependencies.simpletextoverlay]]
     modId="minecraft"
     mandatory=true
-    versionRange="${minecraft_version_range}"
+    versionRange="${forge_mc_version_range}"
     ordering="NONE"
     side="BOTH"
