@@ -8,10 +8,7 @@ import net.minecraft.resources.ResourceLocation;
 
 import net.minecraftforge.registries.IForgeRegistry;
 
-import simpletextoverlay.overlay.compass.PinInfo;
-import simpletextoverlay.overlay.compass.PinInfoType;
 import simpletextoverlay.proxy.CommonProxy;
-import simpletextoverlay.SimpleTextOverlay;
 
 public class PinInfoRegistry {
 

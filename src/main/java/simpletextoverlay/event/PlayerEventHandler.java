@@ -1,5 +1,8 @@
 package simpletextoverlay.event;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
@@ -11,7 +14,6 @@ import net.minecraft.world.level.Level;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.entity.player.PlayerSetSpawnEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -23,11 +25,11 @@ import simpletextoverlay.util.PinHelper.PointPin;
 @Mod.EventBusSubscriber(modid=SimpleTextOverlay.MODID)
 public class PlayerEventHandler {
 
-    private static final String BEDSPAWN = "bedspawn";
-    private static final String LASTDEATH = "lastdeath";
-    private static final String WORLDSPAWN = "worldspawn";
-    
-    private static PointPin lastDeath;
+    public static final String BEDSPAWN = "bedspawn";
+    public static final String LASTDEATH = "lastdeath";
+    public static final String WORLDSPAWN = "worldspawn";
+
+    public static final Map<ResourceKey<Level>, Map<String, PointPin>> PINS_CACHE = new HashMap<>();
 
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
@@ -36,27 +38,37 @@ public class PlayerEventHandler {
         if (player != null && !player.level.isClientSide) {
             ServerPlayer sp = (ServerPlayer) player;
 
-            player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
+            sp.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
                 ResourceKey<Level> worldKey = sp.getRespawnDimension();
                 BlockPos spawnPos = sp.getLevel().getSharedSpawnPos();
+                Map<String, PointPin> cachedPins = PINS_CACHE.computeIfAbsent(worldKey, k -> new HashMap<>());
 
-                if (worldKey.location().toString().contains(DimensionType.OVERWORLD_EFFECTS.toString())) {
-                    PointPin spawnPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
+                PointPin spawnPin = cachedPins.get(WORLDSPAWN);
+                PointPin bedPin = cachedPins.get(BEDSPAWN);
+                PointPin lastDeathPin = cachedPins.get(LASTDEATH);
+
+                if (spawnPin != null && spawnPin.pin != null) {
+                    PinHelper.setPointPin(pinsData, spawnPin);
+                }
+                else if (worldKey.location().toString().contains(DimensionType.OVERWORLD_EFFECTS.toString())) {
+                    spawnPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
+                    cachedPins.put(WORLDSPAWN, spawnPin);
 
                     PinHelper.setPointPin(pinsData, spawnPin);
                 }
 
-                if (lastDeath != null) {
-                    if (lastDeath.pin != null) {
-                        PinHelper.setPointPin(pinsData, lastDeath);
-                        lastDeath.pin = null;
-                    }
+                if (bedPin != null && bedPin.pin != null) {
+                    PinHelper.setPointPin(pinsData, bedPin);
+                }
+                else if (sp.getRespawnPosition() != null) {
+                    bedPin = PinHelper.getPointPin(pinsData, worldKey, sp.getRespawnPosition(), BEDSPAWN);
+                    cachedPins.put(BEDSPAWN, bedPin);
+
+                    PinHelper.setPointPin(pinsData, bedPin);
                 }
 
-                PointPin bedPin = PinHelper.getPointPin(pinsData, worldKey, sp.getRespawnPosition(), BEDSPAWN);
-
-                if (sp.getRespawnPosition() != null) {
-                    PinHelper.setPointPin(pinsData, bedPin);
+                if (lastDeathPin != null && lastDeathPin.pin != null) {
+                    PinHelper.setPointPin(pinsData, lastDeathPin);
                 }
             });
         }
@@ -72,7 +84,9 @@ public class PlayerEventHandler {
                 player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
                     BlockPos spawnPos = new BlockPos(player.getX(), player.getY(), player.getZ());
                     PointPin portalPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
+                    Map<String, PointPin> cachedPins = PINS_CACHE.get(worldKey);
 
+                    cachedPins.put(WORLDSPAWN, portalPin);
                     PinHelper.setPointPin(pinsData, portalPin);
                 });
             }
@@ -80,31 +94,12 @@ public class PlayerEventHandler {
     }
 
     @SubscribeEvent
-    public static void onPlayerSetSpawn(PlayerSetSpawnEvent event) {
-        if (!event.getPlayer().level.isClientSide) {
-            final Player player = event.getPlayer();
-
-            player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
-                ResourceKey<Level> worldKey = player.level.dimension();
-                BlockPos respawnPos = event.getNewSpawn();
-                PointPin bedPin = PinHelper.getPointPin(pinsData, worldKey, respawnPos, BEDSPAWN);
-
-                if (respawnPos != null) {
-                    PinHelper.setPointPin(pinsData, bedPin);
-                }
-            });
-        }
-    }
-
-    @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event) {
         Entity entity = event.getEntity();
 
-        if (!(entity instanceof ServerPlayer)) {
+        if (!(entity instanceof ServerPlayer sp)) {
             return;
         }
-
-        ServerPlayer sp = (ServerPlayer) entity;
 
         if (sp.level.isClientSide) {
             return;
@@ -113,8 +108,9 @@ public class PlayerEventHandler {
         sp.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
             ResourceKey<Level> worldKey = sp.level.dimension();
             BlockPos deathPos = new BlockPos(sp.getX(), sp.getY(), sp.getZ());
+            Map<String, PointPin> cachedPins = PINS_CACHE.get(worldKey);
 
-            lastDeath = PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH);
+            cachedPins.put(LASTDEATH, PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH));
         });
     }
 

@@ -2,7 +2,6 @@ package simpletextoverlay.overlay.compass;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.util.Mth;
 import net.minecraft.world.phys.Vec3;
 
 import net.minecraftforge.registries.ObjectHolder;
