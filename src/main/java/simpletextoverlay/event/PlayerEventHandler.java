@@ -83,7 +83,7 @@ public class PlayerEventHandler {
                 player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
                     BlockPos spawnPos = new BlockPos((int) player.getX(), (int) player.getY(), (int) player.getZ());
                     PointPin portalPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
-                    Map<String, PointPin> cachedPins = PINS_CACHE.get(worldKey);
+                    Map<String, PointPin> cachedPins = PINS_CACHE.computeIfAbsent(worldKey, k -> new HashMap<>());
 
                     cachedPins.put(WORLDSPAWN, portalPin);
                     PinHelper.setPointPin(pinsData, portalPin);
@@ -107,7 +107,7 @@ public class PlayerEventHandler {
         sp.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
             ResourceKey<Level> worldKey = sp.level().dimension();
             BlockPos deathPos = new BlockPos((int) sp.getX(), (int) sp.getY(), (int) sp.getZ());
-            Map<String, PointPin> cachedPins = PINS_CACHE.get(worldKey);
+            Map<String, PointPin> cachedPins = PINS_CACHE.computeIfAbsent(worldKey, k -> new HashMap<>());
 
             cachedPins.put(LASTDEATH, PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH));
         });
