@@ -1,0 +1,107 @@
+plugins {
+    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'maven-publish'
+    id 'idea'
+    id 'net.darkhax.curseforgegradle' version '1.+'
+    id 'com.modrinth.minotaur' version '2.+'
+}
+
+version = "${minecraft_version}-${mod_version}-FABRIC"
+archivesBaseName = "${mod_id}"
+
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings(loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mappings_version}@zip")
+    })
+
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+
+    modImplementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_range}"
+    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}"
+
+    modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
+        transitive = false
+    }
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    implementation project(":Common")
+}
+
+loom {
+    runs {
+        client {
+            client()
+            setConfigName("Fabric Client")
+            ideConfigGenerated(true)
+            runDir("run")
+        }
+    }
+}
+
+processResources {
+    from project(":Common").sourceSets.main.resources
+    inputs.property "version", project.version
+    duplicatesStrategy(DuplicatesStrategy.FAIL)
+
+    filesMatching("fabric.mod.json") {
+        expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
+                'mod_id': project.mod_id, 'mod_author': project.mod_author, 'mod_description': project.mod_description,
+                'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker
+    }
+
+    filesMatching("pack.mcmeta") {
+        expand 'mod_name': project.mod_name
+    }
+
+    filesMatching('*.mixins.json') {
+        expand "mod_id": "${archivesBaseName}"
+    }
+}
+
+tasks.withType(JavaCompile) {
+    source(project(":Common").sourceSets.main.allSource)
+}
+
+publishing {
+    repositories {
+        maven {
+            url "file://" + System.getenv("local_maven")
+        }
+    }
+}
+
+def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
+
+task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+    if (project.hasProperty('stocurseApiKey')) {
+        apiToken = project.stocurseApiKey
+        def mainFile = upload(project.stocurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
+        mainFile.changelog = file(changelogFile)
+        mainFile.addJavaVersion('Java 17')
+        mainFile.addModLoader('Fabric')
+        mainFile.releaseType = "${release_type}"
+        "${release_versions}".split(',').each {
+            mainFile.addGameVersion("${it}")
+        }
+        mainFile.addRequirement('fabric-api')
+    }
+}
+
+modrinth {
+    if (project.hasProperty('stoModrinthId')) {
+        token = project.modrinthKey
+        projectId = project.stoModrinthId
+        version = getVersion()
+        versionType = "${release_type}"
+        if (file(changelogFile).exists()) {
+            changelog = file(changelogFile).text
+        }
+        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
+        gameVersions = "${release_versions}".split(",") as List<String>
+        dependencies {
+            required.project "fabric-api"
+        }
+    }
+}
