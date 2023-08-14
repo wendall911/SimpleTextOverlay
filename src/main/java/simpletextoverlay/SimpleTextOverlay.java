@@ -1,25 +1,27 @@
 package simpletextoverlay;
 
-import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import net.minecraftforge.fml.DistExecutor;
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import simpletextoverlay.proxy.ClientProxy;
 import simpletextoverlay.proxy.CommonProxy;
 
 @Mod(SimpleTextOverlay.MODID)
-public class SimpleTextOverlay {
+public class SimpleTextOverlayForge {
 
-    public static final String MODID = "simpletextoverlay";
-
-    public static final Logger LOGGER = LogManager.getFormatterLogger(MODID);
     public static CommonProxy PROXY;
 
-    public SimpleTextOverlay() {
+    public SimpleTextOverlayForge() {
         PROXY = DistExecutor.safeRunForDist(() -> ClientProxy::new, () -> CommonProxy::new);
         PROXY.start();
+    }
+
+    private void setup(final FMLCommonSetupEvent event) {
+        //MinecraftForge.EVENT_BUS.register(ServerEventListener.class);
+        DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> SimpleTextOverlayClientForge::new);
     }
 
 }
