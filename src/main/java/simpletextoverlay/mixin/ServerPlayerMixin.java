@@ -1,6 +1,6 @@
 package simpletextoverlay.mixin;
 
-import java.util.Map;
+import java.util.HashMap;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import simpletextoverlay.overlay.compass.DataManager;
+import simpletextoverlay.capabilities.CapabilityRegistry;
 import simpletextoverlay.util.PinHelper;
 
 import static simpletextoverlay.event.PlayerEventHandler.BEDSPAWN;
@@ -26,11 +26,10 @@ public abstract class ServerPlayerMixin {
         if (hasMessage && respawnPos != null) {
             ServerPlayer player = (ServerPlayer) (Object) this;
 
-            player.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
+            player.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent((pinsData) -> {
                 PinHelper.PointPin bedPin = PinHelper.getPointPin(pinsData, worldKey, respawnPos, BEDSPAWN);
-                Map<String, PinHelper.PointPin> cachedPins = PINS_CACHE.get(worldKey);
 
-                cachedPins.put(BEDSPAWN, bedPin);
+                PINS_CACHE.computeIfAbsent(worldKey, k -> new HashMap<>()).put(BEDSPAWN, bedPin);
                 PinHelper.setPointPin(pinsData, bedPin);
             });
         }

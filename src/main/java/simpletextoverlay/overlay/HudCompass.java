@@ -10,8 +10,8 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec2;
 
+import simpletextoverlay.capabilities.CapabilityRegistry;
 import simpletextoverlay.config.OverlayConfig;
-import simpletextoverlay.overlay.compass.DataManager;
 import simpletextoverlay.overlay.compass.PinInfo;
 import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.ColorHelper;
@@ -56,7 +56,7 @@ public class HudCompass extends GuiComponent {
 
         FontHelper.draw(mc, matrix, compassText, x, y, ColorHelper.decode("#b02e26").getRGB(), false);
 
-        player.getCapability(DataManager.INSTANCE).ifPresent(pinsData -> {
+        player.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent(pinsData -> {
             final Map<String, PinInfo<?>> pins = pinsData.get(player.level).getPins();
             float offset = 0.5F;
             final PinInfo<?> bedSpawn = pins.get(BEDSPAWN);
