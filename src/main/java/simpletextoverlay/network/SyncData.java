@@ -4,10 +4,9 @@ import java.util.function.Supplier;
 
 import io.netty.buffer.Unpooled;
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -39,7 +38,7 @@ public class SyncData implements IData {
 
     public void process(Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-            LocalPlayer player = Minecraft.getInstance().player;
+            ServerPlayer player = ctx.get().getSender();
 
             if (player != null) {
                 ctx.get().enqueueWork(() -> player.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent(data -> {
