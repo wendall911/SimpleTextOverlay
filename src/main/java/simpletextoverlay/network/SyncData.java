@@ -4,11 +4,14 @@ import java.util.function.Supplier;
 
 import io.netty.buffer.Unpooled;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.player.LocalPlayer;
 import net.minecraft.network.FriendlyByteBuf;
 
+import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
-import simpletextoverlay.client.DataHandler;
+import simpletextoverlay.capabilities.CapabilityRegistry;
 import simpletextoverlay.overlay.compass.DataManager;
 
 public class SyncData {
@@ -19,10 +22,10 @@ public class SyncData {
         bytes = buffer.readByteArray();
     }
 
-    public SyncData(DataManager data) {
+    public SyncData() {
         FriendlyByteBuf tmp = new FriendlyByteBuf(Unpooled.buffer());
 
-        data.write(tmp);
+        DataManager.write(tmp);
 
         bytes = new byte[tmp.readableBytes()];
 
@@ -34,8 +37,15 @@ public class SyncData {
     }
 
     public boolean handle(Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> DataHandler.handleSync(bytes));
+        if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
+            LocalPlayer player = Minecraft.getInstance().player;
 
+            if (player != null) {
+                ctx.get().enqueueWork(() -> player.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent(data -> {
+                    DataManager.handleSync(player, bytes);
+                }));
+            }
+        }
         return true;
     }
 

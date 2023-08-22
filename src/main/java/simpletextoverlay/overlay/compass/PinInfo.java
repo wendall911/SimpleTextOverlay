@@ -1,14 +1,8 @@
 package simpletextoverlay.overlay.compass;
 
-import javax.annotation.Nullable;
-
-import net.minecraft.core.BlockPos;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
-
-import simpletextoverlay.overlay.compass.DataManager;
-import simpletextoverlay.overlay.compass.PinInfoType;
 
 public abstract class PinInfo<T extends PinInfo<T>> {
 

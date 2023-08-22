@@ -6,7 +6,6 @@ import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
-import simpletextoverlay.network.SyncData;
 import simpletextoverlay.SimpleTextOverlay;
 
 public class NetworkManager {

@@ -5,17 +5,12 @@ import java.util.function.Supplier;
 import net.minecraft.core.Registry;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLConstructModEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
@@ -24,7 +19,6 @@ import net.minecraftforge.registries.RegistryBuilder;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.network.NetworkManager;
-import simpletextoverlay.overlay.compass.DataManager;
 import simpletextoverlay.overlay.compass.Pin;
 import simpletextoverlay.overlay.compass.PinInfoType;
 import simpletextoverlay.SimpleTextOverlay;
@@ -65,7 +59,6 @@ public class CommonProxy {
         @SubscribeEvent
         public static void setup(FMLCommonSetupEvent event) {
             NetworkManager.setup();
-            MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, DataManager::attachCapabilities);
         }
 
     }
