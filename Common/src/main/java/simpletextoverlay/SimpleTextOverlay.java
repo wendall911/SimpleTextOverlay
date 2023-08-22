@@ -2,6 +2,7 @@ package simpletextoverlay;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import simpletextoverlay.registry.PinInfoRegistry;
 
 public class SimpleTextOverlay {
 
@@ -10,7 +11,7 @@ public class SimpleTextOverlay {
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 
     public static void init() {
-        // Initialize Pins Registry
+        PinInfoRegistry.init();
     }
 
     public static void initConfig() {
