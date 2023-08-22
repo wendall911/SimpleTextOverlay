@@ -6,7 +6,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.entity.Entity;
 
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -18,7 +17,6 @@ import net.minecraftforge.registries.*;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.network.NetworkManager;
-import simpletextoverlay.overlay.compass.DataManager;
 import simpletextoverlay.overlay.compass.Pin;
 import simpletextoverlay.overlay.compass.PinInfoType;
 import simpletextoverlay.SimpleTextOverlay;
@@ -54,7 +52,6 @@ public class CommonProxy {
         @SubscribeEvent
         public static void setup(FMLCommonSetupEvent event) {
             NetworkManager.init();
-            MinecraftForge.EVENT_BUS.addGenericListener(Entity.class, DataManager::attachCapabilities);
         }
 
         @SubscribeEvent
