@@ -7,8 +7,8 @@ import java.util.function.Supplier;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
@@ -18,78 +18,36 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.Level;
 
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.network.PacketDistributor;
 
-import simpletextoverlay.network.NetworkManager;
-import simpletextoverlay.network.SyncData;
-import simpletextoverlay.SimpleTextOverlay;
+import simpletextoverlay.capabilities.CapabilityRegistry;
 
 public class DataManager {
 
-    public static final Capability<DataManager> INSTANCE = CapabilityManager.get(new CapabilityToken<>(){});
-
-    private static final ResourceLocation PROVIDER = new ResourceLocation(SimpleTextOverlay.MODID, "sto_provider");
-    private Player player;
-    private final Map<ResourceKey<Level>, Pins> worldPins = new HashMap<>();
+    private static Player player;
+    private static final Map<ResourceKey<Level>, Pins> worldPins = new HashMap<>();
     private final Map<String, Object> pinData = new HashMap<>();
+    private static final DataManager INSTANCE = new DataManager();
 
     public DataManager() {}
+
+    public Map<ResourceKey<Level>, Pins> getWorldPins() {
+        return worldPins;
+    }
 
     public <T> T getOrCreatePinData(String pinId, Supplier<T> factory) {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
     }
 
-    public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        Player cPlayer = event.getObject() instanceof Player ? (Player)event.getObject() : null;
-
-        if (cPlayer != null) {
-            event.addCapability(PROVIDER, new ICapabilitySerializable<ListTag>() {
-                private final DataManager dataManager = new DataManager();
-                private final LazyOptional<DataManager> dataSupplier = LazyOptional.of(() -> dataManager);
-
-                {
-                    dataManager.setPlayer(cPlayer);
-                }
-
-                @Override
-                public ListTag serializeNBT() {
-                    return dataManager.write();
-                }
-
-
-                @Override
-                public void deserializeNBT(ListTag nbt) {
-                    dataManager.read(nbt);
-                }
-
-                @Nonnull
-                @Override
-                public <T> LazyOptional<T> getCapability(@Nonnull Capability<T> capability, @Nullable Direction side) {
-                    if (capability == INSTANCE) {
-                        return dataSupplier.cast();
-                    }
-
-                    return LazyOptional.empty();
-                }
-            });
-        }
-    }
-
     public static void handleSync(Player hPlayer, byte[] packet) {
-        hPlayer.getCapability(DataManager.INSTANCE).ifPresent(data -> {
+        hPlayer.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent(data -> {
             data.read(new FriendlyByteBuf(wrappedBuffer(packet)));
         });
     }
@@ -103,12 +61,12 @@ public class DataManager {
             ResourceKey<DimensionType> dimType = hasDimensionType
                     ? ResourceKey.create(Registries.DIMENSION_TYPE, buffer.readResourceLocation())
                     : null;
-            Pins pins = get(key, dimType);
+            Pins pins = get(INSTANCE, key, dimType);
             pins.read(buffer);
         }
     }
 
-    public void read(ListTag nbt) {
+    public static void read(DataManager instance, ListTag nbt) {
         worldPins.clear();
 
         for (int i = 0; i < nbt.size(); i++) {
@@ -120,14 +78,14 @@ public class DataManager {
                 dimType = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation(tag.getString("DimensionKey")));
             }
 
-            Pins pins = get(key, dimType);
+            Pins pins = get(instance, key, dimType);
 
             pins.read(tag.getList("PINS", Tag.TAG_COMPOUND));
         }
 
     }
 
-    public void write(FriendlyByteBuf buffer) {
+    public static void write(FriendlyByteBuf buffer) {
         buffer.writeVarInt(worldPins.size());
 
         for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.entrySet()) {
@@ -147,7 +105,7 @@ public class DataManager {
         }
     }
 
-    public ListTag write() {
+    public static ListTag write(DataManager instance) {
         ListTag list = new ListTag();
 
         for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.entrySet()) {
@@ -166,19 +124,19 @@ public class DataManager {
     }
 
     public void setPlayer(Player p) {
-        this.player = p;
+        player = p;
     }
 
     public Pins get(Level world) {
-        return getInternal(world.dimension(), () -> getDimensionTypeKey(world, null));
+        return getInternal(INSTANCE, world.dimension(), () -> getDimensionTypeKey(world, null));
     }
 
     public Pins get(ResourceKey<Level> worldKey) {
-        return get(worldKey, null);
+        return get(INSTANCE, worldKey, null);
     }
 
-    public Pins get(ResourceKey<Level> worldKey, @Nullable ResourceKey<DimensionType> dimensionTypeKey) {
-        return getInternal(worldKey, () -> {
+    public static Pins get(DataManager instance, ResourceKey<Level> worldKey, @Nullable ResourceKey<DimensionType> dimensionTypeKey) {
+        return getInternal(instance, worldKey, () -> {
             if (player.level().dimension() == worldKey) {
                 return getDimensionTypeKey(player.level(), dimensionTypeKey);
             }
@@ -197,7 +155,7 @@ public class DataManager {
         });
     }
 
-    private Pins getInternal(ResourceKey<Level> worldKey, Supplier<ResourceKey<DimensionType>> dimensionTypeKey) {
+    private static Pins getInternal(DataManager instance, ResourceKey<Level> worldKey, Supplier<ResourceKey<DimensionType>> dimensionTypeKey) {
         return worldPins.computeIfAbsent(Objects.requireNonNull(worldKey), worldKey1 -> new Pins(dimensionTypeKey.get()));
     }
 
@@ -213,14 +171,7 @@ public class DataManager {
         return ResourceKey.create(Registries.DIMENSION_TYPE, key);
     }
 
-    private void sync() {
-        NetworkManager.INSTANCE.send(
-            PacketDistributor.PLAYER.with(() -> (ServerPlayer)player),
-            new SyncData(this)
-        );
-    }
-
-    public class Pins {
+    public static class Pins {
 
         @Nullable
         private final ResourceKey<DimensionType> dimensionTypeKey;
@@ -276,8 +227,6 @@ public class DataManager {
 
         public void addPin(PinInfo<?> pin) {
             pins.put(pin.getInternalId(), pin);
-
-            sync();
         }
 
         public void removePin(PinInfo<?> pin) {
@@ -290,13 +239,46 @@ public class DataManager {
             if (pin != null) {
                 pins.remove(pin.getInternalId());
             }
-
-            sync();
         }
 
         @Nullable
         public ResourceKey<DimensionType> getDimensionTypeKey() {
             return dimensionTypeKey;
+        }
+
+    }
+
+    public static class Provider implements ICapabilitySerializable<ListTag> {
+
+        @NotNull
+        private final DataManager instance;
+
+        private final LazyOptional<DataManager> handler;
+
+        public Provider(Player player) {
+            instance = new DataManager();
+            handler = LazyOptional.of(this::getInstance);
+            instance.setPlayer(player);
+        }
+
+        public @NotNull DataManager getInstance() {
+            return instance;
+        }
+
+        @NotNull
+        @Override
+        public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+            return CapabilityRegistry.DATA_MANAGER_CAPABILITY.orEmpty(cap, handler);
+        }
+
+        @Override
+        public ListTag serializeNBT() {
+            return DataManager.write(instance);
+        }
+
+        @Override
+        public void deserializeNBT(ListTag nbt) {
+            DataManager.read(instance, nbt);
         }
 
     }

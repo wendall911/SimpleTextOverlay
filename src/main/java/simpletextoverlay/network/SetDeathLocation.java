@@ -15,8 +15,9 @@ import net.minecraft.world.level.Level;
 
 import net.minecraftforge.network.NetworkEvent;
 
+import net.minecraftforge.network.PacketDistributor;
+import simpletextoverlay.capabilities.CapabilityRegistry;
 import simpletextoverlay.event.PlayerEventHandler;
-import simpletextoverlay.overlay.compass.DataManager;
 import simpletextoverlay.util.PinHelper;
 
 public class SetDeathLocation implements IData {
@@ -54,12 +55,17 @@ public class SetDeathLocation implements IData {
     }
 
     private void setDeathLocation(ServerPlayer sp, Death death) {
-        sp.getCapability(DataManager.INSTANCE).ifPresent((pinsData) -> {
+        sp.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent((pinsData) -> {
             ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(death.getDimension()));
             BlockPos deathPos = death.getBlockPos();
             PinHelper.PointPin lastDeath = PinHelper.getPointPin(pinsData, worldKey, deathPos, PlayerEventHandler.LASTDEATH);
 
             PinHelper.setPointPin(pinsData, lastDeath);
+
+            NetworkManager.INSTANCE.send(
+                PacketDistributor.PLAYER.with(() -> sp),
+                new SyncData()
+            );
         });
     }
 
