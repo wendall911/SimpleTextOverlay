@@ -46,12 +46,6 @@ public class DataManager {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
     }
 
-    public static void handleSync(Player hPlayer, byte[] packet) {
-        hPlayer.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent(data -> {
-            data.read(new FriendlyByteBuf(Unpooled.wrappedBuffer(packet)));
-        });
-    }
-
     public void read(FriendlyByteBuf buffer) {
         int numWorlds = buffer.readVarInt();
 
