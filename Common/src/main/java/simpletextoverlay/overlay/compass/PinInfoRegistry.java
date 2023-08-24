@@ -1,20 +1,41 @@
 package simpletextoverlay.overlay.compass;
 
-import javax.annotation.Nonnull;
+import com.google.common.collect.BiMap;
+import com.google.common.collect.HashBiMap;
 
+import org.jetbrains.annotations.NotNull;
+
+import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 
-import net.minecraftforge.registries.IForgeRegistry;
-
-import simpletextoverlay.proxy.CommonProxy;
+import simpletextoverlay.registry.RegistryObject;
+import simpletextoverlay.registry.RegistryProvider;
+import simpletextoverlay.SimpleTextOverlay;
 
 public class PinInfoRegistry {
 
-    public static IForgeRegistry<PinInfoType<?>> REGISTRY = CommonProxy.PIN_INFO_TYPES_REGISTRY.get();
+    public static final BiMap<ResourceLocation, PinInfoType<?>> typesMap = HashBiMap.create();
+    public static final BiMap<Integer, PinInfoType<?>> idsMap = HashBiMap.create();
 
-    public static CompoundTag serializePin(@Nonnull PinInfo<?> pinData) {
+    public static final ResourceKey<Registry<PinInfoType<?>>> PIN_INFO_KEY = ResourceKey.createRegistryKey(new ResourceLocation(SimpleTextOverlay.MODID, "pin_info_types"));
+    public static final RegistryProvider<PinInfoType<?>> PIN_INFO_REGISTRY = RegistryProvider.get(PIN_INFO_KEY, SimpleTextOverlay.MODID, true);
+    public static final RegistryObject<PinInfoType<?>> PIN_INFO_TYPE_REGISTRY_OBJECT;
+    private static final ResourceLocation LOCATION = new ResourceLocation(SimpleTextOverlay.MODID, "pin");
+    public static PinInfoType<Pin> TYPE = new PinInfoType<>(Pin::new, LOCATION);
+
+    static {
+        PIN_INFO_TYPE_REGISTRY_OBJECT = PIN_INFO_REGISTRY.register("pin", () -> TYPE);
+
+        typesMap.put(LOCATION, PIN_INFO_TYPE_REGISTRY_OBJECT.get());
+        idsMap.put(1, PIN_INFO_TYPE_REGISTRY_OBJECT.get());
+    }
+
+    public static void init() {}
+
+    public static CompoundTag serializePin(@NotNull PinInfo<?> pinData) {
         PinInfoType<?> type = pinData.getType();
         ResourceLocation typeId = type.getName();
 
@@ -28,10 +49,10 @@ public class PinInfoRegistry {
         return pinData.write(tag);
     }
 
-    @Nonnull
+    @NotNull
     public static PinInfo<?> deserializePin(CompoundTag tag) {
         ResourceLocation typeId = new ResourceLocation(tag.getString("Type"));
-        PinInfoType<?> type = REGISTRY.getValue(typeId);
+        PinInfoType<?> type = typesMap.get(typeId);
 
         if (type == null) {
             throw new IllegalStateException(String.format("Serializer not registered %s", typeId));
@@ -45,14 +66,16 @@ public class PinInfoRegistry {
 
     public static void serializePin(PinInfo<?> pinData, FriendlyByteBuf buffer) {
         PinInfoType<?> type = pinData.getType();
+        int id = idsMap.inverse().get(type);
 
-        buffer.writeRegistryIdUnsafe(REGISTRY, type);
+        buffer.writeVarInt(id);
         pinData.writeToPacket(buffer);
     }
 
-    @Nonnull
+    @NotNull
     public static PinInfo<?> deserializePin(FriendlyByteBuf buffer) {
-        PinInfoType<?> serializer = buffer.readRegistryIdUnsafe(REGISTRY);
+        int id = buffer.readVarInt();
+        PinInfoType<?> serializer = idsMap.get(id);
 
         if (serializer == null) {
             throw new IllegalStateException("Server returned unknown serializer");

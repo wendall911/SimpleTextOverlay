@@ -4,14 +4,12 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 
-import simpletextoverlay.proxy.CommonProxy;
-
 public class Pin extends PinInfo<Pin> {
 
     private Vec3 position;
 
     public Pin() {
-        super(CommonProxy.TYPE, "none");
+        super(PinInfoRegistry.TYPE, "none");
     }
 
     public Pin(PinInfoType<? extends Pin> type, Vec3 exactPosition, String id) {

@@ -1,7 +1,5 @@
 package simpletextoverlay.overlay.compass;
 
-import static io.netty.buffer.Unpooled.wrappedBuffer;
-
 import java.util.HashMap;
 import java.util.function.Supplier;
 import java.util.Map;
