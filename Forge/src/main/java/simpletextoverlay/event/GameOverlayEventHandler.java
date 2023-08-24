@@ -6,7 +6,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -26,7 +25,6 @@ public class GameOverlayEventHandler {
 
     static {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onLoadComplete);
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onModConfigReloading);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onRegisterOverlays);
     }
 
@@ -40,15 +38,8 @@ public class GameOverlayEventHandler {
 
     public void onLoadComplete(FMLLoadCompleteEvent event) {
         enabled = true;
-        OverlayConfig.setup();
+        OverlayConfig.init();
         overlayManager.init();
-    }
-
-    public void onModConfigReloading(ModConfigEvent.Reloading event) {
-        if (enabled && event.getConfig().getSpec() == OverlayConfig.CONFIG_SPEC) {
-            OverlayConfig.setup();
-            overlayManager.init();
-        }
     }
 
     public void onRegisterOverlays(RegisterGuiOverlaysEvent event) {
