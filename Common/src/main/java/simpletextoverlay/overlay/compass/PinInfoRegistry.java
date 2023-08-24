@@ -29,8 +29,8 @@ public class PinInfoRegistry {
     static {
         PIN_INFO_TYPE_REGISTRY_OBJECT = PIN_INFO_REGISTRY.register("pin", () -> TYPE);
 
-        typesMap.put(LOCATION, PIN_INFO_TYPE_REGISTRY_OBJECT.get());
-        idsMap.put(1, PIN_INFO_TYPE_REGISTRY_OBJECT.get());
+        typesMap.put(LOCATION, TYPE);
+        idsMap.put(1, TYPE);
     }
 
     public static void init() {}

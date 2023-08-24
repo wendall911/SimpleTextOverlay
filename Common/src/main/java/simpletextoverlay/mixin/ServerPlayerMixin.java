@@ -12,11 +12,11 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import simpletextoverlay.capabilities.CapabilityRegistry;
+import simpletextoverlay.platform.Services;
 import simpletextoverlay.util.PinHelper;
 
-import static simpletextoverlay.event.PlayerEventHandler.BEDSPAWN;
-import static simpletextoverlay.event.PlayerEventHandler.PINS_CACHE;
+import static simpletextoverlay.events.SimpleTextOverlayEvents.BEDSPAWN;
+import static simpletextoverlay.events.SimpleTextOverlayEvents.PINS_CACHE;
 
 @Mixin(ServerPlayer.class)
 public abstract class ServerPlayerMixin {
@@ -24,9 +24,9 @@ public abstract class ServerPlayerMixin {
     @Inject(method = "setRespawnPosition", at = @At("HEAD"))
     private void sto$setRespawnPosition(ResourceKey<Level> worldKey, BlockPos respawnPos, float angle, boolean forced, boolean hasMessage, CallbackInfo ci) {
         if (hasMessage && respawnPos != null) {
-            ServerPlayer player = (ServerPlayer) (Object) this;
+            ServerPlayer sp = (ServerPlayer) (Object) this;
 
-            player.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent((pinsData) -> {
+            Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
                 PinHelper.PointPin bedPin = PinHelper.getPointPin(pinsData, worldKey, respawnPos, BEDSPAWN);
 
                 PINS_CACHE.computeIfAbsent(worldKey, k -> new HashMap<>()).put(BEDSPAWN, bedPin);

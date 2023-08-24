@@ -8,7 +8,6 @@ import java.util.Objects;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import net.minecraft.core.Direction;
 import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
@@ -20,12 +19,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.Level;
-
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
-
-import simpletextoverlay.capabilities.CapabilityRegistry;
 
 public class DataManager {
 
@@ -40,6 +33,7 @@ public class DataManager {
         return worldPins;
     }
 
+    @SuppressWarnings("unchecked")
     public <T> T getOrCreatePinData(String pinId, Supplier<T> factory) {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
     }
@@ -236,41 +230,6 @@ public class DataManager {
         @Nullable
         public ResourceKey<DimensionType> getDimensionTypeKey() {
             return dimensionTypeKey;
-        }
-
-    }
-
-    public static class Provider implements ICapabilitySerializable<ListTag> {
-
-        @NotNull
-        private final DataManager instance;
-
-        private final LazyOptional<DataManager> handler;
-
-        public Provider(Player player) {
-            instance = new DataManager();
-            handler = LazyOptional.of(this::getInstance);
-            instance.setPlayer(player);
-        }
-
-        public @NotNull DataManager getInstance() {
-            return instance;
-        }
-
-        @NotNull
-        @Override
-        public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-            return CapabilityRegistry.DATA_MANAGER_CAPABILITY.orEmpty(cap, handler);
-        }
-
-        @Override
-        public ListTag serializeNBT() {
-            return DataManager.write(instance);
-        }
-
-        @Override
-        public void deserializeNBT(ListTag nbt) {
-            DataManager.read(instance, nbt);
         }
 
     }
