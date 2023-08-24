@@ -19,10 +19,10 @@ public class NetworkManager {
     );
 
     public static void setup() {
-        INSTANCE.messageBuilder(SyncData.class, 0, NetworkDirection.PLAY_TO_CLIENT)
-            .encoder(SyncData::encode)
-            .decoder(SyncData::new)
-            .consumer(SyncData::handle).add();
+        INSTANCE.messageBuilder(ForgeSyncData.class, 0, NetworkDirection.PLAY_TO_CLIENT)
+            .encoder(ForgeSyncData::encode)
+            .decoder(ForgeSyncData::new)
+            .consumer(ForgeSyncData::handle).add();
     }
 
 }
