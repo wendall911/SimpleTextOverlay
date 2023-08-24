@@ -2,10 +2,10 @@ package simpletextoverlay.platform;
 
 import java.util.ServiceLoader;
 
+import simpletextoverlay.BetterDays;
 import simpletextoverlay.platform.services.IClientPlatform;
 import simpletextoverlay.platform.services.IPlatform;
 import simpletextoverlay.platform.services.IRegistryFactory;
-import simpletextoverlay.SimpleTextOverlay;
 
 public class Services {
 
@@ -18,7 +18,7 @@ public class Services {
             .findFirst()
             .orElseThrow(
                 () -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        SimpleTextOverlay.LOGGER.debug("Loaded {} for service {}", loadedService, clazz);
+        BetterDays.LOGGER.debug("Loaded {} for service {}", loadedService, clazz);
 
         return loadedService;
     }

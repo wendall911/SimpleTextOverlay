@@ -2,7 +2,8 @@ package simpletextoverlay;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import simpletextoverlay.registry.PinInfoRegistry;
+
+import simpletextoverlay.overlay.compass.PinInfoRegistry;
 
 public class SimpleTextOverlay {
 

@@ -4,8 +4,6 @@ import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.world.phys.Vec3;
 
-import net.minecraftforge.registries.ObjectHolder;
-
 public class Pin extends PinInfo<Pin> {
 
     @ObjectHolder("simpletextoverlay:pin")
@@ -14,7 +12,7 @@ public class Pin extends PinInfo<Pin> {
     private Vec3 position;
 
     public Pin() {
-        super(TYPE, "none");
+        super(PinInfoRegistry.TYPE, "none");
     }
 
     public Pin(PinInfoType<? extends Pin> type, Vec3 exactPosition, String id) {
