@@ -10,17 +10,17 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec2;
 
-import simpletextoverlay.capabilities.CapabilityRegistry;
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.compass.PinInfo;
+import simpletextoverlay.platform.Services;
 import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
 import simpletextoverlay.util.VecMath;
 
-import static simpletextoverlay.event.PlayerEventHandler.BEDSPAWN;
-import static simpletextoverlay.event.PlayerEventHandler.LASTDEATH;
-import static simpletextoverlay.event.PlayerEventHandler.WORLDSPAWN;
+import static simpletextoverlay.events.SimpleTextOverlayEvents.BEDSPAWN;
+import static simpletextoverlay.events.SimpleTextOverlayEvents.LASTDEATH;
+import static simpletextoverlay.events.SimpleTextOverlayEvents.WORLDSPAWN;
 
 public class HudCompass {
 
@@ -54,7 +54,7 @@ public class HudCompass {
 
         FontHelper.draw(mc, guiGraphics, compassText, x, y, ColorHelper.decode("#b02e26").getRGB(), false);
 
-        player.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent(pinsData -> {
+        Services.CAPABILITY_PLATFORM.getDataManagerCapability(player).ifPresent(pinsData -> {
             final Map<String, PinInfo<?>> pins = pinsData.get(player.level()).getPins();
             float offset = 0.5F;
             final PinInfo<?> bedSpawn = pins.get(BEDSPAWN);

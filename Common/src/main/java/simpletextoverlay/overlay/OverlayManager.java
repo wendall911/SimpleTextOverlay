@@ -10,9 +10,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 
-import net.minecraftforge.fml.ModList;
-
 import simpletextoverlay.config.OverlayConfig;
+import simpletextoverlay.platform.Services;
 
 public class OverlayManager {
 
@@ -47,7 +46,7 @@ public class OverlayManager {
                     lines.add(new DaysInfo(OverlayConfig.daysLabel(), lineNum));
                     break;
                 case "season":
-                    if (ModList.get().isLoaded("sereneseasons")) {
+                    if (Services.PLATFORM.isModLoaded("sereneseasons")) {
                         lines.add(new SeasonInfo("", lineNum));
                     }
                     else {

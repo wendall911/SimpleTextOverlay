@@ -14,11 +14,12 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 
 import net.minecraftforge.network.NetworkEvent;
-
 import net.minecraftforge.network.PacketDistributor;
-import simpletextoverlay.capabilities.CapabilityRegistry;
-import simpletextoverlay.event.PlayerEventHandler;
+
+import simpletextoverlay.platform.Services;
 import simpletextoverlay.util.PinHelper;
+
+import static simpletextoverlay.events.SimpleTextOverlayEvents.LASTDEATH;
 
 public class SetDeathLocation implements IData {
 
@@ -55,10 +56,10 @@ public class SetDeathLocation implements IData {
     }
 
     private void setDeathLocation(ServerPlayer sp, Death death) {
-        sp.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent((pinsData) -> {
+        Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
             ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(death.getDimension()));
             BlockPos deathPos = death.getBlockPos();
-            PinHelper.PointPin lastDeath = PinHelper.getPointPin(pinsData, worldKey, deathPos, PlayerEventHandler.LASTDEATH);
+            PinHelper.PointPin lastDeath = PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH);
 
             PinHelper.setPointPin(pinsData, lastDeath);
 

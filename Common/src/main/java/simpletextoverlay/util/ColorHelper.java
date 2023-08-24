@@ -2,8 +2,6 @@ package simpletextoverlay.util;
 
 import java.awt.Color;
 
-import sereneseasons.api.season.Season.SubSeason;
-
 import simpletextoverlay.config.OverlayConfig;
 
 public class ColorHelper {

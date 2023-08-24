@@ -1,5 +1,7 @@
 package simpletextoverlay.network;
 
+import java.util.function.Function;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
@@ -8,8 +10,6 @@ import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
 import simpletextoverlay.SimpleTextOverlay;
-
-import java.util.function.Function;
 
 public class NetworkManager {
 
@@ -24,7 +24,7 @@ public class NetworkManager {
     public static void init() {
         int id = 0;
 
-        registerMessage(++id, SyncData.class, SyncData::new);
+        registerMessage(++id, ForgeSyncData.class, ForgeSyncData::new);
 
         if (ModList.get().isLoaded("corpse")) {
             RequestDeathHistory.init(++id);

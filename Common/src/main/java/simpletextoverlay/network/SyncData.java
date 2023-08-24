@@ -1,19 +1,12 @@
 package simpletextoverlay.network;
 
-import java.util.function.Supplier;
-
 import io.netty.buffer.Unpooled;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 
-import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
-
-import simpletextoverlay.capabilities.CapabilityRegistry;
 import simpletextoverlay.overlay.compass.DataManager;
 
-public class SyncData implements IData {
+public class SyncData {
 
     public byte[] bytes;
 
@@ -29,19 +22,6 @@ public class SyncData implements IData {
         bytes = new byte[tmp.readableBytes()];
 
         tmp.readBytes(bytes, 0, bytes.length);
-    }
-
-    @Override
-    public void encode(FriendlyByteBuf buffer) {
-        buffer.writeByteArray(bytes);
-    }
-
-    public void process(Supplier<NetworkEvent.Context> ctx) {
-        if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
-            ctx.get().enqueueWork(() -> Minecraft.getInstance().player.getCapability(CapabilityRegistry.DATA_MANAGER_CAPABILITY).ifPresent(data -> {
-                data.read(new FriendlyByteBuf(Unpooled.wrappedBuffer(bytes)));
-            }));
-        }
     }
 
 }
