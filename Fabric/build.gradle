@@ -1,6 +1,5 @@
 plugins {
     id 'fabric-loom' version '1.2-SNAPSHOT'
-    id 'maven-publish'
     id 'idea'
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'com.modrinth.minotaur' version '2.+'
@@ -48,7 +47,8 @@ processResources {
     filesMatching("fabric.mod.json") {
         expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
                 'mod_id': project.mod_id, 'mod_author': project.mod_author, 'mod_description': project.mod_description,
-                'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker
+                'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker,
+                'fabric_loader_min_version': fabric_loader_min_version
     }
 
     filesMatching("pack.mcmeta") {
@@ -62,14 +62,6 @@ processResources {
 
 tasks.withType(JavaCompile) {
     source(project(":Common").sourceSets.main.allSource)
-}
-
-publishing {
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
-    }
 }
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
@@ -86,6 +78,7 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
             mainFile.addGameVersion("${it}")
         }
         mainFile.addRequirement('fabric-api')
+        mainFile.addOptional('fabric-seasons')
     }
 }
 
@@ -101,7 +94,8 @@ modrinth {
         uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
         gameVersions = "${release_versions}".split(",") as List<String>
         dependencies {
-            required.project "fabric-api"
+            required.project 'fabric-api'
+            optional.project 'fabric-seasons'
         }
     }
 }
