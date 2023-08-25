@@ -29,6 +29,7 @@ public class ForgeSyncData implements IData {
         buffer.writeByteArray(syncData.bytes);
     }
 
+    @Override
     public void process(Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             ctx.get().enqueueWork(() -> Services.CAPABILITY_PLATFORM.getDataManagerCapability(Minecraft.getInstance().player).ifPresent(data -> {
