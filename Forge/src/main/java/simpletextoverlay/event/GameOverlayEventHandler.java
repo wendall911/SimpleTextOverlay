@@ -22,8 +22,6 @@ public class GameOverlayEventHandler {
     private final OverlayManager overlayManager = OverlayManager.INSTANCE;
     public static final GameOverlayEventHandler INSTANCE = new GameOverlayEventHandler();
 
-    private static boolean enabled = false;
-
     private final IIngameOverlay OVERLAY;
 
     static {
@@ -39,14 +37,12 @@ public class GameOverlayEventHandler {
     }
 
     public void callRenderOverlay(PoseStack matrix, float partialTicks) {
-        if (enabled && !Minecraft.getInstance().options.renderDebug) {
+        if (OverlayConfig.loaded && !Minecraft.getInstance().options.renderDebug) {
             overlayManager.renderOverlay(matrix, partialTicks);
         }
     }
 
     public void onLoadComplete(FMLLoadCompleteEvent event) {
-        enabled = true;
-        OverlayConfig.init();
         overlayManager.init();
     }
 

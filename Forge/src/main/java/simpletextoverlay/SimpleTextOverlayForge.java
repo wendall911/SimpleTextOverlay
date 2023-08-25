@@ -23,7 +23,6 @@ public class SimpleTextOverlayForge {
         PROXY.start();
 
         SimpleTextOverlay.init();
-        SimpleTextOverlay.initConfig();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
