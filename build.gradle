@@ -49,6 +49,11 @@ subprojects {
         }
 
         maven {
+            name = "Ladysnake Libs"
+            url = "https://maven.ladysnake.org/releases"
+        }
+
+        maven {
             name = "C4's Maven"
             url = "https://maven.theillusivec4.top/"
         }

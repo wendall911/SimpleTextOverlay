@@ -3,6 +3,10 @@ package simpletextoverlay.capability;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 import net.minecraft.core.Direction;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.player.Player;
@@ -14,12 +18,6 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 
 import simpletextoverlay.overlay.compass.DataManager;
-import simpletextoverlay.SimpleTextOverlay;
-
-import javax.xml.crypto.Data;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 public class CapabilityDataManager {
 

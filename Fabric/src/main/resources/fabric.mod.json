@@ -22,6 +22,14 @@
     ],
     "spectrelib": [
       "simpletextoverlay.FabricConfigInitializer"
+    ],
+    "cardinal-components-entity": [
+      "simpletextoverlay.component.SimpleTextOverlayComponents"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "simpletextoverlay:sto_provider"
     ]
   },
   "depends": {
