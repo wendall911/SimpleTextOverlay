@@ -24,12 +24,6 @@ public class CommonProxy {
         bus.register(RegistryListener.class);
     }
 
-    public void pinInfoTypes(RegistryEvent.Register<PinInfoType<?>> event) {
-        event.getRegistry().registerAll(
-            new PinInfoType<>(Pin::new).setRegistryName("pin")
-        );
-    }
-
     public static final class RegistryListener {
 
         @SubscribeEvent

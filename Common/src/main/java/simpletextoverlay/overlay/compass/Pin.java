@@ -6,9 +6,6 @@ import net.minecraft.world.phys.Vec3;
 
 public class Pin extends PinInfo<Pin> {
 
-    @ObjectHolder("simpletextoverlay:pin")
-    public static PinInfoType<Pin> TYPE = null;
-
     private Vec3 position;
 
     public Pin() {

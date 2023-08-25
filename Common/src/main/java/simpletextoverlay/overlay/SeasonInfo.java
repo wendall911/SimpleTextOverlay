@@ -21,11 +21,11 @@ public class SeasonInfo extends Info {
 
     @Override
     public void renderText(PoseStack matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        Pair<Component, SubSeason> seasonInfo = Services.SEASON_INFO.getSeasonName(mc, pos);
+        Pair<TranslatableComponent, SubSeason> seasonInfo = Services.SEASON_INFO.getSeasonName(mc, pos);
 
         if (seasonInfo != null) {
             SubSeason subSeason = seasonInfo.getSecond();
-            Component seasonName = seasonInfo.getFirst();
+            TranslatableComponent seasonName = seasonInfo.getFirst();
 
             int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(seasonName));
             int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);

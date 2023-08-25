@@ -6,10 +6,10 @@ import java.util.Map;
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 
 import simpletextoverlay.overlay.compass.PinInfo;
 import simpletextoverlay.platform.Services;
@@ -35,7 +35,7 @@ public class SimpleTextOverlayEvents {
 
                 PinHelper.PointPin bedPin = cachedPins.get(BEDSPAWN);
 
-                if (currentPins.get(WORLDSPAWN) == null && worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
+                if (currentPins.get(WORLDSPAWN) == null && worldKey.location().toString().contains(DimensionType.OVERWORLD_EFFECTS.toString())) {
                     PinHelper.PointPin spawnPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
 
                     PinHelper.setPointPin(pinsData, spawnPin);
@@ -74,7 +74,7 @@ public class SimpleTextOverlayEvents {
         if (!player.level.isClientSide) {
             final ServerPlayer sp = (ServerPlayer) player;
 
-            if (!worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
+            if (!worldKey.location().toString().contains(DimensionType.OVERWORLD_EFFECTS.toString())) {
                 Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
                     BlockPos spawnPos = new BlockPos(sp.getX(), sp.getY(), sp.getZ());
                     PinHelper.PointPin portalPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
@@ -87,7 +87,7 @@ public class SimpleTextOverlayEvents {
         }
     }
 
-    public static void onPlayerDeath(LivingEntity entity) {
+    public static void onPlayerDeath(Entity entity) {
         if (!(entity instanceof ServerPlayer sp)) {
             return;
         }

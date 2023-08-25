@@ -23,7 +23,7 @@ public class PlayerEventHandler {
 
     @SubscribeEvent
     public static void onPlayerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        SimpleTextOverlayEvents.onPlayerChangeDimension(event.getEntity(), event.getTo());
+        SimpleTextOverlayEvents.onPlayerChangeDimension(event.getPlayer(), event.getTo());
     }
 
     @SubscribeEvent
