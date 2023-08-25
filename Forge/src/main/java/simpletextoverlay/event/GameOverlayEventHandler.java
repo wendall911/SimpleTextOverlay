@@ -19,8 +19,6 @@ public class GameOverlayEventHandler {
     private final OverlayManager overlayManager = OverlayManager.INSTANCE;
     public static final GameOverlayEventHandler INSTANCE = new GameOverlayEventHandler();
 
-    private static boolean enabled = false;
-
     private final IGuiOverlay OVERLAY;
 
     static {
@@ -30,15 +28,13 @@ public class GameOverlayEventHandler {
 
     public GameOverlayEventHandler() {
         OVERLAY = (gui, poseStack, partialTick, width, height) -> {
-            if (enabled && !Minecraft.getInstance().options.renderDebug) {
+            if (OverlayConfig.loaded && !Minecraft.getInstance().options.renderDebug) {
                 overlayManager.renderOverlay(poseStack, partialTick);
             }
         };
     }
 
     public void onLoadComplete(FMLLoadCompleteEvent event) {
-        enabled = true;
-        OverlayConfig.init();
         overlayManager.init();
     }
 

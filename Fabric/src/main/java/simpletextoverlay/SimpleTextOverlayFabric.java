@@ -7,7 +7,6 @@ public class SimpleTextOverlayFabric implements ModInitializer {
     @Override
     public void onInitialize() {
         SimpleTextOverlay.init();
-        //ServerEventListener.setup();
     }
 
 }

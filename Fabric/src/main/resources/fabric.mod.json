@@ -24,13 +24,9 @@
       "simpletextoverlay.FabricConfigInitializer"
     ]
   },
-  "mixins": [
-    "simpletextoverlay.mixins.json"
-  ],
   "depends": {
     "fabricloader": "${fabric_loader_min_version}",
     "fabric": "*",
-    "trinkets": "*",
     "minecraft": "${fabric_mc_version_range}",
     "java": ">=17"
   }

@@ -15,6 +15,7 @@ import simpletextoverlay.util.ColorHelper;
 
 public final class OverlayConfig {
 
+    public static boolean loaded;
     public static final SpectreConfigSpec CLIENT_SPEC;
     private static final Client CLIENT;
 
@@ -47,6 +48,8 @@ public final class OverlayConfig {
         Client.daysColorDecoded = ColorHelper.decode(CLIENT.daysColor.get());
 
         Client.sortedFields = fields;
+
+        loaded = true;
     }
 
     private static class Client {
