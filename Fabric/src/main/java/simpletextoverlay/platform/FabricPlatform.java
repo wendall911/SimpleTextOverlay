@@ -7,7 +7,6 @@ import simpletextoverlay.platform.services.IPlatform;
 
 public class FabricPlatform implements IPlatform {
 
-
     @Override
     public boolean isModLoaded(String name) {
         return FabricLoader.getInstance().isModLoaded(name);
