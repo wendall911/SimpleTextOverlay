@@ -5,6 +5,7 @@ import java.util.Optional;
 import io.netty.buffer.Unpooled;
 
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;

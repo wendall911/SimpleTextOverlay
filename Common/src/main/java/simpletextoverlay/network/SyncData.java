@@ -11,7 +11,7 @@ public class SyncData {
     public byte[] bytes;
 
     public SyncData(FriendlyByteBuf buffer) {
-        bytes = buffer.readByteArray();
+        bytes = new byte[buffer.readableBytes()];
     }
 
     public SyncData() {
