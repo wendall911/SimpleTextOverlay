@@ -21,7 +21,7 @@ public class SimpleTextOverlayComponents implements EntityComponentInitializer {
 
     @Override
     public void registerEntityComponentFactories(EntityComponentFactoryRegistry registry) {
-        registry.registerForPlayers(DATA_MANAGER, player -> new ComponentDataManager(), RespawnCopyStrategy.ALWAYS_COPY);
+        registry.registerForPlayers(DATA_MANAGER, ComponentDataManager::new, RespawnCopyStrategy.ALWAYS_COPY);
     }
 
 }

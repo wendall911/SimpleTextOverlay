@@ -32,6 +32,9 @@
       "simpletextoverlay:sto_provider"
     ]
   },
+  "mixins": [
+    "simpletextoverlay.fabric.mixins.json"
+  ],
   "depends": {
     "fabricloader": "${fabric_loader_min_version}",
     "fabric": "*",
