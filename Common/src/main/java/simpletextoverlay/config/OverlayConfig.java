@@ -9,6 +9,7 @@ import java.util.List;
 
 import com.illusivesoulworks.spectrelib.config.SpectreConfigSpec;
 
+import org.apache.commons.compress.archivers.sevenz.CLI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import simpletextoverlay.overlay.OverlayManager;
@@ -73,6 +74,8 @@ public final class OverlayConfig {
             && ((String) s).matches("#[a-zA-Z\\d]{6}");
         private static final Predicate<Object> hexRangeValidator = s -> s instanceof String
             && ((String) s).matches("#[a-zA-Z\\d]{6}->#[a-zA-Z\\d]{6}");
+        private static final List<String> seasonDimensionList = Arrays.asList("seasonDimensions");
+        private static final String[] seasonDimensionFields = new String[]{"minecraft:overworld"};
 
         public final SpectreConfigSpec.BooleanValue enabled;
         public final SpectreConfigSpec.BooleanValue textShadow;
@@ -95,6 +98,7 @@ public final class OverlayConfig {
         public final SpectreConfigSpec.ConfigValue<String> daysColor;
         public final SpectreConfigSpec.BooleanValue showCompass;
         public final SpectreConfigSpec.IntValue compassOpacity;
+        public final SpectreConfigSpec.ConfigValue<List<? extends String>> seasonDimensions;
 
         public Client(SpectreConfigSpec.Builder builder) {
             enabled = builder
@@ -161,6 +165,9 @@ public final class OverlayConfig {
             daysColor = builder
                 .comment("Days color (Format: #3c44a9)")
                 .define("daysColor", "#3c44a9", hexValidator);
+            seasonDimensions = builder
+                .comment("Fabric Seasons Only: Dimensions to show season. No API available for this lookup, so needs to be configured here.")
+                .defineListAllowEmpty(seasonDimensionList, getSeasonDimensions(), s -> (s instanceof String));
         }
     }
 
@@ -258,6 +265,14 @@ public final class OverlayConfig {
 
     public static Color daysColor() {
         return Client.daysColorDecoded;
+    }
+
+    public static boolean hasSeasonDimension(String dimension) {
+        return CLIENT.seasonDimensions.get().contains(dimension);
+    }
+
+    private static Supplier<List<? extends String>> getSeasonDimensions() {
+        return () -> Arrays.asList(Client.seasonDimensionFields);
     }
 
 }

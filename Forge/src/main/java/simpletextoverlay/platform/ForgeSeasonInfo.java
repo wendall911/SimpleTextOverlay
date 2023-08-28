@@ -20,14 +20,10 @@ public class ForgeSeasonInfo implements ISeasonInfo {
     @Override
     public Pair<TranslatableComponent, SubSeason> getSeasonName(Level level, BlockPos pos) {
         if (BiomeConfig.enablesSeasonalEffects(Objects.requireNonNull(level).getBiome(pos))) {
-
             SubSeason subSeason = SubSeason.valueOf(SeasonHelper.getSeasonState(level).getSubSeason().name());
+            TranslatableComponent seasonName = new TranslatableComponent("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
 
-            if (BiomeConfig.enablesSeasonalEffects(level.getBiome(pos))) {
-                TranslatableComponent seasonName = new TranslatableComponent("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
-
-                return Pair.of(seasonName, subSeason);
-            }
+            return Pair.of(seasonName, subSeason);
         }
 
         return null;

@@ -31,6 +31,8 @@ dependencies {
     }
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
     implementation project(":Common")
+
+    modCompileOnly "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
 }
 
 loom {

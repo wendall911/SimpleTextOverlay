@@ -48,16 +48,16 @@ public class ColorHelper {
 
         return switch (subSeason) {
             case EARLY_SPRING -> getRangeColor(winter, spring, 4, 3);
-            case MID_SPRING -> getRangeColor(winter, spring, 4, 4);
+            case MID_SPRING, SPRING -> getRangeColor(winter, spring, 4, 4);
             case LATE_SPRING -> getRangeColor(spring, summer, 4, 2);
             case EARLY_SUMMER -> getRangeColor(spring, summer, 4, 3);
-            case MID_SUMMER -> getRangeColor(spring, summer, 4, 4);
+            case MID_SUMMER, SUMMER -> getRangeColor(spring, summer, 4, 4);
             case LATE_SUMMER -> getRangeColor(summer, fall, 4, 2);
             case EARLY_AUTUMN -> getRangeColor(summer, fall, 4, 3);
-            case MID_AUTUMN -> getRangeColor(summer, fall, 4, 4);
+            case MID_AUTUMN, FALL -> getRangeColor(summer, fall, 4, 4);
             case LATE_AUTUMN -> getRangeColor(fall, winter, 4, 2);
             case EARLY_WINTER -> getRangeColor(fall, winter, 4, 3);
-            case MID_WINTER -> getRangeColor(fall, winter, 4, 4);
+            case MID_WINTER, WINTER -> getRangeColor(fall, winter, 4, 4);
             case LATE_WINTER -> getRangeColor(winter, spring, 4, 2);
         };
     }
