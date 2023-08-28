@@ -47,6 +47,21 @@ minecraft {
                 }
             }
         }
+        server {
+            workingDirectory project.file('run')
+            arg "-mixin.config=${mod_id}.mixins.json"
+            arg "nogui"
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            ideaModule "${rootProject.name}.${project.name}.main"
+            taskName 'Server'
+            mods {
+                modServerRun {
+                    source sourceSets.main
+                    source project(":Common").sourceSets.main
+                }
+            }
+        }
     }    
 }
 
@@ -80,6 +95,7 @@ def replaceProperties = [
 ]
 
 processResources {
+    from project(":Common").sourceSets.main.resources
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     inputs.properties replaceProperties
     replaceProperties.put 'project', project
@@ -89,7 +105,21 @@ processResources {
     }
 }
 
+tasks.jarJar.finalizedBy('reobfJar')
+reobfJarJar.dependsOn('jar')
 jar.finalizedBy('reobfJar', 'signJar')
+
+reobf {
+    jarJar {}
+}
+
+tasks.jarJar.configure {
+    archiveClassifier.set("")
+}
+
+jarJar {
+    enable()
+}
 
 def reobfFile = file("$buildDir/reobfJar/output.jar")
 def reobfArtifact = artifacts.add('default', reobfFile) {

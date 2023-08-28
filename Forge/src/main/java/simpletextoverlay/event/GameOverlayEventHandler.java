@@ -37,13 +37,14 @@ public class GameOverlayEventHandler {
     }
 
     public void callRenderOverlay(PoseStack matrix, float partialTicks) {
+        if (!OverlayConfig.loaded) {
+            OverlayConfig.init();
+        }
         if (OverlayConfig.loaded && !Minecraft.getInstance().options.renderDebug) {
             overlayManager.renderOverlay(matrix, partialTicks);
         }
     }
 
-    public void onLoadComplete(FMLLoadCompleteEvent event) {
-        overlayManager.init();
-    }
+    public void onLoadComplete(FMLLoadCompleteEvent event) {}
 
 }

@@ -1,8 +1,10 @@
 package simpletextoverlay.network;
 
+import java.util.function.Function;
+
+import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 
-import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 
@@ -19,10 +21,14 @@ public class NetworkManager {
     );
 
     public static void setup() {
-        INSTANCE.messageBuilder(ForgeSyncData.class, 0, NetworkDirection.PLAY_TO_CLIENT)
-            .encoder(ForgeSyncData::encode)
-            .decoder(ForgeSyncData::new)
-            .consumer(ForgeSyncData::process).add();
+        registerMessage(0, ForgeSyncData.class, ForgeSyncData::new);
+    }
+
+    public static <T extends IData> void registerMessage(int idx, Class<T> type, Function<FriendlyByteBuf, T> decoder) {
+        INSTANCE.registerMessage(idx, type, IData::encode, decoder, (msg, ctx) -> {
+            msg.process(ctx);
+            ctx.get().setPacketHandled(true);
+        });
     }
 
 }
