@@ -1,11 +1,11 @@
 package simpletextoverlay;
 
-import com.illusivesoulworks.spectrelib.config.SpectreConfigInitializer;
+import com.illusivesoulworks.spectrelib.config.SpectreLibInitializer;
 
-public class FabricConfigInitializer implements SpectreConfigInitializer {
+public class FabricConfigInitializer implements SpectreLibInitializer {
 
     @Override
-    public void onInitialize() {
+    public void onInitializeConfig() {
         SimpleTextOverlay.initConfig();
     }
 

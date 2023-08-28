@@ -1,9 +1,8 @@
 package simpletextoverlay.event;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.Minecraft;
 
 import simpletextoverlay.config.OverlayConfig;
@@ -18,12 +17,12 @@ public class GameOverlayEventHandler implements HudRenderCallback {
     }
 
     @Override
-    public void onHudRender(PoseStack matrix, float partialTicks) {
+    public void onHudRender(GuiGraphics guiGraphics, float partialTicks) {
         if (!OverlayConfig.loaded) {
             OverlayConfig.init();
         }
         if (OverlayConfig.loaded && !Minecraft.getInstance().options.renderDebug) {
-            overlayManager.renderOverlay(matrix, partialTicks);
+            overlayManager.renderOverlay(guiGraphics, partialTicks);
         }
     }
 
