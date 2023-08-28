@@ -7,6 +7,8 @@ import io.netty.buffer.Unpooled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.network.NetworkDirection;
 import net.minecraftforge.network.NetworkEvent;
 
@@ -17,7 +19,7 @@ public class ForgeSyncData implements IData {
     private SyncData syncData;
 
     public ForgeSyncData(FriendlyByteBuf buffer) {
-        syncData = new SyncData(buffer);
+        syncData = new SyncData(buffer.readByteArray());
     }
 
     public ForgeSyncData() {
@@ -29,7 +31,7 @@ public class ForgeSyncData implements IData {
         buffer.writeByteArray(syncData.bytes);
     }
 
-    @Override
+    @OnlyIn(Dist.CLIENT)
     public void process(Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             ctx.get().enqueueWork(() -> Services.CAPABILITY_PLATFORM.getDataManagerCapability(Minecraft.getInstance().player).ifPresent(data -> {
