@@ -31,6 +31,7 @@ public class NetworkManager {
             OpenHistory.init(++id);
             SetDeathLocation.init(++id);
         }
+
     }
 
     public static <T extends IData> void registerMessage(int idx, Class<T> type, Function<FriendlyByteBuf, T> decoder) {

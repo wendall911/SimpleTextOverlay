@@ -6,7 +6,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.RegisterGuiOverlaysEvent;
 import net.minecraftforge.client.gui.overlay.IGuiOverlay;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
-import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import simpletextoverlay.config.OverlayConfig;
@@ -22,22 +21,19 @@ public class GameOverlayEventHandler {
     private final IGuiOverlay OVERLAY;
 
     static {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onLoadComplete);
         FMLJavaModLoadingContext.get().getModEventBus().addListener(INSTANCE::onRegisterOverlays);
     }
 
     public GameOverlayEventHandler() {
         OVERLAY = (gui, guiGraphics, partialTick, width, height) -> {
+            if (!OverlayConfig.loaded) {
+                OverlayConfig.init();
+            }
             if (OverlayConfig.loaded && !Minecraft.getInstance().options.renderDebug) {
                 overlayManager.renderOverlay(guiGraphics, partialTick);
             }
         };
     }
-
-    public void onLoadComplete(FMLLoadCompleteEvent event) {
-        overlayManager.init();
-    }
-
     public void onRegisterOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll(SimpleTextOverlay.MODID + "_overlay", INSTANCE.OVERLAY);
     }

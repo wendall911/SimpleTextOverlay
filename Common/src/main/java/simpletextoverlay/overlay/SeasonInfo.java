@@ -21,7 +21,7 @@ public class SeasonInfo extends Info {
 
     @Override
     public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        Pair<Component, SubSeason> seasonInfo = Services.SEASON_INFO.getSeasonName(mc, pos);
+        Pair<Component, SubSeason> seasonInfo = Services.SEASON_INFO.getSeasonName(mc.level, pos);
 
         if (seasonInfo != null) {
             SubSeason subSeason = seasonInfo.getSecond();

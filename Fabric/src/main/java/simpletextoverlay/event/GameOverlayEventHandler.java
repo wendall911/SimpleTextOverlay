@@ -19,6 +19,9 @@ public class GameOverlayEventHandler implements HudRenderCallback {
 
     @Override
     public void onHudRender(PoseStack matrix, float partialTicks) {
+        if (!OverlayConfig.loaded) {
+            OverlayConfig.init();
+        }
         if (OverlayConfig.loaded && !Minecraft.getInstance().options.renderDebug) {
             overlayManager.renderOverlay(matrix, partialTicks);
         }

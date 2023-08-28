@@ -10,8 +10,8 @@ public class SyncData {
 
     public byte[] bytes;
 
-    public SyncData(FriendlyByteBuf buffer) {
-        bytes = new byte[buffer.readableBytes()];
+    public SyncData(byte[] bytes) {
+        this.bytes = bytes;
     }
 
     public SyncData() {

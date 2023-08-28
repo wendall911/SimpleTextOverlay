@@ -11,6 +11,7 @@ import com.illusivesoulworks.spectrelib.config.SpectreConfigSpec;
 
 import org.apache.commons.lang3.tuple.Pair;
 
+import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.util.ColorHelper;
 
 public final class OverlayConfig {
@@ -48,6 +49,8 @@ public final class OverlayConfig {
         Client.daysColorDecoded = ColorHelper.decode(CLIENT.daysColor.get());
 
         Client.sortedFields = fields;
+
+        OverlayManager.INSTANCE.init();
 
         loaded = true;
     }

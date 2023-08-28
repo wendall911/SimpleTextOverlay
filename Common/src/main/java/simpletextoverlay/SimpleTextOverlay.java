@@ -22,9 +22,7 @@ public class SimpleTextOverlay {
 
     public static void initConfig() {
         if (Services.PLATFORM.isPhysicalClient()) {
-            SpectreConfig clientConfig = SpectreConfigLoader.add(SpectreConfig.Type.CLIENT, OverlayConfig.CLIENT_SPEC, MODID);
-
-            clientConfig.addLoadListener(config -> OverlayConfig.init());
+            SpectreConfigLoader.add(SpectreConfig.Type.CLIENT, OverlayConfig.CLIENT_SPEC, MODID);
         }
     }
 
