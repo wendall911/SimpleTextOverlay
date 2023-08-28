@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "${mod_id}",
+  "version": "${version}",
+  "name": "${mod_name}",
+  "description": "${mod_description}",
+  "authors": [
+    "${mod_author}"
+  ],
+  "contact": {
+    "issues": "${issue_tracker}"
+  },
+  "license": "${license}",
+  "icon": "${mod_id}_icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "simpletextoverlay.SimpleTextOverlayFabric"
+    ],
+    "client": [
+      "simpletextoverlay.SimpleTextOverlayClientFabric"
+    ],
+    "spectrelib": [
+      "simpletextoverlay.FabricConfigInitializer"
+    ],
+    "cardinal-components-entity": [
+      "simpletextoverlay.component.SimpleTextOverlayComponents"
+    ]
+  },
+  "custom": {
+    "cardinal-components": [
+      "simpletextoverlay:sto_provider"
+    ]
+  },
+  "mixins": [
+    "simpletextoverlay.fabric.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": "${fabric_loader_min_version}",
+    "fabric": "*",
+    "minecraft": "${fabric_mc_version_range}",
+    "java": ">=17"
+  }
+}
