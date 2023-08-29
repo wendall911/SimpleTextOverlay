@@ -1,17 +1,13 @@
 {
-  "desc.simpletextoverlay.spring": "Frühling",
   "desc.simpletextoverlay.early_spring": "Vorfrühling",
   "desc.simpletextoverlay.mid_spring": "Erstfrühling",
   "desc.simpletextoverlay.late_spring": "Vollfrühling",
-  "desc.simpletextoverlay.summer": "Sommer",
   "desc.simpletextoverlay.early_summer": "Frühsommer",
   "desc.simpletextoverlay.mid_summer": "Hochsommer",
   "desc.simpletextoverlay.late_summer": "Spätsommer",
-  "desc.simpletextoverlay.fall": "Herbst",
   "desc.simpletextoverlay.early_autumn": "Frühherbst",
   "desc.simpletextoverlay.mid_autumn": "Vollherbst",
   "desc.simpletextoverlay.late_autumn": "Spätherbst",
-  "desc.simpletextoverlay.winter": "Winter",
   "desc.simpletextoverlay.early_winter": "Winter",
   "desc.simpletextoverlay.mid_winter": "Winter",
   "desc.simpletextoverlay.late_winter": "Winter"
