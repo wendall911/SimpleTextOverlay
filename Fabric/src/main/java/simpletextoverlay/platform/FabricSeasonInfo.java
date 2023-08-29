@@ -2,8 +2,6 @@ package simpletextoverlay.platform;
 
 import com.mojang.datafixers.util.Pair;
 
-import io.github.lucaargolo.seasons.FabricSeasons;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.level.Level;
@@ -13,20 +11,17 @@ import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.platform.services.ISeasonInfo;
 import simpletextoverlay.util.SubSeason;
 
+import static io.github.lucaargolo.seasons.FabricSeasons.CONFIG;
+
 public class FabricSeasonInfo implements ISeasonInfo {
 
     @Override
     public Pair<Component, SubSeason> getSeasonName(Level level, BlockPos pos) {
         if (OverlayConfig.hasSeasonDimension(level.dimension().location().toString())) {
-            try {
-                SubSeason subSeason = SubSeason.valueOf(FabricSeasons.getCurrentSeason().name());
-                Component seasonName = Component.translatable("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
+            SubSeason subSeason = SubSeason.getSubSeason(level, CONFIG.getSeasonLength());
+            Component seasonName = Component.translatable("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
 
-                return Pair.of(seasonName, subSeason);
-            }
-            catch (IllegalArgumentException e) {
-                SimpleTextOverlay.LOGGER.debug("Unable to convert subseason {}", e);
-            }
+            return Pair.of(seasonName, subSeason);
         }
 
         return null;
