@@ -2,6 +2,7 @@ package simpletextoverlay.events;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -21,7 +22,7 @@ public class SimpleTextOverlayEvents {
     public static final String LASTDEATH = "lastdeath";
     public static final String WORLDSPAWN = "worldspawn";
 
-    public static Map<ResourceKey<Level>, Map<String, PinHelper.PointPin>> PINS_CACHE = new HashMap<>();
+    public static Map<UUID, Map<ResourceKey<Level>, Map<String, PinHelper.PointPin>>> PINS_CACHE = new HashMap<>();
 
     public static void onEntityJoinLevel(Player player) {
         if (player != null && !player.level.isClientSide) {
@@ -30,7 +31,9 @@ public class SimpleTextOverlayEvents {
             Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
                 ResourceKey<Level> worldKey = sp.getRespawnDimension();
                 BlockPos spawnPos = sp.getLevel().getSharedSpawnPos();
-                Map<String, PinHelper.PointPin> cachedPins = PINS_CACHE.computeIfAbsent(worldKey, k -> new HashMap<>());
+                UUID uuid = sp.getUUID();
+                Map<ResourceKey<Level>, Map<String, PinHelper.PointPin>> playerCache = PINS_CACHE.computeIfAbsent(uuid, k -> new HashMap<>());
+                Map<String, PinHelper.PointPin> cachedPins = playerCache.computeIfAbsent(worldKey, k -> new HashMap<>());
                 final Map<String, PinInfo<?>> currentPins = pinsData.get(worldKey).getPins();
 
                 PinHelper.PointPin bedPin = cachedPins.get(BEDSPAWN);
@@ -54,7 +57,7 @@ public class SimpleTextOverlayEvents {
                  * Check all dimensions for death pin. This ensures if player dies in another dimension,
                  * death location is captured.
                  */
-                PINS_CACHE.forEach((key, value) -> {
+                playerCache.forEach((key, value) -> {
                     PinHelper.PointPin lastDeathPin = value.get(LASTDEATH);
 
                     if (lastDeathPin != null && lastDeathPin.pin != null) {
@@ -99,8 +102,10 @@ public class SimpleTextOverlayEvents {
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
             ResourceKey<Level> worldKey = sp.level.dimension();
             BlockPos deathPos = new BlockPos((int) sp.getX(), (int) sp.getY(), (int) sp.getZ());
+            UUID uuid = sp.getUUID();
+            Map<ResourceKey<Level>, Map<String, PinHelper.PointPin>> playerCache = PINS_CACHE.computeIfAbsent(uuid, k -> new HashMap<>());
 
-            PINS_CACHE.computeIfAbsent(worldKey, k -> new HashMap<>()).put(LASTDEATH, PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH));
+            playerCache.computeIfAbsent(worldKey, k -> new HashMap<>()).put(LASTDEATH, PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH));
         });
     }
 
