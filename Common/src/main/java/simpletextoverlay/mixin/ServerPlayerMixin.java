@@ -1,6 +1,8 @@
 package simpletextoverlay.mixin;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
@@ -28,8 +30,10 @@ public abstract class ServerPlayerMixin {
 
             Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
                 PinHelper.PointPin bedPin = PinHelper.getPointPin(pinsData, worldKey, respawnPos, BEDSPAWN);
+                UUID uuid = sp.getUUID();
+                Map<ResourceKey<Level>, Map<String, PinHelper.PointPin>> playerCache = PINS_CACHE.computeIfAbsent(uuid, k -> new HashMap<>());
 
-                PINS_CACHE.computeIfAbsent(worldKey, k -> new HashMap<>()).put(BEDSPAWN, bedPin);
+                playerCache.computeIfAbsent(worldKey, k -> new HashMap<>()).put(BEDSPAWN, bedPin);
                 PinHelper.setPointPin(pinsData, bedPin);
             });
         }
