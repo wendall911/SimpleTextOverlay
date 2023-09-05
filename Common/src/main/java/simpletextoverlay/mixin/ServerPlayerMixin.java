@@ -35,6 +35,8 @@ public abstract class ServerPlayerMixin {
 
                 playerCache.computeIfAbsent(worldKey, k -> new HashMap<>()).put(BEDSPAWN, bedPin);
                 PinHelper.setPointPin(pinsData, bedPin);
+
+                Services.CAPABILITY_PLATFORM.syncData(sp);
             });
         }
     }
