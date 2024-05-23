@@ -24,7 +24,7 @@ public class FabricCapabilityPlatform implements ICapabilityPlatform {
 
     @Override
     public void syncData(ServerPlayer sp) {
-        SyncData syncData = new SyncData();
+        SyncData syncData = new SyncData(sp);
         FriendlyByteBuf buf = new FriendlyByteBuf(Unpooled.wrappedBuffer(syncData.bytes));
 
         ServerPlayNetworking.send(sp, SimpleTextOverlayComponents.STO_DATA, buf);

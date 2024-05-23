@@ -34,23 +34,23 @@ public class SimpleTextOverlayEvents {
                 UUID uuid = sp.getUUID();
                 Map<ResourceKey<Level>, Map<String, PinHelper.PointPin>> playerCache = PINS_CACHE.computeIfAbsent(uuid, k -> new HashMap<>());
                 Map<String, PinHelper.PointPin> cachedPins = playerCache.computeIfAbsent(worldKey, k -> new HashMap<>());
-                final Map<String, PinInfo<?>> currentPins = pinsData.get(worldKey).getPins();
+                final Map<String, PinInfo<?>> currentPins = pinsData.get(sp, worldKey).getPins(sp.getUUID());
 
                 PinHelper.PointPin bedPin = cachedPins.get(BEDSPAWN);
 
                 if (currentPins.get(WORLDSPAWN) == null && worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
-                    PinHelper.PointPin spawnPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
+                    PinHelper.PointPin spawnPin = PinHelper.getPointPin(sp, pinsData, worldKey, spawnPos, WORLDSPAWN);
 
-                    PinHelper.setPointPin(pinsData, spawnPin);
+                    PinHelper.setPointPin(sp, pinsData, spawnPin);
                 }
 
                 if (bedPin != null && bedPin.pin != null) {
-                    PinHelper.setPointPin(pinsData, bedPin);
+                    PinHelper.setPointPin(sp, pinsData, bedPin);
                 }
                 else if (currentPins.get(BEDSPAWN) == null && sp.getRespawnPosition() != null) {
-                    bedPin = PinHelper.getPointPin(pinsData, worldKey, sp.getRespawnPosition(), BEDSPAWN);
+                    bedPin = PinHelper.getPointPin(sp, pinsData, worldKey, sp.getRespawnPosition(), BEDSPAWN);
 
-                    PinHelper.setPointPin(pinsData, bedPin);
+                    PinHelper.setPointPin(sp, pinsData, bedPin);
                 }
 
                 /*
@@ -61,12 +61,12 @@ public class SimpleTextOverlayEvents {
                     PinHelper.PointPin lastDeathPin = value.get(LASTDEATH);
 
                     if (lastDeathPin != null && lastDeathPin.pin != null) {
-                        PinHelper.setPointPin(pinsData, lastDeathPin);
+                        PinHelper.setPointPin(sp, pinsData, lastDeathPin);
                     }
                 });
 
                 // Reset Cache
-                PINS_CACHE = new HashMap<>();
+                PINS_CACHE.remove(uuid);
 
                 Services.CAPABILITY_PLATFORM.syncData(sp);
             });
@@ -80,9 +80,9 @@ public class SimpleTextOverlayEvents {
             if (!worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
                 Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
                     BlockPos spawnPos = new BlockPos(sp.getX(), sp.getY(), sp.getZ());
-                    PinHelper.PointPin portalPin = PinHelper.getPointPin(pinsData, worldKey, spawnPos, WORLDSPAWN);
+                    PinHelper.PointPin portalPin = PinHelper.getPointPin(sp, pinsData, worldKey, spawnPos, WORLDSPAWN);
 
-                    PinHelper.setPointPin(pinsData, portalPin);
+                    PinHelper.setPointPin(sp, pinsData, portalPin);
 
                     Services.CAPABILITY_PLATFORM.syncData(sp);
                 });
@@ -105,7 +105,7 @@ public class SimpleTextOverlayEvents {
             UUID uuid = sp.getUUID();
             Map<ResourceKey<Level>, Map<String, PinHelper.PointPin>> playerCache = PINS_CACHE.computeIfAbsent(uuid, k -> new HashMap<>());
 
-            playerCache.computeIfAbsent(worldKey, k -> new HashMap<>()).put(LASTDEATH, PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH));
+            playerCache.computeIfAbsent(worldKey, k -> new HashMap<>()).put(LASTDEATH, PinHelper.getPointPin(sp, pinsData, worldKey, deathPos, LASTDEATH));
         });
     }
 

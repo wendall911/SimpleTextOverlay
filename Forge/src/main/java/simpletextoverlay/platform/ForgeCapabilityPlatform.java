@@ -24,7 +24,7 @@ public class ForgeCapabilityPlatform implements ICapabilityPlatform {
     public void syncData(ServerPlayer sp) {
         NetworkManager.INSTANCE.send(
             PacketDistributor.PLAYER.with(() -> sp),
-            new ForgeSyncData()
+            new ForgeSyncData(sp)
         );
     }
 

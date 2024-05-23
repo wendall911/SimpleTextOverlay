@@ -12,22 +12,24 @@ import simpletextoverlay.overlay.compass.DataManager;
 
 public class ComponentDataManager extends DataManager implements Component {
 
-    private final DataManager instance = new DataManager();
+    private final Player player;
 
     public ComponentDataManager(Player player) {
+        this.player = player;
+        DataManager instance = new DataManager();
         instance.setPlayer(player);
     }
 
     @Override
     public void writeToNbt(CompoundTag tag) {
-        tag.put("Data", DataManager.write(instance));
+        tag.put("Data", DataManager.write(player.getUUID()));
     }
 
     @Override
     public void readFromNbt(CompoundTag tag) {
         ListTag nbt = tag.getList("Data", NbtType.COMPOUND);
 
-        DataManager.read(instance, nbt);
+        DataManager.read(player, nbt);
     }
 
 }
