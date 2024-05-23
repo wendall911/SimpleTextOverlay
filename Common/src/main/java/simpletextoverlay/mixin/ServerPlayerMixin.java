@@ -29,12 +29,12 @@ public abstract class ServerPlayerMixin {
             ServerPlayer sp = (ServerPlayer) (Object) this;
 
             Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
-                PinHelper.PointPin bedPin = PinHelper.getPointPin(pinsData, worldKey, respawnPos, BEDSPAWN);
+                PinHelper.PointPin bedPin = PinHelper.getPointPin(sp, pinsData, worldKey, respawnPos, BEDSPAWN);
                 UUID uuid = sp.getUUID();
                 Map<ResourceKey<Level>, Map<String, PinHelper.PointPin>> playerCache = PINS_CACHE.computeIfAbsent(uuid, k -> new HashMap<>());
 
                 playerCache.computeIfAbsent(worldKey, k -> new HashMap<>()).put(BEDSPAWN, bedPin);
-                PinHelper.setPointPin(pinsData, bedPin);
+                PinHelper.setPointPin(sp, pinsData, bedPin);
 
                 Services.CAPABILITY_PLATFORM.syncData(sp);
             });

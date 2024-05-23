@@ -1,6 +1,7 @@
 package simpletextoverlay.overlay.compass;
 
 import java.util.HashMap;
+import java.util.UUID;
 import java.util.function.Supplier;
 import java.util.Map;
 import java.util.Objects;
@@ -22,22 +23,17 @@ import net.minecraft.world.level.Level;
 public class DataManager {
 
     private static Player player;
-    private static final Map<ResourceKey<Level>, Pins> worldPins = new HashMap<>();
+    private static final Map<UUID, Map<ResourceKey<Level>, Pins>> worldPins = new HashMap<>();
     private final Map<String, Object> pinData = new HashMap<>();
-    private static final DataManager INSTANCE = new DataManager();
 
     public DataManager() {}
-
-    public Map<ResourceKey<Level>, Pins> getWorldPins() {
-        return worldPins;
-    }
 
     @SuppressWarnings("unchecked")
     public <T> T getOrCreatePinData(String pinId, Supplier<T> factory) {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
     }
 
-    public void read(FriendlyByteBuf buffer) {
+    public void read(Player player, FriendlyByteBuf buffer) {
         int numWorlds = buffer.readVarInt();
 
         for (int i = 0; i < numWorlds; i++) {
@@ -46,13 +42,13 @@ public class DataManager {
             ResourceKey<DimensionType> dimType = hasDimensionType
                     ? ResourceKey.create(Registries.DIMENSION_TYPE, buffer.readResourceLocation())
                     : null;
-            Pins pins = get(INSTANCE, key, dimType);
-            pins.read(buffer);
+            Pins pins = get(player, key, dimType);
+            pins.read(player.getUUID(), buffer);
         }
     }
 
-    public static void read(DataManager instance, ListTag nbt) {
-        worldPins.clear();
+    public static void read(Player player, ListTag nbt) {
+        worldPins.remove(player.getUUID());
 
         for (int i = 0; i < nbt.size(); i++) {
             CompoundTag tag = nbt.getCompound(i);
@@ -63,17 +59,17 @@ public class DataManager {
                 dimType = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation(tag.getString("DimensionKey")));
             }
 
-            Pins pins = get(instance, key, dimType);
+            Pins pins = get(player, key, dimType);
 
-            pins.read(tag.getList("PINS", Tag.TAG_COMPOUND));
+            pins.read(player.getUUID(), tag.getList("PINS", Tag.TAG_COMPOUND));
         }
 
     }
 
-    public static void write(FriendlyByteBuf buffer) {
-        buffer.writeVarInt(worldPins.size());
+    public static void write(UUID uuid, FriendlyByteBuf buffer) {
+        buffer.writeVarInt(worldPins.computeIfAbsent(uuid, k -> new HashMap<>()).size());
 
-        for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.entrySet()) {
+        for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.get(uuid).entrySet()) {
             ResourceKey<Level> key = entry.getKey();
             Pins value = entry.getValue();
             buffer.writeResourceLocation(key.location());
@@ -86,14 +82,14 @@ public class DataManager {
                 buffer.writeBoolean(false);
             }
 
-            value.write(buffer);
+            value.write(uuid, buffer);
         }
     }
 
-    public static ListTag write(DataManager instance) {
+    public static ListTag write(UUID uuid) {
         ListTag list = new ListTag();
 
-        for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.entrySet()) {
+        for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.computeIfAbsent(uuid, k -> new HashMap<>()).entrySet()) {
             CompoundTag tag = new CompoundTag();
             tag.putString("World", entry.getKey().location().toString());
 
@@ -101,7 +97,7 @@ public class DataManager {
                 tag.putString("DimensionKey", entry.getValue().getDimensionTypeKey().location().toString());
             }
 
-            tag.put("PINS", entry.getValue().write());
+            tag.put("PINS", entry.getValue().write(uuid));
             list.add(tag);
         }
 
@@ -112,16 +108,16 @@ public class DataManager {
         player = p;
     }
 
-    public Pins get(Level world) {
-        return getInternal(INSTANCE, world.dimension(), () -> getDimensionTypeKey(world, null));
+    public Pins get(Player player) {
+        return getInternal(player, player.level().dimension(), () -> getDimensionTypeKey(player.level(), null));
     }
 
-    public Pins get(ResourceKey<Level> worldKey) {
-        return get(INSTANCE, worldKey, null);
+    public Pins get(Player player, ResourceKey<Level> worldKey) {
+        return get(player, worldKey, null);
     }
 
-    public static Pins get(DataManager instance, ResourceKey<Level> worldKey, @Nullable ResourceKey<DimensionType> dimensionTypeKey) {
-        return getInternal(instance, worldKey, () -> {
+    public static Pins get(Player player, ResourceKey<Level> worldKey, @Nullable ResourceKey<DimensionType> dimensionTypeKey) {
+        return getInternal(player, worldKey, () -> {
             if (player.level().dimension() == worldKey) {
                 return getDimensionTypeKey(player.level(), dimensionTypeKey);
             }
@@ -140,8 +136,8 @@ public class DataManager {
         });
     }
 
-    private static Pins getInternal(DataManager instance, ResourceKey<Level> worldKey, Supplier<ResourceKey<DimensionType>> dimensionTypeKey) {
-        return worldPins.computeIfAbsent(Objects.requireNonNull(worldKey), worldKey1 -> new Pins(dimensionTypeKey.get()));
+    private static Pins getInternal(Player player, ResourceKey<Level> worldKey, Supplier<ResourceKey<DimensionType>> dimensionTypeKey) {
+        return worldPins.computeIfAbsent(player.getUUID(), k -> new HashMap<>()).computeIfAbsent(Objects.requireNonNull(worldKey), worldKey1 -> new Pins(dimensionTypeKey.get()));
     }
 
     @Nullable
@@ -160,69 +156,71 @@ public class DataManager {
 
         @Nullable
         private final ResourceKey<DimensionType> dimensionTypeKey;
-        private final Map<String, PinInfo<?>> pins = new HashMap<>();
+        private final Map<UUID, Map<String, PinInfo<?>>> pins = new HashMap<>();
 
         public Pins(@Nullable ResourceKey<DimensionType> dimensionTypeKey) {
             this.dimensionTypeKey = dimensionTypeKey;
         }
 
-        public Map<String, PinInfo<?>> getPins() {
-            return pins;
+        public Map<String, PinInfo<?>> getPins(UUID uuid) {
+            pins.computeIfAbsent(uuid, k -> new HashMap<>());
+
+            return pins.get(uuid);
         }
 
-        public void read(ListTag nbt) {
+        public void read(UUID uuid, ListTag nbt) {
             pins.clear();
 
             for (int i = 0; i < nbt.size(); i++) {
                 CompoundTag pinTag = nbt.getCompound(i);
                 PinInfo<?> pin = PinInfoRegistry.deserializePin(pinTag);
 
-                pins.put(pin.getInternalId(), pin);
+                pins.computeIfAbsent(uuid, k -> new HashMap<>()).put(pin.getInternalId(), pin);
             }
         }
 
-        public void read(FriendlyByteBuf buffer) {
+        public void read(UUID uuid, FriendlyByteBuf buffer) {
             int numPins = buffer.readVarInt();
             pins.clear();
 
             for (int i = 0; i < numPins; i++) {
                 PinInfo<?> pin = PinInfoRegistry.deserializePin(buffer);
 
-                pins.put(pin.getInternalId(), pin);
+                pins.computeIfAbsent(uuid, k -> new HashMap<>()).put(pin.getInternalId(), pin);
             }
         }
 
-        public ListTag write() {
+        public ListTag write(UUID uuid) {
             ListTag tag = new ListTag();
 
-            for (PinInfo<?> pin : pins.values()) {
+            for (PinInfo<?> pin : pins.computeIfAbsent(uuid, k -> new HashMap<>()).values()) {
                 tag.add(PinInfoRegistry.serializePin(pin));
             }
 
             return tag;
         }
 
-        public void write(FriendlyByteBuf buffer) {
-            buffer.writeVarInt(pins.size());
+        public void write(UUID uuid, FriendlyByteBuf buffer) {
+            buffer.writeVarInt(pins.computeIfAbsent(uuid, k -> new HashMap<>()).size());
 
-            for (PinInfo<?> pin : pins.values()) {
+            for (PinInfo<?> pin : pins.computeIfAbsent(uuid, k -> new HashMap<>()).values()) {
                 PinInfoRegistry.serializePin(pin, buffer);
             }
         }
 
-        public void addPin(PinInfo<?> pin) {
-            pins.put(pin.getInternalId(), pin);
+        public void addPin(UUID uuid, PinInfo<?> pin) {
+            pins.computeIfAbsent(uuid, k -> new HashMap<>()).put(pin.getInternalId(), pin);
         }
 
-        public void removePin(PinInfo<?> pin) {
-            removePin(pin.getInternalId());
+        public void removePin(UUID uuid, PinInfo<?> pin) {
+            removePin(uuid, pin.getInternalId());
         }
 
-        public void removePin(String id) {
-            PinInfo<?> pin = pins.get(id);
+        public void removePin(UUID uuid, String id) {
+            PinInfo<?> pin = pins.computeIfAbsent(uuid, k -> new HashMap<>()).get(id);
 
             if (pin != null) {
-                pins.remove(pin.getInternalId());
+                pins.remove(uuid, pin.getInternalId());
             }
         }
 

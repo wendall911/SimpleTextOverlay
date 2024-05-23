@@ -47,12 +47,13 @@ public class CapabilityDataManager {
 
         @NotNull
         private final DataManager instance;
-
+        private final Player player;
         private final LazyOptional<DataManager> handler;
 
         public Provider(Player player) {
             instance = new DataManager();
             handler = LazyOptional.of(this::getInstance);
+            this.player = player;
             instance.setPlayer(player);
         }
 
@@ -68,12 +69,12 @@ public class CapabilityDataManager {
 
         @Override
         public ListTag serializeNBT() {
-            return DataManager.write(instance);
+            return DataManager.write(player.getUUID());
         }
 
         @Override
         public void deserializeNBT(ListTag nbt) {
-            DataManager.read(instance, nbt);
+            DataManager.read(player, nbt);
         }
 
     }

@@ -59,13 +59,13 @@ public class SetDeathLocation implements IData {
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
             ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(death.getDimension()));
             BlockPos deathPos = death.getBlockPos();
-            PinHelper.PointPin lastDeath = PinHelper.getPointPin(pinsData, worldKey, deathPos, LASTDEATH);
+            PinHelper.PointPin lastDeath = PinHelper.getPointPin(sp, pinsData, worldKey, deathPos, LASTDEATH);
 
-            PinHelper.setPointPin(pinsData, lastDeath);
+            PinHelper.setPointPin(sp, pinsData, lastDeath);
 
             NetworkManager.INSTANCE.send(
                 PacketDistributor.PLAYER.with(() -> sp),
-                new SyncData()
+                new SyncData(sp)
             );
         });
     }

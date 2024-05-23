@@ -6,6 +6,7 @@ import javax.annotation.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 
@@ -15,7 +16,7 @@ import simpletextoverlay.overlay.compass.PinInfoRegistry;
 
 public class PinHelper {
 
-    public static PointPin getPointPin(DataManager pinsData, ResourceKey<Level> worldKey, @Nullable BlockPos pos, String type) {
+    public static PointPin getPointPin(Player player, DataManager pinsData, ResourceKey<Level> worldKey, @Nullable BlockPos pos, String type) {
         String loc = worldKey.location() + "_" + type;
         PointPin point = pinsData.getOrCreatePinData(loc, PointPin::new);
 
@@ -23,7 +24,7 @@ public class PinHelper {
         boolean hasPin = point.pin != null;
 
         if (hasPin && (posChanged || pos == null)) {
-            pinsData.get(point.worldKey).removePin(point.pin);
+            pinsData.get(player, point.worldKey).removePin(player.getUUID(), point.pin);
         }
 
         if (pos != null) {
@@ -35,8 +36,8 @@ public class PinHelper {
         return point;
     }
 
-    public static void setPointPin(DataManager pinsData, PointPin point) {
-        pinsData.get(point.worldKey).addPin(point.pin);
+    public static void setPointPin(Player player, DataManager pinsData, PointPin point) {
+        pinsData.get(player, point.worldKey).addPin(player.getUUID(), point.pin);
     }
 
     public static class PointPin {
