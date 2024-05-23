@@ -23,7 +23,7 @@ public class SimpleTextOverlayClientFabric implements ClientModInitializer {
             client.execute(() -> Services.CAPABILITY_PLATFORM.getDataManagerCapability(Minecraft.getInstance().player).ifPresent(data -> {
                 SyncData syncData = new SyncData(new byte[buf.readableBytes()]);
 
-                data.read(new FriendlyByteBuf(Unpooled.wrappedBuffer(syncData.bytes)));
+                data.read(Minecraft.getInstance().player, new FriendlyByteBuf(Unpooled.wrappedBuffer(syncData.bytes)));
             }));
         });
     }
