@@ -33,7 +33,8 @@
     ]
   },
   "mixins": [
-    "simpletextoverlay.fabric.mixins.json"
+    "simpletextoverlay.fabric.mixins.json",
+    "simpletextoverlay.mixins.json"
   ],
   "depends": {
     "fabricloader": "${fabric_loader_min_version}",
