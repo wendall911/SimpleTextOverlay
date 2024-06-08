@@ -13,7 +13,7 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 import simpletextoverlay.client.ModKeyBindings;
 import simpletextoverlay.event.KeyEventHandler;
-import simpletextoverlay.network.NetworkManager;
+import simpletextoverlay.network.ForgeNetworkManager;
 
 @Mod(SimpleTextOverlay.MODID)
 public class SimpleTextOverlayForge {
@@ -30,7 +30,7 @@ public class SimpleTextOverlayForge {
 
         SimpleTextOverlay.init();
         SimpleTextOverlay.initConfig();
-        NetworkManager.init();
+        ForgeNetworkManager.init();
     }
 
     @OnlyIn(Dist.CLIENT)

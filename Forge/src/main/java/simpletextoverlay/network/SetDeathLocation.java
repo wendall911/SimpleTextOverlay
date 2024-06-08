@@ -13,7 +13,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 import simpletextoverlay.platform.Services;
@@ -38,7 +38,7 @@ public class SetDeathLocation implements IData {
     }
 
     public static void init(int idx) {
-        NetworkManager.registerMessage(idx, SetDeathLocation.class, SetDeathLocation::new);
+        ForgeNetworkManager.registerMessage(idx, SetDeathLocation.class, SetDeathLocation::new, null);
     }
 
     @Override
@@ -47,13 +47,16 @@ public class SetDeathLocation implements IData {
     }
 
     @Override
-    public void process(Supplier<NetworkEvent.Context> ctx) {
+    public void process(Supplier<CustomPayloadEvent.Context> ctx) {
         ServerPlayer sp = ctx.get().getSender();
 
         if (sp != null) {
             ctx.get().enqueueWork(() -> setDeathLocation(sp, death));
         }
     }
+
+    @Override
+    public void handle() {}
 
     private void setDeathLocation(ServerPlayer sp, Death death) {
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
@@ -63,9 +66,9 @@ public class SetDeathLocation implements IData {
 
             PinHelper.setPointPin(sp, pinsData, lastDeath);
 
-            NetworkManager.INSTANCE.send(
-                PacketDistributor.PLAYER.with(() -> sp),
-                new SyncData(sp)
+            ForgeNetworkManager.INSTANCE.send(
+                new SyncData(sp),
+                PacketDistributor.PLAYER.with(sp)
             );
         });
     }

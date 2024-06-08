@@ -10,8 +10,8 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
 
 import simpletextoverlay.platform.Services;
 
@@ -33,12 +33,15 @@ public class ForgeSyncData implements IData {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void process(Supplier<NetworkEvent.Context> ctx) {
+    public void process(Supplier<CustomPayloadEvent.Context> ctx) {
         if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             ctx.get().enqueueWork(() -> Services.CAPABILITY_PLATFORM.getDataManagerCapability(Minecraft.getInstance().player).ifPresent(data -> {
                 data.read(Minecraft.getInstance().player, new FriendlyByteBuf(Unpooled.wrappedBuffer(syncData.bytes)));
             }));
         }
     }
+
+    @Override
+    public void handle() {}
 
 }

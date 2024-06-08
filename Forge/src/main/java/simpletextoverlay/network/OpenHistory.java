@@ -14,8 +14,8 @@ import net.minecraft.network.chat.Component;
 
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 import net.minecraftforge.network.NetworkDirection;
-import net.minecraftforge.network.NetworkEvent;
 
 import simpletextoverlay.client.gui.SetDeathHistoryScreen;
 
@@ -42,7 +42,7 @@ public class OpenHistory implements IData {
     }
 
     public static void init(int idx) {
-        NetworkManager.registerMessage(idx, OpenHistory.class, OpenHistory::new);
+        ForgeNetworkManager.registerMessage(idx, OpenHistory.class, OpenHistory::new, null);
     }
 
     @Override
@@ -61,14 +61,17 @@ public class OpenHistory implements IData {
     }
 
     @Override
-    public void process(Supplier<NetworkEvent.Context> ctx) {
+    public void process(Supplier<CustomPayloadEvent.Context> ctx) {
         if (ctx.get().getDirection() == NetworkDirection.PLAY_TO_CLIENT) {
             openScreen(ctx);
         }
     }
 
+    @Override
+    public void handle() {}
+
     @OnlyIn(Dist.CLIENT)
-    public void openScreen(Supplier<NetworkEvent.Context> ctx) {
+    public void openScreen(Supplier<CustomPayloadEvent.Context> ctx) {
         if (deaths.size() > 0) {
             ctx.get().enqueueWork(() -> Minecraft.getInstance().setScreen(new SetDeathHistoryScreen(deaths)));
         } else if (Minecraft.getInstance().player != null) {

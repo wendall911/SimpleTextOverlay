@@ -5,7 +5,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
-import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -21,10 +20,10 @@ public class CapabilityEventHandler {
 
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof Player player && !(event.getObject() instanceof FakePlayer)) {
+        if (event.getObject() instanceof Player player) {
             event.addCapability(
-                    PROVIDER,
-                    new CapabilityDataManager.Provider(player)
+                PROVIDER,
+                new CapabilityDataManager.Provider(player)
             );
         }
     }

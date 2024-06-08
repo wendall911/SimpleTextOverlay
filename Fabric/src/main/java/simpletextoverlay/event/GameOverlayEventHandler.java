@@ -21,7 +21,7 @@ public class GameOverlayEventHandler implements HudRenderCallback {
         if (!OverlayConfig.loaded) {
             OverlayConfig.init();
         }
-        if (OverlayConfig.loaded && !Minecraft.getInstance().options.renderDebug) {
+        if (OverlayConfig.loaded && !Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
             overlayManager.renderOverlay(guiGraphics, partialTicks);
         }
     }

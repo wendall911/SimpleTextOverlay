@@ -6,8 +6,9 @@ import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 
+import net.minecraftforge.network.PacketDistributor;
 import simpletextoverlay.client.ModKeyBindings;
-import simpletextoverlay.network.NetworkManager;
+import simpletextoverlay.network.ForgeNetworkManager;
 import simpletextoverlay.network.RequestDeathHistory;
 
 @OnlyIn(Dist.CLIENT)
@@ -17,7 +18,7 @@ public class KeyEventHandler {
     public void onInput(InputEvent.Key event) {
         if (ModList.get().isLoaded("corpse")) {
             if (ModKeyBindings.KEY_DEATH_HISTORY.consumeClick()) {
-                NetworkManager.INSTANCE.sendToServer(new RequestDeathHistory());
+                ForgeNetworkManager.INSTANCE.send(new RequestDeathHistory(), PacketDistributor.SERVER.noArg());
             }
         }
     }

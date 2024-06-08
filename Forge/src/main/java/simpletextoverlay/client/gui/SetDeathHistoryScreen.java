@@ -5,7 +5,8 @@ import java.util.List;
 import de.maxhenkel.corpse.corelib.death.Death;
 import de.maxhenkel.corpse.gui.DeathHistoryScreen;
 
-import simpletextoverlay.network.NetworkManager;
+import net.minecraftforge.network.PacketDistributor;
+import simpletextoverlay.network.ForgeNetworkManager;
 import simpletextoverlay.network.SetDeathLocation;
 
 public class SetDeathHistoryScreen extends DeathHistoryScreen {
@@ -25,7 +26,7 @@ public class SetDeathHistoryScreen extends DeathHistoryScreen {
         if (x >= leftPos + 7 && x <= leftPos + hSplit && y >= topPos + 70 && y <= topPos + 100 + font.lineHeight) {
             Death death = getCurrentDeath();
 
-            NetworkManager.INSTANCE.sendToServer(new SetDeathLocation(death));
+            ForgeNetworkManager.INSTANCE.send(new SetDeathLocation(death), PacketDistributor.SERVER.noArg());
 
             if (minecraft != null) {
                 minecraft.setScreen(null);

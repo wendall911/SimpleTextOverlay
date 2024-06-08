@@ -1,26 +1,15 @@
 plugins {
-    id 'idea'
-    id 'maven-publish'
-    id 'net.neoforged.gradle' version '[6.0.13,6.2)'
-    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
+    id 'multiloader-loader'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
     id 'org.spongepowered.mixin' version '0.7.+'
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8'
     id 'com.modrinth.minotaur' version '2.+'
+    id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 }
 
-repositories {
-    maven {
-        name = "Curse Maven"
-        url = "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
-}
-
-version = "${minecraft_version}-${mod_version}-FORGE"
 archivesBaseName = "${mod_id}"
+version = forge_mod_version
 
 mixin {
     add sourceSets.main, "${mod_id}-refmap.json"
@@ -29,36 +18,33 @@ mixin {
 }
 
 minecraft {
-    mappings channel: "${mappings_channel}", version: "${mappings_version}-${minecraft_version}"
+    mappings channel: "${mappings_channel}", version: "${parchment_version}-${parchment_mc_version}"
+    reobf = false
+    copyIdeResources = true
 
     runs {
         client {
-            workingDirectory project.file("run")
-            arg "-mixin.config=${mod_id}.mixins.json"
+            workingDirectory file('runs/client')
+            ideaModule "${rootProject.name}.${project.name}.main"
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Client'
-
+            args "-mixin.config=${mod_id}.mixins.json"
             mods {
                 modClientRun {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
                 }
             }
         }
+
         server {
-            workingDirectory project.file('run')
-            arg "-mixin.config=${mod_id}.mixins.json"
-            arg "nogui"
+            workingDirectory file('runs/server')
+            ideaModule "${rootProject.name}.${project.name}.main"
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            ideaModule "${rootProject.name}.${project.name}.main"
-            taskName 'Server'
+            args "-mixin.config=${mod_id}.mixins.json"
             mods {
                 modServerRun {
                     source sourceSets.main
-                    source project(":Common").sourceSets.main
                 }
             }
         }
@@ -67,81 +53,44 @@ minecraft {
 
 dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    compileOnly project(":Common")
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
 
     implementation fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}")
     jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}") {
-        jarJar.pin(it, "${spectrelib_version}")
+        jarJar.pin(it, "${spectrelib_version}+${minecraft_version}")
     }
     implementation fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_forge_version}")
-    implementation fg.deobf("curse.maven:corpse-316582:${corpse_version}")
+    implementation fg.deobf("curse.maven:glitchcore-955399:${glitch_core_forge_version}")
+    compileOnly fg.deobf("curse.maven:corpse-316582:${corpse_version}")
 }
 
-compileJava {
-    source(project(":Common").sourceSets.main.allSource)
-    options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
-}
+jar.finalizedBy('jarJar')
 
-tasks.withType(JavaCompile) {
-    source(project(":Common").sourceSets.main.allSource)
-}
-
-def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta', '*.mixins.json']
-def replaceProperties = [
-    'version': version, 'forge_mc_version_range': forge_mc_version_range, 'forge_version_range': forge_version_range,
-    'license': license, 'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
-    'mod_name': mod_name, 'issue_tracker': issue_tracker, 'mod_credits': mod_credits,
-    'loader_version_range': loader_version_range, 'mod_update_branch': mod_update_branch
-]
-
-processResources {
-    from project(":Common").sourceSets.main.resources
-    duplicatesStrategy(DuplicatesStrategy.FAIL)
-    inputs.properties replaceProperties
-    replaceProperties.put 'project', project
-
-    filesMatching(resourceTargets) {
-        expand replaceProperties
+sourceSets {
+    main {
+        resources {
+            srcDirs += '../licenses'
+        }
     }
 }
 
-tasks.jarJar.finalizedBy('reobfJar')
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
 
-jar.finalizedBy('reobfJarJar', 'signJar')
-
-reobf {
-    jarJar {}
+jar {
+    manifest {
+        attributes([
+            "MixinConfigs": "${mod_id}.mixins.json"
+        ])
+    }
 }
 
 tasks.jarJar.configure {
     archiveClassifier.set("")
-}
-
-jarJar {
-    enable()
-}
-
-def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
-    type 'jar'
-    builtBy 'reobfJar'
-}
-
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            artifact jar
-        }
-    }
-    repositories {
-        maven {
-            url "file://" + System.getenv("local_maven")
-        }
-    }
 }
 
 task changelog(type: se.bjurr.gitchangelog.plugin.gradle.GitChangelogTask) {
@@ -162,31 +111,12 @@ def updates = tasks.register("generateUpdates", Copy) {
         expand 'version': version, 'minecraft_version': minecraft_version
     }
 
-    it.into '../files/'
+    it.into '../files/forge'
 }
 
-tasks.generateUpdates.mustRunAfter('jar')
+tasks.generateUpdates.mustRunAfter('jar', 'sourcesJar')
 
 tasks.build.dependsOn('changelog', 'generateUpdates')
-
-// Jar Signing
-import net.minecraftforge.gradle.common.tasks.SignJar
-
-task signJar(type: SignJar, dependsOn: jar) {
-    dependsOn 'reobfJar'
-
-    // Skip the task if our secret data isn't available
-    onlyIf {
-        project.hasProperty('keyStore')
-    }
-
-    keyStore = project.keyStore // This needs to be a path to the keystore file
-    alias = project.keyStoreAlias
-    storePass = project.keyStorePass
-    keyPass = project.keyStoreKeyPass
-    inputFile = jar.archiveFile
-    outputFile = jar.archiveFile
-}
 
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
 
@@ -195,9 +125,8 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
         apiToken = project.stocurseApiKey
         def mainFile = upload(project.stocurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
         mainFile.changelog = file(changelogFile)
-        mainFile.addJavaVersion('Java 17')
+        mainFile.addJavaVersion('Java ${java_version}')
         mainFile.addModLoader('Forge')
-        mainFile.addModLoader('NeoForge')
         mainFile.releaseType = "${release_type}"
         "${release_versions}".split(',').each {
             mainFile.addGameVersion("${it}")
@@ -206,6 +135,8 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
         mainFile.addOptional('catalogue')
         mainFile.addOptional('serene-seasons')
     }
+
+    dependsOn('jarJar')
 }
 
 modrinth {
@@ -219,9 +150,11 @@ modrinth {
         }
         uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
         gameVersions = "${release_versions}".split(",") as List<String>
-        loaders = ['neoforge', 'forge']
+        loaders = ['forge']
         dependencies {
+            optional.project 'serene-seasons'
         }
     }
 }
 
+tasks.modrinth.dependsOn('jarJar')

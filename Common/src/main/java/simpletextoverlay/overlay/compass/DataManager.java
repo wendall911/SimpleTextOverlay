@@ -28,6 +28,10 @@ public class DataManager {
 
     public DataManager() {}
 
+    public DataManager(Player player) {
+        setPlayer(player);
+    }
+
     @SuppressWarnings("unchecked")
     public <T> T getOrCreatePinData(String pinId, Supplier<T> factory) {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
@@ -106,6 +110,10 @@ public class DataManager {
 
     public void setPlayer(Player p) {
         player = p;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public Pins get(Player player) {

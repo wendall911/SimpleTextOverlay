@@ -9,7 +9,7 @@ import net.minecraftforge.network.PacketDistributor;
 
 import simpletextoverlay.capability.CapabilityDataManager;
 import simpletextoverlay.network.ForgeSyncData;
-import simpletextoverlay.network.NetworkManager;
+import simpletextoverlay.network.ForgeNetworkManager;
 import simpletextoverlay.overlay.compass.DataManager;
 import simpletextoverlay.platform.services.ICapabilityPlatform;
 
@@ -22,9 +22,9 @@ public class ForgeCapabilityPlatform implements ICapabilityPlatform {
 
     @Override
     public void syncData(ServerPlayer sp) {
-        NetworkManager.INSTANCE.send(
-            PacketDistributor.PLAYER.with(() -> sp),
-            new ForgeSyncData(sp)
+        ForgeNetworkManager.INSTANCE.send(
+            new ForgeSyncData(sp),
+            PacketDistributor.PLAYER.with(sp)
         );
     }
 

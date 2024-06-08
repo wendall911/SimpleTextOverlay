@@ -10,7 +10,7 @@ import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
-import net.minecraftforge.network.NetworkEvent;
+import net.minecraftforge.event.network.CustomPayloadEvent;
 
 import net.minecraftforge.network.PacketDistributor;
 
@@ -21,14 +21,14 @@ public class RequestDeathHistory implements IData {
     public RequestDeathHistory(FriendlyByteBuf buf) {}
     
     public static void init(int idx) {
-        NetworkManager.registerMessage(idx, RequestDeathHistory.class, RequestDeathHistory::new);
+        ForgeNetworkManager.registerMessage(idx, RequestDeathHistory.class, RequestDeathHistory::new, null);
     }
 
     @Override
     public void encode(FriendlyByteBuf buffer) {}
 
     @Override
-    public void process(Supplier<NetworkEvent.Context> ctx) {
+    public void process(Supplier<CustomPayloadEvent.Context> ctx) {
         ServerPlayer sp = ctx.get().getSender();
 
         if (sp != null) {
@@ -36,13 +36,16 @@ public class RequestDeathHistory implements IData {
         }
     }
 
+    @Override
+    public void handle() {}
+
     public static void sendDeathHistory(ServerPlayer sp) {
         List<Death> deaths = DeathManager.getDeaths((ServerLevel) sp.level(), sp.getUUID());
 
         if (deaths != null) {
-            NetworkManager.INSTANCE.send(
-                    PacketDistributor.PLAYER.with(() -> sp),
-                    new OpenHistory(deaths)
+            ForgeNetworkManager.INSTANCE.send(
+                new OpenHistory(deaths),
+                PacketDistributor.PLAYER.with(sp)
             );
         }
     }
