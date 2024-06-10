@@ -5,6 +5,8 @@ import java.util.List;
 import de.maxhenkel.corpse.corelib.death.Death;
 import de.maxhenkel.corpse.gui.DeathHistoryScreen;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.Component;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import simpletextoverlay.network.SetDeathLocation;
@@ -35,6 +37,15 @@ public class SetDeathHistoryScreen extends DeathHistoryScreen {
         }
 
         return super.mouseClicked(x, y, clickType);
+    }
+
+    public static void openScreen(List<Death> deaths) {
+        if (!deaths.isEmpty()) {
+            Minecraft.getInstance().setScreen(new SetDeathHistoryScreen(deaths));
+        }
+        else if (Minecraft.getInstance().player != null) {
+            Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.corpse.no_death_history"), true);
+        }
     }
 
 }

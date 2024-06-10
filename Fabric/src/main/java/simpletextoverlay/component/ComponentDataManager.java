@@ -18,7 +18,6 @@ public class ComponentDataManager extends DataManager implements Component {
     public ComponentDataManager(Player player) {
         this.player = player;
         instance = new DataManager();
-        instance.setPlayer(player);
     }
 
     @Override

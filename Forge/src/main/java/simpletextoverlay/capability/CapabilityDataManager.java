@@ -50,7 +50,6 @@ public class CapabilityDataManager {
             instance = new DataManager();
             handler = LazyOptional.of(this::getInstance);
             this.player = player;
-            instance.setPlayer(player);
         }
 
         public @NotNull DataManager getInstance() {

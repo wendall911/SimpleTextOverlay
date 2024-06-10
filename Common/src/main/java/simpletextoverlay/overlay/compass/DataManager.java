@@ -22,32 +22,32 @@ import net.minecraft.world.level.Level;
 
 public class DataManager {
 
-    private static Player player;
     private static final Map<UUID, Map<ResourceKey<Level>, Pins>> worldPins = new HashMap<>();
     private final Map<String, Object> pinData = new HashMap<>();
 
     public DataManager() {}
-
-    public DataManager(Player player) {
-        setPlayer(player);
-    }
 
     @SuppressWarnings("unchecked")
     public <T> T getOrCreatePinData(String pinId, Supplier<T> factory) {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
     }
 
+    public static void resetCache() {
+        worldPins.clear();
+    }
+
     public void read(Player player, FriendlyByteBuf buffer) {
         int numWorlds = buffer.readVarInt();
 
         for (int i = 0; i < numWorlds; i++) {
+            UUID uuid = buffer.readUUID();
             ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, buffer.readResourceLocation());
             boolean hasDimensionType = buffer.readBoolean();
             ResourceKey<DimensionType> dimType = hasDimensionType
                     ? ResourceKey.create(Registries.DIMENSION_TYPE, buffer.readResourceLocation())
                     : null;
             Pins pins = get(player, key, dimType);
-            pins.read(player.getUUID(), buffer);
+            pins.read(uuid, buffer);
         }
     }
 
@@ -56,6 +56,14 @@ public class DataManager {
 
         for (int i = 0; i < nbt.size(); i++) {
             CompoundTag tag = nbt.getCompound(i);
+            UUID uuid;
+
+            try {
+                uuid = tag.getUUID("UUID");
+            }
+            catch(Exception e) {
+                uuid = player.getUUID();
+            }
             ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(tag.getString("World")));
             ResourceKey<DimensionType> dimType = null;
 
@@ -65,7 +73,7 @@ public class DataManager {
 
             Pins pins = get(player, key, dimType);
 
-            pins.read(player.getUUID(), tag.getList("PINS", Tag.TAG_COMPOUND));
+            pins.read(uuid, tag.getList("PINS", Tag.TAG_COMPOUND));
         }
 
     }
@@ -76,6 +84,7 @@ public class DataManager {
         for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.get(uuid).entrySet()) {
             ResourceKey<Level> key = entry.getKey();
             Pins value = entry.getValue();
+            buffer.writeUUID(uuid);
             buffer.writeResourceLocation(key.location());
 
             if (value.getDimensionTypeKey() != null) {
@@ -95,6 +104,7 @@ public class DataManager {
 
         for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.computeIfAbsent(uuid, k -> new HashMap<>()).entrySet()) {
             CompoundTag tag = new CompoundTag();
+            tag.putUUID("UUID", uuid);
             tag.putString("World", entry.getKey().location().toString());
 
             if (entry.getValue().getDimensionTypeKey() != null) {
@@ -106,14 +116,6 @@ public class DataManager {
         }
 
         return list;
-    }
-
-    public void setPlayer(Player p) {
-        player = p;
-    }
-
-    public Player getPlayer() {
-        return player;
     }
 
     public Pins get(Player player) {

@@ -6,6 +6,7 @@ import de.maxhenkel.corpse.corelib.death.Death;
 import de.maxhenkel.corpse.gui.DeathHistoryScreen;
 
 import net.minecraftforge.network.PacketDistributor;
+
 import simpletextoverlay.network.ForgeNetworkManager;
 import simpletextoverlay.network.SetDeathLocation;
 

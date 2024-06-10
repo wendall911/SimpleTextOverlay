@@ -11,6 +11,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import simpletextoverlay.SimpleTextOverlay;
@@ -31,11 +32,11 @@ public class RequestDeathHistory implements CustomPacketPayload {
         return ID;
     }
 
-    public static void sync(ServerPlayer sp) {
+    public static void sync(Player sp) {
         List<Death> deaths = DeathManager.getDeaths((ServerLevel) sp.level(), sp.getUUID());
 
         if (deaths != null) {
-            PacketDistributor.PLAYER.with(sp).send(new OpenHistory(deaths));
+            PacketDistributor.PLAYER.with((ServerPlayer) sp).send(new OpenHistory(deaths));
         }
     }
 

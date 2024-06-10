@@ -10,6 +10,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
 import net.neoforged.neoforge.network.PacketDistributor;
@@ -52,7 +53,9 @@ public class SetDeathLocation implements CustomPacketPayload {
         return death;
     }
 
-    public static void sync(ServerPlayer sp, Death death) {
+    public static void sync(Player player, Death death) {
+        ServerPlayer sp = (ServerPlayer) player;
+
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
             ResourceKey<Level> worldKey = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(death.getDimension()));
             BlockPos deathPos = death.getBlockPos();

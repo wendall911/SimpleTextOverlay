@@ -1,19 +1,16 @@
 package simpletextoverlay.network;
 
-import java.util.Optional;
-
 import io.netty.buffer.Unpooled;
 
-import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.network.chat.Component;
 
-import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
+import net.neoforged.neoforge.network.PacketDistributor;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import simpletextoverlay.client.gui.SetDeathHistoryScreen;
+import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.platform.Services;
+import simpletextoverlay.util.CorpseHelper;
 
 public class NeoForgeNetworkManager {
 
@@ -24,33 +21,37 @@ public class NeoForgeNetworkManager {
     }
 
     public void processSyncData(NeoForgeSyncData msgData, IPayloadContext ctx) {
-        ctx.workHandler().submitAsync(() -> Services.CAPABILITY_PLATFORM.getDataManagerCapability(Minecraft.getInstance().player).ifPresent(data -> {
-            data.read(Minecraft.getInstance().player, new FriendlyByteBuf(Unpooled.wrappedBuffer(msgData.getSyncData().bytes)));
-        }));
+        if (ctx.player().isPresent()) {
+            Player player = ctx.player().get();
+            ctx.workHandler().submitAsync(() -> Services.CAPABILITY_PLATFORM.getDataManagerCapability(player).ifPresent(data -> {
+                data.read(player, new FriendlyByteBuf(Unpooled.wrappedBuffer(msgData.getSyncData().bytes)));
+            }));
+        }
+        else {
+            /*
+             * This is really, really stupid. So far NeoForge stuff has been great, this is just garbage. If I send
+             * ServerPlayer, it shouldn't be optional! Not sure who made that poor choice, but it happened. Now I'm stuck
+             * dubugging this shit becuase it is poorly implemented. Faster != having to send the data twice because you
+             * can't give a correct context the first time.
+             */
+            ctx.workHandler().submitAsync(() -> PacketDistributor.SERVER.noArg().send(new RequestSyncData()));
+        };
+    }
+
+    public void processRequestSyncData(RequestSyncData msgData, IPayloadContext ctx) {
+        ctx.player().ifPresent(player -> ctx.workHandler().submitAsync(() -> RequestSyncData.sync(player)));
     }
 
     public void processOpenHistory(OpenHistory msgData, IPayloadContext ctx) {
-        openScreen(msgData, ctx);
-    }
-
-    public void openScreen(OpenHistory msgData, IPayloadContext ctx) {
-        if (!msgData.getDeaths().isEmpty()) {
-            ctx.workHandler().submitAsync(() -> Minecraft.getInstance().setScreen(new SetDeathHistoryScreen(msgData.getDeaths())));
-        } else if (Minecraft.getInstance().player != null) {
-            ctx.workHandler().submitAsync(() -> Minecraft.getInstance().player.displayClientMessage(Component.translatable("message.corpse.no_death_history"), true));
-        }
+        ctx.workHandler().submitAsync(() -> CorpseHelper.openDeathHistoryScreen(msgData.getDeaths()));
     }
 
     public void processRequestDeathHistory(RequestDeathHistory msgData, IPayloadContext ctx) {
-        Optional<Player> player = ctx.player();
-
-        player.ifPresent(value -> ctx.workHandler().submitAsync(() -> RequestDeathHistory.sync((ServerPlayer) value)));
+        ctx.player().ifPresent(player -> ctx.workHandler().submitAsync(() -> RequestDeathHistory.sync(player)));
     }
 
     public void processSetDeathLocation(SetDeathLocation msgData, IPayloadContext ctx) {
-        Optional<Player> player = ctx.player();
-
-        player.ifPresent(value -> ctx.workHandler().submitAsync(() -> SetDeathLocation.sync((ServerPlayer) value, msgData.getDeath())));
+        ctx.player().ifPresent(player -> ctx.workHandler().submitAsync(() -> SetDeathLocation.sync(player, msgData.getDeath())));
     }
 
 }

@@ -54,6 +54,15 @@ public class SimpleTextOverlayEvents {
                 }
 
                 /*
+                 * If we have this, let's set it, this may be a first join, not a join after death. Either way ...
+                 */
+                if (currentPins.get(LASTDEATH) != null) {
+                    PinHelper.PointPin lastDeathPin = PinHelper.getPointPin(sp, pinsData, worldKey, spawnPos, LASTDEATH);
+
+                    PinHelper.setPointPin(sp, pinsData, lastDeathPin);
+                }
+
+                /*
                  * Check all dimensions for death pin. This ensures if player dies in another dimension,
                  * death location is captured.
                  */
