@@ -125,7 +125,7 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
         apiToken = project.stocurseApiKey
         def mainFile = upload(project.stocurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
         mainFile.changelog = file(changelogFile)
-        mainFile.addJavaVersion('Java ${java_version}')
+        mainFile.addJavaVersion("Java ${java_version}")
         mainFile.addModLoader('Forge')
         mainFile.releaseType = "${release_type}"
         "${release_versions}".split(',').each {
