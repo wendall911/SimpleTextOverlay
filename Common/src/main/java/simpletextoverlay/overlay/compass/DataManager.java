@@ -38,9 +38,9 @@ public class DataManager {
 
     public void read(Player player, FriendlyByteBuf buffer) {
         int numWorlds = buffer.readVarInt();
+        UUID uuid = buffer.readUUID();
 
         for (int i = 0; i < numWorlds; i++) {
-            UUID uuid = buffer.readUUID();
             ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, buffer.readResourceLocation());
             boolean hasDimensionType = buffer.readBoolean();
             ResourceKey<DimensionType> dimType = hasDimensionType
@@ -80,11 +80,11 @@ public class DataManager {
 
     public static void write(UUID uuid, FriendlyByteBuf buffer) {
         buffer.writeVarInt(worldPins.computeIfAbsent(uuid, k -> new HashMap<>()).size());
+        buffer.writeUUID(uuid);
 
         for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.get(uuid).entrySet()) {
             ResourceKey<Level> key = entry.getKey();
             Pins value = entry.getValue();
-            buffer.writeUUID(uuid);
             buffer.writeResourceLocation(key.location());
 
             if (value.getDimensionTypeKey() != null) {
@@ -104,6 +104,7 @@ public class DataManager {
 
         for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.computeIfAbsent(uuid, k -> new HashMap<>()).entrySet()) {
             CompoundTag tag = new CompoundTag();
+
             tag.putUUID("UUID", uuid);
             tag.putString("World", entry.getKey().location().toString());
 
