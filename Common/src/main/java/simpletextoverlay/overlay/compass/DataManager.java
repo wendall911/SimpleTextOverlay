@@ -28,6 +28,10 @@ public class DataManager {
 
     public DataManager() {}
 
+    public static void clearCache() {
+        worldPins.clear();
+    }
+
     @SuppressWarnings("unchecked")
     public <T> T getOrCreatePinData(String pinId, Supplier<T> factory) {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
