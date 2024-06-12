@@ -20,7 +20,7 @@
     "client": [
       "simpletextoverlay.SimpleTextOverlayClientFabric"
     ],
-    "spectrelib": [
+    "spectrelib-config": [
       "simpletextoverlay.FabricConfigInitializer"
     ],
     "cardinal-components-entity": [

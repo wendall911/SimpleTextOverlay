@@ -9,18 +9,15 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlerEvent;
 
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
+import net.neoforged.neoforge.network.registration.PayloadRegistrar;
 import simpletextoverlay.attachments.AttachmentDataManager;
-import simpletextoverlay.client.ModKeyBindings;
 import simpletextoverlay.event.GameOverlayEventHandler;
-import simpletextoverlay.event.KeyEventHandler;
 import simpletextoverlay.event.LocalPlayerEventHandler;
 import simpletextoverlay.event.PlayerEventHandler;
 import simpletextoverlay.network.NeoForgeNetworkManager;
-import simpletextoverlay.network.NeoForgeSyncData;
-import simpletextoverlay.network.RequestSyncData;
-import simpletextoverlay.util.CorpseHelper;
+import simpletextoverlay.network.SyncDataPacket;
 
 @Mod(SimpleTextOverlay.MODID)
 public class SimpleTextOverlayNeoForge {
@@ -29,15 +26,12 @@ public class SimpleTextOverlayNeoForge {
 
     public SimpleTextOverlayNeoForge(IEventBus eventBus) {
         if (FMLEnvironment.dist == Dist.CLIENT) {
-            eventBus.addListener(this::keyBindingSetup);
-            eventBus.addListener(this::clientSetup);
             eventBus.addListener(GameOverlayEventHandler.INSTANCE::onRegisterOverlays);
         }
         AttachmentDataManager.init(eventBus);
         eventBus.addListener(this::setup);
         eventBus.addListener(this::registerPayloadHandler);
         SimpleTextOverlay.init();
-        SimpleTextOverlay.initConfig();
     }
 
     private void setup(final FMLCommonSetupEvent event) {
@@ -48,26 +42,10 @@ public class SimpleTextOverlayNeoForge {
         }
     }
 
-    private void registerPayloadHandler(final RegisterPayloadHandlerEvent event) {
-        event.registrar(SimpleTextOverlay.MODID).play(NeoForgeSyncData.ID, NeoForgeSyncData::new,
-            handler -> handler.client(NeoForgeNetworkManager.getInstance()::processSyncData));
-        event.registrar(SimpleTextOverlay.MODID).play(RequestSyncData.ID, RequestSyncData::new,
-            handler -> handler.server(NeoForgeNetworkManager.getInstance()::processRequestSyncData));
+    private void registerPayloadHandler(final RegisterPayloadHandlersEvent event) {
+        final PayloadRegistrar registrar = event.registrar(SimpleTextOverlay.MODID).versioned("1.0");
 
-        if (ModList.get().isLoaded("corpse")) {
-            CorpseHelper.registerPayload(event);
-        }
-    }
-
-    public void clientSetup(FMLClientSetupEvent event) {
-        NeoForge.EVENT_BUS.register(new KeyEventHandler());
-    }
-
-    public void keyBindingSetup(RegisterKeyMappingsEvent event) {
-        if (!setupDone && ModList.get().isLoaded("corpse")) {
-            ModKeyBindings.init(event);
-            setupDone = true;
-        }
+        registrar.playToClient(SyncDataPacket.TYPE, SyncDataPacket.STREAM_CODEC, NeoForgeNetworkManager::processSyncData);
     }
 
 }

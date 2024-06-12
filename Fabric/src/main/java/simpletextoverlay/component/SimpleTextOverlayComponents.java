@@ -7,6 +7,7 @@ import org.ladysnake.cca.api.v3.component.ComponentRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentFactoryRegistry;
 import org.ladysnake.cca.api.v3.entity.EntityComponentInitializer;
 import org.ladysnake.cca.api.v3.entity.RespawnCopyStrategy;
+
 import simpletextoverlay.SimpleTextOverlay;
 
 public class SimpleTextOverlayComponents implements EntityComponentInitializer {

@@ -22,6 +22,8 @@ import net.minecraft.world.level.Level;
 
 public class DataManager {
 
+    public static final String STO_DATA = "sto_data";
+
     private static final Map<UUID, Map<ResourceKey<Level>, Pins>> worldPins = new HashMap<>();
     private final Map<String, Object> pinData = new HashMap<>();
 
@@ -32,38 +34,29 @@ public class DataManager {
         return (T) pinData.computeIfAbsent(pinId, key -> factory.get());
     }
 
+    public static CompoundTag getSyncData(Player player) {
+        CompoundTag syncData = new CompoundTag();
+
+        syncData.put(STO_DATA, write(player.getUUID()));
+
+        return syncData;
+    }
+
+    public static void readSyncData(Player player, CompoundTag nbt) {
+        read(player, nbt.getList(STO_DATA, Tag.TAG_COMPOUND));
+    }
+
     public static void resetCache() {
         worldPins.clear();
     }
 
-    public void read(Player player, FriendlyByteBuf buffer) {
-        int numWorlds = buffer.readVarInt();
-        UUID uuid = buffer.readUUID();
+    public static void read(ListTag nbt) {
+        CompoundTag tag = nbt.getCompound(0);
+        UUID uuid = tag.getUUID("UUID");
 
-        for (int i = 0; i < numWorlds; i++) {
-            ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, buffer.readResourceLocation());
-            boolean hasDimensionType = buffer.readBoolean();
-            ResourceKey<DimensionType> dimType = hasDimensionType
-                    ? ResourceKey.create(Registries.DIMENSION_TYPE, buffer.readResourceLocation())
-                    : null;
-            Pins pins = get(player, key, dimType);
-            pins.read(uuid, buffer);
-        }
-    }
-
-    public static void read(Player player, ListTag nbt) {
-        worldPins.remove(player.getUUID());
+        worldPins.remove(uuid);
 
         for (int i = 0; i < nbt.size(); i++) {
-            CompoundTag tag = nbt.getCompound(i);
-            UUID uuid;
-
-            try {
-                uuid = tag.getUUID("UUID");
-            }
-            catch(Exception e) {
-                uuid = player.getUUID();
-            }
             ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(tag.getString("World")));
             ResourceKey<DimensionType> dimType = null;
 
@@ -71,32 +64,27 @@ public class DataManager {
                 dimType = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation(tag.getString("DimensionKey")));
             }
 
-            Pins pins = get(player, key, dimType);
+            Pins pins = get(uuid, key, dimType);
 
             pins.read(uuid, tag.getList("PINS", Tag.TAG_COMPOUND));
         }
-
     }
 
-    public static void write(UUID uuid, FriendlyByteBuf buffer) {
-        buffer.writeVarInt(worldPins.computeIfAbsent(uuid, k -> new HashMap<>()).size());
-        buffer.writeUUID(uuid);
+    public static void read(Player player, ListTag nbt) {
+        CompoundTag tag = nbt.getCompound(0);
+        UUID uuid;
 
-        for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.get(uuid).entrySet()) {
-            ResourceKey<Level> key = entry.getKey();
-            Pins value = entry.getValue();
-            buffer.writeResourceLocation(key.location());
-
-            if (value.getDimensionTypeKey() != null) {
-                buffer.writeBoolean(true);
-                buffer.writeResourceLocation(value.getDimensionTypeKey().location());
-            }
-            else {
-                buffer.writeBoolean(false);
-            }
-
-            value.write(uuid, buffer);
+        // Hopefully this can catch bad data from older versions... needs testing
+        try {
+            uuid = tag.getUUID("UUID");
         }
+        catch(Exception e) {
+            uuid = player.getUUID();
+            tag.putUUID("UUID", uuid);
+            nbt.setTag(0, tag);
+        }
+
+        read(nbt);
     }
 
     public static ListTag write(UUID uuid) {
@@ -127,6 +115,10 @@ public class DataManager {
         return get(player, worldKey, null);
     }
 
+    public static Pins get(UUID uuid, ResourceKey<Level> worldKey, @Nullable ResourceKey<DimensionType> dimensionTypeKey) {
+        return getInternal(uuid, worldKey, () -> dimensionTypeKey);
+    }
+
     public static Pins get(Player player, ResourceKey<Level> worldKey, @Nullable ResourceKey<DimensionType> dimensionTypeKey) {
         return getInternal(player, worldKey, () -> {
             if (player.level().dimension() == worldKey) {
@@ -149,6 +141,10 @@ public class DataManager {
 
     private static Pins getInternal(Player player, ResourceKey<Level> worldKey, Supplier<ResourceKey<DimensionType>> dimensionTypeKey) {
         return worldPins.computeIfAbsent(player.getUUID(), k -> new HashMap<>()).computeIfAbsent(Objects.requireNonNull(worldKey), worldKey1 -> new Pins(dimensionTypeKey.get()));
+    }
+
+    private static Pins getInternal(UUID uuid, ResourceKey<Level> worldKey, Supplier<ResourceKey<DimensionType>> dimensionTypeKey) {
+        return worldPins.computeIfAbsent(uuid, k -> new HashMap<>()).computeIfAbsent(Objects.requireNonNull(worldKey), worldKey1 -> new Pins(dimensionTypeKey.get()));
     }
 
     @Nullable

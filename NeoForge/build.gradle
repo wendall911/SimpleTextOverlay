@@ -18,7 +18,6 @@ runs {
     }
     server {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-        programArgument '--nogui'
     }
     gameTestServer {
         systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
@@ -43,7 +42,6 @@ dependencies {
 
     implementation "curse.maven:sereneseasons-291874:${serene_seasons_neoforge_version}"
     implementation "curse.maven:glitchcore-955399:${glitch_core_neoforge_version}"
-    implementation "curse.maven:corpse-316582:${corpse_version}"
 }
 
 tasks.jarJar.configure {

@@ -8,7 +8,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import simpletextoverlay.attachments.AttachmentDataManager;
-import simpletextoverlay.network.NeoForgeSyncData;
+import simpletextoverlay.network.SyncDataPacket;
 import simpletextoverlay.overlay.compass.DataManager;
 import simpletextoverlay.platform.services.ICapabilityPlatform;
 
@@ -21,7 +21,7 @@ public class NeoForgeCapabilityPlatform implements ICapabilityPlatform {
 
     @Override
     public void syncData(ServerPlayer sp) {
-        PacketDistributor.PLAYER.with(sp).send(new NeoForgeSyncData(sp));
+        PacketDistributor.sendToPlayer(sp, new SyncDataPacket(DataManager.getSyncData(sp)));
     }
 
 }

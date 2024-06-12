@@ -3,7 +3,7 @@ package simpletextoverlay.event;
 import net.minecraft.client.Minecraft;
 
 import net.neoforged.bus.api.SubscribeEvent;
-import net.neoforged.neoforge.client.event.ClientPauseUpdatedEvent;
+import net.neoforged.neoforge.client.event.ClientPauseChangeEvent;
 
 import simpletextoverlay.attachments.AttachmentDataManager;
 
@@ -15,8 +15,8 @@ public class LocalPlayerEventHandler {
      * attached to in the network request. This is "faster" garbage at this point.
      */
     @SubscribeEvent
-    public void onClientPause(ClientPauseUpdatedEvent event) {
-        AttachmentDataManager.DATA_MANAGER_INSTANCE.setPlayer(Minecraft.getInstance().player);
+    public void onClientPause(ClientPauseChangeEvent.Pre event) {
+        //AttachmentDataManager.DATA_MANAGER_INSTANCE.setPlayer(Minecraft.getInstance().player);
     }
 
 }

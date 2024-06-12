@@ -8,7 +8,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.player.Player;
 
 import simpletextoverlay.component.SimpleTextOverlayComponents;
-import simpletextoverlay.network.FabricSyncData;
+import simpletextoverlay.network.SyncDataPacket;
 import simpletextoverlay.overlay.compass.DataManager;
 import simpletextoverlay.platform.services.ICapabilityPlatform;
 
@@ -21,9 +21,7 @@ public class FabricCapabilityPlatform implements ICapabilityPlatform {
 
     @Override
     public void syncData(ServerPlayer sp) {
-        FabricSyncData syncData = new FabricSyncData(sp);
-
-        ServerPlayNetworking.send(sp, syncData);
+        ServerPlayNetworking.send(sp, new SyncDataPacket(DataManager.getSyncData(sp)));
     }
 
 }

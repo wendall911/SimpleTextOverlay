@@ -1,11 +1,9 @@
 package simpletextoverlay.attachments;
 
 import java.util.Optional;
-import java.util.UUID;
 import java.util.function.Supplier;
 
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.core.HolderLookup;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.attachment.AttachmentType;
 import net.neoforged.neoforge.common.util.INBTSerializable;
@@ -40,42 +38,29 @@ public class AttachmentDataManager {
     /*
      * Just using this as an empty data object. Maybe should use capability? Probably. But the new NeoForge system
      * is kinda garbage, as-in I can't persist capability data per-player, and this is global, and I get ZERO context
-     * about which player the save is for. So I'll just store the data we need separately.
+     * about which player the save is for. Would be nice if was implemented like Cardinal Components. Maybe just give a
+     * way to persist capabilities?
      */
     public static class DataManagerProvider extends DataManager implements INBTSerializable<ListTag> {
 
         private Player player = null;
-        private MinecraftServer server = null;
 
         public DataManagerProvider() {}
 
         @Override
-        public ListTag serializeNBT() {
+        public ListTag serializeNBT(HolderLookup.Provider provider) {
             return DataManager.write(player.getUUID());
         }
 
         @Override
-        public void deserializeNBT(ListTag nbt) {
+        public void deserializeNBT(HolderLookup.Provider provider, ListTag nbt) {
             if (!nbt.isEmpty()) {
-                CompoundTag tag = nbt.getCompound(0);
-
-                if (tag.contains("UUID")) {
-                    UUID uuid = tag.getUUID("UUID");
-                    Player loggedInPlayer = server.getPlayerList().getPlayer(uuid);
-
-                    if (loggedInPlayer != null) {
-                        DataManager.read(loggedInPlayer, nbt);
-                    }
-                }
+                DataManager.read(nbt);
             }
         }
 
         public void setPlayer(Player player) {
             this.player = player;
-        }
-
-        public void setServer(MinecraftServer server) {
-            this.server = server;
         }
 
     }

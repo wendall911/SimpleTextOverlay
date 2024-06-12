@@ -11,6 +11,7 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
+import net.minecraft.world.phys.Vec3;
 
 import simpletextoverlay.overlay.compass.PinInfo;
 import simpletextoverlay.platform.Services;
@@ -57,7 +58,9 @@ public class SimpleTextOverlayEvents {
                  * If we have this, let's set it, this may be a first join, not a join after death. Either way ...
                  */
                 if (currentPins.get(LASTDEATH) != null) {
-                    PinHelper.PointPin lastDeathPin = PinHelper.getPointPin(sp, pinsData, worldKey, spawnPos, LASTDEATH);
+                    Vec3 pos = currentPins.get(LASTDEATH).getPosition();
+                    BlockPos deathPos = new BlockPos((int) pos.x(), (int) pos.y(), (int) pos.z());
+                    PinHelper.PointPin lastDeathPin = PinHelper.getPointPin(sp, pinsData, worldKey, deathPos, LASTDEATH);
 
                     PinHelper.setPointPin(sp, pinsData, lastDeathPin);
                 }

@@ -1,34 +1,29 @@
 package simpletextoverlay.event;
 
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.LayeredDraw;
 import net.minecraft.resources.ResourceLocation;
 
-import net.neoforged.neoforge.client.event.RegisterGuiOverlaysEvent;
-import net.neoforged.neoforge.client.gui.overlay.IGuiOverlay;
+import net.neoforged.neoforge.client.event.RegisterGuiLayersEvent;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
 
-public class GameOverlayEventHandler {
+public class GameOverlayEventHandler implements LayeredDraw.Layer {
 
     private final OverlayManager overlayManager = OverlayManager.INSTANCE;
     public static final GameOverlayEventHandler INSTANCE = new GameOverlayEventHandler();
 
-    private final IGuiOverlay OVERLAY;
-
-    public GameOverlayEventHandler() {
-        OVERLAY = (gui, guiGraphics, partialTick, width, height) -> {
-            if (!OverlayConfig.loaded) {
-                OverlayConfig.init();
-            }
-            if (OverlayConfig.loaded && !Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
-                overlayManager.renderOverlay(guiGraphics, partialTick);
-            }
-        };
-    }
-    public void onRegisterOverlays(RegisterGuiOverlaysEvent event) {
-        event.registerAboveAll(new ResourceLocation(SimpleTextOverlay.MODID, "overlay"), INSTANCE.OVERLAY);
+    public void onRegisterOverlays(RegisterGuiLayersEvent event) {
+        event.registerAboveAll(new ResourceLocation(SimpleTextOverlay.MODID, "overlay"), INSTANCE);
     }
 
+    @Override
+    public void render(GuiGraphics guiGraphics, float partialTick) {
+        if (OverlayConfig.loaded && !Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
+            overlayManager.renderOverlay(guiGraphics, partialTick);
+        }
+    }
 }
