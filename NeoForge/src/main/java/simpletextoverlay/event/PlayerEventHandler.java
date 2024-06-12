@@ -41,7 +41,6 @@ public class PlayerEventHandler {
 
     /*
      * Resetting cache on local server starting event. This makes sure we are not sharing pins between world instances.
-     * Add server to AttachmentDataManager, so we can get the player context.
      */
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
