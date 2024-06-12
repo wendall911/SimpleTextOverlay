@@ -12,8 +12,6 @@ import simpletextoverlay.SimpleTextOverlay;
 
 public class SimpleTextOverlayComponents implements EntityComponentInitializer {
 
-    public static ResourceLocation STO_DATA = new ResourceLocation(SimpleTextOverlay.MODID, "sto_data");
-
     public static final ComponentKey<ComponentDataManager> DATA_MANAGER = ComponentRegistry.getOrCreate(
         new ResourceLocation(SimpleTextOverlay.MODID, "sto_provider"),
         ComponentDataManager.class

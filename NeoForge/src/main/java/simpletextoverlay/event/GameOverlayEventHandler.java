@@ -19,14 +19,12 @@ public class GameOverlayEventHandler {
 
     public GameOverlayEventHandler() {
         OVERLAY = (gui, guiGraphics, partialTick, width, height) -> {
-            if (!OverlayConfig.loaded) {
-                OverlayConfig.init();
-            }
             if (OverlayConfig.loaded && !Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
                 overlayManager.renderOverlay(guiGraphics, partialTick);
             }
         };
     }
+
     public void onRegisterOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll(new ResourceLocation(SimpleTextOverlay.MODID, "overlay"), INSTANCE.OVERLAY);
     }

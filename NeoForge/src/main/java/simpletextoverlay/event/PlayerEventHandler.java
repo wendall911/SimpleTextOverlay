@@ -9,9 +9,8 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
-
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
-import simpletextoverlay.SimpleTextOverlay;
+
 import simpletextoverlay.attachments.AttachmentDataManager;
 import simpletextoverlay.events.SimpleTextOverlayEvents;
 import simpletextoverlay.overlay.compass.DataManager;
@@ -42,13 +41,10 @@ public class PlayerEventHandler {
 
     /*
      * Resetting cache on local server starting event. This makes sure we are not sharing pins between world instances.
-     * Add server to AttachmentDataManager, so we can get the player context.
      */
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         DataManager.resetCache();
-
-        AttachmentDataManager.DATA_MANAGER_INSTANCE.setServer(event.getServer());
     }
 
     @SubscribeEvent

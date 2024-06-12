@@ -6,7 +6,7 @@ public class FabricConfigInitializer implements SpectreLibInitializer {
 
     @Override
     public void onInitializeConfig() {
-        SimpleTextOverlay.initConfig();
+        SimpleTextOverlay.init();
     }
 
 }
