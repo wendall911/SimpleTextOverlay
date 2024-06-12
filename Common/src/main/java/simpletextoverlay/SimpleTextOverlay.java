@@ -20,7 +20,6 @@ public class SimpleTextOverlay {
         PinInfoRegistry.init();
 
         if (Services.PLATFORM.isPhysicalClient()) {
-            SimpleTextOverlay.LOGGER.warn("isPhysicalClient");
             SpectreConfig clientConfig = SpectreConfigLoader.add(SpectreConfig.Type.CLIENT, OverlayConfig.CLIENT_SPEC, MODID);
             clientConfig.addLoadListener((config, flag) -> OverlayConfig.init());
         }

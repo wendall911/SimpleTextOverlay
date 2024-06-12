@@ -12,7 +12,6 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.nbt.Tag;
-import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -186,17 +185,6 @@ public class DataManager {
             }
         }
 
-        public void read(UUID uuid, FriendlyByteBuf buffer) {
-            int numPins = buffer.readVarInt();
-            pins.clear();
-
-            for (int i = 0; i < numPins; i++) {
-                PinInfo<?> pin = PinInfoRegistry.deserializePin(buffer);
-
-                pins.computeIfAbsent(uuid, k -> new HashMap<>()).put(pin.getInternalId(), pin);
-            }
-        }
-
         public ListTag write(UUID uuid) {
             ListTag tag = new ListTag();
 
@@ -205,14 +193,6 @@ public class DataManager {
             }
 
             return tag;
-        }
-
-        public void write(UUID uuid, FriendlyByteBuf buffer) {
-            buffer.writeVarInt(pins.computeIfAbsent(uuid, k -> new HashMap<>()).size());
-
-            for (PinInfo<?> pin : pins.computeIfAbsent(uuid, k -> new HashMap<>()).values()) {
-                PinInfoRegistry.serializePin(pin, buffer);
-            }
         }
 
         public void addPin(UUID uuid, PinInfo<?> pin) {
