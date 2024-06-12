@@ -15,6 +15,7 @@ mixin {
     add sourceSets.main, "${mod_id}-refmap.json"
 
     config "${mod_id}.mixins.json"
+    config "${mod_id}.forge.mixins.json"
 }
 
 minecraft {
@@ -55,14 +56,14 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     // Hack fix for now, force jopt-simple to be exactly 5.0.4 because Mojang ships that version, but some transtive dependencies request 6.0+
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}")
-    jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}") {
+    implementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}"
+    jarJar (group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}") {
         jarJar.pin(it, "${spectrelib_version}+${minecraft_version}")
     }
-    implementation fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_forge_version}")
-    implementation fg.deobf("curse.maven:glitchcore-955399:${glitch_core_forge_version}")
-    compileOnly fg.deobf("curse.maven:corpse-316582:${corpse_version}")
+    implementation "curse.maven:sereneseasons-291874:${serene_seasons_forge_version}"
+    implementation "curse.maven:glitchcore-955399:${glitch_core_forge_version}"
 }
 
 jar.finalizedBy('jarJar')

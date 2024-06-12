@@ -21,17 +21,17 @@ dependencies {
     modImplementation "com.illusivesoulworks.spectrelib:spectrelib-fabric:${spectrelib_version}+${minecraft_version}"
     include "com.illusivesoulworks.spectrelib:spectrelib-fabric:${spectrelib_version}+${minecraft_version}"
 
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
-    modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
-    include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
+    modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
+    include "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
+    include "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
 
     modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
         transitive = false
     }
     implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 
-    // Not available for 1.20.4 :(
+    // Not available for 1.20.6 :(
     //modCompileOnly "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
     modImplementation "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
     modImplementation "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"

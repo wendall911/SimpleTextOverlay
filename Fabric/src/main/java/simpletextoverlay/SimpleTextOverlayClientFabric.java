@@ -8,9 +8,8 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.FriendlyByteBuf;
 
-import simpletextoverlay.component.SimpleTextOverlayComponents;
 import simpletextoverlay.event.GameOverlayEventHandler;
-import simpletextoverlay.network.SyncData;
+import simpletextoverlay.network.FabricSyncData;
 import simpletextoverlay.platform.Services;
 
 public class SimpleTextOverlayClientFabric implements ClientModInitializer {
@@ -19,12 +18,11 @@ public class SimpleTextOverlayClientFabric implements ClientModInitializer {
     public void onInitializeClient() {
         GameOverlayEventHandler.init();
 
-        ClientPlayNetworking.registerGlobalReceiver(SimpleTextOverlayComponents.STO_DATA, (client, handler, buf, responseSender) -> {
-            client.execute(() -> Services.CAPABILITY_PLATFORM.getDataManagerCapability(Minecraft.getInstance().player).ifPresent(data -> {
-                SyncData syncData = new SyncData(new byte[buf.readableBytes()]);
-
-                data.read(Minecraft.getInstance().player, new FriendlyByteBuf(Unpooled.wrappedBuffer(syncData.bytes)));
-            }));
+        ClientPlayNetworking.registerGlobalReceiver(FabricSyncData.TYPE, (payload, context) -> {
+            Minecraft mc = context.client();
+            Services.CAPABILITY_PLATFORM.getDataManagerCapability(mc.player).ifPresent(data -> {
+                mc.execute(() -> data.read(Minecraft.getInstance().player, new FriendlyByteBuf(Unpooled.wrappedBuffer(payload.getSyncData().bytes))));
+            });
         });
     }
 

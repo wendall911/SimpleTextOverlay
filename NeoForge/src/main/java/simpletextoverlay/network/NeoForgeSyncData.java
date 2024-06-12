@@ -12,6 +12,7 @@ public class NeoForgeSyncData implements CustomPacketPayload {
     private SyncData syncData;
 
     public static final ResourceLocation ID = new ResourceLocation(SimpleTextOverlay.MODID, "sync_data");
+    public static final Type<NeoForgeSyncData> TYPE = new Type<>(ID);
 
     public NeoForgeSyncData(FriendlyByteBuf buffer) {
         syncData = new SyncData(buffer.readByteArray());
@@ -26,13 +27,7 @@ public class NeoForgeSyncData implements CustomPacketPayload {
     }
 
     @Override
-    public void write(FriendlyByteBuf buffer) {
-        buffer.writeByteArray(syncData.bytes);
+    public Type<? extends CustomPacketPayload> type() {
+        return TYPE;
     }
-
-    @Override
-    public ResourceLocation id() {
-        return ID;
-    }
-
 }
