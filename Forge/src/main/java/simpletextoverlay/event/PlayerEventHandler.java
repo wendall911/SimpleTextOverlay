@@ -5,11 +5,14 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.server.ServerStartingEvent;
+import net.minecraftforge.event.server.ServerStoppedEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import simpletextoverlay.events.SimpleTextOverlayEvents;
 import simpletextoverlay.SimpleTextOverlay;
+import simpletextoverlay.overlay.compass.DataManager;
 
 @Mod.EventBusSubscriber(modid=SimpleTextOverlay.MODID)
 public class PlayerEventHandler {
@@ -29,6 +32,16 @@ public class PlayerEventHandler {
     @SubscribeEvent
     public static void onPlayerDeath(LivingDeathEvent event) {
         SimpleTextOverlayEvents.onPlayerDeath(event.getEntity());
+    }
+
+    @SubscribeEvent
+    public static void onServerStarting(ServerStartingEvent event) {
+        DataManager.clearCache();
+    }
+
+    @SubscribeEvent
+    public static void onServerStopped(ServerStoppedEvent event) {
+        DataManager.clearCache();
     }
 
 }
