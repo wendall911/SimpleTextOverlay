@@ -10,6 +10,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
+import net.neoforged.neoforge.event.server.ServerStoppedEvent;
 
 import simpletextoverlay.attachments.AttachmentDataManager;
 import simpletextoverlay.events.SimpleTextOverlayEvents;
@@ -42,6 +43,11 @@ public class PlayerEventHandler {
     /*
      * Resetting cache on local server starting event. This makes sure we are not sharing pins between world instances.
      */
+    @SubscribeEvent
+    public void onServerStopped(ServerStoppedEvent event) {
+        DataManager.resetCache();
+    }
+
     @SubscribeEvent
     public void onServerStarting(ServerStartingEvent event) {
         DataManager.resetCache();
