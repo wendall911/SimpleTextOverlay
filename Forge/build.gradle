@@ -1,22 +1,12 @@
 plugins {
     id 'idea'
     id 'maven-publish'
-    id 'net.neoforged.gradle' version '[6.0.13,6.2)'
+    id 'net.minecraftforge.gradle'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.spongepowered.mixin'
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8'
     id 'com.modrinth.minotaur' version '2.+'
-}
-
-repositories {
-    maven {
-        name = "Curse Maven"
-        url = "https://cursemaven.com"
-        content {
-            includeGroup "curse.maven"
-        }
-    }
 }
 
 version = "${minecraft_version}-${mod_version}-FORGE"
@@ -99,6 +89,7 @@ processResources {
     from project(":Common").sourceSets.main.resources
     duplicatesStrategy(DuplicatesStrategy.FAIL)
     inputs.properties replaceProperties
+    exclude '.cache'
     replaceProperties.put 'project', project
 
     filesMatching(resourceTargets) {
@@ -107,7 +98,6 @@ processResources {
 }
 
 tasks.jarJar.finalizedBy('reobfJar')
-
 jar.finalizedBy('reobfJarJar', 'signJar')
 
 reobf {

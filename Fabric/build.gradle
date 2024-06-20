@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '1.2-SNAPSHOT'
+    id 'fabric-loom'
     id 'idea'
     id 'net.darkhax.curseforgegradle' version '1.+'
     id 'com.modrinth.minotaur' version '2.+'
@@ -55,6 +55,7 @@ loom {
 processResources {
     from project(":Common").sourceSets.main.resources
     inputs.property "version", project.version
+    exclude '.cache'
     duplicatesStrategy(DuplicatesStrategy.FAIL)
 
     filesMatching("fabric.mod.json") {
