@@ -13,7 +13,7 @@ import simpletextoverlay.SimpleTextOverlay;
 public class SimpleTextOverlayComponents implements EntityComponentInitializer {
 
     public static final ComponentKey<ComponentDataManager> DATA_MANAGER = ComponentRegistry.getOrCreate(
-        new ResourceLocation(SimpleTextOverlay.MODID, "sto_provider"),
+        ResourceLocation.fromNamespaceAndPath(SimpleTextOverlay.MODID, "sto_provider"),
         ComponentDataManager.class
     );
 

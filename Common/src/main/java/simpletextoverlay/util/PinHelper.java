@@ -2,7 +2,7 @@ package simpletextoverlay.util;
 
 import java.util.Objects;
 
-import javax.annotation.Nullable;
+import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;

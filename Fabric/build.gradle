@@ -1,8 +1,6 @@
 plugins {
     id 'multiloader-loader'
-    id 'fabric-loom' version '1.6-SNAPSHOT'
-    id 'net.darkhax.curseforgegradle' version '1.+'
-    id 'com.modrinth.minotaur' version '2.+'
+    id 'fabric-loom'
 }
 
 version = fabric_mod_version
@@ -29,7 +27,6 @@ dependencies {
     modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
         transitive = false
     }
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
 
     // Not available for 1.20.6 :(
     //modCompileOnly "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
@@ -42,6 +39,9 @@ dependencies {
 }
 
 loom {
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
+    }
     runs {
         client {
             client()

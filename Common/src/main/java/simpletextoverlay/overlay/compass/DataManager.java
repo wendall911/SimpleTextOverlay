@@ -56,11 +56,11 @@ public class DataManager {
         worldPins.remove(uuid);
 
         for (int i = 0; i < nbt.size(); i++) {
-            ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(tag.getString("World")));
+            ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, ResourceLocation.bySeparator(tag.getString("World"), ':'));
             ResourceKey<DimensionType> dimType = null;
 
             if (tag.contains("DimensionKey", Tag.TAG_STRING)) {
-                dimType = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation(tag.getString("DimensionKey")));
+                dimType = ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.bySeparator(tag.getString("DimensionKey"), ':'));
             }
 
             Pins pins = get(uuid, key, dimType);

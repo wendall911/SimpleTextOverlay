@@ -2,6 +2,7 @@ package simpletextoverlay.event;
 
 import net.fabricmc.fabric.api.client.rendering.v1.HudRenderCallback;
 
+import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.Minecraft;
 
@@ -17,9 +18,9 @@ public class GameOverlayEventHandler implements HudRenderCallback {
     }
 
     @Override
-    public void onHudRender(GuiGraphics guiGraphics, float partialTicks) {
+    public void onHudRender(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
         if (OverlayConfig.loaded && !Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
-            overlayManager.renderOverlay(guiGraphics, partialTicks);
+            overlayManager.renderOverlay(guiGraphics, deltaTracker.getGameTimeDeltaPartialTick(true));
         }
     }
 

@@ -12,7 +12,7 @@ import simpletextoverlay.overlay.compass.DataManager;
 
 public record SyncDataPacket(CompoundTag data) implements CustomPacketPayload {
 
-    public static final ResourceLocation ID = new ResourceLocation(SimpleTextOverlay.MODID, DataManager.STO_DATA);
+    public static final ResourceLocation ID = ResourceLocation.fromNamespaceAndPath(SimpleTextOverlay.MODID, DataManager.STO_DATA);
     public static final Type<SyncDataPacket> TYPE = new Type<>(ID);
     public static final StreamCodec<FriendlyByteBuf, SyncDataPacket> STREAM_CODEC = StreamCodec.composite(
         ByteBufCodecs.COMPOUND_TAG,
