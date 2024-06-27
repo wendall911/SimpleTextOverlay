@@ -93,7 +93,6 @@ sourcesJar {
 }
 
 jar {
-    archiveClassifier.set("slim")
     from(rootProject.file("LICENSE"))
     from(rootProject.file("CREDITS.md"))
     from(rootProject.file("README.md"))
