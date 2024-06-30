@@ -1,9 +1,9 @@
 package simpletextoverlay.overlay;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import java.util.Locale;
 import java.util.Objects;
+
+import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -45,11 +45,11 @@ public class TimeInfo extends Info {
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label + formattedTime));
         int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB(), FontHelper.TextType.LABEL);
 
         x = x + mc.font.width(super.label);
 
-        FontHelper.draw(mc, matrix, formattedTime, x, y, ColorHelper.getTimeColor(hour, minute));
+        FontHelper.draw(mc, matrix, formattedTime, x, y, ColorHelper.getTimeColor(hour, minute), FontHelper.TextType.VALUE);
     }
 
 }
