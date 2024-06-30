@@ -23,7 +23,9 @@ public class GameOverlayEventHandler implements LayeredDraw.Layer {
 
     @Override
     public void render(GuiGraphics guiGraphics, DeltaTracker deltaTracker) {
-        if (OverlayConfig.loaded && !Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
+        Minecraft mc = Minecraft.getInstance();
+
+        if (OverlayConfig.loaded && !mc.getDebugOverlay().showDebugScreen() && !mc.options.hideGui) {
             overlayManager.renderOverlay(guiGraphics, deltaTracker.getGameTimeDeltaPartialTick(true));
         }
     }
