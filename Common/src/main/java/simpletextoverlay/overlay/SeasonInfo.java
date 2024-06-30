@@ -30,7 +30,7 @@ public class SeasonInfo extends Info {
             int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(seasonName));
             int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-            FontHelper.draw(mc, guiGraphics, seasonName, x, y, ColorHelper.getSeasonColor(subSeason));
+            FontHelper.draw(mc, guiGraphics, seasonName, x, y, ColorHelper.getSeasonColor(subSeason), FontHelper.TextType.VALUE);
         }
     }
 
