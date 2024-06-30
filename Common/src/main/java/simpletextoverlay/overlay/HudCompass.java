@@ -52,7 +52,7 @@ public class HudCompass {
         drawCardinal(mc, guiGraphics, yaw, 180, x, y, "N");
         drawCardinal(mc, guiGraphics, yaw, 270, x, y, "E");
 
-        FontHelper.draw(mc, guiGraphics, compassText, x, y, ColorHelper.decode("#b02e26").getRGB(), false);
+        FontHelper.draw(mc, guiGraphics, compassText, x, y, ColorHelper.decode("#b02e26").getRGB(), false, FontHelper.TextType.NONE);
 
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(player).ifPresent(pinsData -> {
             final Map<String, PinInfo<?>> pins = pinsData.get(player).getPins(player.getUUID());
@@ -109,7 +109,7 @@ public class HudCompass {
                 matrix.scale(size, size, size);
             }
 
-            FontHelper.draw(mc, guiGraphics, text, xPos, yPos, color);
+            FontHelper.draw(mc, guiGraphics, text, xPos, yPos, color, FontHelper.TextType.NONE);
 
             if (size != 1.0) {
                 matrix.popPose();
