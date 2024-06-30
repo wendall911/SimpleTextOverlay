@@ -18,7 +18,9 @@ public class GameOverlayEventHandler implements HudRenderCallback {
 
     @Override
     public void onHudRender(GuiGraphics guiGraphics, float partialTicks) {
-        if (OverlayConfig.loaded && !Minecraft.getInstance().getDebugOverlay().showDebugScreen()) {
+        Minecraft mc = Minecraft.getInstance();
+
+        if (OverlayConfig.loaded && !mc.getDebugOverlay().showDebugScreen() && !mc.options.hideGui) {
             overlayManager.renderOverlay(guiGraphics, partialTicks);
         }
     }
