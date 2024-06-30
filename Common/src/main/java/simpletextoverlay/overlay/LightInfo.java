@@ -1,5 +1,7 @@
 package simpletextoverlay.overlay;
 
+import java.util.Objects;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
@@ -12,8 +14,6 @@ import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
-
-import java.util.Objects;
 
 public class LightInfo extends Info {
 
@@ -55,11 +55,11 @@ public class LightInfo extends Info {
             int x = Alignment.getX(scaledWidth, mc.font.width(super.label + brightness));
             int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-            FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+            FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB(), FontHelper.TextType.LABEL);
 
             x = x + mc.font.width(super.label);
 
-            FontHelper.draw(mc, matrix, brightness, x, y, ColorHelper.getLightColor(brightnessVal));
+            FontHelper.draw(mc, matrix, brightness, x, y, ColorHelper.getLightColor(brightnessVal), FontHelper.TextType.VALUE);
         }
     }
 

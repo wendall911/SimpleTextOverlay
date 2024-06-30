@@ -1,5 +1,7 @@
 package simpletextoverlay.overlay;
 
+import java.util.Objects;
+
 import com.mojang.blaze3d.vertex.PoseStack;
 
 import net.minecraft.client.Minecraft;
@@ -13,8 +15,6 @@ import net.minecraft.world.level.biome.Biome;
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.FontHelper;
-
-import java.util.Objects;
 
 public class BiomeInfo extends Info {
 
@@ -31,11 +31,11 @@ public class BiomeInfo extends Info {
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(biomeName));
         int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB(), FontHelper.TextType.LABEL);
 
         x = x + mc.font.width(super.label);
 
-        FontHelper.draw(mc, matrix, biomeName, x, y, OverlayConfig.biomeColor().getRGB());
+        FontHelper.draw(mc, matrix, biomeName, x, y, OverlayConfig.biomeColor().getRGB(), FontHelper.TextType.VALUE);
     }
 
 }

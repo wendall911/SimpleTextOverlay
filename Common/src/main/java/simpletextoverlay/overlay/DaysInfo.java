@@ -25,11 +25,11 @@ public class DaysInfo extends Info {
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label + numberDays));
         int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+        FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB(), FontHelper.TextType.LABEL);
 
         x = x + mc.font.width(super.label);
 
-        FontHelper.draw(mc, matrix, numberDays, x, y, OverlayConfig.daysColor().getRGB());
+        FontHelper.draw(mc, matrix, numberDays, x, y, OverlayConfig.daysColor().getRGB(), FontHelper.TextType.VALUE);
     }
 
 }
