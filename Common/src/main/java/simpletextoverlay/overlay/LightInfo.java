@@ -1,5 +1,7 @@
 package simpletextoverlay.overlay;
 
+import java.util.Objects;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
@@ -12,8 +14,6 @@ import simpletextoverlay.util.Alignment;
 import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
 
-import java.util.Objects;
-
 public class LightInfo extends Info {
 
     public LightInfo(String label, int lineNum) {
@@ -21,7 +21,7 @@ public class LightInfo extends Info {
     }
 
     @Override
-    public void renderText(GuiGraphics matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+    public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
         Level level = Objects.requireNonNull(mc.getCameraEntity()).level();
         int brightnessVal;
         int skyLight;
@@ -54,11 +54,11 @@ public class LightInfo extends Info {
             int x = Alignment.getX(scaledWidth, mc.font.width(super.label + brightness));
             int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);
 
-            FontHelper.draw(mc, matrix, super.label, x, y, OverlayConfig.labelColor().getRGB());
+            FontHelper.draw(mc, guiGraphics, super.label, x, y, OverlayConfig.labelColor().getRGB(), FontHelper.TextType.LABEL);
 
             x = x + mc.font.width(super.label);
 
-            FontHelper.draw(mc, matrix, brightness, x, y, ColorHelper.getLightColor(brightnessVal));
+            FontHelper.draw(mc, guiGraphics, brightness, x, y, ColorHelper.getLightColor(brightnessVal), FontHelper.TextType.VALUE);
         }
     }
 
