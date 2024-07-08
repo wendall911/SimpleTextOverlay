@@ -18,7 +18,7 @@ public class ForgeSeasonInfo implements ISeasonInfo {
     @Override
     public Pair<Component, SubSeason> getSeasonName(Level level, BlockPos pos) {
         if (ServerConfig.isDimensionWhitelisted(level.dimension())) {
-            SubSeason subSeason = SubSeason.getSubSeason(level, SeasonHelper.getSeasonState(level).getSeasonDuration());
+            SubSeason subSeason = SubSeason.values()[SeasonHelper.getSeasonState(level).getSubSeason().ordinal()];
             Component seasonName = Component.translatable("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
 
             return Pair.of(seasonName, subSeason);
