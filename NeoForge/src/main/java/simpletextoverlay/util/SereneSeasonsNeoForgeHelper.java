@@ -17,4 +17,8 @@ public class SereneSeasonsNeoForgeHelper {
         return SeasonHelper.getSeasonState(level).getSeasonDuration();
     }
 
+    public static SubSeason getSubSeason(Level level) {
+        return SubSeason.values()[SeasonHelper.getSeasonState(level).getSubSeason().ordinal()];
+    }
+
 }

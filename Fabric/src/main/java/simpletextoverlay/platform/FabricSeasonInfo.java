@@ -17,19 +17,18 @@ public class FabricSeasonInfo implements ISeasonInfo {
     @Override
     public Pair<Component, SubSeason> getSeasonName(Level level, BlockPos pos) {
         boolean hasSeasonDimension = false;
-        int seasonDuration = 672000;
+        SubSeason subSeason = SubSeason.MID_SPRING;
 
         if (Services.PLATFORM.isModLoaded("sereneseasons")) {
-            seasonDuration = SereneSeasonsFabricHelper.getSeasonDuration(level);
+            subSeason = SereneSeasonsFabricHelper.getSubSeason(level);
             hasSeasonDimension = SereneSeasonsFabricHelper.isDimensionWhitelisted(level.dimension());
         }
         else if (Services.PLATFORM.isModLoaded("seasons")) {
-            seasonDuration = FabricSeasonsHelper.getSeasonDuration();
+            subSeason = SubSeason.getSubSeason(level, FabricSeasonsHelper.getSeasonDuration());
             hasSeasonDimension = FabricSeasonsHelper.isDimensionWhitelisted(level.dimension());
         }
 
         if (hasSeasonDimension) {
-            SubSeason subSeason = SubSeason.getSubSeason(level, seasonDuration);
             Component seasonName = Component.translatable("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
 
             return Pair.of(seasonName, subSeason);
