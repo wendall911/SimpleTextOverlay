@@ -16,7 +16,7 @@ public class NeoForgeSeasonInfo implements ISeasonInfo {
     @Override
     public Pair<Component, SubSeason> getSeasonName(Level level, BlockPos pos) {
         if (SereneSeasonsNeoForgeHelper.isDimensionWhitelisted(level.dimension())) {
-            SubSeason subSeason = SubSeason.getSubSeason(level, SereneSeasonsNeoForgeHelper.getSeasonDuration(level));
+            SubSeason subSeason = SereneSeasonsNeoForgeHelper.getSubSeason(level);
             Component seasonName = Component.translatable("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
 
             return Pair.of(seasonName, subSeason);
