@@ -35,8 +35,8 @@ neoForge {
 }
 
 dependencies {
-    implementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_version}+${minecraft_version}"
-    jarJar group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_version}+${minecraft_version}"
+    implementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_version}"
+    jarJar group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-neoforge', version: "${spectrelib_version}"
 
     implementation "curse.maven:sereneseasons-291874:${serene_seasons_neoforge_version}"
     implementation "curse.maven:glitchcore-955399:${glitch_core_neoforge_version}"

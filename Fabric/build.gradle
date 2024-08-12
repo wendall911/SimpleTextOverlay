@@ -16,8 +16,8 @@ dependencies {
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-    modImplementation "com.illusivesoulworks.spectrelib:spectrelib-fabric:${spectrelib_version}+${minecraft_version}"
-    include "com.illusivesoulworks.spectrelib:spectrelib-fabric:${spectrelib_version}+${minecraft_version}"
+    modImplementation "com.illusivesoulworks.spectrelib:spectrelib-fabric:${spectrelib_version}"
+    include "com.illusivesoulworks.spectrelib:spectrelib-fabric:${spectrelib_version}"
 
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
     modImplementation "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
@@ -30,12 +30,12 @@ dependencies {
 
     // Not available for 1.20.6 :(
     //modCompileOnly "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
-    modImplementation "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
-    modImplementation "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"
+    modCompileOnly "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
+    modCompileOnly "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"
     modRuntimeOnly "net.jodah:typetools:0.6.3"
     modImplementation "com.electronwill.night-config:core:3.6.7"
 
-    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}+${minecraft_version}"
+    include group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_version}"
 }
 
 loom {
