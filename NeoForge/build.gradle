@@ -40,6 +40,8 @@ dependencies {
 
     implementation "curse.maven:sereneseasons-291874:${serene_seasons_neoforge_version}"
     implementation "curse.maven:glitchcore-955399:${glitch_core_neoforge_version}"
+    runtimeOnly "curse.maven:catalogue-459701:5631367"
+    //runtimeOnly "curse.maven:configured-457570:5441232"
 }
 
 shadowJar {
