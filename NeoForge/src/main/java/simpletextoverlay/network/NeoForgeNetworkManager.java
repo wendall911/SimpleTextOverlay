@@ -5,6 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import simpletextoverlay.platform.Services;
+import simpletextoverlay.util.LocalPlayerHelper;
 
 public class NeoForgeNetworkManager {
 
@@ -14,12 +15,12 @@ public class NeoForgeNetworkManager {
         return INSTANCE;
     }
 
-    public static void processSyncData(SyncDataPacket msgData, IPayloadContext ctx) {
+    public void processSyncData(SyncDataPacket msgData, IPayloadContext ctx) {
         ctx.enqueueWork(() -> {
-            Player player = ctx.player();
+            Player player = LocalPlayerHelper.getLocalPlayer();
 
             Services.CAPABILITY_PLATFORM.getDataManagerCapability(player).ifPresent(data -> {
-                data.readSyncData(player, msgData.data());
+                data.readSyncData(msgData.data());
             });
         });
     }

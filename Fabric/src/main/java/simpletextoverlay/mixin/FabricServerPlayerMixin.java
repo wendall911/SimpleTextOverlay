@@ -4,7 +4,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.level.Level;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -22,13 +21,6 @@ public class FabricServerPlayerMixin {
         ServerPlayer sp = (ServerPlayer) (Object) this;
 
         SimpleTextOverlayEvents.onPlayerChangeDimension(sp, sp.level().dimension());
-    }
-
-    @Inject(method = "die", at = @At("HEAD"))
-    private void sto$die(DamageSource damageSource, CallbackInfo ci) {
-        ServerPlayer sp = (ServerPlayer) (Object) this;
-
-        SimpleTextOverlayEvents.onPlayerDeath(sp);
     }
 
     // For refmap ... need to figure out how to make the mapping file added

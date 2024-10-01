@@ -1,5 +1,7 @@
 package simpletextoverlay.network;
 
+import org.jetbrains.annotations.NotNull;
+
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -21,7 +23,7 @@ public record SyncDataPacket(CompoundTag data) implements CustomPacketPayload {
     );
 
     @Override
-    public Type<? extends CustomPacketPayload> type() {
+    public @NotNull Type<? extends CustomPacketPayload> type() {
         return TYPE;
     }
 

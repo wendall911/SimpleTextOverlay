@@ -21,7 +21,9 @@ public class FabricCapabilityPlatform implements ICapabilityPlatform {
 
     @Override
     public void syncData(ServerPlayer sp) {
-        ServerPlayNetworking.send(sp, new SyncDataPacket(DataManager.getSyncData(sp)));
+        Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent(data -> {
+            ServerPlayNetworking.send(sp, new SyncDataPacket(data.getSyncData()));
+        });
     }
 
 }

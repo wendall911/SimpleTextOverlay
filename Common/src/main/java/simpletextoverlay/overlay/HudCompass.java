@@ -55,7 +55,7 @@ public class HudCompass {
         FontHelper.draw(mc, guiGraphics, compassText, x, y, ColorHelper.decode("#b02e26").getRGB(), false, FontHelper.TextType.NONE);
 
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(player).ifPresent(pinsData -> {
-            final Map<String, PinInfo<?>> pins = pinsData.get(player).getPins(player.getUUID());
+            final Map<String, PinInfo<?>> pins = pinsData.get(player).getPins();
             float offset = 0.5F;
             final PinInfo<?> bedSpawn = pins.get(BEDSPAWN);
             final PinInfo<?> lastDeath = pins.get(LASTDEATH);

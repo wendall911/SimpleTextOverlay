@@ -19,7 +19,7 @@ public class SimpleTextOverlayClientFabric implements ClientModInitializer {
             Minecraft mc = context.client();
 
             Services.CAPABILITY_PLATFORM.getDataManagerCapability(mc.player).ifPresent(data -> {
-                mc.execute(() -> data.readSyncData(Minecraft.getInstance().player, payload.data()));
+                mc.execute(() -> data.readSyncData(payload.data()));
             });
         });
 
