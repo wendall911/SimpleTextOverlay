@@ -1,6 +1,7 @@
 package simpletextoverlay.config;
 
 import java.awt.Color;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.function.Predicate;
@@ -9,7 +10,6 @@ import java.util.List;
 
 import com.illusivesoulworks.spectrelib.config.SpectreConfigSpec;
 
-import org.apache.commons.compress.archivers.sevenz.CLI;
 import org.apache.commons.lang3.tuple.Pair;
 
 import simpletextoverlay.overlay.OverlayManager;
@@ -31,9 +31,10 @@ public final class OverlayConfig {
     @SuppressWarnings("unchecked")
     public static void init() {
         List<String> fields = (List<String>) CLIENT.fields.get();
+        Client.sortedFields = new ArrayList<>(fields);
 
         if (CLIENT.position.get().startsWith("BOTTOM")) {
-            Collections.reverse(fields);
+            Collections.reverse(Client.sortedFields);
         }
 
         // Populate range colors here to initialize when building fields list.
@@ -48,8 +49,6 @@ public final class OverlayConfig {
         Client.footColorDecoded = ColorHelper.decode(CLIENT.footColor.get());
         Client.biomeColorDecoded = ColorHelper.decode(CLIENT.biomeColor.get());
         Client.daysColorDecoded = ColorHelper.decode(CLIENT.daysColor.get());
-
-        Client.sortedFields = fields;
 
         OverlayManager.INSTANCE.init();
 
