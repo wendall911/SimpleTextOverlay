@@ -1,10 +1,13 @@
 package simpletextoverlay.overlay.compass;
 
 import java.util.HashMap;
+import java.util.Optional;
 import java.util.function.Supplier;
 import java.util.Map;
 import java.util.Objects;
 
+import net.minecraft.core.Holder;
+import net.minecraft.core.Registry;
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.registries.Registries;
@@ -112,13 +115,19 @@ public class DataManager {
     @Nullable
     private ResourceKey<DimensionType> getDimensionTypeKey(Level world, @Nullable ResourceKey<DimensionType> fallback) {
         DimensionType dimType = world.dimensionType();
-        ResourceLocation key = world.registryAccess().registryOrThrow(Registries.DIMENSION_TYPE).getKey(dimType);
+        Optional<Holder.Reference<Registry<DimensionType>>> optionalRegistry = world.registryAccess().get(Registries.DIMENSION_TYPE);
 
-        if (key == null) {
-            return fallback;
+        if (optionalRegistry.isPresent()) {
+            ResourceLocation key = optionalRegistry.get().value().getKey(dimType);
+
+            if (key == null) {
+                return fallback;
+            }
+
+            return ResourceKey.create(Registries.DIMENSION_TYPE, key);
         }
 
-        return ResourceKey.create(Registries.DIMENSION_TYPE, key);
+        return fallback;
     }
 
 }

@@ -3,7 +3,7 @@ package simpletextoverlay.util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.network.chat.Component;
-import net.minecraft.util.FastColor;
+import net.minecraft.util.ARGB;
 
 import simpletextoverlay.config.OverlayConfig;
 
@@ -35,7 +35,7 @@ public class FontHelper {
             int backgroundColor = mc.options.getBackgroundColor(0);
 
             if (backgroundColor != 0) {
-                guiGraphics.fill(x - leftOffset, y - 1, x + textWidth + rightOffset, y + 7 + 2, FastColor.ARGB32.multiply(backgroundColor, color));
+                guiGraphics.fill(x - leftOffset, y - 1, x + textWidth + rightOffset, y + 7 + 2, ARGB.multiply(backgroundColor, color));
             }
         }
     }
