@@ -4,13 +4,9 @@
 [![](https://img.shields.io/badge/Fabric-0.46.0+-yellowgreen.svg?longCache=true&style=flat)](https://www.curseforge.com/minecraft/mc-mods/simpletextoverlay/files?gameVersionTypeId=4)
 ![MIT](https://img.shields.io/badge/license-MIT-blue.svg?longCache=true&style=flat)
 
-A Minecraft 1.18.1+ mod to provide a simple text overlay. With light level, foot level and current biome.
+A Minecraft 1.18.2+ mod to provide a simple text overlay. With time, light level, foot level and current biome.
 
 Older versions for 1.15.x and lower were crazy powerful and complicated ... nobody ever used the features, so the mod was rebuilt with 1.18.1 to just be actually simple.
-
-A Minecraft 1.18.2+ mod to provide a simple text overlay. With time, light level, foot level and current biome.
-
-A Minecraft 1.18.2+ mod to provide a simple text overlay. With time, light level, foot level and current biome.
 
 ## Text Overlay Options
  * Time
