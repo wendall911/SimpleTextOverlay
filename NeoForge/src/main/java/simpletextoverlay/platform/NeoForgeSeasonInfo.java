@@ -8,6 +8,7 @@ import net.minecraft.world.level.Level;
 
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.platform.services.ISeasonInfo;
+import simpletextoverlay.util.EclipticSeasonsHelper;
 import simpletextoverlay.util.SereneSeasonsNeoForgeHelper;
 import simpletextoverlay.util.SubSeason;
 
@@ -15,8 +16,19 @@ public class NeoForgeSeasonInfo implements ISeasonInfo {
 
     @Override
     public Pair<Component, SubSeason> getSeasonName(Level level, BlockPos pos) {
-        if (SereneSeasonsNeoForgeHelper.isDimensionWhitelisted(level.dimension())) {
-            SubSeason subSeason = SereneSeasonsNeoForgeHelper.getSubSeason(level);
+        boolean hasSeasonDimension = false;
+        SubSeason subSeason = SubSeason.MID_SPRING;
+
+        if (Services.PLATFORM.isModLoaded("sereneseasons")) {
+            subSeason = SereneSeasonsNeoForgeHelper.getSubSeason(level);
+            hasSeasonDimension = SereneSeasonsNeoForgeHelper.isDimensionWhitelisted(level.dimension());
+        }
+        else if (Services.PLATFORM.isModLoaded("eclipticseasons")) {
+            subSeason = EclipticSeasonsHelper.getSubSeason(level);
+            hasSeasonDimension = EclipticSeasonsHelper.isSeasonDimension(level);
+        }
+
+        if (hasSeasonDimension) {
             Component seasonName = Component.translatable("desc." + SimpleTextOverlay.MODID + "." + subSeason.name().toLowerCase());
 
             return Pair.of(seasonName, subSeason);
