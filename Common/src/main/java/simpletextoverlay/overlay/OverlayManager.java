@@ -46,7 +46,7 @@ public class OverlayManager {
                     lines.add(new DaysInfo(OverlayConfig.daysLabel(), lineNum));
                     break;
                 case "season":
-                    if (Services.PLATFORM.isModLoaded("sereneseasons") || Services.PLATFORM.isModLoaded("seasons")) {
+                    if (Services.PLATFORM.isModLoaded("sereneseasons") || Services.PLATFORM.isModLoaded("seasons") || Services.PLATFORM.isModLoaded("eclipticseasons")) {
                         lines.add(new SeasonInfo("", lineNum));
                     }
                     else {
