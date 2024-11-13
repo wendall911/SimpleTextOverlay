@@ -16,7 +16,7 @@ public class EclipticSeasonsHelper {
     public static SubSeason getSubSeason(Level level) {
         SolarTerm solarTerm = SolarUtil.getSolarTerm(level);
 
-        return SubSeason.values()[(solarTerm.ordinal() * 2) / 3];
+        return SubSeason.values()[(solarTerm.ordinal() / 2)];
     }
 
 }
