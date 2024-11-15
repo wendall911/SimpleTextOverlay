@@ -65,7 +65,7 @@ dependencies {
         jarJar.pin(it, "${spectrelib_version}")
     }
     compileOnly fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_forge_version}")
-    //runtimeOnly fg.deobf("curse.maven:glitchcore-955399:${glitchcore_forge_version}")
+    compileOnly fg.deobf("curse.maven:glitchcore-955399:${glitchcore_forge_version}")
     implementation fg.deobf("curse.maven:corpse-316582:${corpse_version}")
     implementation fg.deobf("curse.maven:ecliptic_seasons-1118306:${ecliptic_seasons_forge_version}")
 }
@@ -197,6 +197,7 @@ task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
         mainFile.addOptional('configured')
         mainFile.addOptional('catalogue')
         mainFile.addOptional('serene-seasons')
+        mainFile.addOptional('ecliptic-seasons')
     }
 }
 
@@ -213,6 +214,8 @@ modrinth {
         gameVersions = "${release_versions}".split(",") as List<String>
         loaders = ['neoforge', 'forge']
         dependencies {
+            optional.project 'serene-seasons'
+            optional.project 'ecliptic-seasons'
         }
     }
 }
