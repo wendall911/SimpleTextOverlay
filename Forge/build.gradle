@@ -215,7 +215,6 @@ modrinth {
         loaders = ['neoforge', 'forge']
         dependencies {
             optional.project 'serene-seasons'
-            optional.project 'ecliptic-seasons'
         }
     }
 }
