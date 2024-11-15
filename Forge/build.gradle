@@ -64,8 +64,10 @@ dependencies {
     jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}") {
         jarJar.pin(it, "${spectrelib_version}")
     }
-    implementation fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_forge_version}")
+    compileOnly fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_forge_version}")
+    //runtimeOnly fg.deobf("curse.maven:glitchcore-955399:${glitchcore_forge_version}")
     implementation fg.deobf("curse.maven:corpse-316582:${corpse_version}")
+    implementation fg.deobf("curse.maven:ecliptic_seasons-1118306:${ecliptic_seasons_forge_version}")
 }
 
 compileJava {
