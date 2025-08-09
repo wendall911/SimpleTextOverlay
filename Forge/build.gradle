@@ -4,9 +4,8 @@ plugins {
     id 'net.minecraftforge.gradle'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
     id 'org.spongepowered.mixin'
-    id 'net.darkhax.curseforgegradle' version '1.+'
     id 'se.bjurr.gitchangelog.git-changelog-gradle-plugin' version '1.71.8'
-    id 'com.modrinth.minotaur' version '2.+'
+    id 'me.modmuss50.mod-publish-plugin'
 }
 
 version = "${minecraft_version}-${mod_version}-FORGE"
@@ -60,19 +59,15 @@ dependencies {
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}")
-    jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_range}") {
-        jarJar.pin(it, "${spectrelib_version}")
+    implementation fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_version}+${minecraft_version}")
+    jarJar fg.deobf(group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-forge', version: "${spectrelib_version}+${minecraft_version}") {
+        jarJar.pin(it, "${spectrelib_version}+${minecraft_version}")
+        jarJar.ranged(it, "${spectrelib_range}")
     }
     compileOnly fg.deobf("curse.maven:sereneseasons-291874:${serene_seasons_forge_version}")
     compileOnly fg.deobf("curse.maven:glitchcore-955399:${glitchcore_forge_version}")
     implementation fg.deobf("curse.maven:corpse-316582:${corpse_version}")
     implementation fg.deobf("curse.maven:ecliptic_seasons-1118306:${ecliptic_seasons_forge_version}")
-}
-
-compileJava {
-    source(project(":Common").sourceSets.main.allSource)
-    options.compilerArgs << "-Xlint:all,-classfile,-processing,-deprecation,-serial" << "-Werror"
 }
 
 tasks.withType(JavaCompile) {
@@ -100,7 +95,7 @@ processResources {
 }
 
 tasks.jarJar.finalizedBy('reobfJar')
-jar.finalizedBy('reobfJarJar', 'signJar')
+jar.finalizedBy('reobfJarJar')
 
 reobf {
     jarJar {}
@@ -112,12 +107,6 @@ tasks.jarJar.configure {
 
 jarJar {
     enable()
-}
-
-def reobfFile = file("$buildDir/reobfJar/output.jar")
-def reobfArtifact = artifacts.add('default', reobfFile) {
-    type 'jar'
-    builtBy 'reobfJar'
 }
 
 publishing {
@@ -157,64 +146,39 @@ def updates = tasks.register("generateUpdates", Copy) {
     it.into '../files/'
 }
 
-tasks.generateUpdates.mustRunAfter('jar')
+tasks.generateUpdates.mustRunAfter('jar', 'sourcesJar')
 
 tasks.build.dependsOn('changelog', 'generateUpdates')
 
-// Jar Signing
-import net.minecraftforge.gradle.common.tasks.SignJar
-
-task signJar(type: SignJar, dependsOn: jar) {
-    dependsOn 'reobfJar'
-
-    // Skip the task if our secret data isn't available
-    onlyIf {
-        project.hasProperty('keyStore')
-    }
-
-    keyStore = project.keyStore // This needs to be a path to the keystore file
-    alias = project.keyStoreAlias
-    storePass = project.keyStorePass
-    keyPass = project.keyStoreKeyPass
-    inputFile = jar.archiveFile
-    outputFile = jar.archiveFile
-}
-
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
+def publishFile = project(":").projectDir.toString() + "/Forge/build/libs/${archivesBaseName}-${version}.jar"
 
-task curseforge(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+publishMods {
+    file = file(publishFile)
+    changelog = file(changelogFile).text
+    type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
+    modLoaders.addAll(['neoforge', 'forge'])
+
     if (project.hasProperty('stocurseApiKey')) {
-        apiToken = project.stocurseApiKey
-        def mainFile = upload(project.stocurseId, file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar"))
-        mainFile.changelog = file(changelogFile)
-        mainFile.addJavaVersion('Java 17')
-        mainFile.addModLoader('Forge')
-        mainFile.addModLoader('NeoForge')
-        mainFile.releaseType = "${release_type}"
-        "${release_versions}".split(',').each {
-            mainFile.addGameVersion("${it}")
+        curseforge {
+            accessToken = project.stocurseApiKey
+            projectId = project.stocurseId
+            javaVersions.add(JavaVersion.toVersion("${java_version}"))
+            clientRequired = true
+            serverRequired = true
+            minecraftVersions.addAll("${release_versions}".split(','))
+            embeds('spectrelib')
+            optional('configured')
+            optional('catalogue')
+            optional('serene-seasons')
+            optional('ecliptic-seasons')
         }
-        mainFile.addOptional('configured')
-        mainFile.addOptional('catalogue')
-        mainFile.addOptional('serene-seasons')
-        mainFile.addOptional('ecliptic-seasons')
     }
-}
-
-modrinth {
     if (project.hasProperty('stoModrinthId')) {
-        token = project.modrinthKey
-        projectId = project.stoModrinthId
-        version = getVersion()
-        versionType = "${release_type}"
-        if (file(changelogFile).exists()) {
-            changelog = file(changelogFile).text
-        }
-        uploadFile = file("${project.buildDir}/libs/${archivesBaseName}-${version}.jar")
-        gameVersions = "${release_versions}".split(",") as List<String>
-        loaders = ['neoforge', 'forge']
-        dependencies {
-            optional.project 'serene-seasons'
+        modrinth {
+            accessToken = project.modrinthKey
+            projectId = project.stoModrinthId
+            minecraftVersions.addAll("${release_versions}".split(','))
         }
     }
 }
