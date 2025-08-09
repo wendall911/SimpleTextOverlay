@@ -24,8 +24,11 @@ public class NeoForgeSeasonInfo implements ISeasonInfo {
             hasSeasonDimension = SereneSeasonsNeoForgeHelper.isDimensionWhitelisted(level.dimension());
         }
         else if (Services.PLATFORM.isModLoaded("eclipticseasons")) {
-            subSeason = EclipticSeasonsHelper.getSubSeason(level);
             hasSeasonDimension = EclipticSeasonsHelper.isSeasonDimension(level);
+
+            if (hasSeasonDimension) {
+                subSeason = EclipticSeasonsHelper.getSubSeason(level);
+            }
         }
 
         if (hasSeasonDimension) {
