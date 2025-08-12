@@ -2,6 +2,7 @@ package simpletextoverlay.overlay.compass;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -26,10 +27,13 @@ public class Pins {
 
     public void read(ListTag nbt) {
         for (int i = 0; i < nbt.size(); i++) {
-            CompoundTag pinTag = nbt.getCompound(i);
-            PinInfo<?> pin = PinInfoRegistry.deserializePin(pinTag);
+            Optional<CompoundTag> optionalTag = nbt.getCompound(i);
 
-            pins.put(pin.getInternalId(), pin);
+            if (optionalTag.isPresent()) {
+                PinInfo<?> pin = PinInfoRegistry.deserializePin(optionalTag.get());
+
+                pins.put(pin.getInternalId(), pin);
+            }
         }
     }
 

@@ -32,11 +32,15 @@ public class Pin extends PinInfo<Pin> {
 
     @Override
     protected void deserializeAdditional(CompoundTag tag) {
-        position = new Vec3(
-            tag.getDouble("X"),
-            tag.getDouble("Y"),
-            tag.getDouble("Z")
-        );
+        if (tag.getDouble("X").isPresent()
+                && tag.getDouble("Y").isPresent()
+                && tag.getDouble("Z").isPresent()) {
+            double x = tag.getDouble("X").get();
+            double y = tag.getDouble("Y").get();
+            double z = tag.getDouble("Z").get();
+
+            position = new Vec3(x, y, z);
+        }
     }
 
     @Override

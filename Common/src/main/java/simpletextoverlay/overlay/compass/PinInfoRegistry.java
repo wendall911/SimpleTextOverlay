@@ -42,17 +42,21 @@ public class PinInfoRegistry {
 
     @NotNull
     public static PinInfo<?> deserializePin(CompoundTag tag) {
-        ResourceLocation typeId = ResourceLocation.bySeparator(tag.getString("Type"), ':');
-        PinInfoType<?> type = typesMap.get(typeId);
+        if (tag.getString("Type").isPresent()) {
+            ResourceLocation typeId = ResourceLocation.bySeparator(tag.getString("Type").get(), ':');
+            PinInfoType<?> type = typesMap.get(typeId);
 
-        if (type == null) {
-            throw new IllegalStateException(String.format("Serializer not registered %s", typeId));
+            if (type == null) {
+                throw new IllegalStateException(String.format("Serializer not registered %s", typeId));
+            }
+            PinInfo<?> info = type.create();
+            info.read(tag);
+
+            return info;
         }
-
-        PinInfo<?> info = type.create();
-        info.read(tag);
-
-        return info;
+        else {
+            throw new IllegalStateException("Pin type not specified in tag");
+        }
     }
 
     public static void serializePin(PinInfo<?> pinData, FriendlyByteBuf buffer) {

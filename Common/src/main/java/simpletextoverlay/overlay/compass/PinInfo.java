@@ -32,8 +32,11 @@ public abstract class PinInfo<T extends PinInfo<T>> {
     }
 
     public final void read(CompoundTag tag) {
-        internalId = tag.getString("ID");
-        deserializeAdditional(tag);
+        if (tag.getString("ID").isPresent()) {
+            internalId = tag.getString("ID").get();
+
+            deserializeAdditional(tag);
+        }
     }
 
     public final void writeToPacket(FriendlyByteBuf buffer) {

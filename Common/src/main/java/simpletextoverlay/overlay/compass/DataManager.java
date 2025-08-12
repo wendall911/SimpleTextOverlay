@@ -6,14 +6,14 @@ import java.util.function.Supplier;
 import java.util.Map;
 import java.util.Objects;
 
+import org.jetbrains.annotations.Nullable;
+
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
-import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.MinecraftServer;
@@ -38,22 +38,40 @@ public class DataManager {
     }
 
     public void readSyncData(CompoundTag nbt) {
-        read(nbt.getList(STO_DATA, Tag.TAG_COMPOUND));
+        Optional<ListTag> optionalListTag = nbt.getList(STO_DATA);
+
+        optionalListTag.ifPresent(this::read);
     }
 
     public void read(ListTag nbt) {
         for (int i = 0; i < nbt.size(); i++) {
-            CompoundTag tag = nbt.getCompound(i);
-            ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, ResourceLocation.bySeparator(tag.getString("World"), ':'));
-            ResourceKey<DimensionType> dimType = null;
+            Optional<CompoundTag> optionalCompoundTag = nbt.getCompound(i);
+            if (optionalCompoundTag.isPresent()) {
+                CompoundTag tag = optionalCompoundTag.get();
 
-            if (tag.contains("DimensionKey", Tag.TAG_STRING)) {
-                dimType = ResourceKey.create(Registries.DIMENSION_TYPE, ResourceLocation.bySeparator(tag.getString("DimensionKey"), ':'));
+                if (tag.getString("World").isEmpty()) {
+                    continue; // Skip if no world is specified
+                }
+
+                ResourceKey<Level> key = ResourceKey.create(
+                    Registries.DIMENSION,
+                    ResourceLocation.bySeparator(tag.getString("World").get(), ':')
+                );
+                ResourceKey<DimensionType> dimType = null;
+
+                if (tag.contains("DimensionKey") && tag.getString("DimensionKey").isPresent()) {
+                    dimType = ResourceKey.create(
+                        Registries.DIMENSION_TYPE,
+                        ResourceLocation.bySeparator(tag.getString("DimensionKey").get(), ':')
+                    );
+                }
+
+                Pins pins = get(key, dimType);
+
+                if (tag.getList("PINS").isPresent()) {
+                    pins.read(tag.getList("PINS").get());
+                }
             }
-
-            Pins pins = get(key, dimType);
-
-            pins.read(tag.getList("PINS", Tag.TAG_COMPOUND));
         }
     }
 
