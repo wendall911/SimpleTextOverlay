@@ -27,14 +27,18 @@ public class ComponentDataManager extends DataManager implements Component {
 
     @Override
     public void writeData(ValueOutput writeView) {
+        /* WTF CCA?
         tag.put("Data", instance.write());
+         */
     }
 
     @Override
     public void readData(ValueInput readView) {
+        /* WTF CCA?
         Optional<ListTag> nbt = tag.getList("Data", NbtType.COMPOUND);
 
         instance.read(nbt);
+         */
     }
 
 }
