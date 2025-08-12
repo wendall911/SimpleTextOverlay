@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.GlobalPos;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.level.ServerPlayer.RespawnConfig;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
@@ -54,14 +55,15 @@ public class SimpleTextOverlayEvents {
             Optional<GlobalPos> lastDeathLocation = sp.getLastDeathLocation();
             final Map<String, PinInfo<?>> pins = pinsData.get(sp).getPins();
             PinInfo<?> worldSpawn = pins.get(WORLDSPAWN);
+            RespawnConfig respawnConfig = sp.getRespawnConfig();
 
             if (worldSpawn == null && worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
                 BlockPos spawnPos = sp.level().getSharedSpawnPos();
                 PinHelper.setPointPin(sp, pinsData, worldKey, spawnPos, WORLDSPAWN);
             }
 
-            if (sp.getRespawnPosition() != null) {
-                PinHelper.setPointPin(sp, pinsData, sp.getRespawnDimension(), sp.getRespawnPosition(), BEDSPAWN);
+            if (respawnConfig != null) {
+                PinHelper.setPointPin(sp, pinsData, respawnConfig.dimension(), respawnConfig.pos(), BEDSPAWN);
             }
 
             if (lastDeathLocation.isPresent()) {
