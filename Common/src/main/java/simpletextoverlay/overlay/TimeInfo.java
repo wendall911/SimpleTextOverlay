@@ -3,8 +3,6 @@ package simpletextoverlay.overlay;
 import java.util.Locale;
 import java.util.Objects;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
@@ -22,7 +20,6 @@ public class TimeInfo extends Info {
 
     @Override
     public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        PoseStack matrix = guiGraphics.pose();
         long time = Objects.requireNonNull(mc.getCameraEntity()).level().getDayTime();
         long hour = (time / 1000 + 6) % 24;
         long ampmHour = hour;

@@ -2,7 +2,7 @@ package simpletextoverlay.overlay;
 
 import java.util.Map;
 
-import com.mojang.blaze3d.vertex.PoseStack;
+import org.joml.Matrix3x2fStack;
 
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.Minecraft;
@@ -87,7 +87,7 @@ public class HudCompass {
     }
 
     private void drawInfo(Minecraft mc, GuiGraphics guiGraphics, float yaw, float angle, int x, int y, String text, float size, float offset, int color) {
-        PoseStack matrix = guiGraphics.pose();
+        Matrix3x2fStack matrix = guiGraphics.pose();
         int aDist = (int)VecMath.angleDistance(yaw, angle);
         float scale = (float) OverlayConfig.scale();
         float resize = 1 / size;
@@ -105,15 +105,15 @@ public class HudCompass {
             }
 
             if (size != 1.0) {
-                matrix.pushPose();
-                matrix.scale(size, size, size);
+                matrix.pushMatrix();
+                matrix.scale(size, size);
             }
 
             FontHelper.draw(mc, guiGraphics, text, xPos, yPos, color, FontHelper.TextType.NONE);
 
             if (size != 1.0) {
-                matrix.popPose();
-                matrix.scale(scale, scale, scale);
+                matrix.popMatrix();
+                matrix.scale(scale, scale);
             }
         }
     }

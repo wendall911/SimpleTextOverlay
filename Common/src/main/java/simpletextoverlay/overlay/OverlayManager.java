@@ -1,10 +1,10 @@
 package simpletextoverlay.overlay;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.joml.Matrix3x2fStack;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
@@ -69,10 +69,10 @@ public class OverlayManager {
             float scale = (float) OverlayConfig.scale();
             int scaledWidth = (int) (mc.getWindow().getGuiScaledWidth() / scale);
             int scaledHeight = (int) (mc.getWindow().getGuiScaledHeight() / scale);
-            PoseStack matrix = guiGraphics.pose();
+            Matrix3x2fStack matrix = guiGraphics.pose();
 
-            matrix.pushPose();
-            matrix.scale(scale, scale, scale);
+            matrix.pushMatrix();
+            matrix.scale(scale, scale);
 
             for (final Info line : this.lines) {
                 line.renderText(guiGraphics, mc, pos, scaledWidth, scaledHeight);
@@ -82,7 +82,7 @@ public class OverlayManager {
                 hudCompass.renderText(guiGraphics, mc, scaledWidth, scaledHeight, partialTicks);
             }
 
-            matrix.popPose();
+            matrix.popMatrix();
         }
     }
 
