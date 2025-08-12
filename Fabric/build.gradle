@@ -28,9 +28,9 @@ dependencies {
         transitive = false
     }
 
-    modCompileOnly "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
-    modCompileOnly "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
-    modCompileOnly "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"
+    //modImplementation "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
+    modImplementation "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
+    modImplementation "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"
     modRuntimeOnly "net.jodah:typetools:0.6.3"
     modImplementation "com.electronwill.night-config:core:3.6.7"
 
