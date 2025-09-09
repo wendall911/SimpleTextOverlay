@@ -11,12 +11,15 @@ import net.minecraft.resources.ResourceLocation;
 
 import simpletextoverlay.SimpleTextOverlay;
 
+import static technology.roughness.whitenoise.util.ResourceLocationHelper.loc;
+import static technology.roughness.whitenoise.util.ResourceLocationHelper.mcLoc;
+
 public class PinInfoRegistry {
 
     public static final BiMap<ResourceLocation, PinInfoType<?>> typesMap = HashBiMap.create();
     public static final BiMap<Integer, PinInfoType<?>> idsMap = HashBiMap.create();
 
-    private static final ResourceLocation LOCATION = new ResourceLocation(SimpleTextOverlay.MODID, "pin");
+    private static final ResourceLocation LOCATION = loc(SimpleTextOverlay.MODID, "pin");
     public static PinInfoType<Pin> TYPE = new PinInfoType<>(Pin::new, LOCATION);
 
     static {
@@ -42,7 +45,7 @@ public class PinInfoRegistry {
 
     @NotNull
     public static PinInfo<?> deserializePin(CompoundTag tag) {
-        ResourceLocation typeId = new ResourceLocation(tag.getString("Type"));
+        ResourceLocation typeId = mcLoc(tag.getString("Type"));
         PinInfoType<?> type = typesMap.get(typeId);
 
         if (type == null) {

@@ -14,10 +14,12 @@ import simpletextoverlay.capability.CapabilityDataManager;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.overlay.compass.DataManager;
 
+import static technology.roughness.whitenoise.util.ResourceLocationHelper.loc;
+
 @Mod.EventBusSubscriber(modid = SimpleTextOverlay.MODID)
 public class CapabilityEventHandler {
 
-    private static final ResourceLocation PROVIDER = new ResourceLocation(SimpleTextOverlay.MODID, "sto_provider");
+    private static final ResourceLocation PROVIDER = loc(SimpleTextOverlay.MODID, "sto_provider");
 
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
