@@ -9,7 +9,6 @@ import net.minecraft.core.Registry;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.Level;
 
@@ -20,6 +19,8 @@ import simpletextoverlay.platform.Services;
 import simpletextoverlay.util.PinHelper;
 
 import static simpletextoverlay.events.SimpleTextOverlayEvents.LASTDEATH;
+
+import static technology.roughness.whitenoise.util.ResourceLocationHelper.mcLoc;
 
 public class SetDeathLocation implements IData {
 
@@ -57,7 +58,7 @@ public class SetDeathLocation implements IData {
 
     private void setDeathLocation(ServerPlayer sp, Death death) {
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
-            ResourceKey<Level> worldKey = ResourceKey.create(Registry.DIMENSION_REGISTRY, new ResourceLocation(death.getDimension()));
+            ResourceKey<Level> worldKey = ResourceKey.create(Registry.DIMENSION_REGISTRY, mcLoc(death.getDimension()));
             BlockPos deathPos = death.getBlockPos();
             PinHelper.PointPin lastDeath = PinHelper.getPointPin(sp, pinsData, worldKey, deathPos, LASTDEATH);
 

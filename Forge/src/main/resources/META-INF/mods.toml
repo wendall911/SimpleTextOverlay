@@ -1,5 +1,5 @@
 modLoader="javafml"
-loaderVersion="${loader_version_range}"
+loaderVersion="${forge_version_range}"
 issueTrackerURL="${issue_tracker}"
 license="${license}"
 
@@ -14,13 +14,13 @@ license="${license}"
   logoFile="logo.png"
   itemIcon="minecraft:compass"
 
-[[dependencies.simpletextoverlay]]
+[[dependencies.${mod_id}]]
     modId="forge"
     mandatory=true
     versionRange="${forge_version_range}"
     ordering="NONE"
     side="BOTH"
-[[dependencies.simpletextoverlay]]
+[[dependencies.${mod_id}]]
     modId="minecraft"
     mandatory=true
     versionRange="${forge_mc_version_range}"

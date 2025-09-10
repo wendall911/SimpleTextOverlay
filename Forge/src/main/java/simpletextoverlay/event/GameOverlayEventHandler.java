@@ -13,6 +13,7 @@ import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
 
 @EventBusSubscriber(modid=SimpleTextOverlay.MODID, value=Dist.CLIENT)
+@SuppressWarnings("removal")
 public class GameOverlayEventHandler {
 
     private final OverlayManager overlayManager = OverlayManager.INSTANCE;

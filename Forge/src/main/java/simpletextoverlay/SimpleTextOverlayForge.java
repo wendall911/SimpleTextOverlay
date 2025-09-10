@@ -16,6 +16,7 @@ import simpletextoverlay.event.KeyEventHandler;
 import simpletextoverlay.network.NetworkManager;
 
 @Mod(SimpleTextOverlay.MODID)
+@SuppressWarnings("removal")
 public class SimpleTextOverlayForge {
 
     private static boolean setupDone = false;

@@ -1,14 +1,14 @@
 package simpletextoverlay;
 
-import com.illusivesoulworks.spectrelib.config.SpectreConfig;
-import com.illusivesoulworks.spectrelib.config.SpectreConfigLoader;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import technology.roughness.whitenoise.config.WhiteNoiseConfig;
+import technology.roughness.whitenoise.config.WhiteNoiseConfigLoader;
+import technology.roughness.whitenoise.platform.Services;
+
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.compass.PinInfoRegistry;
-import simpletextoverlay.platform.Services;
 
 public class SimpleTextOverlay {
 
@@ -22,7 +22,7 @@ public class SimpleTextOverlay {
 
     public static void initConfig() {
         if (Services.PLATFORM.isPhysicalClient()) {
-            SpectreConfigLoader.add(SpectreConfig.Type.CLIENT, OverlayConfig.CLIENT_SPEC, MODID);
+            WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.CLIENT, OverlayConfig.CLIENT_SPEC, MODID);
         }
     }
 
