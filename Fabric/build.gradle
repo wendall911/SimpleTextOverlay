@@ -1,6 +1,6 @@
 plugins {
-    id 'fabric-loom'
     id 'idea'
+    id 'fabric-loom'
     id 'me.modmuss50.mod-publish-plugin'
 }
 
@@ -14,21 +14,21 @@ dependencies {
         parchment("org.parchmentmc.data:parchment-${minecraft_version}:${mappings_version}@zip")
     })
 
+    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
+    implementation project(":Common")
+
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-    modImplementation group: 'com.illusivesoulworks.spectrelib', name: 'spectrelib-fabric', version: "${spectrelib_range}"
+    modImplementation group: 'technology.roughness.whitenoise', name: 'whitenoise-fabric', version: "${whitenoise_range}"
+    include group: 'technology.roughness.whitenoise', name: 'whitenoise-fabric', version: "${whitenoise_version}"
 
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
     modImplementation "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
     include "dev.onyxstudios.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
 
-    modRuntimeOnly("com.terraformersmc:modmenu:${mod_menu_version}") {
-        transitive = false
-    }
-    implementation group: 'com.google.code.findbugs', name: 'jsr305', version: '3.0.1'
-    implementation project(":Common")
+    modLocalRuntime group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
 
     modImplementation "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
 }
@@ -53,14 +53,13 @@ loom {
 processResources {
     from project(":Common").sourceSets.main.resources
     inputs.property "version", project.version
-    exclude '.cache'
     duplicatesStrategy(DuplicatesStrategy.FAIL)
 
     filesMatching("fabric.mod.json") {
         expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
                 'mod_id': project.mod_id, 'mod_author': project.mod_author, 'mod_description': project.mod_description,
                 'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker,
-                'fabric_loader_min_version': fabric_loader_min_version
+                'fabric_loader_min_version': fabric_loader_min_version, 'java_version': project.java_version
     }
 
     filesMatching("pack.mcmeta") {
@@ -81,9 +80,12 @@ def publishFile = project(":").projectDir.toString() + "/Fabric/build/libs/${arc
 
 publishMods {
     file = file(publishFile)
-    changelog = file(changelogFile).text
+    if (file(changelogFile).exists()) {
+        changelog = file(changelogFile).text
+    }
     type = "${release_type}".startsWith("release") ? STABLE : ("${release_type}".startsWith("beta") ? BETA : ALPHA)
     modLoaders.add('fabric')
+    dryRun = providers.environmentVariable('DO_RELEASE').getOrNull() == null
 
     if (project.hasProperty('stocurseApiKey')) {
         curseforge {
@@ -93,7 +95,6 @@ publishMods {
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
-            embeds('spectrelib')
             requires('fabric-api')
             optional('fabric-seasons')
         }
