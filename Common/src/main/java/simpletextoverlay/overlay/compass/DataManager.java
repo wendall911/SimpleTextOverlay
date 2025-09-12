@@ -20,6 +20,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.dimension.DimensionType;
 import net.minecraft.world.level.Level;
 
+import static technology.roughness.whitenoise.util.ResourceLocationHelper.mcLoc;
+
 public class DataManager {
 
     private static Player player;
@@ -56,11 +58,11 @@ public class DataManager {
 
         for (int i = 0; i < nbt.size(); i++) {
             CompoundTag tag = nbt.getCompound(i);
-            ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, new ResourceLocation(tag.getString("World")));
+            ResourceKey<Level> key = ResourceKey.create(Registries.DIMENSION, mcLoc(tag.getString("World")));
             ResourceKey<DimensionType> dimType = null;
 
             if (tag.contains("DimensionKey", Tag.TAG_STRING)) {
-                dimType = ResourceKey.create(Registries.DIMENSION_TYPE, new ResourceLocation(tag.getString("DimensionKey")));
+                dimType = ResourceKey.create(Registries.DIMENSION_TYPE, mcLoc(tag.getString("DimensionKey")));
             }
 
             Pins pins = get(player, key, dimType);

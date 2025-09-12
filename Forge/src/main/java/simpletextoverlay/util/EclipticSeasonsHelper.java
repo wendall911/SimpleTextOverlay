@@ -5,6 +5,7 @@ import com.teamtea.eclipticseasons.common.handler.SolarUtil;
 
 import net.minecraft.world.level.Level;
 
+@SuppressWarnings("removal")
 public class EclipticSeasonsHelper {
 
     public static boolean isSeasonDimension(Level level) {

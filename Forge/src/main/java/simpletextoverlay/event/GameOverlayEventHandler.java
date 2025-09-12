@@ -12,6 +12,7 @@ import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.SimpleTextOverlay;
 
+@SuppressWarnings("removal")
 @EventBusSubscriber(modid=SimpleTextOverlay.MODID, value=Dist.CLIENT)
 public class GameOverlayEventHandler {
 

@@ -20,6 +20,7 @@ public class SimpleTextOverlayForge {
 
     private static boolean setupDone = false;
 
+    @SuppressWarnings("removal")
     public SimpleTextOverlayForge() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
 

@@ -10,8 +10,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import simpletextoverlay.config.OverlayConfig;
-import simpletextoverlay.platform.Services;
 
 public class OverlayManager {
 
