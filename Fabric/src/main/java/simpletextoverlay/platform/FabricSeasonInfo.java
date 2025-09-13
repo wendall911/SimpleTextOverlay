@@ -19,11 +19,11 @@ public class FabricSeasonInfo implements ISeasonInfo {
         boolean hasSeasonDimension = false;
         SubSeason subSeason = SubSeason.MID_SPRING;
 
-        if (Services.PLATFORM.isModLoaded("sereneseasons")) {
+        if (technology.roughness.whitenoise.platform.Services.PLATFORM.isModLoaded("sereneseasons")) {
             subSeason = SereneSeasonsFabricHelper.getSubSeason(level);
             hasSeasonDimension = SereneSeasonsFabricHelper.isDimensionWhitelisted(level.dimension());
         }
-        else if (Services.PLATFORM.isModLoaded("seasons")) {
+        else if (technology.roughness.whitenoise.platform.Services.PLATFORM.isModLoaded("seasons")) {
             subSeason = SubSeason.getSubSeason(level, FabricSeasonsHelper.getSeasonDuration());
             hasSeasonDimension = FabricSeasonsHelper.isDimensionWhitelisted(level.dimension());
         }

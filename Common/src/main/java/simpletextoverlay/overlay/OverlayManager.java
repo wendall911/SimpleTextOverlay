@@ -10,8 +10,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import simpletextoverlay.config.OverlayConfig;
-import simpletextoverlay.platform.Services;
 
 public class OverlayManager {
 
@@ -46,7 +47,9 @@ public class OverlayManager {
                     lines.add(new DaysInfo(OverlayConfig.daysLabel(), lineNum));
                     break;
                 case "season":
-                    if (Services.PLATFORM.isModLoaded("sereneseasons") || Services.PLATFORM.isModLoaded("seasons") || Services.PLATFORM.isModLoaded("eclipticseasons")) {
+                    if (Services.PLATFORM.isModLoaded("sereneseasons")
+                            || Services.PLATFORM.isModLoaded("seasons")
+                            || Services.PLATFORM.isModLoaded("eclipticseasons")) {
                         lines.add(new SeasonInfo("", lineNum));
                     }
                     else {

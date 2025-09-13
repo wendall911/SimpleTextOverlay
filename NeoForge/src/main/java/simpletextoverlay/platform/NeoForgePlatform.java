@@ -5,24 +5,11 @@ import java.lang.reflect.Method;
 
 import org.jetbrains.annotations.NotNull;
 
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.fml.ModList;
-import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.util.ObfuscationReflectionHelper;
 
 import simpletextoverlay.platform.services.IPlatform;
 
 public class NeoForgePlatform implements IPlatform {
-
-    @Override
-    public boolean isModLoaded(String name) {
-        return ModList.get().isLoaded(name);
-    }
-
-    @Override
-    public boolean isPhysicalClient() {
-        return FMLLoader.getDist() == Dist.CLIENT;
-    }
 
     @Override
     public @NotNull Field findField(@NotNull Class<?> clazz, @NotNull String name) throws NoSuchFieldException {

@@ -8,9 +8,9 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.List;
 
-import com.illusivesoulworks.spectrelib.config.SpectreConfigSpec;
-
 import org.apache.commons.lang3.tuple.Pair;
+
+import technology.roughness.whitenoise.config.WhiteNoiseConfigSpec;
 
 import simpletextoverlay.overlay.OverlayManager;
 import simpletextoverlay.util.ColorHelper;
@@ -18,11 +18,11 @@ import simpletextoverlay.util.ColorHelper;
 public final class OverlayConfig {
 
     public static boolean loaded;
-    public static final SpectreConfigSpec CLIENT_SPEC;
+    public static final WhiteNoiseConfigSpec CLIENT_SPEC;
     private static final Client CLIENT;
 
     static {
-        final Pair<Client, SpectreConfigSpec> specPairClient = new SpectreConfigSpec.Builder().configure(Client::new);
+        final Pair<Client, WhiteNoiseConfigSpec> specPairClient = new WhiteNoiseConfigSpec.Builder().configure(Client::new);
 
         CLIENT_SPEC = specPairClient.getRight();
         CLIENT = specPairClient.getLeft();
@@ -74,29 +74,29 @@ public final class OverlayConfig {
         private static final Predicate<Object> hexRangeValidator = s -> s instanceof String
             && ((String) s).matches("#[a-zA-Z\\d]{6}->#[a-zA-Z\\d]{6}");
 
-        public final SpectreConfigSpec.BooleanValue enabled;
-        public final SpectreConfigSpec.BooleanValue textShadow;
-        public final SpectreConfigSpec.ConfigValue<String> position;
-        public final SpectreConfigSpec.IntValue offsetX;
-        public final SpectreConfigSpec.IntValue offsetY;
-        public final SpectreConfigSpec.DoubleValue scale;
-        public final SpectreConfigSpec.ConfigValue<List<? extends String>> fields;
-        public final SpectreConfigSpec.ConfigValue<String> labelColor;
-        public final SpectreConfigSpec.ConfigValue<String> lightLabel;
-        public final SpectreConfigSpec.ConfigValue<String> lightColorRange;
-        public final SpectreConfigSpec.ConfigValue<String> timeLabel;
-        public final SpectreConfigSpec.ConfigValue<String> timeColorRange;
-        public final SpectreConfigSpec.BooleanValue timeUse12;
-        public final SpectreConfigSpec.ConfigValue<String> footLabel;
-        public final SpectreConfigSpec.ConfigValue<String> footColor;
-        public final SpectreConfigSpec.ConfigValue<String> biomeLabel;
-        public final SpectreConfigSpec.ConfigValue<String> biomeColor;
-        public final SpectreConfigSpec.ConfigValue<String> daysLabel;
-        public final SpectreConfigSpec.ConfigValue<String> daysColor;
-        public final SpectreConfigSpec.BooleanValue showCompass;
-        public final SpectreConfigSpec.IntValue compassOpacity;
+        public final WhiteNoiseConfigSpec.BooleanValue enabled;
+        public final WhiteNoiseConfigSpec.BooleanValue textShadow;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> position;
+        public final WhiteNoiseConfigSpec.IntValue offsetX;
+        public final WhiteNoiseConfigSpec.IntValue offsetY;
+        public final WhiteNoiseConfigSpec.DoubleValue scale;
+        public final WhiteNoiseConfigSpec.ConfigValue<List<? extends String>> fields;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> labelColor;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> lightLabel;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> lightColorRange;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> timeLabel;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> timeColorRange;
+        public final WhiteNoiseConfigSpec.BooleanValue timeUse12;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> footLabel;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> footColor;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> biomeLabel;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> biomeColor;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> daysLabel;
+        public final WhiteNoiseConfigSpec.ConfigValue<String> daysColor;
+        public final WhiteNoiseConfigSpec.BooleanValue showCompass;
+        public final WhiteNoiseConfigSpec.IntValue compassOpacity;
 
-        public Client(SpectreConfigSpec.Builder builder) {
+        public Client(WhiteNoiseConfigSpec.Builder builder) {
             enabled = builder
                 .comment("Show overlay")
                 .define("enabled", true);
