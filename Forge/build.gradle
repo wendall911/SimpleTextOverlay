@@ -22,7 +22,7 @@ minecraft {
 
     runs {
         client {
-            workingDirectory project.file("run")
+            workingDirectory project.file('run')
             property 'forge.logging.console.level', 'debug'
             arg "-mixin.config=${mod_id}.mixins.json"
             property 'mixin.env.remapRefMap', 'true'
@@ -53,7 +53,7 @@ minecraft {
                 }
             }
         }
-    }    
+    }
 }
 
 dependencies {
@@ -61,8 +61,8 @@ dependencies {
     compileOnly project(":Common")
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
-    implementation fg.deobf(group: 'technology.roughness.whitenoise', name: 'whitenoise-forge', version: "${whitenoise_version}")
-    jarJar fg.deobf(group: 'technology.roughness.whitenoise', name: 'whitenoise-forge', version: "${whitenoise_version}") {
+    implementation fg.deobf(group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-forge", version: "${whitenoise_version}")
+    jarJar fg.deobf(group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-forge", version: "${whitenoise_version}") {
         jarJar.pin(it, "${whitenoise_version}")
         jarJar.ranged(it, "${whitenoise_range}")
     }
