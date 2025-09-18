@@ -1,12 +1,12 @@
 package simpletextoverlay;
 
-import com.illusivesoulworks.spectrelib.config.SpectreConfigInitializer;
+import technology.roughness.whitenoise.config.WhiteNoiseConfigInitializer;
 
-public class FabricConfigInitializer implements SpectreConfigInitializer {
+public class FabricConfigInitializer implements WhiteNoiseConfigInitializer {
 
     @Override
     public void onInitializeConfig() {
-        SimpleTextOverlay.init();
+        SimpleTextOverlay.initConfig();
     }
 
 }

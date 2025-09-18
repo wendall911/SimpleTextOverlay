@@ -18,8 +18,6 @@ import simpletextoverlay.network.SyncDataPacket;
 @Mod(SimpleTextOverlay.MODID)
 public class SimpleTextOverlayNeoForge {
 
-    private static boolean setupDone = false;
-
     public SimpleTextOverlayNeoForge(IEventBus eventBus) {
         if (FMLEnvironment.dist == Dist.CLIENT) {
             eventBus.addListener(GameOverlayEventHandler.INSTANCE::onRegisterOverlays);
@@ -28,6 +26,7 @@ public class SimpleTextOverlayNeoForge {
         eventBus.addListener(this::setup);
         eventBus.addListener(this::registerPayloadHandler);
         SimpleTextOverlay.init();
+        SimpleTextOverlay.initConfig();
     }
 
     private void setup(final FMLCommonSetupEvent event) {

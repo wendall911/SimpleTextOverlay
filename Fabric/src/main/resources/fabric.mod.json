@@ -8,7 +8,8 @@
     "${mod_author}"
   ],
   "contact": {
-    "issues": "${issue_tracker}"
+    "issues": "${issue_tracker}",
+    "homepage": "${mod_url}"
   },
   "license": "${license}",
   "icon": "${mod_id}_icon.png",
@@ -20,7 +21,7 @@
     "client": [
       "simpletextoverlay.SimpleTextOverlayClientFabric"
     ],
-    "spectrelib-config": [
+    "whitenoise-config": [
       "simpletextoverlay.FabricConfigInitializer"
     ],
     "cardinal-components-entity": [
@@ -33,13 +34,13 @@
     ]
   },
   "mixins": [
-    "simpletextoverlay.fabric.mixins.json",
-    "simpletextoverlay.mixins.json"
+    "${mod_id}.fabric.mixins.json",
+    "${mod_id}.mixins.json"
   ],
   "depends": {
     "fabricloader": "${fabric_loader_min_version}",
     "fabric": "*",
     "minecraft": ${fabric_mc_version_range},
-    "java": ">=17"
+    "java": ">=${java_version}"
   }
 }
