@@ -4,6 +4,7 @@ plugins {
     id 'me.modmuss50.mod-publish-plugin'
 }
 
+def actualVersion = version
 version = "${minecraft_version}-${version}-FABRIC"
 archivesBaseName = "${mod_id}"
 
@@ -50,24 +51,23 @@ loom {
     }
 }
 
+def resourceTargets = ['fabric.mod.json', 'pack.mcmeta', '*.mixins.json']
+def replaceProperties = [
+    'version': actualVersion, 'fabric_mc_version_range': fabric_mc_version_range, 'license': license,
+    'mod_id': mod_id, 'mod_author': mod_author, 'mod_description': mod_description,
+    'mod_name': mod_name, 'issue_tracker': issue_tracker,
+    'fabric_loader_min_version': fabric_loader_min_version, 'java_version': java_version
+]
+
 processResources {
     from project(":Common").sourceSets.main.resources
-    inputs.property "version", project.version
     duplicatesStrategy(DuplicatesStrategy.FAIL)
+    inputs.properties replaceProperties
+    replaceProperties.put 'project', project
+    exclude '.cache'
 
-    filesMatching("fabric.mod.json") {
-        expand 'version': project.version, 'fabric_mc_version_range': project.fabric_mc_version_range, 'license': project.license,
-                'mod_id': project.mod_id, 'mod_author': project.mod_author, 'mod_description': project.mod_description,
-                'mod_name': project.mod_name, 'issue_tracker': project.issue_tracker,
-                'fabric_loader_min_version': fabric_loader_min_version, 'java_version': project.java_version
-    }
-
-    filesMatching("pack.mcmeta") {
-        expand 'mod_name': project.mod_name
-    }
-
-    filesMatching('*.mixins.json') {
-        expand "mod_id": "${archivesBaseName}"
+    filesMatching(resourceTargets) {
+        expand replaceProperties
     }
 }
 
