@@ -9,8 +9,8 @@ issueTrackerURL="${issue_tracker}"
     updateJSONURL="https://raw.githubusercontent.com/wendall911/SimpleTextOverlay/${mod_update_branch}/files/updates.json"
     displayURL="${mod_url}"
     logoFile="${mod_id}_icon.png"
-    authors="${mod_author}"
     credits="${mod_credits}"
+    authors="${mod_author}"
     description='''
     ${mod_description}
     '''
