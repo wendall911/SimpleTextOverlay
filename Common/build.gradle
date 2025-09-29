@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'idea'
     id 'org.spongepowered.gradle.vanilla'
 }
 
@@ -15,8 +16,13 @@ dependencies {
     implementation group: 'technology.roughness.whitenoise', name: "whitenoise-${minecraft_version}-common", version: "${whitenoise_version}"
 }
 
+def replaceProperties = [
+    'mod_display_name': mod_display_name,
+    'pack_format': pack_format
+]
+
 processResources {
     filesMatching("pack.mcmeta") {
-        expand 'mod_name': project.mod_name
+        expand replaceProperties
     }
 }
