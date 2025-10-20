@@ -11,29 +11,33 @@
     "${mod_credits}"
   ],
   "contact": {
-    "issues": "${issue_tracker}",
-    "homepage": "${mod_url}"
+    "homepage": "https://github.com/${mod_author}/${mod_name}",
+    "issues": "https://github.com/${mod_author}/${mod_name}/issues",
+    "sources": "https://github.com/${mod_author}/${mod_name}"
   },
   "license": "${license}",
   "icon": "${mod_id}_icon.png",
   "environment": "*",
   "entrypoints": {
     "main": [
-      "simpletextoverlay.SimpleTextOverlayFabric"
+      "${mod_id}.${mod_name}Fabric"
     ],
     "client": [
-      "simpletextoverlay.SimpleTextOverlayClientFabric"
+      "${mod_id}.${mod_name}ClientFabric"
+    ],
+    "fabric-datagen": [
+      "${mod_id}.data.FabricDatagenInitializer"
     ],
     "whitenoise-config": [
-      "simpletextoverlay.FabricConfigInitializer"
+      "${mod_id}.FabricConfigInitializer"
     ],
     "cardinal-components-entity": [
-      "simpletextoverlay.component.SimpleTextOverlayComponents"
+      "${mod_id}.component.${mod_name}Components"
     ]
   },
   "custom": {
     "cardinal-components": [
-      "simpletextoverlay:sto_provider"
+      "${mod_id}:sto_provider"
     ]
   },
   "mixins": [
@@ -44,6 +48,7 @@
     "fabricloader": "${fabric_loader_min_version}",
     "fabric": "*",
     "minecraft": ${fabric_mc_version_range},
+    "whitenoise": ${fabric_whitenoise_range},
     "java": ">=${java_version}"
   }
 }

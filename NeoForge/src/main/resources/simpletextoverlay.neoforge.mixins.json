@@ -4,13 +4,12 @@
   "package": "simpletextoverlay.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
-    "FabricServerLevelMixin",
-    "FabricServerPlayerMixin"
+  ],
+  "client": [
+    "NeoForgeGuiMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
-  "client": [
-    "FabricGuiMixin"
-  ]
+  "refmap": "simpletextoverlay-refmap.json"
 }
