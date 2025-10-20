@@ -12,7 +12,10 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import technology.roughness.whitenoise.config.WhiteNoiseConfigSpec;
 
+import simpletextoverlay.common.Translations;
 import simpletextoverlay.overlay.OverlayManager;
+import simpletextoverlay.util.Alignment;
+import simpletextoverlay.util.Alignment.AlignmentType;
 import simpletextoverlay.util.ColorHelper;
 
 public final class OverlayConfig {
@@ -33,7 +36,7 @@ public final class OverlayConfig {
         List<String> fields = (List<String>) CLIENT.fields.get();
         Client.sortedFields = new ArrayList<>(fields);
 
-        if (CLIENT.position.get().startsWith("BOTTOM")) {
+        if (CLIENT.position.get().name().startsWith("BOTTOM")) {
             Collections.reverse(Client.sortedFields);
         }
 
@@ -55,10 +58,11 @@ public final class OverlayConfig {
         loaded = true;
     }
 
-    private static class Client {
-        private static final List<String> positions = Arrays.asList("TOPLEFT", "TOPRIGHT", "BOTTOMLEFT", "BOTTOMRIGHT");
-        private static final List<String> fieldList = Arrays.asList("fields");
-        private static final String[] fieldStrings = new String[]{"light", "time", "days", "foot", "biome", "season"};
+    public static class Client {
+        private static final List<String> fieldList = List.of("fields");
+        public static final String[] fieldStrings = new String[]{"light", "time", "days", "foot", "biome", "season"};
+        private static final Predicate<Object> fieldStringValidator = s -> s instanceof String &&
+            Arrays.asList(fieldStrings).contains(s);
         private static final String[] defaultFields = new String[]{"light", "time", "foot", "biome", "season"};
         private static List<String> sortedFields;
         private static Color lightColorDark = ColorHelper.decode("#b02e26");
@@ -70,13 +74,12 @@ public final class OverlayConfig {
         private static Color biomeColorDecoded;
         private static Color daysColorDecoded;
         private static final Predicate<Object> hexValidator = s -> s instanceof String
-            && ((String) s).matches("#[a-zA-Z\\d]{6}");
+            && ((String) s).matches("#[a-fA-F\\d]{6}");
         private static final Predicate<Object> hexRangeValidator = s -> s instanceof String
-            && ((String) s).matches("#[a-zA-Z\\d]{6}->#[a-zA-Z\\d]{6}");
+            && ((String) s).matches("#[a-fA-F\\d]{6}->#[a-fA-F\\d]{6}");
 
-        public final WhiteNoiseConfigSpec.BooleanValue enabled;
         public final WhiteNoiseConfigSpec.BooleanValue textShadow;
-        public final WhiteNoiseConfigSpec.ConfigValue<String> position;
+        public final WhiteNoiseConfigSpec.EnumValue<Alignment.AlignmentType> position;
         public final WhiteNoiseConfigSpec.IntValue offsetX;
         public final WhiteNoiseConfigSpec.IntValue offsetY;
         public final WhiteNoiseConfigSpec.DoubleValue scale;
@@ -97,78 +100,70 @@ public final class OverlayConfig {
         public final WhiteNoiseConfigSpec.IntValue compassOpacity;
 
         public Client(WhiteNoiseConfigSpec.Builder builder) {
-            enabled = builder
-                .comment("Show overlay")
-                .define("enabled", true);
             position = builder
-                .comment("Position, one of: " + positions)
-                .defineInList("position", "BOTTOMRIGHT", positions);
+                .comment(getTranslation("position"))
+                .defineEnum("position", AlignmentType.BOTTOMRIGHT);
             offsetX = builder
-                .comment("X offset")
+                .comment(getTranslation("offsetx"))
                 .defineInRange("offsetX", 3, -100, 100);
             offsetY = builder
-                .comment("Y offset")
+                .comment(getTranslation("offsety"))
                 .defineInRange("offsetY", 3, -100, 100);
             scale = builder
-                .comment("The size of the biome info (multiplier)")
+                .comment(getTranslation("scale"))
                 .defineInRange("scale", 1.0, 0.5, 2.0);
             fields = builder
-                .comment("Fields to show. Will display in same order as defined. Options: "
-                    + "[\"" + String.join("\", \"", fieldStrings) + "\"]")
-                .defineListAllowEmpty(fieldList, getFields(), s -> (s instanceof String));
+                .comment(getTranslation("fields"))
+                .defineListAllowEmpty(fieldList, getFields(), fieldStringValidator);
             textShadow = builder
-                .comment("Show text shadow.")
+                .comment(getTranslation("textshadow"))
                 .define("textShadow", true);
             labelColor = builder
-                .comment("Label color (Format: #9c9d97)")
+                .comment(getTranslation("labelcolor"))
                 .define("labelColor", "#9c9d97", hexValidator);
             lightLabel = builder
-                .comment("Label for light level.")
+                .comment(getTranslation("lightlabel"))
                 .define("lightLabel", "Light: ");
             lightColorRange = builder
-                .comment("Light color range (Format (dark->bright): #b02e26->#ffd83d)")
+                .comment(getTranslation("lightcolorrange"))
                 .define("lightColorRange", "#b02e26->#ffd83d", hexRangeValidator);
             timeLabel = builder
-                .comment("Label for time.")
+                .comment(getTranslation("timelabel"))
                 .define("timeLabel", "");
             timeColorRange = builder
-                .comment("Time color range (Format (dark->bright): #474f52->#ffd83d)")
+                .comment(getTranslation("timecolorrange"))
                 .define("timeColorRange", "#474f52->#ffd83d", hexRangeValidator);
             timeUse12 = builder
-                .comment("Use 12 hour AM/PM display.")
+                .comment(getTranslation("timeuse12"))
                 .define("timeUse12", true);
             footLabel = builder
-                .comment("Label for foot level.")
+                .comment(getTranslation("footlabel"))
                 .define("footLabel", "Foot level: ");
             footColor = builder
-                .comment("Foot level color (Format: #5d7c15)")
+                .comment(getTranslation("footcolor"))
                 .define("footColor", "#5d7c15", hexValidator);
             biomeLabel = builder
-                .comment("Label for biome.")
+                .comment(getTranslation("biomelabel"))
                 .define("biomeLabel", "Biome: ");
             biomeColor = builder
-                .comment("Biome color (Format: #474f52)")
+                .comment(getTranslation("biomecolor"))
                 .define("biomeColor", "#474f52", hexValidator);
             showCompass = builder
-                .comment("Show HUD compass.")
+                .comment(getTranslation("enabled"))
                 .define("enabled", true);
             compassOpacity = builder
-                .comment("Compass background opacity.")
+                .comment(getTranslation("compassopacity"))
                 .defineInRange("compassOpacity", 10, 0, 100);
             daysLabel = builder
-                .comment("Label for total days.")
+                .comment(getTranslation("dayslabel"))
                 .define("daysLabel", "Day: ");
             daysColor = builder
-                .comment("Days color (Format: #3c44a9)")
+                .comment(getTranslation("dayscolor"))
                 .define("daysColor", "#3c44a9", hexValidator);
         }
     }
 
-    public static boolean enabled() {
-        return CLIENT.enabled.get();
-    }
-
-    public static String position() {
+    public static AlignmentType position() {
         return CLIENT.position.get();
     }
 
@@ -258,6 +253,10 @@ public final class OverlayConfig {
 
     public static Color daysColor() {
         return Client.daysColorDecoded;
+    }
+    
+    private static String getTranslation(String key) {
+        return Translations.get(key);
     }
 
 }
