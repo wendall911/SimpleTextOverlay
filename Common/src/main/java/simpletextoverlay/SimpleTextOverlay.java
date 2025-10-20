@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import technology.roughness.whitenoise.config.WhiteNoiseConfig;
 import technology.roughness.whitenoise.config.WhiteNoiseConfigLoader;
+import technology.roughness.whitenoise.platform.Services;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.compass.PinInfoRegistry;
-import simpletextoverlay.platform.Services;
 
 public class SimpleTextOverlay {
 

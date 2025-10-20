@@ -1,10 +1,7 @@
 package simpletextoverlay.mixin;
 
-import net.minecraft.core.BlockPos;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.level.Level;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,9 +19,5 @@ public class FabricServerPlayerMixin {
 
         SimpleTextOverlayEvents.onPlayerChangeDimension(sp, sp.level().dimension());
     }
-
-    // For refmap ... need to figure out how to make the mapping file added
-    @Inject(method = "setRespawnPosition", at = @At("HEAD"))
-    private void stofabric$setRespawnPosition(ResourceKey<Level> worldKey, BlockPos respawnPos, float angle, boolean forced, boolean hasMessage, CallbackInfo ci) {}
 
 }

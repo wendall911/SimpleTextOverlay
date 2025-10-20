@@ -18,7 +18,6 @@ public class AttachmentDataManager {
         ATTACHMENT_TYPE_DEFERRED_REGISTER.register(
             "sto_provider",
             () -> AttachmentType.serializable(CompassDataProvider.DataManagerProvider::new).build()
-            //() -> AttachmentType.serializable(DataManagerProvider::new).copyOnDeath().build()
         );
 
     public static void init(IEventBus eventBus) {

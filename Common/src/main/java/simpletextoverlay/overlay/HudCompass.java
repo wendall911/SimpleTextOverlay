@@ -11,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.phys.Vec2;
 
 import simpletextoverlay.config.OverlayConfig;
+import simpletextoverlay.overlay.compass.Pin.PinType;
 import simpletextoverlay.overlay.compass.PinInfo;
 import simpletextoverlay.platform.Services;
 import simpletextoverlay.util.Alignment;
@@ -18,22 +19,18 @@ import simpletextoverlay.util.ColorHelper;
 import simpletextoverlay.util.FontHelper;
 import simpletextoverlay.util.VecMath;
 
-import static simpletextoverlay.events.SimpleTextOverlayEvents.BEDSPAWN;
-import static simpletextoverlay.events.SimpleTextOverlayEvents.LASTDEATH;
-import static simpletextoverlay.events.SimpleTextOverlayEvents.WORLDSPAWN;
-
 public class HudCompass {
 
-    public void renderText(GuiGraphics guiGraphics, Minecraft mc, int scaledWidth, int scaledHeight, float _partialTicks) {
+    public void renderText(GuiGraphics guiGraphics, Minecraft mc, int scaledWidth, float _partialTicks) {
         final Player player = mc.player;
 
         if (player == null) {
             return;
         }
         final float partialTicks = mc.isPaused() ? 0 : _partialTicks;
-        final double posX = Mth.lerp(partialTicks, player.xo, player.getX());
-        final double posY = Mth.lerp(partialTicks, player.yo, player.getY());
-        final double posZ = Mth.lerp(partialTicks, player.zo, player.getZ());
+        final double posX = player.getX();
+        final double posY = player.getY();
+        final double posZ = player.getZ();
         final String compassText = "·";
         final String worldSpawnText = "⊙";
         final String bedSpawnText = "⌂";
@@ -57,12 +54,11 @@ public class HudCompass {
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(player).ifPresent(pinsData -> {
             final Map<String, PinInfo<?>> pins = pinsData.get(player).getPins();
             float offset = 0.5F;
-            final PinInfo<?> bedSpawn = pins.get(BEDSPAWN);
-            final PinInfo<?> lastDeath = pins.get(LASTDEATH);
-            final PinInfo<?> worldSpawn = pins.get(WORLDSPAWN);
+            final PinInfo<?> bedSpawn = pins.get(PinType.BEDSPAWN.toString());
+            final PinInfo<?> lastDeath = pins.get(PinType.LASTDEATH.toString());
+            final PinInfo<?> worldSpawn = pins.get(PinType.WORLDSPAWN.toString());
 
             if (bedSpawn != null) {
-
                 final Vec2 bedSpawnAngle = VecMath.angleFromPos(bedSpawn.getPosition(), posX, posY, posZ);
 
                 drawInfo(mc, guiGraphics, yaw, bedSpawnAngle.x, x, y + 3, bedSpawnText, 0.5F, offset, ColorHelper.decode("#9c9d97").getRGB());

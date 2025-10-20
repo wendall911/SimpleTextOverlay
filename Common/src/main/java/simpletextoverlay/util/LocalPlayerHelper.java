@@ -9,4 +9,15 @@ public class LocalPlayerHelper {
         return Minecraft.getInstance().player;
     }
 
+    public static boolean shouldLoad() {
+        Player player = Minecraft.getInstance().player;
+
+        if (player == null) {
+            return false;
+        } else if (player.isCreative()) {
+            return false;
+        }
+        else return !player.isSpectator();
+    }
+
 }

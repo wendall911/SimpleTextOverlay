@@ -9,11 +9,11 @@ public class Pin extends PinInfo<Pin> {
     private Vec3 position;
 
     public Pin() {
-        super(PinInfoRegistry.TYPE, "none");
+        super(PinInfoRegistry.TYPE, PinType.NONE.toString());
     }
 
-    public Pin(PinInfoType<? extends Pin> type, Vec3 exactPosition, String id) {
-        super(type, id);
+    public Pin(PinInfoType<? extends Pin> type, Vec3 exactPosition, PinType id) {
+        super(type, id.toString());
 
         this.position = exactPosition;
     }
@@ -57,6 +57,18 @@ public class Pin extends PinInfo<Pin> {
             buffer.readDouble(),
             buffer.readDouble()
         );
+    }
+
+    public enum PinType {
+        BEDSPAWN,
+        LASTDEATH,
+        NONE,
+        WORLDSPAWN;
+
+        @Override
+        public String toString() {
+            return this.name().toLowerCase();
+        }
     }
 
 }

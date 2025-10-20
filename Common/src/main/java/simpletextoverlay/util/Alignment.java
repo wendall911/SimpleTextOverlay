@@ -5,7 +5,7 @@ import simpletextoverlay.config.OverlayConfig;
 public class Alignment {
 
     public static int getX(int screenWidth, int textWidth) {
-        String pos = OverlayConfig.position();
+        String pos = OverlayConfig.position().name();
         int x = OverlayConfig.offsetX();
 
         if (pos.endsWith("RIGHT")) {
@@ -17,7 +17,7 @@ public class Alignment {
     }
 
     public static int getY(int screenHeight, int lineNum, int lineHeight) {
-        String pos = OverlayConfig.position();
+        String pos = OverlayConfig.position().name();
         int y = OverlayConfig.offsetY() - 1;
 
         if (pos.startsWith("BOTTOM")) {
@@ -37,6 +37,13 @@ public class Alignment {
 
     public static int getCompassY() {
         return OverlayConfig.offsetY();
+    }
+
+    public enum AlignmentType {
+        TOPLEFT,
+        TOPRIGHT,
+        BOTTOMLEFT,
+        BOTTOMRIGHT
     }
 
 }

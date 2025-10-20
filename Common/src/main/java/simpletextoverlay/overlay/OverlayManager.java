@@ -10,13 +10,14 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 
+import technology.roughness.whitenoise.platform.Services;
+
 import simpletextoverlay.config.OverlayConfig;
-import simpletextoverlay.platform.Services;
 
 public class OverlayManager {
 
     public static final OverlayManager INSTANCE = new OverlayManager();
-    public final List<Info> lines = new ArrayList<>();
+    public List<Info> lines = new ArrayList<>();
     public final HudCompass hudCompass = new HudCompass();
 
     private OverlayManager() {}
@@ -79,7 +80,7 @@ public class OverlayManager {
             }
 
             if (OverlayConfig.showCompass()) {
-                hudCompass.renderText(guiGraphics, mc, scaledWidth, scaledHeight, partialTicks);
+                hudCompass.renderText(guiGraphics, mc, scaledWidth, partialTicks);
             }
 
             matrix.popMatrix();

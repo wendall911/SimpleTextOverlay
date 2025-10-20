@@ -1,6 +1,5 @@
 package simpletextoverlay.util;
 
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.phys.Vec2;
 import net.minecraft.world.phys.Vec3;
 

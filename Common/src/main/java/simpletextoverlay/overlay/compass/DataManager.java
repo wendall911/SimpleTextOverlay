@@ -37,6 +37,10 @@ public class DataManager {
         return syncData;
     }
 
+    public void readSyncData(Optional<CompoundTag> nbt) {
+        nbt.ifPresent(this::readSyncData);
+    }
+
     public void readSyncData(CompoundTag nbt) {
         Optional<ListTag> optionalListTag = nbt.getList(STO_DATA);
 

@@ -35,15 +35,15 @@ public class PinInfoRegistry {
         }
 
         CompoundTag tag = new CompoundTag();
-        tag.putString("Type", type.getName().toString());
+        tag.putString("PinType", type.getName().toString());
 
         return pinData.write(tag);
     }
 
     @NotNull
     public static PinInfo<?> deserializePin(CompoundTag tag) {
-        if (tag.getString("Type").isPresent()) {
-            ResourceLocation typeId = ResourceLocation.bySeparator(tag.getString("Type").get(), ':');
+        if (tag.getString("PinType").isPresent()) {
+            ResourceLocation typeId = ResourceLocation.bySeparator(tag.getString("PinType").get(), ':');
             PinInfoType<?> type = typesMap.get(typeId);
 
             if (type == null) {

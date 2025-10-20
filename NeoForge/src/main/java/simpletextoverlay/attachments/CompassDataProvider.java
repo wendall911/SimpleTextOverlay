@@ -2,12 +2,10 @@ package simpletextoverlay.attachments;
 
 import java.util.Optional;
 
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.level.storage.ValueInput;
 import net.minecraft.world.level.storage.ValueOutput;
-import org.jetbrains.annotations.NotNull;
 
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.ListTag;
 import net.minecraft.world.entity.player.Player;
 
 import net.neoforged.neoforge.common.util.ValueIOSerializable;
@@ -20,18 +18,22 @@ public class CompassDataProvider {
         return Optional.of(player.getData(AttachmentDataManager.COMPASS_DATA.get()));
     }
 
-    public static class DataManagerProvider extends DataManager implements ValueIOSerializable<ListTag> {
+    public static class DataManagerProvider extends DataManager implements ValueIOSerializable {
 
-        public DataManagerProvider() {}
+        private static DataManager instance;
 
-        @Override
-        public ListTag (ValueOutput output) {
-            return write();
+        public DataManagerProvider() {
+            instance = new DataManager();
         }
 
         @Override
-        public void deserialize(ValueInput input) {
-            read(input);
+        public void serialize(ValueOutput writeView) {
+            writeView.storeNullable("Data", CompoundTag.CODEC, instance.getSyncData());
+        }
+
+        @Override
+        public void deserialize(ValueInput readView) {
+            instance.readSyncData(readView.read("Data", CompoundTag.CODEC));
         }
 
     }
