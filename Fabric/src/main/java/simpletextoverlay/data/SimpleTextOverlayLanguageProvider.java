@@ -70,7 +70,7 @@ public class SimpleTextOverlayLanguageProvider extends FabricLanguageProvider {
         addDescription(translationBuilder, "early_winter", "Early Winter");
         addDescription(translationBuilder, "mid_winter", "Mid Winter");
         addDescription(translationBuilder, "late_winter", "Late Winter");
-        addKey(translationBuilder, "death_history", "Death History");
+        addKey(translationBuilder, "death_history", "Open Set Death History X");
     }
 
     private void addConfigurationTitle(TranslationBuilder builder, String title) {

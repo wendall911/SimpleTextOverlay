@@ -25,6 +25,9 @@
     "client": [
       "${mod_id}.${mod_name}ClientFabric"
     ],
+    "fabric-datagen": [
+      "${mod_id}.data.FabricDatagenInitializer"
+    ],
     "whitenoise-config": [
       "${mod_id}.FabricConfigInitializer"
     ],
