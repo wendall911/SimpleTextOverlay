@@ -24,12 +24,14 @@ dependencies {
     include "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
     include "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
 
+    modImplementation group: 'com.github.wendall911.homeostaticseasons', name: "homeostaticseasons-${minecraft_version}-fabric", version: "${homeostaticseasons_version}"
+
     modLocalRuntime group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
 
     //modImplementation "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
-    modImplementation "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
-    modImplementation "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"
-    modRuntimeOnly "net.jodah:typetools:0.6.3"
+    modCompileOnly "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
+    modCompileOnly "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"
+    modLocalRuntime "net.jodah:typetools:0.6.3"
     modImplementation "com.electronwill.night-config:core:3.6.7"
 }
 
