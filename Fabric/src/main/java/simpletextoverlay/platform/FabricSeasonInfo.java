@@ -9,6 +9,7 @@ import net.minecraft.world.level.Level;
 import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.platform.services.ISeasonInfo;
 import simpletextoverlay.util.FabricSeasonsHelper;
+import simpletextoverlay.util.HomeostaticSeasonsHelper;
 import simpletextoverlay.util.SereneSeasonsFabricHelper;
 import simpletextoverlay.util.SubSeason;
 
@@ -19,7 +20,11 @@ public class FabricSeasonInfo implements ISeasonInfo {
         boolean hasSeasonDimension = false;
         SubSeason subSeason = SubSeason.MID_SPRING;
 
-        if (technology.roughness.whitenoise.platform.Services.PLATFORM.isModLoaded("sereneseasons")) {
+        if (technology.roughness.whitenoise.platform.Services.PLATFORM.isModLoaded("homeostaticseasons")) {
+            subSeason = HomeostaticSeasonsHelper.getSubSeason(level);
+            hasSeasonDimension = HomeostaticSeasonsHelper.isDimensionWhitelisted(level.dimension());
+        }
+        else if (technology.roughness.whitenoise.platform.Services.PLATFORM.isModLoaded("sereneseasons")) {
             subSeason = SereneSeasonsFabricHelper.getSubSeason(level);
             hasSeasonDimension = SereneSeasonsFabricHelper.isDimensionWhitelisted(level.dimension());
         }

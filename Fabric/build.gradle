@@ -24,6 +24,8 @@ dependencies {
     include "org.ladysnake.cardinal-components-api:cardinal-components-base:${cardinal_components_version}"
     include "org.ladysnake.cardinal-components-api:cardinal-components-entity:${cardinal_components_version}"
 
+    modImplementation group: 'com.github.wendall911.homeostaticseasons', name: "homeostaticseasons-${minecraft_version}-fabric", version: "${homeostaticseasons_version}"
+
     modLocalRuntime group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
 
     modCompileOnly "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
