@@ -7,16 +7,16 @@ import org.jetbrains.annotations.NotNull;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import simpletextoverlay.SimpleTextOverlay;
 
 public class PinInfoRegistry {
 
-    public static final BiMap<ResourceLocation, PinInfoType<?>> typesMap = HashBiMap.create();
+    public static final BiMap<Identifier, PinInfoType<?>> typesMap = HashBiMap.create();
     public static final BiMap<Integer, PinInfoType<?>> idsMap = HashBiMap.create();
 
-    private static final ResourceLocation LOCATION = ResourceLocation.fromNamespaceAndPath(SimpleTextOverlay.MODID, "pin");
+    private static final Identifier LOCATION = Identifier.fromNamespaceAndPath(SimpleTextOverlay.MODID, "pin");
     public static PinInfoType<Pin> TYPE = new PinInfoType<>(Pin::new, LOCATION);
 
     static {
@@ -28,7 +28,7 @@ public class PinInfoRegistry {
 
     public static CompoundTag serializePin(@NotNull PinInfo<?> pinData) {
         PinInfoType<?> type = pinData.getType();
-        ResourceLocation typeId = type.getName();
+        Identifier typeId = type.getName();
 
         if(typeId == null) {
             throw new IllegalStateException(String.format("Serializer name is null %s", type.getClass().getName()));
@@ -43,7 +43,7 @@ public class PinInfoRegistry {
     @NotNull
     public static PinInfo<?> deserializePin(CompoundTag tag) {
         if (tag.getString("PinType").isPresent()) {
-            ResourceLocation typeId = ResourceLocation.bySeparator(tag.getString("PinType").get(), ':');
+            Identifier typeId = Identifier.bySeparator(tag.getString("PinType").get(), ':');
             PinInfoType<?> type = typesMap.get(typeId);
 
             if (type == null) {

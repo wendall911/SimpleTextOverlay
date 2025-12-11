@@ -30,7 +30,7 @@ public class LightInfo extends Info {
             int blockLight = level.getChunkSource().getLightEngine().getRawBrightness(pos.above(), 15);
 
             int i = level.getBrightness(LightLayer.SKY, pos.above()) - level.getSkyDarken();
-            float f = level.getSunAngle(1.0F);
+            float f = getSunAngle(level);
             if (i > 0) {
                 float f1 = f < (float)Math.PI ? 0.0F : ((float)Math.PI * 2F);
                 f += (f1 - f) * 0.2F;
@@ -60,6 +60,16 @@ public class LightInfo extends Info {
 
             FontHelper.draw(mc, guiGraphics, brightness, x, y, ColorHelper.getLightColor(brightnessVal), FontHelper.TextType.VALUE);
         }
+    }
+
+    private static float getSunAngle(Level level) {
+        return timeOfDay(level) * ((float)Math.PI * 2F);
+    }
+
+    private static float timeOfDay(Level level) {
+        double d0 = Mth.frac(level.getDayTime() / 24000.0 - 0.25);
+        double d1 = 0.5 - Math.cos(d0 * Math.PI) / 2.0;
+        return (float)(d0 * 2.0 + d1) / 3.0F;
     }
 
 }

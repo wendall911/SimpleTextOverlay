@@ -31,7 +31,7 @@ public class SimpleTextOverlayEvents {
         if (!player.level().isClientSide()) {
             final ServerPlayer sp = (ServerPlayer) player;
 
-            if (!worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
+            if (!worldKey.identifier().toString().contains(BuiltinDimensionTypes.OVERWORLD.identifier().toString())) {
                 Services.CAPABILITY_PLATFORM.getDataManagerCapability(sp).ifPresent((pinsData) -> {
                     BlockPos spawnPos = new BlockPos((int) sp.getX(), (int) sp.getY(), (int) sp.getZ());
 
@@ -54,7 +54,7 @@ public class SimpleTextOverlayEvents {
             PinInfo<?> worldSpawn = pins.get(PinType.WORLDSPAWN.toString());
             RespawnConfig respawnConfig = sp.getRespawnConfig();
 
-            if (worldSpawn == null && worldKey.location().toString().contains(BuiltinDimensionTypes.OVERWORLD.location().toString())) {
+            if (worldSpawn == null && worldKey.identifier().toString().contains(BuiltinDimensionTypes.OVERWORLD.identifier().toString())) {
                 BlockPos spawnPos = sp.level().getServer().getWorldData().overworldData().getRespawnData().pos();
                 PinHelper.setPointPin(sp, pinsData, worldKey, spawnPos, PinType.WORLDSPAWN);
             }

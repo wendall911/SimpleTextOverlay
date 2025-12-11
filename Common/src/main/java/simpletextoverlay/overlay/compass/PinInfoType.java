@@ -2,19 +2,19 @@ package simpletextoverlay.overlay.compass;
 
 import java.util.function.Supplier;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public final class PinInfoType<T extends PinInfo<T>> {
 
     private final Supplier<T> factory;
-    private final ResourceLocation name;
+    private final Identifier name;
 
-    public PinInfoType(Supplier<T> factory, ResourceLocation name) {
+    public PinInfoType(Supplier<T> factory, Identifier name) {
         this.factory = factory;
         this.name = name;
     }
 
-    public ResourceLocation getName() {
+    public Identifier getName() {
         return this.name;
     }
 

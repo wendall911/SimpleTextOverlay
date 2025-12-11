@@ -15,7 +15,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.dimension.DimensionType;
@@ -59,14 +59,14 @@ public class DataManager {
 
                 ResourceKey<Level> key = ResourceKey.create(
                     Registries.DIMENSION,
-                    ResourceLocation.bySeparator(tag.getString("World").get(), ':')
+                    Identifier.bySeparator(tag.getString("World").get(), ':')
                 );
                 ResourceKey<DimensionType> dimType = null;
 
                 if (tag.contains("DimensionKey") && tag.getString("DimensionKey").isPresent()) {
                     dimType = ResourceKey.create(
                         Registries.DIMENSION_TYPE,
-                        ResourceLocation.bySeparator(tag.getString("DimensionKey").get(), ':')
+                        Identifier.bySeparator(tag.getString("DimensionKey").get(), ':')
                     );
                 }
 
@@ -85,10 +85,10 @@ public class DataManager {
         for (Map.Entry<ResourceKey<Level>, Pins> entry : worldPins.entrySet()) {
             CompoundTag tag = new CompoundTag();
 
-            tag.putString("World", entry.getKey().location().toString());
+            tag.putString("World", entry.getKey().identifier().toString());
 
             if (entry.getValue().getDimensionTypeKey() != null) {
-                tag.putString("DimensionKey", entry.getValue().getDimensionTypeKey().location().toString());
+                tag.putString("DimensionKey", entry.getValue().getDimensionTypeKey().identifier().toString());
             }
 
             tag.put("PINS", entry.getValue().write());
@@ -140,7 +140,7 @@ public class DataManager {
         Optional<Holder.Reference<Registry<DimensionType>>> optionalRegistry = world.registryAccess().get(Registries.DIMENSION_TYPE);
 
         if (optionalRegistry.isPresent()) {
-            ResourceLocation key = optionalRegistry.get().value().getKey(dimType);
+            Identifier key = optionalRegistry.get().value().getKey(dimType);
 
             if (key == null) {
                 return fallback;

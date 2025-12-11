@@ -7,7 +7,7 @@ import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
-import net.minecraft.Util;
+import net.minecraft.util.Util;
 import net.minecraft.world.level.biome.Biome;
 
 import simpletextoverlay.config.OverlayConfig;
@@ -25,7 +25,7 @@ public class BiomeInfo extends Info {
         Holder<Biome> biome = Objects.requireNonNull(mc.level).getBiome(pos);
 
         biome.unwrapKey().ifPresent(key -> {
-            Component biomeName = Component.translatable(Util.makeDescriptionId("biome", key.location()));
+            Component biomeName = Component.translatable(Util.makeDescriptionId("biome", key.identifier()));
 
             int x = Alignment.getX(scaledWidth, mc.font.width(super.label) + mc.font.width(biomeName));
             int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);

@@ -1,6 +1,6 @@
 package simpletextoverlay.component;
 
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import org.ladysnake.cca.api.v3.component.ComponentKey;
 import org.ladysnake.cca.api.v3.component.ComponentRegistry;
@@ -13,7 +13,7 @@ import simpletextoverlay.SimpleTextOverlay;
 public class SimpleTextOverlayComponents implements EntityComponentInitializer {
 
     public static final ComponentKey<ComponentDataManager> DATA_MANAGER = ComponentRegistry.getOrCreate(
-        ResourceLocation.fromNamespaceAndPath(SimpleTextOverlay.MODID, "sto_provider"),
+        Identifier.fromNamespaceAndPath(SimpleTextOverlay.MODID, "sto_provider"),
         ComponentDataManager.class
     );
 
