@@ -22,7 +22,10 @@ public class NeoForgeSeasonInfo implements ISeasonInfo {
 
         if (technology.roughness.whitenoise.platform.Services.PLATFORM.isModLoaded("homeostaticseasons")) {
             hasSeasonDimension = HomeostaticSeasonsHelper.isDimensionWhitelisted(level.dimension());
-            subSeason = HomeostaticSeasonsHelper.getSubSeason(level);
+
+            if (hasSeasonDimension) {
+                subSeason = HomeostaticSeasonsHelper.getSubSeason(level);
+            }
         }
         else if (technology.roughness.whitenoise.platform.Services.PLATFORM.isModLoaded("sereneseasons")) {
             subSeason = SereneSeasonsNeoForgeHelper.getSubSeason(level);
