@@ -2,6 +2,8 @@ package simpletextoverlay.overlay;
 
 import java.util.Map;
 
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix3x2fStack;
 
 import net.minecraft.client.gui.GuiGraphics;
@@ -27,20 +29,28 @@ public class HudCompass {
         if (player == null) {
             return;
         }
+
         final float partialTicks = mc.isPaused() ? 0 : _partialTicks;
-        final double posX = player.getX();
-        final double posY = player.getY();
-        final double posZ = player.getZ();
+        double posX = player.getX();
+        double posY = player.getY();
+        double posZ = player.getZ();
         final String compassText = "·";
         final String worldSpawnText = "⊙";
         final String bedSpawnText = "⌂";
         final String lastDeathText = "✕";
-        final float yaw = Mth.lerp(partialTicks, player.yRotO, player.getYRot()) % 360;
+        float yaw;
 
         final int x = Alignment.getCompassX(scaledWidth, mc.font.width(compassText));
         final int y = Alignment.getCompassY();
 
         final int bgColor = ColorHelper.rgb(0, 0, 0, OverlayConfig.getCompassOpacity());
+
+        if (player.isPassenger()) {
+            yaw = player.getYRot() % 360;
+        }
+        else {
+            yaw = Mth.lerp(partialTicks, player.yRotO, player.getYRot()) % 360;
+        }
 
         guiGraphics.fill(x - 92, y - 1, x + 96, mc.font.lineHeight + 2, bgColor);
 
