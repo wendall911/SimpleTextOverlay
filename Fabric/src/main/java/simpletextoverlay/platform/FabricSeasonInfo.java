@@ -21,8 +21,11 @@ public class FabricSeasonInfo implements ISeasonInfo {
         SubSeason subSeason = SubSeason.MID_SPRING;
 
         if (Services.PLATFORM.isModLoaded("homeostaticseasons")) {
-            subSeason = HomeostaticSeasonsHelper.getSubSeason(level);
             hasSeasonDimension = HomeostaticSeasonsHelper.isDimensionWhitelisted(level.dimension());
+
+            if (hasSeasonDimension) {
+                subSeason = HomeostaticSeasonsHelper.getSubSeason(level);
+            }
         }
         else if (Services.PLATFORM.isModLoaded("sereneseasons")) {
             subSeason = SereneSeasonsFabricHelper.getSubSeason(level);
