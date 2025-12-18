@@ -1,9 +1,9 @@
 plugins {
     id 'multiloader-loader'
     id 'net.neoforged.moddev'
-    id 'io.github.goooler.shadow'
 }
 
+def identifier = "${mod_id}-${minecraft_version}-neoforge"
 def modLoader = "${project.name}".toUpperCase()
 def actualVersion = version
 version = "${version}-${modLoader}"
@@ -24,7 +24,6 @@ neoForge {
         }
         server {
             server()
-            programArgument '--nogui'
         }
     }
     mods {
@@ -47,12 +46,8 @@ dependencies {
     //runtimeOnly "curse.maven:configured-457570:5441232"
 }
 
-shadowJar {
-    archiveClassifier = ''
-}
-
 def changelogFile = project(":").projectDir.toString() + '/build/libs/changelog.txt'
-def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${archivesBaseName}-${version}.jar"
+def publishFile = project(":").projectDir.toString() + "/NeoForge/build/libs/${identifier}-${version}.jar"
 def display_name = "${project.name} ${minecraft_version}-${version}"
 def display_version = "${minecraft_version}-${version}"
 
@@ -81,7 +76,9 @@ publishMods {
             optional('charged-charms')
             optional('creeper-fireworks')
             optional('homeostatic')
+            optional('homeostatic-seasons')
             optional('magical-psi-revival')
+            optional('mobchampions')
             optional('ready-player-fun')
             optional('survivalist-essentials')
             optional('tinkersurvival')
@@ -100,7 +97,9 @@ publishMods {
             optional('charged-charms')
             optional('creeper-fireworks-mod')
             optional('homeostatic')
+            optional('homeostatic-seasons')
             optional('magical-psi-revival')
+            optional('mobchampions')
             optional('ready-player-fun')
             optional('survivalist-essentials')
             optional('tinkersurvival')
@@ -115,6 +114,18 @@ publishMods {
             content = changelog.map {
                 "# A new version of ${mod_display_name} for NeoForge ${minecraft_version} has been released! \n" + it
             }
+        }
+    }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId identifier
+            version project.version
+            // This gives us the built version NeoForge requires
+            artifact jar
         }
     }
 }

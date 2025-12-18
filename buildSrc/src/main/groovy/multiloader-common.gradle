@@ -6,7 +6,7 @@ plugins {
 }
 
 base {
-    archivesName = "${mod_id}-${minecraft_version}"
+    archivesName = "${mod_id}-${minecraft_version}-${project.name}".toLowerCase()
 }
 
 java {
@@ -63,7 +63,7 @@ repositories {
         url = 'https://raw.githubusercontent.com/wendall911/maven/main/'
     }
 
-    if (System.getenv('local_maven') != null && project.hasProperty('localmaven')) {
+    if (project.hasProperty('localmaven')) {
         maven {
             url 'file://' + localmaven
         }
@@ -74,7 +74,7 @@ repositories {
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 ['apiElements', 'runtimeElements'].each { variant ->
     configurations."$variant".outgoing {
-        capability("$group:$mod_id-${project.name}:$version")
+        capability("$group:$mod_id-${minecraft_version}-${project.name}:$version".toLowerCase())
         capability("$group:$mod_id:$version")
     }
     publishing.publications.configureEach {
@@ -119,7 +119,9 @@ ext.expandProps = [
     'neoforge_mc_version_range': neoforge_mc_version_range,
     'mod_credits': mod_credits,
     'curseforge_slug': curseforge_slug,
-    'pack_format': pack_format
+    'pack_format': pack_format,
+    'fabric_whitenoise_range': fabric_whitenoise_range,
+    'whitenoise_range': whitenoise_range
 ]
 
 processResources {
@@ -127,17 +129,12 @@ processResources {
         expand expandProps
     }
     inputs.properties(expandProps)
+    outputs.upToDateWhen {
+        false
+    }
 }
 
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            groupId project.group
-            artifactId project.archivesBaseName
-            version project.version
-            from components.java
-        }
-    }
     repositories {
         if (System.getenv('local_maven') != null) {
             maven {
