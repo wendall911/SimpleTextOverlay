@@ -17,7 +17,7 @@ public class GameOverlayEventHandler {
             return;
         }
 
-        if (OverlayConfig.loaded && !mc.getDebugOverlay().showDebugScreen() && !mc.options.hideGui) {
+        if (OverlayConfig.loaded && !mc.options.hideGui) {
             overlayManager.renderOverlay(guiGraphics, partialTicks);
         }
     }
