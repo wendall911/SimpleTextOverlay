@@ -68,17 +68,19 @@ publishMods {
             clientRequired = true
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
-            optional('serene-seasons')
             optional('actually-harvest')
             optional('betterdays')
             optional('charged-charms')
             optional('creeper-fireworks')
             optional('homeostatic')
+            optional('homeostatic-seasons')
             optional('magical-psi-revival')
+            optional('mobchampions')
             optional('ready-player-fun')
             optional('survivalist-essentials')
             optional('tinkersurvival')
             optional('biome-makeover-forge')
+            optional('serene-seasons')
         }
     }
     if (project.hasProperty("${modrinth_api_key_prop}")) {
@@ -86,17 +88,19 @@ publishMods {
             accessToken = project.property("${modrinth_api_key_prop}")
             projectId = "${modrinth_id}"
             minecraftVersions.addAll("${release_versions}".split(','))
-            optional('serene-seasons')
             optional('actually-harvest')
             optional('betterdays')
             optional('charged-charms')
             optional('creeper-fireworks-mod')
             optional('homeostatic')
+            optional('homeostatic-seasons')
             optional('magical-psi-revival')
+            optional('mobchampions')
             optional('ready-player-fun')
             optional('survivalist-essentials')
             optional('tinkersurvival')
             optional('biome-makeover')
+            optional('serene-seasons')
         }
     }
     if (project.hasProperty("${discord_webhook_prop}")) {

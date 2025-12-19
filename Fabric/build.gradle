@@ -88,15 +88,17 @@ publishMods {
             serverRequired = true
             minecraftVersions.addAll("${release_versions}".split(','))
             requires('fabric-api')
-            optional('fabric-seasons')
-            optional('serene-seasons')
             optional('actually-harvest')
             optional('betterdays')
             optional('charged-charms')
             optional('creeper-fireworks')
             optional('homeostatic')
+            optional('homeostatic-seasons')
+            optional('mobchampions')
             optional('ready-player-fun')
             optional('biome-makeover')
+            optional('fabric-seasons')
+            optional('serene-seasons')
         }
     }
     if (project.hasProperty("${modrinth_api_key_prop}")) {
@@ -105,15 +107,17 @@ publishMods {
             projectId = "${modrinth_id}"
             minecraftVersions.addAll("${release_versions}".split(','))
             requires('fabric-api')
-            optional('fabric-seasons')
-            optional('serene-seasons')
             optional('actually-harvest')
             optional('betterdays')
             optional('charged-charms')
             optional('creeper-fireworks-mod')
             optional('homeostatic')
+            optional('homeostatic-seasons')
+            optional('mobchampions')
             optional('ready-player-fun')
             optional('biome-makeover')
+            optional('fabric-seasons')
+            optional('serene-seasons')
         }
     }
     if (project.hasProperty("${discord_webhook_prop}")) {
