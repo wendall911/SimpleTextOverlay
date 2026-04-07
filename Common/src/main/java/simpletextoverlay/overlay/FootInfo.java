@@ -3,7 +3,7 @@ package simpletextoverlay.overlay;
 import java.util.Objects;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 
 import simpletextoverlay.config.OverlayConfig;
@@ -17,7 +17,7 @@ public class FootInfo extends Info {
     }
 
     @Override
-    public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+    public void renderText(GuiGraphicsExtractor guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
         String footLevel = String.valueOf((int) Objects.requireNonNull(mc.getCameraEntity()).getY());
         int x = Alignment.getX(scaledWidth, mc.font.width(super.label + footLevel));
         int y = Alignment.getY(scaledHeight, super.lineNum, mc.font.lineHeight);

@@ -2,7 +2,7 @@ package simpletextoverlay.mixin;
 
 import net.minecraft.client.gui.Gui;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.world.entity.player.Player;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,8 +19,8 @@ public abstract class FabricGuiMixin {
     @Shadow
     private int tickCount;
 
-    @Inject(method = "renderPlayerHealth", at = @At("HEAD"))
-    private void sto$renderPlayerHealth(GuiGraphics guiGraphics, CallbackInfo ci) {
+    @Inject(method = "extractPlayerHealth", at = @At("HEAD"))
+    private void sto$renderPlayerHealth(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
         Player player = this.getCameraPlayer();
 
         if (player != null) {

@@ -1,7 +1,7 @@
 package simpletextoverlay.overlay;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 
 public abstract class Info {
@@ -14,6 +14,6 @@ public abstract class Info {
         this.lineNum = lineNum;
     }
 
-    public abstract void renderText(GuiGraphics matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight);
+    public abstract void renderText(GuiGraphicsExtractor matrix, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight);
 
 }

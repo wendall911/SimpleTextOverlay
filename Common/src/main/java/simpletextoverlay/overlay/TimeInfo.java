@@ -4,7 +4,7 @@ import java.util.Locale;
 import java.util.Objects;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 
 import simpletextoverlay.config.OverlayConfig;
@@ -19,8 +19,8 @@ public class TimeInfo extends Info {
     }
 
     @Override
-    public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        long time = Objects.requireNonNull(mc.getCameraEntity()).level().getDayTime();
+    public void renderText(GuiGraphicsExtractor guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+        long time = Objects.requireNonNull(mc.getCameraEntity()).level().getDefaultClockTime();
         long hour = (time / 1000 + 6) % 24;
         long ampmHour = hour;
         long minute = (time % 1000) * 60 / 1000;

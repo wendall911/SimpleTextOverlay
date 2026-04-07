@@ -9,7 +9,7 @@ public class SimpleTextOverlayFabric implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        PayloadTypeRegistry.playS2C().register(SyncDataPacket.TYPE, SyncDataPacket.STREAM_CODEC);
+        PayloadTypeRegistry.clientboundPlay().register(SyncDataPacket.TYPE, SyncDataPacket.STREAM_CODEC);
     }
 
 }

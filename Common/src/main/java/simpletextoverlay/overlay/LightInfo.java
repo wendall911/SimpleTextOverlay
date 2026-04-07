@@ -3,7 +3,7 @@ package simpletextoverlay.overlay;
 import java.util.Objects;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.Level;
@@ -21,7 +21,7 @@ public class LightInfo extends Info {
     }
 
     @Override
-    public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+    public void renderText(GuiGraphicsExtractor guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
         Level level = Objects.requireNonNull(mc.getCameraEntity()).level();
         int brightnessVal;
         int skyLight;
@@ -67,7 +67,7 @@ public class LightInfo extends Info {
     }
 
     private static float timeOfDay(Level level) {
-        double d0 = Mth.frac(level.getDayTime() / 24000.0 - 0.25);
+        double d0 = Mth.frac(level.getDefaultClockTime() / 24000.0 - 0.25);
         double d1 = 0.5 - Math.cos(d0 * Math.PI) / 2.0;
         return (float)(d0 * 2.0 + d1) / 3.0F;
     }

@@ -3,7 +3,7 @@ package simpletextoverlay.overlay;
 import com.mojang.datafixers.util.Pair;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 
@@ -20,7 +20,7 @@ public class SeasonInfo extends Info {
     }
 
     @Override
-    public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+    public void renderText(GuiGraphicsExtractor guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
         Pair<Component, SubSeason> seasonInfo = Services.SEASON_INFO.getSeasonName(mc.level, pos);
 
         if (seasonInfo != null) {

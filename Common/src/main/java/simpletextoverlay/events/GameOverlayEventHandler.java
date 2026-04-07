@@ -1,7 +1,7 @@
 package simpletextoverlay.events;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.overlay.OverlayManager;
@@ -9,7 +9,7 @@ import simpletextoverlay.util.LocalPlayerHelper;
 
 public class GameOverlayEventHandler {
 
-    public static void onHudRender(GuiGraphics guiGraphics, float partialTicks) {
+    public static void onHudRender(GuiGraphicsExtractor guiGraphics, float partialTicks) {
         OverlayManager overlayManager = OverlayManager.INSTANCE;
         Minecraft mc = Minecraft.getInstance();
 

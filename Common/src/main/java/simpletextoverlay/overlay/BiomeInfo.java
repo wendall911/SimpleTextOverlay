@@ -3,7 +3,7 @@ package simpletextoverlay.overlay;
 import java.util.Objects;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
@@ -21,7 +21,7 @@ public class BiomeInfo extends Info {
     }
 
     @Override
-    public void renderText(GuiGraphics guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
+    public void renderText(GuiGraphicsExtractor guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
         Holder<Biome> biome = Objects.requireNonNull(mc.level).getBiome(pos);
 
         biome.unwrapKey().ifPresent(key -> {

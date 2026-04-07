@@ -7,7 +7,7 @@ import java.util.Objects;
 import org.joml.Matrix3x2fStack;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
 
 import technology.roughness.whitenoise.platform.Services;
@@ -65,7 +65,7 @@ public class OverlayManager {
         }
     }
 
-    public void renderOverlay(GuiGraphics guiGraphics, float partialTicks) {
+    public void renderOverlay(GuiGraphicsExtractor guiGraphics, float partialTicks) {
         Minecraft mc = Minecraft.getInstance();
         BlockPos pos = Objects.requireNonNull(mc.getCameraEntity()).blockPosition();
 

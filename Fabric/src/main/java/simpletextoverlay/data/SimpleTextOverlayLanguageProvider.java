@@ -2,7 +2,7 @@ package simpletextoverlay.data;
 
 import java.util.concurrent.CompletableFuture;
 
-import net.fabricmc.fabric.api.datagen.v1.FabricDataOutput;
+import net.fabricmc.fabric.api.datagen.v1.FabricPackOutput;
 import net.fabricmc.fabric.api.datagen.v1.provider.FabricLanguageProvider;
 import net.minecraft.core.HolderLookup.Provider;
 
@@ -11,7 +11,7 @@ import simpletextoverlay.common.Translations;
 
 public class SimpleTextOverlayLanguageProvider extends FabricLanguageProvider {
 
-    protected SimpleTextOverlayLanguageProvider(FabricDataOutput dataOutput, CompletableFuture<Provider> registryLookup) {
+    protected SimpleTextOverlayLanguageProvider(FabricPackOutput dataOutput, CompletableFuture<Provider> registryLookup) {
         super(dataOutput, "en_us", registryLookup);
     }
 

@@ -1,7 +1,7 @@
 package simpletextoverlay.util;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.ARGB;
 
@@ -9,21 +9,21 @@ import simpletextoverlay.config.OverlayConfig;
 
 public class FontHelper {
 
-    public static void draw(Minecraft mc, GuiGraphics guiGraphics, Component label, int x, int y, int color, TextType textType) {
+    public static void draw(Minecraft mc, GuiGraphicsExtractor guiGraphics, Component label, int x, int y, int color, TextType textType) {
         drawBackdrop(mc, guiGraphics, mc.font.width(label), x, y, color, textType);
-        guiGraphics.drawString(mc.font, label, x, y, color, OverlayConfig.textShadow());
+        guiGraphics.text(mc.font, label, x, y, color, OverlayConfig.textShadow());
     }
     
-    public static void draw(Minecraft mc, GuiGraphics guiGraphics, String label, int x, int y, int color, TextType textType) {
+    public static void draw(Minecraft mc, GuiGraphicsExtractor guiGraphics, String label, int x, int y, int color, TextType textType) {
         draw(mc, guiGraphics, label, x, y, color, OverlayConfig.textShadow(), textType);
     }
 
-    public static void draw(Minecraft mc, GuiGraphics guiGraphics, String label, int x, int y, int color, boolean shadow, TextType textType) {
+    public static void draw(Minecraft mc, GuiGraphicsExtractor guiGraphics, String label, int x, int y, int color, boolean shadow, TextType textType) {
         drawBackdrop(mc, guiGraphics, mc.font.width(label), x, y, color, textType);
-        guiGraphics.drawString(mc.font, label, x, y, color, shadow);
+        guiGraphics.text(mc.font, label, x, y, color, shadow);
     }
 
-    private static void drawBackdrop(Minecraft mc, GuiGraphics guiGraphics, int textWidth, int x, int y, int color, TextType textType) {
+    private static void drawBackdrop(Minecraft mc, GuiGraphicsExtractor guiGraphics, int textWidth, int x, int y, int color, TextType textType) {
         int leftOffset = 2;
         int rightOffset = 2;
 

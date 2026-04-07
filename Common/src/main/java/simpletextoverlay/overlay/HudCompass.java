@@ -2,11 +2,9 @@ package simpletextoverlay.overlay;
 
 import java.util.Map;
 
-import net.minecraft.world.entity.Entity;
-import net.minecraft.world.phys.Vec3;
 import org.joml.Matrix3x2fStack;
 
-import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
@@ -23,7 +21,7 @@ import simpletextoverlay.util.VecMath;
 
 public class HudCompass {
 
-    public void renderText(GuiGraphics guiGraphics, Minecraft mc, int scaledWidth, float _partialTicks) {
+    public void renderText(GuiGraphicsExtractor guiGraphics, Minecraft mc, int scaledWidth, float _partialTicks) {
         final Player player = mc.player;
 
         if (player == null) {
@@ -88,11 +86,11 @@ public class HudCompass {
         });
     }
 
-    private void drawCardinal(Minecraft mc, GuiGraphics guiGraphics, float yaw, float angle, int x, int y, String text) {
+    private void drawCardinal(Minecraft mc, GuiGraphicsExtractor guiGraphics, float yaw, float angle, int x, int y, String text) {
         drawInfo(mc, guiGraphics, yaw, angle, x, y, text, 1.0F, 1.0F, ColorHelper.decode("#FFFFFF").getRGB());
     }
 
-    private void drawInfo(Minecraft mc, GuiGraphics guiGraphics, float yaw, float angle, int x, int y, String text, float size, float offset, int color) {
+    private void drawInfo(Minecraft mc, GuiGraphicsExtractor guiGraphics, float yaw, float angle, int x, int y, String text, float size, float offset, int color) {
         Matrix3x2fStack matrix = guiGraphics.pose();
         int aDist = (int)VecMath.angleDistance(yaw, angle);
         float scale = (float) OverlayConfig.scale();
