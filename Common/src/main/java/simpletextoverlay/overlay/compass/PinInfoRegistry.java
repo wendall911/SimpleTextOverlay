@@ -3,7 +3,7 @@ package simpletextoverlay.overlay.compass;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
-import org.jetbrains.annotations.NotNull;
+import org.jspecify.annotations.NonNull;
 
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -26,7 +26,7 @@ public class PinInfoRegistry {
 
     public static void init() {}
 
-    public static CompoundTag serializePin(@NotNull PinInfo<?> pinData) {
+    public static CompoundTag serializePin(@NonNull PinInfo<?> pinData) {
         PinInfoType<?> type = pinData.getType();
         Identifier typeId = type.getName();
 
@@ -40,7 +40,7 @@ public class PinInfoRegistry {
         return pinData.write(tag);
     }
 
-    @NotNull
+    @NonNull
     public static PinInfo<?> deserializePin(CompoundTag tag) {
         if (tag.getString("PinType").isPresent()) {
             Identifier typeId = Identifier.bySeparator(tag.getString("PinType").get(), ':');
@@ -67,7 +67,7 @@ public class PinInfoRegistry {
         pinData.writeToPacket(buffer);
     }
 
-    @NotNull
+    @NonNull
     public static PinInfo<?> deserializePin(FriendlyByteBuf buffer) {
         int id = buffer.readVarInt();
         PinInfoType<?> serializer = idsMap.get(id);
