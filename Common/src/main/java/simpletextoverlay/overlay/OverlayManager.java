@@ -47,10 +47,10 @@ public class OverlayManager {
                     lines.add(new DaysInfo(OverlayConfig.daysLabel(), lineNum));
                     break;
                 case "season":
-                    if (Services.PLATFORM.isModLoaded("homeostaticseasons")
-                            || Services.PLATFORM.isModLoaded("sereneseasons")
-                            || Services.PLATFORM.isModLoaded("seasons")
-                            || Services.PLATFORM.isModLoaded("eclipticseasons")) {
+                    if (Services.WN_PLATFORM.isModLoaded("homeostaticseasons")
+                            || Services.WN_PLATFORM.isModLoaded("sereneseasons")
+                            || Services.WN_PLATFORM.isModLoaded("seasons")
+                            || Services.WN_PLATFORM.isModLoaded("eclipticseasons")) {
                         lines.add(new SeasonInfo("", lineNum));
                     }
                     else {

@@ -21,7 +21,7 @@ public class SimpleTextOverlay {
     }
     
     public static void initConfig() {
-        if (Services.PLATFORM.isPhysicalClient()) {
+        if (Services.WN_PLATFORM.isPhysicalClient()) {
             WhiteNoiseConfig clientConfig = WhiteNoiseConfigLoader.add(WhiteNoiseConfig.Type.CLIENT, OverlayConfig.CLIENT_SPEC, MODID);
             clientConfig.addLoadListener((config, flag) -> OverlayConfig.init());
         }

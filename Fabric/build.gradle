@@ -22,16 +22,16 @@ dependencies {
 
     implementation group: 'com.github.wendall911.homeostaticseasons', name: "homeostaticseasons-${minecraft_version}-fabric", version: "${homeostaticseasons_version}"
 
-    runtimeOnly group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
+    localRuntime group: 'com.terraformersmc', name: 'modmenu', version: "${mod_menu_version}"
 
-    runtimeOnly("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
+    localRuntime("me.shedaniel.cloth:cloth-config-fabric:${cloth_config_version}") {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
     //implementation "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
     compileOnly "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
     compileOnly "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"
-    runtimeOnly "net.jodah:typetools:0.6.3"
+    localRuntime "net.jodah:typetools:0.6.3"
     implementation "com.electronwill.night-config:core:3.6.7"
 }
 
@@ -133,7 +133,7 @@ publishing {
     publications {
         mavenJava(MavenPublication) {
             groupId project.group
-            artifactId identifier
+            artifactId "${mod_id}-${minecraft_version}-fabric"
             version project.version
             from components.java
         }

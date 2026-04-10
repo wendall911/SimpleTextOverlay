@@ -20,18 +20,18 @@ public class NeoForgeSeasonInfo implements ISeasonInfo {
         boolean hasSeasonDimension = false;
         SubSeason subSeason = SubSeason.MID_SPRING;
 
-        if (Services.PLATFORM.isModLoaded("homeostaticseasons")) {
+        if (Services.WN_PLATFORM.isModLoaded("homeostaticseasons")) {
             hasSeasonDimension = HomeostaticSeasonsHelper.isDimensionWhitelisted(level.dimension());
 
             if (hasSeasonDimension) {
                 subSeason = HomeostaticSeasonsHelper.getSubSeason(level);
             }
         }
-        else if (Services.PLATFORM.isModLoaded("sereneseasons")) {
+        else if (Services.WN_PLATFORM.isModLoaded("sereneseasons")) {
             subSeason = SereneSeasonsNeoForgeHelper.getSubSeason(level);
             hasSeasonDimension = SereneSeasonsNeoForgeHelper.isDimensionWhitelisted(level.dimension());
         }
-        else if (Services.PLATFORM.isModLoaded("eclipticseasons")) {
+        else if (Services.WN_PLATFORM.isModLoaded("eclipticseasons")) {
             hasSeasonDimension = EclipticSeasonsHelper.isSeasonDimension(level);
 
             if (hasSeasonDimension) {
