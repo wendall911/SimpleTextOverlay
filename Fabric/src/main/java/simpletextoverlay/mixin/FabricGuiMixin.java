@@ -20,7 +20,7 @@ public abstract class FabricGuiMixin {
     private int tickCount;
 
     @Inject(method = "extractPlayerHealth", at = @At("HEAD"))
-    private void sto$renderPlayerHealth(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
+    private void sto$extractPlayerHealth(GuiGraphicsExtractor guiGraphics, CallbackInfo ci) {
         Player player = this.getCameraPlayer();
 
         if (player != null) {
