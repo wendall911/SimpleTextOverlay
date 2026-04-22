@@ -14,8 +14,8 @@ import simpletextoverlay.events.SimpleTextOverlayEvents;
 public class FabricServerLevelMixin {
 
     @Inject(method = "addPlayer", at = @At("HEAD"))
-    private void sto$addPlayer(ServerPlayer player, CallbackInfo ci) {
-        SimpleTextOverlayEvents.onEntityJoinLevel(player);
+    private void sto$addPlayer(ServerPlayer sp, CallbackInfo ci) {
+        SimpleTextOverlayEvents.onEntityJoinLevel(sp);
     }
 
 }

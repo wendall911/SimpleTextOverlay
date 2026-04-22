@@ -33,9 +33,6 @@ public class HudCompass {
         double posY = player.getY();
         double posZ = player.getZ();
         final String compassText = "·";
-        final String worldSpawnText = "⊙";
-        final String bedSpawnText = "⌂";
-        final String lastDeathText = "✕";
         float yaw;
 
         final int x = Alignment.getCompassX(scaledWidth, mc.font.width(compassText));
@@ -62,26 +59,18 @@ public class HudCompass {
         Services.CAPABILITY_PLATFORM.getDataManagerCapability(player).ifPresent(pinsData -> {
             final Map<String, PinInfo<?>> pins = pinsData.get(player).getPins();
             float offset = 0.5F;
-            final PinInfo<?> bedSpawn = pins.get(PinType.BEDSPAWN.toString());
-            final PinInfo<?> lastDeath = pins.get(PinType.LASTDEATH.toString());
-            final PinInfo<?> worldSpawn = pins.get(PinType.WORLDSPAWN.toString());
 
-            if (bedSpawn != null) {
-                final Vec2 bedSpawnAngle = VecMath.angleFromPos(bedSpawn.getPosition(), posX, posY, posZ);
+            for (PinType type : PinType.values()) {
+                PinInfo<?> pin = pins.get(type.toString());
+                if (pin != null) {
+                    PinIcon icon = getPinIcon(type);
 
-                drawInfo(mc, guiGraphics, yaw, bedSpawnAngle.x, x, y + 3, bedSpawnText, 0.5F, offset, ColorHelper.decode("#9c9d97").getRGB());
-            }
+                    if (icon != null) {
+                        Vec2 angle = VecMath.angleFromPos(pin.getPosition(), posX, posY, posZ);
 
-            if (lastDeath != null) {
-                final Vec2 lastDeathAngle = VecMath.angleFromPos(lastDeath.getPosition(), posX, posY, posZ);
-
-                drawInfo(mc, guiGraphics, yaw, lastDeathAngle.x, x, y, lastDeathText, 0.5F, offset, ColorHelper.decode("#b02e26").getRGB());
-            }
-
-            if (worldSpawn != null) {
-                final Vec2 worldSpawnAngle = VecMath.angleFromPos(worldSpawn.getPosition(), posX, posY, posZ);
-
-                drawInfo(mc, guiGraphics, yaw, worldSpawnAngle.x, x, y, worldSpawnText, 1.0F, offset, ColorHelper.decode("#5d7c15").getRGB());
+                        drawInfo(mc, guiGraphics, yaw, angle.x, x, y, icon.getIcon(), icon.getSize(), offset, icon.getColor());
+                    }
+                }
             }
         });
     }
@@ -120,6 +109,72 @@ public class HudCompass {
                 matrix.scale(scale, scale);
             }
         }
+    }
+
+    public enum PinIcon {
+
+        BEDSPAWN(PinType.BEDSPAWN, "#9c9d97", 0.5F),
+        LASTDEATH(PinType.LASTDEATH, "#b02e26", 0.5F),
+        WORLDSPAWN(PinType.WORLDSPAWN, "#5d7c15", 1.0F),
+        WAYPOINT0(PinType.WAYPOINT0, "#3F67CD", 0.5F),
+        WAYPOINT1(PinType.WAYPOINT1, "#F13AB2", 0.5F),
+        WAYPOINT2(PinType.WAYPOINT2, "#0F952F", 0.5F),
+        WAYPOINT3(PinType.WAYPOINT3, "#DC0EFA", 0.5F),
+        WAYPOINT4(PinType.WAYPOINT4, "#4ACD2A", 0.5F),
+        WAYPOINT5(PinType.WAYPOINT5, "#61DD4A", 0.5F),
+        WAYPOINT6(PinType.WAYPOINT6, "#CD53AF", 0.5F),
+        WAYPOINT7(PinType.WAYPOINT7, "#8DF4F2", 0.5F),
+        WAYPOINT8(PinType.WAYPOINT8, "#325038", 0.5F),
+        WAYPOINT9(PinType.WAYPOINT9, "#6BC5EE", 0.5F);
+
+        private final PinType type;
+        private final String color;
+        private final float size;
+
+        PinIcon(PinType type, String color, float size) {
+            this.type = type;
+            this.color = color;
+            this.size = size;
+        }
+
+        public String getIcon() {
+            if (this.type == PinType.BEDSPAWN) {
+                return "⌂";
+            }
+            else if (this.type == PinType.LASTDEATH) {
+                return "✕";
+            }
+            else if (this.type == PinType.WORLDSPAWN) {
+                return "⊙";
+            }
+            else {
+                return "⯆";
+            }
+        }
+
+        public int getColor() {
+            return ColorHelper.decode(this.color).getRGB();
+        }
+
+        public float getSize() {
+            return this.size;
+        }
+
+        @Override
+        public String toString() {
+            return this.name().toLowerCase();
+        }
+
+    }
+
+    public PinIcon getPinIcon(PinType pinType) {
+        for (PinIcon icon : PinIcon.values()) {
+            if (icon.type == pinType) {
+                return icon;
+            }
+        }
+
+        return null;
     }
 
 }

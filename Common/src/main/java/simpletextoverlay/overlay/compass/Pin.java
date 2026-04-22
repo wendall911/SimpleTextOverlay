@@ -63,7 +63,17 @@ public class Pin extends PinInfo<Pin> {
         BEDSPAWN,
         LASTDEATH,
         NONE,
-        WORLDSPAWN;
+        WORLDSPAWN,
+        WAYPOINT0,
+        WAYPOINT1,
+        WAYPOINT2,
+        WAYPOINT3,
+        WAYPOINT4,
+        WAYPOINT5,
+        WAYPOINT6,
+        WAYPOINT7,
+        WAYPOINT8,
+        WAYPOINT9;
 
         @Override
         public String toString() {

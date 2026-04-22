@@ -1,6 +1,6 @@
 package simpletextoverlay.event;
 
-import net.minecraft.world.entity.player.Player;
+import net.minecraft.server.level.ServerPlayer;
 
 import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -13,14 +13,16 @@ public class PlayerEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onEntityJoinLevel(EntityJoinLevelEvent event) {
-        Player player = event.getEntity() instanceof Player ? (Player) event.getEntity() : null;
+        ServerPlayer sp = event.getEntity() instanceof ServerPlayer ? (ServerPlayer) event.getEntity() : null;
 
-        SimpleTextOverlayEvents.onEntityJoinLevel(player);
+        SimpleTextOverlayEvents.onEntityJoinLevel(sp);
     }
 
     @SubscribeEvent
     public void onPlayerChangeDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
-        SimpleTextOverlayEvents.onPlayerChangeDimension(event.getEntity(), event.getTo());
+        ServerPlayer sp = event.getEntity() instanceof ServerPlayer ? (ServerPlayer) event.getEntity() : null;
+
+        SimpleTextOverlayEvents.onPlayerChangeDimension(sp);
     }
 
 }

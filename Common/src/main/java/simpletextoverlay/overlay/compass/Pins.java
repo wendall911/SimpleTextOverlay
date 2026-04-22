@@ -25,6 +25,10 @@ public class Pins {
         return pins;
     }
 
+    public PinInfo<?> getPin(String id) {
+        return pins.get(id);
+    }
+
     public void read(ListTag nbt) {
         for (int i = 0; i < nbt.size(); i++) {
             Optional<CompoundTag> optionalTag = nbt.getCompound(i);

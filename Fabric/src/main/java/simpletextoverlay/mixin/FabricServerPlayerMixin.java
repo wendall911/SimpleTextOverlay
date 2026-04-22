@@ -17,7 +17,7 @@ public class FabricServerPlayerMixin {
     private void sto$triggerDimensionChangeTriggers(ServerLevel level, CallbackInfo ci) {
         ServerPlayer sp = (ServerPlayer) (Object) this;
 
-        SimpleTextOverlayEvents.onPlayerChangeDimension(sp, sp.level().dimension());
+        SimpleTextOverlayEvents.onPlayerChangeDimension(sp);
     }
 
 }
