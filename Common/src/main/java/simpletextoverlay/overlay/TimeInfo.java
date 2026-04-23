@@ -6,6 +6,8 @@ import java.util.Objects;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiGraphicsExtractor;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 
 import simpletextoverlay.config.OverlayConfig;
 import simpletextoverlay.util.Alignment;
@@ -20,7 +22,13 @@ public class TimeInfo extends Info {
 
     @Override
     public void renderText(GuiGraphicsExtractor guiGraphics, Minecraft mc, BlockPos pos, int scaledWidth, int scaledHeight) {
-        long time = Objects.requireNonNull(mc.getCameraEntity()).level().getDefaultClockTime();
+        Level level = Objects.requireNonNull(mc.getCameraEntity()).level();
+
+        if (level.dimension().identifier().toString().contains(BuiltinDimensionTypes.NETHER.identifier().toString())) {
+            return;
+        }
+
+        long time = level.getDefaultClockTime();
         long hour = (time / 1000 + 6) % 24;
         long ampmHour = hour;
         long minute = (time % 1000) * 60 / 1000;
