@@ -120,19 +120,19 @@ public final class OverlayConfig {
                 .define("textShadow", true);
             labelColor = builder
                 .comment(getTranslation("labelcolor"))
-                .define("labelColor", "#9c9d97", hexValidator);
+                .define("labelColor", "#9C9D97", hexValidator);
             lightLabel = builder
                 .comment(getTranslation("lightlabel"))
                 .define("lightLabel", "Light: ");
             lightColorRange = builder
                 .comment(getTranslation("lightcolorrange"))
-                .define("lightColorRange", "#b02e26->#ffd83d", hexRangeValidator);
+                .define("lightColorRange", "#D53A30->#FFD83D", hexRangeValidator);
             timeLabel = builder
                 .comment(getTranslation("timelabel"))
                 .define("timeLabel", "");
             timeColorRange = builder
                 .comment(getTranslation("timecolorrange"))
-                .define("timeColorRange", "#474f52->#ffd83d", hexRangeValidator);
+                .define("timeColorRange", "#D53A30->#FFD83D", hexRangeValidator);
             timeUse12 = builder
                 .comment(getTranslation("timeuse12"))
                 .define("timeUse12", true);
@@ -141,13 +141,13 @@ public final class OverlayConfig {
                 .define("footLabel", "Foot level: ");
             footColor = builder
                 .comment(getTranslation("footcolor"))
-                .define("footColor", "#5d7c15", hexValidator);
+                .define("footColor", "#D19F74", hexValidator);
             biomeLabel = builder
                 .comment(getTranslation("biomelabel"))
                 .define("biomeLabel", "Biome: ");
             biomeColor = builder
                 .comment(getTranslation("biomecolor"))
-                .define("biomeColor", "#474f52", hexValidator);
+                .define("biomeColor", "#ADD86E", hexValidator);
             showCompass = builder
                 .comment(getTranslation("enabled"))
                 .define("enabled", true);
