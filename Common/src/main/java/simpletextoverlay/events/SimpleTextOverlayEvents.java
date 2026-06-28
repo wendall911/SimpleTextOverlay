@@ -1,6 +1,5 @@
 package simpletextoverlay.events;
 
-import java.util.Map;
 import java.util.Optional;
 
 import net.minecraft.core.BlockPos;
@@ -11,7 +10,6 @@ import net.minecraft.server.level.ServerPlayer.RespawnConfig;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.dimension.BuiltinDimensionTypes;
 
-import simpletextoverlay.SimpleTextOverlay;
 import simpletextoverlay.overlay.compass.Pin.PinType;
 import simpletextoverlay.overlay.compass.PinInfo;
 import simpletextoverlay.platform.Services;

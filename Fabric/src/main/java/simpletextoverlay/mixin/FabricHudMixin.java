@@ -1,8 +1,7 @@
 package simpletextoverlay.mixin;
 
-import net.minecraft.client.gui.Gui;
-
 import net.minecraft.client.gui.GuiGraphicsExtractor;
+import net.minecraft.client.gui.Hud;
 import net.minecraft.world.entity.player.Player;
 
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,8 +12,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import simpletextoverlay.events.GameOverlayEventHandler;
 
-@Mixin(Gui.class)
-public abstract class FabricGuiMixin {
+@Mixin(Hud.class)
+public abstract class FabricHudMixin {
 
     @Shadow
     private int tickCount;

@@ -17,7 +17,7 @@ public class GameOverlayEventHandler {
             return;
         }
 
-        if (OverlayConfig.loaded && !mc.options.hideGui) {
+        if (OverlayConfig.loaded && !mc.gui.hud.isHidden()) {
             overlayManager.renderOverlay(guiGraphics, partialTicks);
         }
     }
