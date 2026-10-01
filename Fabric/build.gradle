@@ -28,9 +28,8 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
 
-    //implementation "curse.maven:fabric_seasons-413523:${fabric_seasons_version}"
-    compileOnly "curse.maven:sereneseasons-291874:${serene_seasons_fabric_version}"
-    compileOnly "curse.maven:glitchcore-955399:${glitch_core_fabric_version}"
+    compileOnly "maven.modrinth:serene-seasons:${serene_seasons_fabric_version}"
+    compileOnly "maven.modrinth:glitchcore:${glitch_core_fabric_version}"
     localRuntime "net.jodah:typetools:0.6.3"
     implementation "com.electronwill.night-config:core:3.6.7"
 }

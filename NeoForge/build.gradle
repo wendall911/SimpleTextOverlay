@@ -35,8 +35,8 @@ dependencies {
 
     implementation group: 'com.github.wendall911.homeostaticseasons', name: "homeostaticseasons-${minecraft_version}-neoforge", version: "${homeostaticseasons_version}"
 
-    compileOnly "curse.maven:sereneseasons-291874:${serene_seasons_neoforge_version}"
-    compileOnly "curse.maven:glitchcore-955399:${glitch_core_neoforge_version}"
+    compileOnly "maven.modrinth:serene-seasons:${serene_seasons_neoforge_version}"
+    compileOnly "maven.modrinth:glitchcore:${glitch_core_neoforge_version}"
     //runtimeOnly "curse.maven:catalogue-459701:5631367"
     //compileOnly "curse.maven:ecliptic-1118306:${ecliptic_neoforge_version}"
 
